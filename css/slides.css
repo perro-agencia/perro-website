@@ -1,18 +1,12 @@
 @charset "UTF-8";
-/*  
-                                           
+/*
+
    _____ _       _              _____  _____ _____ 
   / ___/| (•)   | |           / ____// ____/ ____/  v 4.0.5
  | (___ | |_  __| | ___ ____ | |    | (___| (___  
   \___ \| | |/ _` |/ _ / __/ | |     \___ \ ___ \ 
   ____) | | | (_| |  __\__ \ | |____ ____) |___) |
- /_____/|_|_|\__,_|\___/___/  \_____/_____/_____/                               
-                                            
-                                            
-This file contains styles required for the proper functionality and display
-of your Slides Project.
-
-https://designmodo.com/slides/ 
+ /_____/|_|_|\__,_|\___/___/  \_____/_____/_____/
 
 */
 /* CSS RESET */
@@ -1123,9 +1117,6 @@ p.uppercase, .p.uppercase,
     text-align: center;
     vertical-align: middle;
     overflow: hidden; }
-    .container .wrap:not(.noSpaces), .container .wrap.spaceWrap,
-    .container .wrap .spaceWrap {
-      padding: 120px calc(8% + 15px); }
     .container .wrap .overflowHidden {
       overflow: hidden; }
     .container .wrap * {
@@ -1159,40 +1150,40 @@ p.uppercase, .p.uppercase,
   height: 100%; }
 
 .fix-1-12 {
-  max-width: 93px !important; }
+  max-width: 120px !important; }
 
 .fix-2-12 {
-  max-width: 186px !important; }
+  max-width: 240px !important; }
 
 .fix-3-12 {
-  max-width: 279px !important; }
+  max-width: 360px !important; }
 
 .fix-4-12 {
-  max-width: 371px !important; }
+  max-width: 480px !important; }
 
 .fix-5-12 {
-  max-width: 464px !important; }
+  max-width: 600px !important; }
 
 .fix-6-12 {
-  max-width: 557px !important; }
+  max-width: 720px !important; }
 
 .fix-7-12 {
-  max-width: 650px !important; }
+  max-width: 840px !important; }
 
 .fix-8-12 {
-  max-width: 743px !important; }
+  max-width: 960px !important; }
 
 .fix-9-12 {
-  max-width: 836px !important; }
+  max-width: 1080px !important; }
 
 .fix-10-12 {
-  max-width: 928px !important; }
+  max-width: 1200px !important; }
 
 .fix-11-12 {
-  max-width: 1021px !important; }
+  max-width: 1320px !important; }
 
 .fix-12-12 {
-  max-width: 1114px !important; }
+  max-width: 1440px !important; }
 
 [class*='fix-'] {
   width: 100% !important;
@@ -3592,6 +3583,10 @@ body {
 @media (max-width: 550px) {
   .article h1, .article .h2, .article .h3, .article h4, .article h5, .article h6 {
     opacity: 0.8; } }
+
+@font-face {
+  font-family: 'Stretch Pro';
+  src: url("../public/fonts/stretchpro-webfont.woff") format("woff2"); }
 
 /* Colors */
 .white {
@@ -8232,3 +8227,14 @@ p.remind-43 {
   content: "";
   clear: both;
   display: table; }
+
+.background-dark {
+  background-image: url("../public/img/background.png"); }
+
+.heading, .heading-01 {
+  font-family: 'Stretch Pro';
+  line-height: 1; }
+
+.heading-01 {
+  font-size: 7em;
+  text-align: left; }

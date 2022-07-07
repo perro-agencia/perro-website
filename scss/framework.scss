@@ -832,10 +832,6 @@ p, .p,
 	&.md-48 { font-size: 48px; }
 }
 
-svg {
-	//transition: 0.15s;
-}
-
 .slide.whiteSlide svg {
 	 fill: $default-dark-color;
 }
@@ -1228,12 +1224,6 @@ svg {
 		text-align: center;
 		vertical-align: middle;
 		overflow:  hidden;
-
-		&:not(.noSpaces),
-		&.spaceWrap,
-		.spaceWrap {
-			padding: 120px calc(8% + 15px);
-		}
 
 		.overflowHidden {
 			overflow: hidden;
