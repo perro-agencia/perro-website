@@ -8234,22 +8234,21 @@ p.remind-43 {
 .background-light {
   background-image: url("../public/img/background-1.png"); }
 
-.two-column-content {
+.one-column-content, .two-column-content {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   padding: 48px;
   height: 100%;
   max-width: 1440px;
   margin: auto; }
 
+.one-column-content {
+  flex-direction: column;
+  text-align: center; }
+
 .two-column-content {
-  display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 48px; }
+  justify-content: center; }
   .two-column-content div {
     display: flex; }
     .two-column-content div img {
@@ -8263,25 +8262,46 @@ p.remind-43 {
 
 @media screen and (min-width: 1024px) {
   .two-column-content .content-img {
-    width: 30%; }
+    width: 40%; }
     .two-column-content .content-img img {
       width: 300px; }
   .content-text {
     padding-left: 48px;
-    width: 70%; } }
+    width: 60%; } }
 
-.heading, .heading-01 {
+.services {
+  display: flex; }
+  .services .services-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 300px;
+    text-align: center; }
+    .services .services-item img {
+      max-width: 150px;
+      margin: auto;
+      margin-bottom: 16px; }
+    .services .services-item h6 {
+      margin-bottom: 8px; }
+
+.heading, .heading-01, .heading-02 {
   font-family: 'Stretch Pro';
-  line-height: 1; }
+  line-height: 1;
+  text-transform: uppercase; }
 
 .heading-01 {
   font-size: 2em;
   text-align: left; }
 
+.heading-02 {
+  font-size: 2em;
+  text-align: center; }
+
 @media screen and (min-width: 768px) {
-  .heading-01 {
+  .heading-01, .heading-02 {
     font-size: 3em; } }
 
 @media screen and (min-width: 1024px) {
-  .heading-01 {
+  .heading-01, .heading-02 {
     font-size: 5.5em; } }
