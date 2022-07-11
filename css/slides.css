@@ -8231,10 +8231,57 @@ p.remind-43 {
 .background-dark {
   background-image: url("../public/img/background.png"); }
 
+.background-light {
+  background-image: url("../public/img/background-1.png"); }
+
+.two-column-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
+  height: 100%;
+  max-width: 1440px;
+  margin: auto; }
+
+.two-column-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px; }
+  .two-column-content div {
+    display: flex; }
+    .two-column-content div img {
+      width: 80%;
+      margin: auto; }
+
+@media screen and (min-width: 768px) {
+  .two-column-content {
+    flex-direction: row;
+    padding: 48px; } }
+
+@media screen and (min-width: 1024px) {
+  .two-column-content .content-img {
+    width: 30%; }
+    .two-column-content .content-img img {
+      width: 300px; }
+  .content-text {
+    padding-left: 48px;
+    width: 70%; } }
+
 .heading, .heading-01 {
   font-family: 'Stretch Pro';
   line-height: 1; }
 
 .heading-01 {
-  font-size: 7em;
+  font-size: 2em;
   text-align: left; }
+
+@media screen and (min-width: 768px) {
+  .heading-01 {
+    font-size: 3em; } }
+
+@media screen and (min-width: 1024px) {
+  .heading-01 {
+    font-size: 5.5em; } }
