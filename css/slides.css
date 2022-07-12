@@ -8269,22 +8269,6 @@ p.remind-43 {
     padding-left: 48px;
     width: 60%; } }
 
-.services {
-  display: flex; }
-  .services .services-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    max-width: 300px;
-    text-align: center; }
-    .services .services-item img {
-      max-width: 150px;
-      margin: auto;
-      margin-bottom: 16px; }
-    .services .services-item h6 {
-      margin-bottom: 8px; }
-
 .heading, .heading-01, .heading-02 {
   font-family: 'Stretch Pro';
   line-height: 1;
@@ -8305,3 +8289,44 @@ p.remind-43 {
 @media screen and (min-width: 1024px) {
   .heading-01, .heading-02 {
     font-size: 5.5em; } }
+
+.services {
+  display: flex;
+  align-items: flex-start; }
+  .services .services-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 300px;
+    text-align: center; }
+    .services .services-item img {
+      height: 100px;
+      margin: auto;
+      margin-bottom: 16px; }
+    .services .services-item h6 {
+      margin-bottom: 8px; }
+
+.clients {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  align-content: center; }
+  .clients img {
+    width: 100px;
+    margin: 8px 0; }
+
+@media screen and (min-width: 768px) {
+  .clients {
+    flex-direction: row; }
+    .clients img {
+      width: 150px;
+      margin: 0 24px; } }
+
+@media screen and (min-width: 1280px) {
+  .clients img {
+    width: 250px;
+    margin: 0 48px; } }
