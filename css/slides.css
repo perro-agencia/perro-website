@@ -8377,7 +8377,8 @@ p.remind-43 {
       .about .aboutus .aboutus-item img {
         height: 150px;
         margin: auto;
-        margin-bottom: 16px; }
+        margin-bottom: 16px;
+        border-radius: 50%; }
       .about .aboutus .aboutus-item p {
         display: block;
         font-size: 1em; }
@@ -8393,7 +8394,9 @@ p.remind-43 {
     flex-direction: row;
     align-items: flex-start; }
     .about .aboutus .aboutus-item {
-      width: 250px; } }
+      width: 300px; }
+      .about .aboutus .aboutus-item img {
+        height: 200px; } }
 
 .background-dark {
   background-image: url("../public/img/background.png"); }

@@ -207,6 +207,7 @@
                 height: 150px;
                 margin: auto;
                 margin-bottom: 16px;
+                border-radius: 50%;
             }
 
             p {
@@ -236,8 +237,19 @@
             align-items: flex-start;
     
             .aboutus-item {
-                width: 250px;
+                width: 300px;
+                
+                img {
+                    height: 200px;
+                }
             }
         }
     }
+}
+
+
+
+// *** Contact us***
+.contact-us {
+
 }
