@@ -55,7 +55,7 @@
 
 // *** Services ***
 .services {
-    height: 80%;
+    height: 60%;
     display: flex;
     align-items: flex-start;
     flex-wrap: wrap;
@@ -112,6 +112,7 @@
     .services {
 
         .services-item {
+            margin: 0 16px;
 
             h6 {
                 font-size: 1.5em;

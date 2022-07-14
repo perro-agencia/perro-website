@@ -32,3 +32,15 @@
     background-image:url("../public/img/background-1.png");
 }
 
+
+// *** Logotipo ***
+.logotipo {
+    max-width: 100px;
+}
+
+@media screen and (min-width: 1024px) {
+
+    .logotipo {
+        max-width: 150px;
+    }
+}

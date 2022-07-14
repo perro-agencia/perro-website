@@ -8243,11 +8243,11 @@ p.remind-43 {
 
 @media screen and (min-width: 768px) {
   .heading-01, .heading-02 {
-    font-size: 3em; } }
+    font-size: 3.5em; } }
 
 @media screen and (min-width: 1024px) {
   .heading-01, .heading-02 {
-    font-size: 5.5em; } }
+    font-size: 4.5em; } }
 
 .upper-text {
   font-family: 'Work Sans', sans-serif;
@@ -8264,24 +8264,33 @@ p.remind-43 {
 
 .one-column-content, .two-column-content {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   padding: 48px;
   height: 100%;
   max-width: 1440px;
-  margin: auto; }
-
-.one-column-content {
-  flex-direction: column;
-  text-align: center; }
-
-.two-column-content {
-  flex-direction: column;
-  align-items: center;
-  justify-content: center; }
+  margin: auto;
+  position: relative; }
 
 @media screen and (min-width: 768px) {
   .two-column-content {
-    flex-direction: row;
-    padding: 48px; } }
+    flex-direction: row; } }
+
+.section-indicator {
+  display: none !important;
+  position: absolute;
+  top: 20px; }
+  .section-indicator p {
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 400;
+    font-size: 1.3em;
+    text-transform: uppercase;
+    letter-spacing: 3px; }
+
+@media screen and (min-width: 768px) {
+  .section-indicator {
+    display: block !important; } }
 
 .intro div {
   display: flex; }
@@ -8308,7 +8317,7 @@ p.remind-43 {
     width: 60%; } }
 
 .services {
-  height: 80%;
+  height: 60%;
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
@@ -8341,16 +8350,18 @@ p.remind-43 {
       max-width: 300px; } }
 
 @media screen and (min-width: 1280px) {
-  .services .services-item h6 {
-    font-size: 1.5em; }
-  .services .services-item p {
-    font-family: 'Work Sans', sans-serif;
-    font-size: 1em;
-    font-weight: 300;
-    text-align: center;
-    max-width: 250px;
-    margin: auto;
-    display: block; } }
+  .services .services-item {
+    margin: 0 16px; }
+    .services .services-item h6 {
+      font-size: 1.5em; }
+    .services .services-item p {
+      font-family: 'Work Sans', sans-serif;
+      font-size: 1em;
+      font-weight: 300;
+      text-align: center;
+      max-width: 250px;
+      margin: auto;
+      display: block; } }
 
 .clients {
   height: 100%;
@@ -8459,3 +8470,10 @@ p.remind-43 {
 
 .background-light {
   background-image: url("../public/img/background-1.png"); }
+
+.logotipo {
+  max-width: 100px; }
+
+@media screen and (min-width: 1024px) {
+  .logotipo {
+    max-width: 150px; } }
