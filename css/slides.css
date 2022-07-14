@@ -8262,6 +8262,27 @@ p.remind-43 {
   .upper-text {
     font-size: 1.5em; } }
 
+.one-column-content, .two-column-content {
+  display: flex;
+  padding: 48px;
+  height: 100%;
+  max-width: 1440px;
+  margin: auto; }
+
+.one-column-content {
+  flex-direction: column;
+  text-align: center; }
+
+.two-column-content {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; }
+
+@media screen and (min-width: 768px) {
+  .two-column-content {
+    flex-direction: row;
+    padding: 48px; } }
+
 .intro div {
   display: flex; }
   .intro div img {
@@ -8398,29 +8419,43 @@ p.remind-43 {
       .about .aboutus .aboutus-item img {
         height: 200px; } }
 
+.contact-us {
+  align-items: flex-start; }
+  .contact-us .contact-img img {
+    width: 150px; }
+  .contact-us .contact-form h5 {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 1.5em;
+    font-weight: 500;
+    text-transform: uppercase; }
+  .contact-us .contact-form a {
+    font-family: 'Stretch Pro', sans-serif;
+    font-size: 2em;
+    font-weight: 600;
+    text-transform: uppercase;
+    word-break: break-all; }
+
+@media screen and (min-width: 768px) {
+  .contact-us {
+    align-items: center; }
+    .contact-us .contact-img img {
+      width: 300px; }
+    .contact-us .contact-form {
+      max-width: 650px; }
+      .contact-us .contact-form h5 {
+        font-size: 2em; }
+      .contact-us .contact-form a {
+        font-size: 2.5em;
+        max-width: 300px; } }
+
+@media screen and (min-width: 1024px) {
+  .contact-us .contact-form {
+    padding-left: 48px; }
+    .contact-us .contact-form a {
+      font-size: 3em; } }
+
 .background-dark {
   background-image: url("../public/img/background.png"); }
 
 .background-light {
   background-image: url("../public/img/background-1.png"); }
-
-.one-column-content, .two-column-content {
-  display: flex;
-  padding: 48px;
-  height: 100%;
-  max-width: 1440px;
-  margin: auto; }
-
-.one-column-content {
-  flex-direction: column;
-  text-align: center; }
-
-.two-column-content {
-  flex-direction: column;
-  align-items: center;
-  justify-content: center; }
-
-@media screen and (min-width: 768px) {
-  .two-column-content {
-    flex-direction: row;
-    padding: 48px; } }

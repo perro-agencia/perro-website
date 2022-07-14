@@ -1,0 +1,38 @@
+//  ______     ______     __   __     ______   ______     __   __     ______  
+// /\  ___\   /\  __ \   /\ "-.\ \   /\__  _\ /\  ___\   /\ "-.\ \   /\__  _\ 
+// \ \ \____  \ \ \/\ \  \ \ \-.  \  \/_/\ \/ \ \  __\   \ \ \-.  \  \/_/\ \/ 
+//  \ \_____\  \ \_____\  \ \_\\"\_\    \ \_\  \ \_____\  \ \_\\"\_\    \ \_\ 
+//   \/_____/   \/_____/   \/_/ \/_/     \/_/   \/_____/   \/_/ \/_/     \/_/ 
+
+// *** Content ***
+.one-column-content, .two-column-content {
+    display: flex;
+    padding: 48px;
+    height: 100%;
+    max-width: 1440px;
+    margin: auto;
+}
+
+.one-column-content {
+    flex-direction: column;
+    text-align: center;
+}
+
+.two-column-content {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+@media screen and (min-width: 768px) {
+
+    .two-column-content {
+        flex-direction: row;
+        padding: 48px;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+
+    
+}

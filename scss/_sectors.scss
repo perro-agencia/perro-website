@@ -251,5 +251,72 @@
 
 // *** Contact us***
 .contact-us {
+    align-items: flex-start;
 
+    .contact-img {
+
+        img {
+            width: 150px;
+        }
+    }
+
+    .contact-form {
+
+        h5 {
+            font-family: 'Work Sans', sans-serif;
+            font-size: 1.5em;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        a {
+            font-family: 'Stretch Pro', sans-serif;
+            font-size: 2em;
+            font-weight: 600;
+            text-transform: uppercase;
+
+            word-break: break-all;
+        }
+    }
+}
+
+@media screen and (min-width: 768px) {
+    
+    .contact-us {
+        align-items: center;
+
+        .contact-img {
+
+            img {
+                width: 300px;
+            }
+        }
+
+        .contact-form {
+            max-width: 650px;
+            
+            h5 {
+                font-size: 2em;
+            }
+
+            a {
+                font-size: 2.5em;
+                max-width: 300px;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1024px) {
+
+    .contact-us {
+
+        .contact-form {
+            padding-left: 48px;
+
+            a {
+                font-size: 3em;
+            }
+        }
+    }
 }
