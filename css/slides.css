@@ -8334,50 +8334,65 @@ p.remind-43 {
 .clients {
   height: 100%;
   display: flex;
-  flex-direction: column;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   align-content: center; }
   .clients img {
-    width: 100px;
-    margin: 8px 0; }
+    width: 35%;
+    margin: 16px; }
 
 @media screen and (min-width: 768px) {
-  .clients {
-    flex-direction: row; }
-    .clients img {
-      width: 150px;
-      margin: 0 24px; } }
+  .clients img {
+    width: 150px;
+    margin: 0 24px; } }
 
 @media screen and (min-width: 1280px) {
   .clients img {
     width: 250px;
     margin: 0 48px; } }
 
-.aboutus {
+.about {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center; }
-  .aboutus .aboutus-item {
+  .about p {
+    display: none;
+    max-width: 800px;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 1.5em;
+    font-weight: 300;
+    text-align: center; }
+  .about .aboutus {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    text-align: center; }
-    .aboutus .aboutus-item img {
-      height: 100px;
-      margin: auto;
-      margin-bottom: 16px; }
-    .aboutus .aboutus-item h6 {
-      margin-bottom: 8px; }
+    justify-content: center; }
+    .about .aboutus .aboutus-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center; }
+      .about .aboutus .aboutus-item img {
+        height: 150px;
+        margin: auto;
+        margin-bottom: 16px; }
+      .about .aboutus .aboutus-item p {
+        display: block;
+        font-size: 1em; }
+        .about .aboutus .aboutus-item p span {
+          font-size: 1.2em;
+          font-weight: 700;
+          text-transform: uppercase; }
 
 @media screen and (min-width: 768px) {
-  .aboutus {
+  .about p {
+    display: block; }
+  .about .aboutus {
     flex-direction: row;
     align-items: flex-start; }
-    .aboutus .aboutus-item {
+    .about .aboutus .aboutus-item {
       width: 250px; } }
 
 .background-dark {
