@@ -8277,9 +8277,6 @@ label {
 input {
   display: none; }
 
-input:checked ~ label {
-  right: 0; }
-
 .burger {
   position: relative;
   top: 24px;
@@ -8291,9 +8288,6 @@ input:checked ~ label {
 
 .burger g:hover {
   stroke: #cccccc; }
-
-input:checked ~ label .burger {
-  opacity: 0; }
 
 .close {
   position: relative;
@@ -8315,14 +8309,10 @@ input:checked ~ label .burger {
   transform: rotateZ(45deg);
   transform-origin: 50%; }
 
-input:checked ~ label .close {
-  opacity: 1; }
-
 .menu {
   width: 100vw;
   height: 100vh;
   padding-left: 48px;
-  z-index: 998;
   position: absolute;
   opacity: 0;
   display: flex;
@@ -8338,15 +8328,8 @@ input:checked ~ label .close {
   text-align: left;
   text-transform: uppercase; }
 
-input:checked ~ .menu {
-  opacity: 1; }
-
 .menu div {
-  margin-top: 50px;
   transition: margin 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-
-input:checked ~ .menu div {
-  margin-top: 0px; }
 
 @media screen and (min-width: 768px) {
   .menu {
@@ -8355,6 +8338,10 @@ input:checked ~ .menu div {
 @media screen and (min-width: 1024px) {
   .menu {
     padding: 0 25vw; } }
+
+.open-menu {
+  opacity: 1 !important;
+  z-index: 998 !important; }
 
 .one-column-content, .two-column-content {
   display: flex;
