@@ -71,7 +71,8 @@ input {
     height: 100vh;
     padding-left: 48px;
     
-    position: absolute;
+    position: fixed;
+    top: 0;
     opacity: 0;
 
     display: flex;
@@ -112,4 +113,9 @@ input {
 .open-menu {
     opacity: 1 !important;
     z-index: 998 !important;
+}
+
+.toggle {
+    position: fixed;
+    top: 0;
 }
