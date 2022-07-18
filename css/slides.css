@@ -6877,7 +6877,8 @@ input {
   width: 100vw;
   height: 100vh;
   padding-left: 48px;
-  position: absolute;
+  position: fixed;
+  top: 0;
   opacity: 0;
   display: flex;
   flex-direction: column;
@@ -6906,6 +6907,10 @@ input {
 .open-menu {
   opacity: 1 !important;
   z-index: 998 !important; }
+
+.toggle {
+  position: fixed;
+  top: 0; }
 
 .one-column-content, .two-column-content {
   display: flex;
@@ -7128,3 +7133,9 @@ footer p {
 @media screen and (min-width: 1024px) {
   .logotipo {
     max-width: 150px; } }
+
+.slides-layout {
+  height: 100vh !important; }
+
+.content {
+  height: 100% !important; }
