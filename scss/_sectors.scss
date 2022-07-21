@@ -68,10 +68,11 @@
         justify-content: center;
 
         width: 50%;
+        margin: 16px 0;
         text-align: center;
 
         img {
-            height: 100px;
+            height: 80px;
             margin: auto;
             margin-bottom: 16px;
         }
@@ -79,7 +80,7 @@
         h6 {
             font-family: 'Work Sans', sans-serif;
             font-weight: 600;
-            font-size: 1.2em;
+            font-size: 1em;
             text-transform: uppercase;
             margin-bottom: 8px;
         }
@@ -102,6 +103,7 @@
         .services-item {
             width: auto;
             max-width: 300px;
+            margin: 0 16px;
         }
     }
     
@@ -112,7 +114,6 @@
     .services {
 
         .services-item {
-            margin: 0 16px;
 
             h6 {
                 font-size: 1.5em;
