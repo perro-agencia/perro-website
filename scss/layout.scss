@@ -1,50 +1,5 @@
 /* Slides Custom Styles */
-.svg-5 {
-	padding-bottom: 27%;
-}
-	
-.iphone-5.shiftImage {
-	margin: 0 0 -129%;
-}
 
-.ipad-6.shiftImage {
-	margin: 0 0 -70%;
-}
-
-.button.play.button-7 {
-	margin: 0 30px;
-}
-
-@include media(1280px, max) {
-	.button.play.button-7 {
-		display: block;
-		margin: 30px auto;
-	}
-}
-
-@include media($phablet, min) {
-	form.slides-form .input-8,
-	form.slides-form .input-8,
-	form.slides-form .input-8 {
-		max-width: 220px;
-	}
-}
-
-@include media($phablet, min) {
-	form.slides-form .input-9 ,
-	form.slides-form .input-9 ,
-	form.slides-form .input-9  {
-		max-width: 220px;
-	}
-}
-
-@include media($phablet, min) {
-	form.slides-form .input-12,
-	form.slides-form .input-12,
-	form.slides-form .input-12 {
-		max-width: 220px;
-	}
-}
 
 
 form input[type="text"].input-13,

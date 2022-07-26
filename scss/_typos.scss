@@ -5,6 +5,12 @@
 //    \ \_\  \ \_\  \ \_\    \ \_____\  \/\_____\ 
 //     \/_/   \/_/   \/_/     \/_____/   \/_____/ 
 
+// Custom Perro Fonts
+@font-face {
+    font-family: 'Stretch Pro';
+    src: url('../public/fonts/stretchpro-webfont.woff') format('woff2');
+}
+
 // *** Headings ***
 .heading {
     font-family: 'Stretch Pro', sans-serif;
