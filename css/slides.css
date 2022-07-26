@@ -7167,7 +7167,7 @@ input {
 .menu {
   width: 100vw;
   height: 100vh;
-  padding-left: 48px;
+  padding-left: 32px;
   position: fixed;
   top: 0;
   opacity: 0;
@@ -7180,7 +7180,7 @@ input {
   background-size: cover;
   transition: opacity 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   font-family: 'Stretch Pro', sans-serif;
-  font-size: 2.5em;
+  font-size: 2em;
   text-align: left;
   text-transform: uppercase; }
 
@@ -7189,10 +7189,11 @@ input {
 
 @media screen and (min-width: 768px) {
   .menu {
-    font-size: 5em; } }
+    font-size: 4em; } }
 
 @media screen and (min-width: 1024px) {
   .menu {
+    font-size: 5em;
     padding: 0 25vw; } }
 
 .open-menu {
@@ -7430,3 +7431,19 @@ footer p {
 
 .content {
   height: 100% !important; }
+
+.gif img {
+  width: 300px;
+  position: absolute;
+  bottom: -100px;
+  left: -100px;
+  z-index: 9999;
+  display: none; }
+  @media screen and (min-width: 768px) {
+    .gif img {
+      display: block; } }
+  @media screen and (min-width: 1440px) {
+    .gif img {
+      width: 450px;
+      bottom: -150px;
+      left: -150px; } }
