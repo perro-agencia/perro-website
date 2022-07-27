@@ -1,18 +1,21 @@
 // *** Hamburger ***
 .hamburger {
-    max-width: 30px;
+    width: 30px;
 }
 
-@media screen and (min-width: 1024px) {
+.close {
+    width: 25px;
+    top: -8px !important;
+    right: 13px;
 
-    .hamburger {
-        max-width: 30px;
+    @media screen and (min-width: 768px) {
+        top: -18px !important;        
     }
 }
 
 label {
     position: absolute;
-    right: -24px;
+    right: 24px;
     z-index: 999;
 }
 
@@ -35,33 +38,6 @@ input {
 
 .burger g:hover {
     stroke: darken(#ffffff, 20%);
-}
-
-// close
-////////////////////////////////////////////////
-.close {
-    position: relative;
-    right: 30px;
-    cursor: pointer;
-    opacity: 0;
-}
-
-.close g:hover {
-    stroke: darken(#ffffff, 20%);
-}
-
-.close g {
-    stroke: #ffffff;
-    transition: stroke 0.25s ease-in-out;    
-}
-
-.close line {
-    transform-origin: 0%;
-}
-
-.close g {
-    transform: rotateZ(45deg);
-    transform-origin: 50%;
 }
 
 // menu
@@ -108,6 +84,23 @@ input {
     .menu {
         font-size: 5em;
         padding: 0 25vw;
+
+        a {
+            position: relative;
+            transition: all .2s ease;
+        }
+    }
+
+    .menu a::after {
+        content: url("../public/img/asterisco.svg");
+        width: 60px;
+        display: none;
+        position: absolute;
+        right: -90px;
+    }
+
+    .menu a:hover::after {
+        display: inline-block;
     }
 }
 

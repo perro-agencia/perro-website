@@ -4906,15 +4906,19 @@ p.remind-43 {
     font-size: 1.5em; } }
 
 .hamburger {
-  max-width: 30px; }
+  width: 30px; }
 
-@media screen and (min-width: 1024px) {
-  .hamburger {
-    max-width: 30px; } }
+.close {
+  width: 25px;
+  top: -8px !important;
+  right: 13px; }
+  @media screen and (min-width: 768px) {
+    .close {
+      top: -18px !important; } }
 
 label {
   position: absolute;
-  right: -24px;
+  right: 24px;
   z-index: 999; }
 
 input {
@@ -4931,26 +4935,6 @@ input {
 
 .burger g:hover {
   stroke: #cccccc; }
-
-.close {
-  position: relative;
-  right: 30px;
-  cursor: pointer;
-  opacity: 0; }
-
-.close g:hover {
-  stroke: #cccccc; }
-
-.close g {
-  stroke: #ffffff;
-  transition: stroke 0.25s ease-in-out; }
-
-.close line {
-  transform-origin: 0%; }
-
-.close g {
-  transform: rotateZ(45deg);
-  transform-origin: 50%; }
 
 .menu {
   width: 100vw;
@@ -4983,7 +4967,18 @@ input {
 @media screen and (min-width: 1024px) {
   .menu {
     font-size: 5em;
-    padding: 0 25vw; } }
+    padding: 0 25vw; }
+    .menu a {
+      position: relative;
+      transition: all .2s ease; }
+  .menu a::after {
+    content: url("../public/img/asterisco.svg");
+    width: 60px;
+    display: none;
+    position: absolute;
+    right: -90px; }
+  .menu a:hover::after {
+    display: inline-block; } }
 
 .open-menu {
   opacity: 1 !important;
