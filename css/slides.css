@@ -4910,7 +4910,7 @@ p.remind-43 {
 
 .close {
   width: 25px;
-  top: -8px !important;
+  top: 8px !important;
   right: 13px; }
   @media screen and (min-width: 768px) {
     .close {
