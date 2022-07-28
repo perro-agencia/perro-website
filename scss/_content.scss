@@ -25,9 +25,11 @@
     }
 }
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 1025px) {
 
-    
+    .one-column-content {
+        justify-content: space-evenly;
+    }
 }
 
 // Content Section indicator

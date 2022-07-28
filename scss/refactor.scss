@@ -26,11 +26,19 @@
 //   \/_____/   \/_/\/_/   \/_____/   \/_/\/_/   \/_____/   \/_/ /_/   \/_____/   \/_____/   \/_/ \/_/   \/____/   \/_____/ 
 // *** Backgrounds ***
 .background-dark {
-    background-image:url("../public/img/background.png");
+    background-image:url("../public/img/background-dark-mobile.png");
+
+    @media screen and (min-width: 768px) {
+        background-image:url("../public/img/background-dark-desktop.png");
+    }
 }
 
 .background-light {
-    background-image:url("../public/img/background-1.png");
+    background-image:url("../public/img/background-light-mobile.png");
+
+    @media screen and (min-width: 768px) {
+        background-image:url("../public/img/background-light-desktop.png");
+    }
 }
 
 

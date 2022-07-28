@@ -3,10 +3,14 @@
 
     div {
         display: flex;
+    }
+
+    .intro-img {
+        width: 100%;
 
         img {
             width: 60%;
-            margin: auto;
+            margin: 0;
         }
     }
 
@@ -19,10 +23,11 @@
 
     .intro {
 
-        div {
-    
+        .intro-img {
+
             img {
                 width: 80%;
+                margin: auto;
             }
         }
 
@@ -104,6 +109,10 @@
             width: auto;
             max-width: 300px;
             margin: 0 16px;
+
+            img {
+                height: 100px;
+            }
         }
     }
     

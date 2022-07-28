@@ -5,7 +5,7 @@
 
 .close {
     width: 25px;
-    top: -8px !important;
+    top: 8px !important;
     right: 13px;
 
     @media screen and (min-width: 768px) {
@@ -57,7 +57,7 @@ input {
     align-items: flex-start;
     justify-content: center;
     
-    background-image: url('../public/img/background-1.png');
+    background-image: url('../public/img/background-light-mobile.png');
     background-position: center;
     background-size: cover;
     transition: opacity 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -76,6 +76,7 @@ input {
 
     .menu {
         font-size: 4em;
+        background-image: url('../public/img/background-light-desktop.png');
     }
 }
 
