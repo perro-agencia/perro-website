@@ -4440,3 +4440,19 @@ footer p {
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
   font-size: .8em; }
+
+.gif img {
+  width: 300px;
+  position: absolute;
+  bottom: -100px;
+  left: -100px;
+  z-index: 9999;
+  display: none; }
+  @media screen and (min-width: 768px) {
+    .gif img {
+      display: block; } }
+  @media screen and (min-width: 1440px) {
+    .gif img {
+      width: 450px;
+      bottom: -150px;
+      left: -150px; } }
