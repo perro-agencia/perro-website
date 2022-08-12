@@ -100,8 +100,17 @@ footer {
 
 //ARROWS
 .arrows {
-    width: 200px;
+    display: none;
+    width: 100px;
     position: absolute;
-    top: 35vh;
-    right: 48px;
-  }
+    top: 40vh;
+    right: 32px;
+
+    @media screen and (min-width: 768px) {
+        display: block;
+    }
+
+    @media screen and (min-width: 1280px) {
+        width: 150px;
+    }
+}

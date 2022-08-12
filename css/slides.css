@@ -4173,7 +4173,7 @@ input {
 @media screen and (min-width: 1024px) {
   .menu {
     font-size: 5em;
-    padding: 0 25vw; }
+    padding: 0 25vw 0 15vw; }
     .menu a {
       position: relative;
       transition: all .2s ease; }
@@ -4464,7 +4464,14 @@ footer p {
       left: -150px; } }
 
 .arrows {
-  width: 200px;
+  display: none;
+  width: 100px;
   position: absolute;
-  top: 35vh;
-  right: 48px; }
+  top: 40vh;
+  right: 32px; }
+  @media screen and (min-width: 768px) {
+    .arrows {
+      display: block; } }
+  @media screen and (min-width: 1280px) {
+    .arrows {
+      width: 150px; } }
