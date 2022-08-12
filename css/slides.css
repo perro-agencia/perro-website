@@ -4217,7 +4217,7 @@ input {
   .section-indicator p {
     font-family: 'Work Sans', sans-serif;
     font-weight: 400;
-    font-size: 1.3em;
+    font-size: 18px;
     text-transform: uppercase;
     letter-spacing: 3px; }
 
@@ -4327,7 +4327,9 @@ footer p {
 @media screen and (min-width: 1280px) {
   .clients img {
     width: 250px;
-    margin: 0 48px; } }
+    margin: 0 48px; }
+  .clients img:nth-child(4), .clients img:nth-child(5), .clients img:nth-child(6) {
+    width: 230px; } }
 
 .about {
   display: flex;
@@ -4358,7 +4360,8 @@ footer p {
         border-radius: 50%; }
       .about .aboutus .aboutus-item p {
         display: block;
-        font-size: 1em; }
+        font-size: 15px;
+        text-transform: uppercase; }
         .about .aboutus .aboutus-item p span {
           font-size: 1.2em;
           font-weight: 700;
@@ -4397,7 +4400,7 @@ footer p {
     .contact-us .contact-img img {
       width: 300px; }
     .contact-us .contact-form {
-      max-width: 650px; }
+      max-width: 750px; }
       .contact-us .contact-form h5 {
         font-size: 2em; }
       .contact-us .contact-form a {

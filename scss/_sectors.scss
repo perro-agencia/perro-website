@@ -175,10 +175,13 @@
 
     .clients {
 
-    
         img {
             width: 250px;
             margin: 0 48px;
+        }
+
+        img:nth-child(4), img:nth-child(5), img:nth-child(6) {
+            width: 230px;
         }
     }
 }
@@ -223,7 +226,8 @@
 
             p {
                 display: block;
-                font-size: 1em;
+                font-size: 15px;
+                text-transform: uppercase;
 
                 span {
                     font-size: 1.2em;
@@ -304,7 +308,7 @@
         }
 
         .contact-form {
-            max-width: 650px;
+            max-width: 750px;
             
             h5 {
                 font-size: 2em;
