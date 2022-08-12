@@ -7,6 +7,9 @@
  /_____/|_|_|\__,_|\___/___/  \_____/_____/_____/
 
 */
+a {
+  cursor: pointer; }
+
 /* CSS RESET */
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, hr, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
   border: 0;
@@ -4459,3 +4462,15 @@ footer p {
       width: 450px;
       bottom: -150px;
       left: -150px; } }
+
+.arrows {
+  width: 200px;
+  position: absolute;
+  top: 35vh;
+  right: 48px; }
+
+.arrows {
+  width: 200px;
+  position: absolute;
+  top: 35vh;
+  right: 48px; }
