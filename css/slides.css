@@ -4154,7 +4154,7 @@ input {
   .menu a {
     display: inline-block; }
     .menu a .menu-word {
-      height: 20px; }
+      height: 25px; }
 
 @media screen and (min-width: 768px) {
   .menu {
@@ -4263,6 +4263,9 @@ footer p {
   .intro .intro-text img {
     width: 650px; } }
 
+.slogan {
+  width: 350px; }
+
 .services {
   height: 60%;
   display: flex;
@@ -4290,7 +4293,13 @@ footer p {
     .services .services-item p {
       display: none; }
 
+@media screen and (min-width: 768px) {
+  .slogan {
+    width: 500px; } }
+
 @media screen and (min-width: 1024px) {
+  .slogan {
+    width: 750px; }
   .services {
     justify-content: space-between; }
     .services .services-item {
@@ -4301,6 +4310,8 @@ footer p {
         height: 100px; } }
 
 @media screen and (min-width: 1280px) {
+  .slogan {
+    width: 900px; }
   .services .services-item h6 {
     font-size: 1.5em; }
   .services .services-item p {

@@ -84,6 +84,10 @@
 
 
 // *** Services ***
+.slogan {
+    width: 350px;
+}
+
 .services {
     height: 60%;
     display: flex;
@@ -122,10 +126,16 @@
 }
 
 @media screen and (min-width: 768px) {
-
+    .slogan {
+        width: 500px;
+    }
 }
 
 @media screen and (min-width: 1024px) {
+
+    .slogan {
+        width: 750px;
+    }
 
     .services {
         justify-content: space-between;
@@ -144,6 +154,10 @@
 }
 
 @media screen and (min-width: 1280px) {
+
+    .slogan {
+        width: 900px;
+    }
 
     .services {
 
