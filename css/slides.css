@@ -7,6 +7,9 @@
  /_____/|_|_|\__,_|\___/___/  \_____/_____/_____/
 
 */
+a {
+  cursor: pointer; }
+
 /* CSS RESET */
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, hr, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
   border: 0;
@@ -4116,7 +4119,7 @@ small {
   right: 13px; }
   @media screen and (min-width: 768px) {
     .close {
-      top: -18px !important; } }
+      top: 18px !important; } }
 
 label {
   position: absolute;
@@ -4130,13 +4133,6 @@ input {
   position: relative;
   top: 24px;
   cursor: pointer; }
-
-.burger g {
-  stroke: #ffffff;
-  transition: stroke 0.25s ease-in-out; }
-
-.burger g:hover {
-  stroke: #cccccc; }
 
 .menu {
   width: 100vw;
@@ -4153,27 +4149,29 @@ input {
   background-image: url("../public/img/background-light-mobile.png");
   background-position: center;
   background-size: cover;
-  transition: opacity 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  font-family: 'Stretch Pro', sans-serif;
-  font-size: 2em;
-  text-align: left;
-  text-transform: uppercase; }
-
-.menu div {
-  transition: margin 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+  transition: opacity 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+  .menu div {
+    padding-bottom: 25px;
+    transition: margin 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+  .menu a {
+    display: inline-block; }
+    .menu a .menu-word {
+      height: 25px; }
 
 @media screen and (min-width: 768px) {
   .menu {
-    font-size: 4em;
-    background-image: url("../public/img/background-light-desktop.png"); } }
+    background-image: url("../public/img/background-light-desktop.png"); }
+    .menu a .menu-word {
+      height: 40px; } }
 
 @media screen and (min-width: 1024px) {
   .menu {
-    font-size: 5em;
-    padding: 0 25vw; }
+    padding-left: 10vw; }
     .menu a {
       position: relative;
       transition: all .2s ease; }
+      .menu a .menu-word {
+        height: 55px; }
   .menu a::after {
     content: url("../public/img/asterisco.svg");
     width: 60px;
@@ -4182,6 +4180,10 @@ input {
     right: -90px; }
   .menu a:hover::after {
     display: inline-block; } }
+
+@media screen and (min-width: 1440px) {
+  .menu a .menu-word {
+    height: 70px; } }
 
 .open-menu {
   opacity: 1 !important;
@@ -4217,7 +4219,7 @@ input {
   .section-indicator p {
     font-family: 'Work Sans', sans-serif;
     font-weight: 400;
-    font-size: 1.3em;
+    font-size: 18px;
     text-transform: uppercase;
     letter-spacing: 3px; }
 
@@ -4234,30 +4236,37 @@ footer p {
 .intro div {
   display: flex; }
 
-.intro .intro-img {
-  width: 100%; }
-  .intro .intro-img img {
-    width: 60%;
-    margin: 0; }
+.intro .intro-img img {
+  width: 60%;
+  margin: 0; }
 
 .intro .intro-text {
   padding-top: 48px; }
+  .intro .intro-text img {
+    width: 300px; }
 
 @media screen and (min-width: 768px) {
-  .intro .intro-img img {
-    width: 80%;
-    margin: auto; }
-  .intro .intro-text {
-    padding-left: 48px; } }
-
-@media screen and (min-width: 1024px) {
   .intro .intro-img {
     width: 40%; }
     .intro .intro-img img {
-      width: 300px; }
-  .intro-text {
-    padding-left: 48px;
+      margin: auto; }
+  .intro .intro-text {
     width: 60%; } }
+
+@media screen and (min-width: 1024px) {
+  .intro .intro-img img {
+    width: 250px; }
+  .intro .intro-text img {
+    width: 450px; } }
+
+@media screen and (min-width: 1440px) {
+  .intro .intro-img img {
+    width: 350px; }
+  .intro .intro-text img {
+    width: 650px; } }
+
+.slogan {
+  width: 350px; }
 
 .services {
   height: 60%;
@@ -4286,7 +4295,13 @@ footer p {
     .services .services-item p {
       display: none; }
 
+@media screen and (min-width: 768px) {
+  .slogan {
+    width: 500px; } }
+
 @media screen and (min-width: 1024px) {
+  .slogan {
+    width: 750px; }
   .services {
     justify-content: space-between; }
     .services .services-item {
@@ -4297,6 +4312,8 @@ footer p {
         height: 100px; } }
 
 @media screen and (min-width: 1280px) {
+  .slogan {
+    width: 900px; }
   .services .services-item h6 {
     font-size: 1.5em; }
   .services .services-item p {
@@ -4327,7 +4344,9 @@ footer p {
 @media screen and (min-width: 1280px) {
   .clients img {
     width: 250px;
-    margin: 0 48px; } }
+    margin: 0 48px; }
+  .clients img:nth-child(4), .clients img:nth-child(5), .clients img:nth-child(6) {
+    width: 230px; } }
 
 .about {
   display: flex;
@@ -4358,7 +4377,8 @@ footer p {
         border-radius: 50%; }
       .about .aboutus .aboutus-item p {
         display: block;
-        font-size: 1em; }
+        font-size: 15px;
+        text-transform: uppercase; }
         .about .aboutus .aboutus-item p span {
           font-size: 1.2em;
           font-weight: 700;
@@ -4397,7 +4417,7 @@ footer p {
     .contact-us .contact-img img {
       width: 300px; }
     .contact-us .contact-form {
-      max-width: 650px; }
+      max-width: 750px; }
       .contact-us .contact-form h5 {
         font-size: 2em; }
       .contact-us .contact-form a {
@@ -4456,3 +4476,16 @@ footer p {
       width: 450px;
       bottom: -150px;
       left: -150px; } }
+
+.arrows {
+  display: none;
+  width: 100px;
+  position: absolute;
+  top: 40vh;
+  right: 32px; }
+  @media screen and (min-width: 768px) {
+    .arrows {
+      display: block; } }
+  @media screen and (min-width: 1280px) {
+    .arrows {
+      width: 150px; } }

@@ -47,12 +47,6 @@
   <!-- Custom Styles -->
   <link href="css/slides.css" rel="stylesheet" type="text/css">
 
-  <!-- jQuery 3.3.1 -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-  <!-- Compressed Scripts -->
-  <script src="js/slides.min.js" type="text/javascript"></script>
-
   <!-- Google fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -131,19 +125,29 @@
     </label>
     
     <div>
-      <a class="exit" href="#home" type="button">home</a>
+      <a class="exit" href="#home" type="button">
+        <img class="menu-word w-home" src="public/words/word-home.svg" alt="palabra home">
+      </a>
     </div>
     <div>
-      <a class="exit" href="#servicios" type="button">servicios</a>
+      <a class="exit" href="#servicios" type="button">
+        <img class="menu-word w-servicios" src="public/words/word-servicios.svg" alt="palabra servicios">
+      </a>
     </div>
     <div>
-      <a class="exit" href="#clientes" type="button">clientes</a>
+      <a class="exit" href="#clientes" type="button">
+        <img class="menu-word w-clientes" src="public/words/word-clientes.svg" alt="palabra clientes">
+      </a>
     </div>
     <div>
-      <a class="exit" href="#nosotros" type="button">nosotros</a>
+      <a class="exit" href="#nosotros" type="button">
+        <img class="menu-word w-nosotros" src="public/words/word-nosotros.svg" alt="palabra nosotros">
+      </a>
     </div>
     <div>
-      <a class="exit" href="#contacto" type="button">contacto</a>
+      <a class="exit" href="#contacto" type="button">
+        <img class="menu-word w-contacto" src="public/words/word-contacto.svg" alt="palabra contacto">
+      </a>
     </div>
   </div>
 
@@ -160,9 +164,14 @@
         </div>
   
         <div class="intro-text">
-          <h5 class="heading heading-01">we make your company grow</h5>
+          <img src="public/words/word-weMake.svg" alt="word slogan">
+          
         </div>
       </div>
+
+      <a href="#servicios">
+        <img class="arrows" src="public/img/arrow-dark.svg" alt="arrow-dark">
+      </a>
     </div>
 
     <!-- Background -->
@@ -179,7 +188,7 @@
 
         <div>
           <p class="upper-text">digital y creativamente:</p>
-          <h5 class="heading heading-02">perro que ladra, muerde.</h5>
+          <img class="slogan" src="public/words/word-perroLadra-desktop.svg" alt="word slogan servicios">
         </div>
 
         <div class="services">
@@ -208,6 +217,10 @@
           </div>
         </div>
       </div>
+
+      <a href="#clientes">
+        <img class="arrows" src="public/img/arrow-light.svg" alt="arrow-light">
+      </a>
     </div>
 
     <div class="gif">
@@ -233,6 +246,10 @@
             <img src="public/img/client-rebelion.png" alt="">
         </div>
       </div>
+
+      <a href="#nosotros">
+        <img class="arrows" src="public/img/arrow-dark.svg" alt="arrow-dark">
+      </a>
     </div>
 
     <div class="gif">
@@ -254,15 +271,19 @@
         <div class="aboutus">
           <div class="aboutus-item">
             <img src="public/img/us-sebas.png" alt="">
-            <p><span>sebastian könig</span> <br> growth marketer - paid media specialist</p>
+            <p><span>sebastian könig</span> <br> growth marketer -<br>paid media specialist</p>
           </div>
 
           <div class="aboutus-item">
             <img src="public/img/us-lau.png" alt="">
-            <p><span>laura rovira</span> <br> art & design director</p>
+            <p><span>laura rovira</span> <br> art & design<br>director</p>
           </div>
         </div>
       </div>
+
+      <a href="#contacto">
+        <img class="arrows" src="public/img/arrow-light.svg" alt="arrow-light">
+      </a>
     </div>
 
     <div class="gif">
@@ -309,7 +330,13 @@
       </div>
     </div>
   </footer>
-		
+
+  <!-- jQuery 3.3.1 -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <!-- Compressed Scripts -->
+  <script src="js/slides.min.js" type="text/javascript"></script>
+
   <script>
     const menu = document.querySelector('.menu');
     const toggle = document.querySelector('#toggle');
