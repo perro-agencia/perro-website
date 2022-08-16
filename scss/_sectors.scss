@@ -6,7 +6,6 @@
     }
 
     .intro-img {
-        width: 100%;
 
         img {
             width: 60%;
@@ -16,6 +15,10 @@
 
     .intro-text {
         padding-top: 48px;
+        
+        img {
+            width: 300px;
+        }
     }
 }
 
@@ -24,15 +27,15 @@
     .intro {
 
         .intro-img {
+            width: 40%;
 
             img {
-                width: 80%;
                 margin: auto;
             }
         }
 
         .intro-text {
-            padding-left: 48px;
+            width: 60%;
         }
     }
 }
@@ -42,19 +45,41 @@
     .intro {
 
         .intro-img {
-            width: 40%;
             
             img {
-                width: 300px;
+                width: 250px;
+            }
+        }
+
+        .intro-text {
+
+            img {
+                width: 450px;
             }
         }
     }
+}
 
-    .intro-text {
-        padding-left: 48px;
-        width: 60%;
+@media screen and (min-width: 1440px) {
+
+    .intro {
+
+        .intro-img {
+            
+            img {
+                width: 350px;
+            }
+        }
+
+        .intro-text {
+
+            img {
+                width: 650px;
+            }
+        }
     }
 }
+
 
 
 

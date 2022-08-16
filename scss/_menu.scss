@@ -9,7 +9,7 @@
     right: 13px;
 
     @media screen and (min-width: 768px) {
-        top: -18px !important;        
+        top: 18px !important;        
     }
 }
 
@@ -29,15 +29,6 @@ input {
     position: relative;
     top: 24px;
     cursor: pointer;
-}
-
-.burger g {
-    stroke: #ffffff;
-    transition: stroke 0.25s ease-in-out;    
-}
-
-.burger g:hover {
-    stroke: darken(#ffffff, 20%);
 }
 
 // menu
@@ -60,35 +51,46 @@ input {
     background-image: url('../public/img/background-light-mobile.png');
     background-position: center;
     background-size: cover;
-    transition: opacity 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
-    font-family: 'Stretch Pro', sans-serif;
-    font-size: 2em;
-    text-align: left;
-    text-transform: uppercase;
-}
+    div {
+        padding-bottom: 25px;
+    }
 
-.menu div {
-    transition: margin 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    a {
+        display: inline-block;
+
+        .menu-word {
+            height: 20px;
+        }
+    }
 }
 
 @media screen and (min-width: 768px) {
 
     .menu {
-        font-size: 4em;
         background-image: url('../public/img/background-light-desktop.png');
+
+        a {
+
+            .menu-word {
+                height: 40px;
+            }
+        }
     }
 }
 
 @media screen and (min-width: 1024px) {
 
     .menu {
-        font-size: 5em;
-        padding: 0 25vw 0 15vw;
+        padding-left: 10vw;
 
         a {
             position: relative;
             transition: all .2s ease;
+
+            .menu-word {
+                height: 55px;
+            }
         }
     }
 
@@ -102,6 +104,17 @@ input {
 
     .menu a:hover::after {
         display: inline-block;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    .menu {
+
+        a {
+            .menu-word {
+                height: 70px;
+            }
+        }
     }
 }
 
