@@ -4148,9 +4148,11 @@ input {
   justify-content: center;
   background-image: url("../public/img/background-light-mobile.png");
   background-position: center;
-  background-size: cover; }
+  background-size: cover;
+  transition: opacity 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
   .menu div {
-    padding-bottom: 25px; }
+    padding-bottom: 25px;
+    transition: margin 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
   .menu a {
     display: inline-block; }
     .menu a .menu-word {

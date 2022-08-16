@@ -52,8 +52,11 @@ input {
     background-position: center;
     background-size: cover;
 
+    transition: opacity 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
     div {
         padding-bottom: 25px;
+        transition: margin 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
     a {
