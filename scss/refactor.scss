@@ -19,6 +19,9 @@
 //Sectors
 @import 'sectors';
 
+//Sectors
+@import 'modal';
+
 //  ______     ______     ______     __  __     ______     ______     ______     __  __     __   __     _____     ______    
 // /\  == \   /\  __ \   /\  ___\   /\ \/ /    /\  ___\   /\  == \   /\  __ \   /\ \/\ \   /\ "-.\ \   /\  __-.  /\  ___\   
 // \ \  __<   \ \  __ \  \ \ \____  \ \  _"-.  \ \ \__ \  \ \  __<   \ \ \/\ \  \ \ \_\ \  \ \ \-.  \  \ \ \/\ \ \ \___  \  
@@ -91,7 +94,7 @@ footer {
         }
 
         @media screen and (min-width: 1440px) {
-            width: 450px;
+            width: 400px;
             bottom: -150px;
             left: -150px;
         }
@@ -106,7 +109,7 @@ footer {
     top: 40vh;
     right: 32px;
 
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: 1024px) {
         display: block;
     }
 
