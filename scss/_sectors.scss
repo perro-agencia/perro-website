@@ -116,6 +116,7 @@
             font-weight: 600;
             font-size: 1em;
             text-transform: uppercase;
+            letter-spacing: 0.16em;
             margin-bottom: 8px;
         }
 
@@ -142,7 +143,7 @@
 
         .services-item {
             width: auto;
-            max-width: 300px;
+            max-width: 250px;
             margin: 0 16px;
 
             img {
@@ -164,7 +165,7 @@
         .services-item {
 
             h6 {
-                font-size: 1.5em;
+                font-size: 1.1em;
             }
 
             p {

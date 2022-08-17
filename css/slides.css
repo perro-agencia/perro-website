@@ -4311,6 +4311,7 @@ footer p {
       font-weight: 600;
       font-size: 1em;
       text-transform: uppercase;
+      letter-spacing: 0.16em;
       margin-bottom: 8px; }
     .services .services-item p {
       display: none; }
@@ -4326,7 +4327,7 @@ footer p {
     justify-content: space-between; }
     .services .services-item {
       width: auto;
-      max-width: 300px;
+      max-width: 250px;
       margin: 0 16px; }
       .services .services-item img {
         height: 100px; } }
@@ -4335,7 +4336,7 @@ footer p {
   .slogan {
     width: 900px; }
   .services .services-item h6 {
-    font-size: 1.5em; }
+    font-size: 1.1em; }
   .services .services-item p {
     font-family: 'Work Sans', sans-serif;
     font-size: 1em;
