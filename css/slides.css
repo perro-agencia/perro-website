@@ -4158,6 +4158,12 @@ input {
     .menu a .menu-word {
       height: 25px; }
 
+@keyframes giro {
+  0% {
+    transform: rotate(0deg); }
+  100% {
+    transform: rotate(360deg); } }
+
 @media screen and (min-width: 768px) {
   .menu {
     background-image: url("../public/img/background-light-desktop.png"); }
@@ -4168,16 +4174,30 @@ input {
   .menu {
     padding-left: 10vw; }
     .menu a {
-      position: relative;
-      transition: all .2s ease; }
+      position: relative; }
       .menu a .menu-word {
         height: 55px; }
+  .w-home:hover {
+    content: url("../public/words/word-home-hov.svg"); }
+  .w-servicios:hover {
+    content: url("../public/words/word-servicios-hov.svg"); }
+  .w-clientes:hover {
+    content: url("../public/words/word-clientes-hov.svg"); }
+  .w-nosotros:hover {
+    content: url("../public/words/word-nosotros-hov.svg"); }
+  .w-contacto:hover {
+    content: url("../public/words/word-contacto-hov.svg"); }
   .menu a::after {
     content: url("../public/img/asterisco.svg");
     width: 60px;
     display: none;
     position: absolute;
-    right: -90px; }
+    right: -90px;
+    top: -5px;
+    animation-name: giro;
+    animation-duration: 3s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite; }
   .menu a:hover::after {
     display: inline-block; } }
 
