@@ -4302,6 +4302,7 @@ footer p {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: relative;
     width: 50%;
     margin: 16px 0;
     text-align: center; }
@@ -4330,7 +4331,7 @@ footer p {
     justify-content: space-between; }
     .services .services-item {
       width: auto;
-      max-width: 250px;
+      max-width: 200px;
       margin: 0 16px; }
       .services .services-item img {
         height: 100px; } }
@@ -4445,6 +4446,13 @@ footer p {
     .contact-us .contact-form a {
       font-size: 3em; } }
 
+.modal-button {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: 0; }
+
 .modal {
   display: none;
   /* Hidden by default */
@@ -4468,29 +4476,50 @@ footer p {
   /* Black w/ opacity */
   /* Modal Content */ }
   .modal .modal-content {
-    background-color: #fefefe;
+    position: relative;
+    top: 15vh;
+    padding: 48px 24px;
+    width: 60%;
+    max-width: 800px;
     margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-image: url("../public/img/background-light-desktop.png");
+    background-position: center;
+    background-size: 200%;
+    background-repeat: no-repeat;
     /* The Close Button */ }
     .modal .modal-content .close {
-      color: #aaaaaa;
-      float: right;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      color: #fff;
       font-size: 28px;
       font-weight: bold; }
+    .modal .modal-content img {
+      margin-bottom: 16px; }
+    .modal .modal-content h6 {
+      font-family: 'Work Sans', sans-serif;
+      font-weight: 600;
+      font-size: 1.5em;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      margin-bottom: 16px; }
     .modal .modal-content p {
       font-family: 'Work Sans', sans-serif;
       font-size: 1em;
       font-weight: 300;
       text-align: center;
-      color: #000000;
+      color: #fff;
       max-width: 500px;
       margin: auto;
       display: block; }
 
 .close:hover, .close:focus {
-  color: #000;
+  color: #fff;
   text-decoration: none;
   cursor: pointer; }
 
