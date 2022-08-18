@@ -148,10 +148,6 @@
 
         .services-item {
             width: 33%;
-
-            img {
-
-            }
         }
     }
 }
@@ -218,7 +214,7 @@
 
     
         img {
-            width: 200px;
+            width: 150px;
             margin: 24px;
         }
     }
@@ -229,7 +225,8 @@
     .clients {
 
         img {
-            width: 250px;
+            width: 200px;
+            margin: 0 32px;
         }
 
         img:nth-child(4), img:nth-child(5), img:nth-child(6) {
@@ -248,7 +245,7 @@
         max-width: 800px;
 
         font-family: 'Work Sans', sans-serif;
-        font-size: 1.5em;
+        font-size: 1.2em;
         font-weight: 300;
         text-align: center;
     }
@@ -267,7 +264,7 @@
             text-align: center;
     
             img {
-                height: 120px;
+                height: 100px;
                 margin: auto;
                 margin-bottom: 16px;
                 border-radius: 50%;
@@ -313,6 +310,10 @@
     .about {
 
         .aboutus {
+
+            p {
+                font-size: 1.3em;
+            }
     
             .aboutus-item {
                 

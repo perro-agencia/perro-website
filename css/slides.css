@@ -4357,12 +4357,13 @@ footer p {
 
 @media screen and (min-width: 768px) {
   .clients img {
-    width: 200px;
+    width: 150px;
     margin: 24px; } }
 
 @media screen and (min-width: 1280px) {
   .clients img {
-    width: 250px; }
+    width: 200px;
+    margin: 0 32px; }
   .clients img:nth-child(4), .clients img:nth-child(5), .clients img:nth-child(6) {
     width: 230px; } }
 
@@ -4370,7 +4371,7 @@ footer p {
   display: none;
   max-width: 800px;
   font-family: 'Work Sans', sans-serif;
-  font-size: 1.5em;
+  font-size: 1.2em;
   font-weight: 300;
   text-align: center; }
 
@@ -4386,7 +4387,7 @@ footer p {
     justify-content: center;
     text-align: center; }
     .about .aboutus .aboutus-item img {
-      height: 120px;
+      height: 100px;
       margin: auto;
       margin-bottom: 16px;
       border-radius: 50%; }
@@ -4410,6 +4411,8 @@ footer p {
       width: 300px; } }
 
 @media screen and (min-width: 1024px) {
+  .about .aboutus p {
+    font-size: 1.3em; }
   .about .aboutus .aboutus-item img {
     height: 150px; } }
 
