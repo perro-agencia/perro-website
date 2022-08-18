@@ -4452,11 +4452,15 @@ footer p {
       font-size: 3em; } }
 
 .modal-button {
+  display: none;
   position: absolute;
   width: 100%;
   height: 100%;
   background: transparent;
   border: 0; }
+  @media screen and (min-width: 768px) {
+    .modal-button {
+      display: inline-block; } }
 
 .modal {
   display: none;
