@@ -88,6 +88,16 @@
     width: 350px;
 }
 
+#servicios {
+
+    .content {
+
+        .one-column-content {
+            justify-content: space-evenly;
+        }
+    }
+}
+
 .services {
     height: 60%;
     display: flex;
@@ -167,16 +177,6 @@
             h6 {
                 font-size: 1.1em;
             }
-
-            p {
-                font-family: 'Work Sans', sans-serif;
-                font-size: 1em;
-                font-weight: 300;
-                text-align: center;
-                max-width: 250px;
-                margin: auto;
-                display: block;
-            }
         }
     }
 }
@@ -205,8 +205,8 @@
 
     
         img {
-            width: 150px;
-            margin: 0 24px;
+            width: 200px;
+            margin: 24px;
         }
     }
 }
@@ -217,7 +217,6 @@
 
         img {
             width: 250px;
-            margin: 0 48px;
         }
 
         img:nth-child(4), img:nth-child(5), img:nth-child(6) {
@@ -230,9 +229,6 @@
 
 // *** About-us ***
 .about {
-    display: flex;
-    align-items: center;
-    justify-content: center;
 
     p {
         display: none;
@@ -258,7 +254,7 @@
             text-align: center;
     
             img {
-                height: 150px;
+                height: 120px;
                 margin: auto;
                 margin-bottom: 16px;
                 border-radius: 50%;
@@ -289,13 +285,26 @@
 
         .aboutus {
             flex-direction: row;
+            flex-wrap: wrap;
             align-items: flex-start;
     
             .aboutus-item {
                 width: 300px;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1024px) {
+
+    .about {
+
+        .aboutus {
+    
+            .aboutus-item {
                 
                 img {
-                    height: 200px;
+                    height: 150px;
                 }
             }
         }

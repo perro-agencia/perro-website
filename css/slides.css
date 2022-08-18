@@ -4288,6 +4288,9 @@ footer p {
 .slogan {
   width: 350px; }
 
+#servicios .content .one-column-content {
+  justify-content: space-evenly; }
+
 .services {
   height: 60%;
   display: flex;
@@ -4336,15 +4339,7 @@ footer p {
   .slogan {
     width: 900px; }
   .services .services-item h6 {
-    font-size: 1.1em; }
-  .services .services-item p {
-    font-family: 'Work Sans', sans-serif;
-    font-size: 1em;
-    font-weight: 300;
-    text-align: center;
-    max-width: 250px;
-    margin: auto;
-    display: block; } }
+    font-size: 1.1em; } }
 
 .clients {
   height: 100%;
@@ -4359,62 +4354,61 @@ footer p {
 
 @media screen and (min-width: 768px) {
   .clients img {
-    width: 150px;
-    margin: 0 24px; } }
+    width: 200px;
+    margin: 24px; } }
 
 @media screen and (min-width: 1280px) {
   .clients img {
-    width: 250px;
-    margin: 0 48px; }
+    width: 250px; }
   .clients img:nth-child(4), .clients img:nth-child(5), .clients img:nth-child(6) {
     width: 230px; } }
 
-.about {
+.about p {
+  display: none;
+  max-width: 800px;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 1.5em;
+  font-weight: 300;
+  text-align: center; }
+
+.about .aboutus {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center; }
-  .about p {
-    display: none;
-    max-width: 800px;
-    font-family: 'Work Sans', sans-serif;
-    font-size: 1.5em;
-    font-weight: 300;
-    text-align: center; }
-  .about .aboutus {
+  .about .aboutus .aboutus-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; }
-    .about .aboutus .aboutus-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center; }
-      .about .aboutus .aboutus-item img {
-        height: 150px;
-        margin: auto;
-        margin-bottom: 16px;
-        border-radius: 50%; }
-      .about .aboutus .aboutus-item p {
-        display: block;
-        font-size: 15px;
+    justify-content: center;
+    text-align: center; }
+    .about .aboutus .aboutus-item img {
+      height: 120px;
+      margin: auto;
+      margin-bottom: 16px;
+      border-radius: 50%; }
+    .about .aboutus .aboutus-item p {
+      display: block;
+      font-size: 15px;
+      text-transform: uppercase; }
+      .about .aboutus .aboutus-item p span {
+        font-size: 1.2em;
+        font-weight: 700;
         text-transform: uppercase; }
-        .about .aboutus .aboutus-item p span {
-          font-size: 1.2em;
-          font-weight: 700;
-          text-transform: uppercase; }
 
 @media screen and (min-width: 768px) {
   .about p {
     display: block; }
   .about .aboutus {
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: flex-start; }
     .about .aboutus .aboutus-item {
-      width: 300px; }
-      .about .aboutus .aboutus-item img {
-        height: 200px; } }
+      width: 300px; } }
+
+@media screen and (min-width: 1024px) {
+  .about .aboutus .aboutus-item img {
+    height: 150px; } }
 
 .contact-us {
   align-items: flex-start; }
@@ -4451,10 +4445,6 @@ footer p {
     .contact-us .contact-form a {
       font-size: 3em; } }
 
-/* The Modal (background) */
-#myBtn {
-  display: none; }
-
 .modal {
   display: none;
   /* Hidden by default */
@@ -4475,22 +4465,29 @@ footer p {
   background-color: black;
   /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4);
-  /* Black w/ opacity */ }
-
-/* Modal Content */
-.modal-content {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%; }
-
-/* The Close Button */
-.close {
-  color: #aaaaaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold; }
+  /* Black w/ opacity */
+  /* Modal Content */ }
+  .modal .modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    /* The Close Button */ }
+    .modal .modal-content .close {
+      color: #aaaaaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold; }
+    .modal .modal-content p {
+      font-family: 'Work Sans', sans-serif;
+      font-size: 1em;
+      font-weight: 300;
+      text-align: center;
+      color: #000000;
+      max-width: 500px;
+      margin: auto;
+      display: block; }
 
 .close:hover, .close:focus {
   color: #000;
