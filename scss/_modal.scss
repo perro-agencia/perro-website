@@ -10,8 +10,7 @@
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
+    z-index: 9999; /* Sit on top */
     left: 0;
     top: 0;
     width: 100%; /* Full width */
@@ -25,7 +24,7 @@
         position: relative;
         top: 15vh;
         padding: 48px 24px;
-        width: 60%;
+        width: 70%;
         max-width: 800px;
         margin: auto;
         text-align: center;
@@ -37,10 +36,12 @@
 
         background-image: url("../public/img/background-light-desktop.png");
         background-position: center;
-        background-size: 200%;
+        background-size: cover;
         background-repeat: no-repeat;
-        
-        
+
+        @media screen and (min-width: 768px) {
+            background-size: 200%;
+        }
 
         /* The Close Button */
         .close {

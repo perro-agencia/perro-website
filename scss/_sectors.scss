@@ -85,7 +85,7 @@
 
 // *** Services ***
 .slogan {
-    width: 350px;
+    width: 80vw;
 }
 
 #servicios {
@@ -117,7 +117,7 @@
         text-align: center;
 
         img {
-            height: 80px;
+            height: 50px;
             margin: auto;
             margin-bottom: 16px;
         }
@@ -138,8 +138,21 @@
 }
 
 @media screen and (min-width: 768px) {
+
     .slogan {
         width: 500px;
+    }
+
+    .services {
+        justify-content: space-evenly;
+
+        .services-item {
+            width: 33%;
+
+            img {
+
+            }
+        }
     }
 }
 
@@ -150,16 +163,11 @@
     }
 
     .services {
-        justify-content: space-between;
 
         .services-item {
             width: auto;
             max-width: 200px;
             margin: 0 16px;
-
-            img {
-                height: 100px;
-            }
         }
     }
     
@@ -174,6 +182,10 @@
     .services {
 
         .services-item {
+
+            img {
+                height: 80px;
+            }
 
             h6 {
                 font-size: 1.1em;

@@ -377,7 +377,7 @@ small {
   left: 0;
   width: 100%;
   padding: 10px 30px;
-  z-index: 200;
+  z-index: 99;
   text-align: center;
   font-size: 16px;
   pointer-events: none;
@@ -4286,7 +4286,7 @@ footer p {
     width: 650px; } }
 
 .slogan {
-  width: 350px; }
+  width: 80vw; }
 
 #servicios .content .one-column-content {
   justify-content: space-evenly; }
@@ -4307,7 +4307,7 @@ footer p {
     margin: 16px 0;
     text-align: center; }
     .services .services-item img {
-      height: 80px;
+      height: 50px;
       margin: auto;
       margin-bottom: 16px; }
     .services .services-item h6 {
@@ -4322,23 +4322,25 @@ footer p {
 
 @media screen and (min-width: 768px) {
   .slogan {
-    width: 500px; } }
+    width: 500px; }
+  .services {
+    justify-content: space-evenly; }
+    .services .services-item {
+      width: 33%; } }
 
 @media screen and (min-width: 1024px) {
   .slogan {
     width: 750px; }
-  .services {
-    justify-content: space-between; }
-    .services .services-item {
-      width: auto;
-      max-width: 200px;
-      margin: 0 16px; }
-      .services .services-item img {
-        height: 100px; } }
+  .services .services-item {
+    width: auto;
+    max-width: 200px;
+    margin: 0 16px; } }
 
 @media screen and (min-width: 1280px) {
   .slogan {
     width: 900px; }
+  .services .services-item img {
+    height: 80px; }
   .services .services-item h6 {
     font-size: 1.1em; } }
 
@@ -4458,10 +4460,8 @@ footer p {
   /* Hidden by default */
   position: fixed;
   /* Stay in place */
-  z-index: 1;
+  z-index: 9999;
   /* Sit on top */
-  padding-top: 100px;
-  /* Location of the box */
   left: 0;
   top: 0;
   width: 100%;
@@ -4479,7 +4479,7 @@ footer p {
     position: relative;
     top: 15vh;
     padding: 48px 24px;
-    width: 60%;
+    width: 70%;
     max-width: 800px;
     margin: auto;
     text-align: center;
@@ -4489,9 +4489,12 @@ footer p {
     justify-content: center;
     background-image: url("../public/img/background-light-desktop.png");
     background-position: center;
-    background-size: 200%;
+    background-size: cover;
     background-repeat: no-repeat;
     /* The Close Button */ }
+    @media screen and (min-width: 768px) {
+      .modal .modal-content {
+        background-size: 200%; } }
     .modal .modal-content .close {
       position: absolute;
       top: 10px;
