@@ -4533,6 +4533,52 @@ footer p {
   text-decoration: none;
   cursor: pointer; }
 
+form {
+  padding: 24px 0; }
+  form .form-element {
+    padding: 8px 0; }
+    form .form-element input, form .form-element textarea {
+      background-color: rgba(255, 255, 255, 0.4);
+      padding: 8px;
+      border: solid 2px #fff;
+      border-radius: 8px; }
+    form .form-element input {
+      display: block;
+      height: 45px;
+      width: 50%; }
+      form .form-element input::placeholder {
+        color: #000;
+        font-family: 'Work Sans', sans-serif;
+        font-size: 1em;
+        font-weight: 400;
+        letter-spacing: 0.27em;
+        text-transform: uppercase; }
+    form .form-element textarea {
+      width: 100%; }
+      form .form-element textarea::placeholder {
+        color: #000;
+        font-family: 'Work Sans', sans-serif;
+        font-size: 1em;
+        font-weight: 400;
+        letter-spacing: 0.27em;
+        text-transform: uppercase; }
+  form button {
+    cursor: pointer;
+    padding: 24px 40px;
+    background-color: #6000FF;
+    color: #fff;
+    border: solid 3px #6000FF;
+    border-radius: 8px;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 1em;
+    font-weight: 600;
+    letter-spacing: 0.27em;
+    text-transform: uppercase;
+    transition: all .3s ease-in-out; }
+    form button:hover {
+      background-color: transparent;
+      color: #6000FF; }
+
 .background-dark {
   background-image: url("../public/img/background-dark-mobile.png"); }
   @media screen and (min-width: 768px) {
