@@ -28,6 +28,7 @@ form {
         }
 
         textarea {
+            height: 100px;
             width: 100%;
 
             &::placeholder {
@@ -43,7 +44,7 @@ form {
 
     button {
         cursor: pointer;
-        padding: 24px 40px;
+        padding: 16px 32px;
         background-color: #6000FF;
         color: #fff;
         border: solid 3px #6000FF;
