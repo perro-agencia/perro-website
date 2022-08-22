@@ -4507,7 +4507,8 @@ footer p {
       font-size: 28px;
       font-weight: bold; }
     .modal .modal-content img {
-      margin-bottom: 16px; }
+      margin-bottom: 16px;
+      max-width: 150px; }
     .modal .modal-content h6 {
       font-family: 'Work Sans', sans-serif;
       font-weight: 600;
