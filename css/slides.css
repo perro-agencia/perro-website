@@ -4292,7 +4292,6 @@ footer p {
   justify-content: space-evenly; }
 
 .services {
-  height: 60%;
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
@@ -4313,7 +4312,7 @@ footer p {
     .services .services-item h6 {
       font-family: 'Work Sans', sans-serif;
       font-weight: 600;
-      font-size: 1em;
+      font-size: .6em;
       text-transform: uppercase;
       letter-spacing: 0.16em;
       margin-bottom: 8px; }
@@ -4324,25 +4323,22 @@ footer p {
   .slogan {
     width: 500px; }
   .services {
-    justify-content: space-evenly; }
+    justify-content: space-evenly;
+    max-width: 80%; }
     .services .services-item {
-      width: 33%; } }
+      width: 25%; }
+      .services .services-item h6 {
+        font-size: .8em; } }
 
 @media screen and (min-width: 1024px) {
   .slogan {
     width: 750px; }
-  .services .services-item {
-    width: auto;
-    max-width: 200px;
-    margin: 0 16px; } }
+  .services .services-item img {
+    height: 80px; } }
 
 @media screen and (min-width: 1280px) {
   .slogan {
-    width: 900px; }
-  .services .services-item img {
-    height: 80px; }
-  .services .services-item h6 {
-    font-size: 1.1em; } }
+    width: 900px; } }
 
 .clients {
   height: 100%;
