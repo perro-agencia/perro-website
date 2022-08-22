@@ -115,6 +115,12 @@
         margin: 16px 0;
         text-align: center;
 
+        transition: all .3s ease-in-out;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+
         img {
             height: 50px;
             margin: auto;

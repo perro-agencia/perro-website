@@ -4304,7 +4304,10 @@ footer p {
     position: relative;
     width: 50%;
     margin: 16px 0;
-    text-align: center; }
+    text-align: center;
+    transition: all .3s ease-in-out; }
+    .services .services-item:hover {
+      transform: scale(1.1); }
     .services .services-item img {
       height: 50px;
       margin: auto;
@@ -4455,6 +4458,8 @@ footer p {
   height: 100%;
   background: transparent;
   border: 0; }
+  .modal-button:hover {
+    cursor: pointer; }
   @media screen and (min-width: 768px) {
     .modal-button {
       display: inline-block; } }
@@ -4474,24 +4479,20 @@ footer p {
   /* Full height */
   overflow: auto;
   /* Enable scroll if needed */
-  background-color: black;
-  /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.4);
-  /* Black w/ opacity */
   /* Modal Content */ }
   .modal .modal-content {
     position: relative;
     top: 15vh;
-    padding: 48px 24px;
+    padding: 24px 48px;
     width: 70%;
-    max-width: 800px;
+    max-width: 600px;
     margin: auto;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-image: url("../public/img/background-light-desktop.png");
+    background: rgba(0, 0, 0, 0.93);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
