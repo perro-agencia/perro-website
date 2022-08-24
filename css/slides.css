@@ -498,11 +498,6 @@ small {
   .panel .hidden,
   .panel .hidden * {
     display: none; }
-  .panel svg {
-    fill: #fff;
-    width: 18px;
-    height: 18px;
-    vertical-align: bottom; }
   .slides.whiteSlide .panel svg {
     fill: #202020; }
   .panel a:not(.button):hover {
@@ -4253,6 +4248,27 @@ footer p {
     footer p {
       font-size: 1em; } }
 
+footer svg {
+  fill: #fff;
+  width: 20px;
+  height: 20px;
+  margin: 0 8px;
+  transition: all .2s ease-in-out; }
+  footer svg:hover {
+    transform: scale(1.3); }
+
+footer .left, footer .center {
+  display: none !important; }
+
+footer .right {
+  text-align: center !important; }
+
+@media screen and (min-width: 768px) {
+  footer .left, footer .center {
+    display: table-cell !important; }
+  footer .right {
+    text-align: right !important; } }
+
 .intro div {
   display: flex; }
 
@@ -4535,7 +4551,8 @@ footer p {
 form {
   padding: 24px 0; }
   form .form-element {
-    padding: 8px 0; }
+    display: flex;
+    flex-direction: column; }
     form .form-element input, form .form-element textarea {
       background-color: rgba(255, 255, 255, 0.4);
       padding: 8px;
@@ -4543,8 +4560,9 @@ form {
       border-radius: 8px; }
     form .form-element input {
       display: block;
+      margin-bottom: 8px;
       height: 45px;
-      width: 50%; }
+      width: 100%; }
       form .form-element input::placeholder {
         color: #000;
         font-family: 'Work Sans', sans-serif;
@@ -4553,6 +4571,7 @@ form {
         letter-spacing: 0.27em;
         text-transform: uppercase; }
     form .form-element textarea {
+      margin-bottom: 8px;
       height: 100px;
       width: 100%; }
       form .form-element textarea::placeholder {
@@ -4564,7 +4583,7 @@ form {
         text-transform: uppercase; }
   form button {
     cursor: pointer;
-    padding: 16px 32px;
+    padding: 12px 20px;
     background-color: #6000FF;
     color: #fff;
     border: solid 3px #6000FF;
@@ -4578,6 +4597,15 @@ form {
     form button:hover {
       background-color: transparent;
       color: #6000FF; }
+
+@media screen and (min-width: 768px) {
+  form .form-element {
+    flex-direction: row; }
+    form .form-element input {
+      width: 50%;
+      margin-right: 8px; }
+    form .form-element textarea {
+      margin-right: 8px; } }
 
 .background-dark {
   background-image: url("../public/img/background-dark-mobile.png"); }
