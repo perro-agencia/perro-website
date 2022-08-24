@@ -533,12 +533,7 @@ small {
 		display: none;
 	}
 	
-	svg {
-		fill: #fff;
-		width: 18px;
-		height: 18px;
-		vertical-align: bottom;
-	}
+	
 	
 	.slides.whiteSlide & svg {
 		fill: $default-dark-color;

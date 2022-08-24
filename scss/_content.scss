@@ -65,4 +65,17 @@ footer {
             font-size: 1em;
         }
     }
+
+
+    svg {
+        fill: #fff;
+        width: 20px;
+        height: 20px;
+        margin: 0 8px;
+        transition: all .2s ease-in-out;
+
+        &:hover {
+            transform: scale(1.3);
+        }
+    }
 }
