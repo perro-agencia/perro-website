@@ -4287,17 +4287,36 @@ footer .right {
     .intro .intro-img img {
       margin: auto; }
   .intro .intro-text {
-    width: 60%; } }
+    width: 60%;
+    position: relative; }
+    .intro .intro-text::after {
+      content: url("../public/img/asterisco.svg");
+      width: 40px;
+      display: inline-block;
+      position: absolute;
+      left: 170px;
+      top: 82px;
+      animation-name: giro;
+      animation-duration: 3s;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite; } }
 
 @media screen and (min-width: 1024px) {
   .intro .intro-img img {
     width: 250px; }
+  .intro .intro-text::after {
+    width: 50px;
+    left: 250px;
+    top: 100px; }
   .intro .intro-text img {
     width: 450px; } }
 
 @media screen and (min-width: 1440px) {
   .intro .intro-img img {
     width: 350px; }
+  .intro .intro-text::after {
+    left: 370px;
+    top: 140px; }
   .intro .intro-text img {
     width: 650px; } }
 
