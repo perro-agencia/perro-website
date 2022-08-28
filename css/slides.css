@@ -4451,7 +4451,8 @@ footer .right {
     height: 150px; } }
 
 .contact-us {
-  align-items: flex-start; }
+  align-items: flex-start;
+  color: #fff; }
   .contact-us .contact-img img {
     width: 150px; }
   .contact-us .contact-form h5 {
@@ -4627,13 +4628,19 @@ form {
       margin-right: 8px; } }
 
 .background-dark {
-  background-image: url("../public/img/background-dark-mobile.png"); }
+  background-image: url("../public/img/background-dark-mobile.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat; }
   @media screen and (min-width: 768px) {
     .background-dark {
       background-image: url("../public/img/background-dark-desktop.png"); } }
 
 .background-light {
-  background-image: url("../public/img/background-light-mobile.png"); }
+  background-image: url("../public/img/background-light-mobile.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat; }
   @media screen and (min-width: 768px) {
     .background-light {
       background-image: url("../public/img/background-light-desktop.png"); } }
