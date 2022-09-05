@@ -32,24 +32,24 @@
 //   \/_____/   \/_/\/_/   \/_____/   \/_/\/_/   \/_____/   \/_/ /_/   \/_____/   \/_____/   \/_/ \/_/   \/____/   \/_____/ 
 // *** Backgrounds ***
 .background-dark {
-    background-image:url("../public/img/background-dark-mobile.png");
+    background-image:url("../assets/img/background-dark-mobile.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 
     @media screen and (min-width: 768px) {
-        background-image:url("../public/img/background-dark-desktop.png");
+        background-image:url("../assets/img/background-dark-desktop.png");
     }
 }
 
 .background-light {
-    background-image:url("../public/img/background-light-mobile.png");
+    background-image:url("../assets/img/background-light-mobile.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 
     @media screen and (min-width: 768px) {
-        background-image:url("../public/img/background-light-desktop.png");
+        background-image:url("../assets/img/background-light-desktop.png");
     }
 }
 
