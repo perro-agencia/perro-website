@@ -4627,6 +4627,34 @@ form {
     form .form-element textarea {
       margin-right: 8px; } }
 
+.tyc-body {
+  background-image: url("../assets/img/background-dark-mobile.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative !important;
+  height: auto !important;
+  min-height: 100vh !important; }
+  @media screen and (min-width: 768px) {
+    .tyc-body {
+      background-image: url("../assets/img/background-dark-desktop.png"); } }
+  .tyc-body main {
+    max-width: 1280px;
+    margin: auto;
+    margin-top: 88px;
+    z-index: 9;
+    position: relative; }
+    .tyc-body main section {
+      padding: 0 32px; }
+      .tyc-body main section p {
+        font-family: 'Work Sans', sans-serif;
+        font-size: 1.2em;
+        font-weight: 300;
+        text-align: left;
+        color: #fff; }
+        .tyc-body main section p span {
+          font-weight: 700; }
+
 .background-dark {
   background-image: url("../assets/img/background-dark-mobile.png");
   background-size: cover;
