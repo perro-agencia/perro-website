@@ -4627,7 +4627,7 @@ form {
     form .form-element textarea {
       margin-right: 8px; } }
 
-.tyc-body {
+.tyc-body, .success-body {
   background-image: url("../assets/img/background-dark-mobile.png");
   background-size: cover;
   background-position: center;
@@ -4636,23 +4636,23 @@ form {
   height: auto !important;
   min-height: 100vh !important; }
   @media screen and (min-width: 768px) {
-    .tyc-body {
+    .tyc-body, .success-body {
       background-image: url("../assets/img/background-dark-desktop.png"); } }
-  .tyc-body main {
+  .tyc-body main, .success-body main {
     max-width: 1280px;
     margin: auto;
     margin-top: 88px;
     z-index: 9;
     position: relative; }
-    .tyc-body main section {
+    .tyc-body main section, .success-body main section {
       padding: 0 32px; }
-      .tyc-body main section p {
+      .tyc-body main section p, .success-body main section p {
         font-family: 'Work Sans', sans-serif;
         font-size: 1.2em;
         font-weight: 300;
         text-align: left;
         color: #fff; }
-        .tyc-body main section p span {
+        .tyc-body main section p span, .success-body main section p span {
           font-weight: 700; }
 
 .background-dark {
@@ -4672,6 +4672,24 @@ form {
   @media screen and (min-width: 768px) {
     .background-light {
       background-image: url("../assets/img/background-light-desktop.png"); } }
+
+.success-body main {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; }
+  .success-body main section {
+    text-align: center; }
+    .success-body main section h3 {
+      color: #fff;
+      margin-bottom: 24px;
+      font-size: 1.5em; }
+      @media screen and (min-width: 768px) {
+        .success-body main section h3 {
+          font-size: 2.5em; } }
+    .success-body main section a {
+      color: #6000FF; }
 
 .logotipo {
   max-width: 100px; }

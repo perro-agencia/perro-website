@@ -57,6 +57,36 @@
 }
 
 
+.success-body {
+
+    main {
+        min-height: 70vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        section {
+            text-align: center;
+    
+            h3 {
+                color: #fff;
+                margin-bottom: 24px;
+                font-size: 1.5em;
+
+                @media screen and (min-width: 768px) {
+                    font-size: 2.5em;
+                }
+                
+            }
+
+            a {
+                color: #6000FF;
+            }
+        }
+    }
+}
+
 // *** Logotipo ***
 .logotipo {
     max-width: 100px;
@@ -76,6 +106,8 @@
 .content {
     height: 100% !important;
 }
+
+
 
 // *** Footer ***
 footer {
