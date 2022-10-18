@@ -4689,6 +4689,9 @@ form {
         .success-body main section h3 {
           font-size: 2.5em; } }
     .success-body main section a {
+      font-family: 'Work Sans', sans-serif;
+      font-size: 1.2em;
+      font-weight: 300;
       color: #6000FF; }
 
 .logotipo {
