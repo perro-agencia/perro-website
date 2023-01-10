@@ -51,7 +51,6 @@
         left: 0;
         width: var(--#{$prefix}offcanvas-width);
         border-right: var(--#{$prefix}offcanvas-border-width) solid var(--#{$prefix}offcanvas-border-color);
-        transform: translateX(-100%);
       }
 
       &.offcanvas-end {
