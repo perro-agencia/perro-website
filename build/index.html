@@ -114,12 +114,12 @@
     <!-- ===== -->
     <!-- Main nav -->
     <nav class="navbar navbar-expand-lg py-4 px-5">
-      <div class="container-fluid">
+      <div class="container-fluid px-0">
         <span class="navbar-brand">
-          <img src="assets/img/perro-logotipo.svg" alt="logotipo perro agency">
+          <img class="perro-isologotype" src="assets/img/perro-logotipo.svg" alt="logotipo perro agency">
         </span>
 
-        <button class="btn " type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
+        <button type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#fff" class="bi bi-list" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
           </svg>
@@ -127,16 +127,56 @@
       </div>
     </nav>
     
-    <!-- Nav offcanvas -->
-    <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="staticBackdropLabel">Offcanvas</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <!-- Offcanvas nav -->
+    <div class="offcanvas offcanvas-start py-4 px-5" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel">
+      <div class="offcanvas-header p-0">
+        <span class="offcanvas-title" id="staticBackdropLabel">
+          <img class="perro-isologotype" src="assets/img/perro-logotipo.svg" alt="logotipo perro agency">
+        </span>
+
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#fff" class="bi bi-x-lg" viewBox="0 0 16 16">
+            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+          </svg>
+        </button>
       </div>
-      <div class="offcanvas-body">
-        <div>
-          I will not close if you click outside of me.
+
+      <div class="offcanvas-body p-0">
+        <div class="offcanvas-navigation">
+          <ul>
+            <li>
+              <a href="">home</a>
+            </li>
+            <li>
+              <a href="">cultura</a>
+            </li>
+            <li>
+              <a href="">contacto</a>
+            </li>
+            <li>
+              <a href="">portfolio</a>
+            </li>
+          </ul>
         </div>
+      </div>
+
+      <div class="offcanvas-footer">
+        <p>Encontranos en:</p>
+
+        <ul>
+          <li>
+            <a href="https://www.instagram.com/perroagency/" target="_blank">instagram</a> -
+          </li>
+          <li>
+            <a href="https://www.linkedin.com/company/perroagency/" target="_blank">linkedin</a> -
+          </li>
+          <li>
+            <a href="https://www.instagram.com/perroagency/" target="_blank">facebook</a> -
+          </li>
+          <li>
+            <a href="https://www.instagram.com/perroagency/" target="_blank">twitter</a>
+          </li>
+        </ul>
       </div>
     </div>
 
@@ -144,10 +184,15 @@
     <!-- Header -->
     <header>
       <div class="container">
-        <div class="col-md-6">
-          <img src="assets/img/perro-toto.png" alt="ilustracion de perro toto">
+        <div class="row">
+          <div class="col-md-6">
+            <img  src="assets/img/perro-toto.png" alt="ilustracion de perro toto">
+          </div>
+  
+          <div class="col-md-6">
+            <p>We make your company grow</p>
+          </div>
         </div>
-        <div class="col-md-6"></div>
       </div>
     </header>
 

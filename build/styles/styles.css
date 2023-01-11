@@ -9035,8 +9035,26 @@ textarea.form-control-lg {
   .d-print-none {
     display: none !important; } }
 
-nav .navbar-brand img {
+.perro-isologotype {
   width: 120px; }
+  @media screen and (min-width: 768px) {
+    .perro-isologotype {
+      width: 160px; } }
+
+.offcanvas {
+  background-color: #000000; }
+  .offcanvas .offcanvas-header {
+    height: 40px; }
+  .offcanvas .offcanvas-body .offcanvas-navigation ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0; }
+  .offcanvas .offcanvas-footer ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0; }
+    .offcanvas .offcanvas-footer ul li {
+      display: inline-block; }
 
 .main-wrapper {
   background-color: #000000; }
