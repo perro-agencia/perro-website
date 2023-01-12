@@ -9058,3 +9058,7 @@ textarea.form-control-lg {
 
 .main-wrapper {
   background-color: #000000; }
+
+header {
+  height: 80vh;
+  min-height: 500px; }
