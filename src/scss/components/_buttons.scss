@@ -1,0 +1,7 @@
+.links {
+    transition: .3s ease-in-out;
+    
+    &:hover {
+        color: $primary;
+    }
+}

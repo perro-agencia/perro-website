@@ -5500,9 +5500,7 @@ textarea.form-control-lg {
   padding: var(--bs-offcanvas-padding-y) var(--bs-offcanvas-padding-x); }
   .offcanvas-header .btn-close {
     padding: calc(var(--bs-offcanvas-padding-y) * .5) calc(var(--bs-offcanvas-padding-x) * .5);
-    margin-top: calc(-.5 * var(--bs-offcanvas-padding-y));
-    margin-right: calc(-.5 * var(--bs-offcanvas-padding-x));
-    margin-bottom: calc(-.5 * var(--bs-offcanvas-padding-y)); }
+    margin-top: calc(-.5 * var(--bs-offcanvas-padding-y)); }
 
 .offcanvas-title {
   margin-bottom: 0;
@@ -6104,6 +6102,33 @@ textarea.form-control-lg {
 
 .mw-100 {
   max-width: 100% !important; }
+
+.mw-90 {
+  max-width: 90% !important; }
+
+.mw-80 {
+  max-width: 80% !important; }
+
+.mw-70 {
+  max-width: 70% !important; }
+
+.mw-60 {
+  max-width: 60% !important; }
+
+.mw-50 {
+  max-width: 50% !important; }
+
+.mw-40 {
+  max-width: 40% !important; }
+
+.mw-30 {
+  max-width: 30% !important; }
+
+.mw-20 {
+  max-width: 20% !important; }
+
+.mw-10 {
+  max-width: 10% !important; }
 
 .vw-100 {
   width: 100vw !important; }
@@ -9035,6 +9060,39 @@ textarea.form-control-lg {
   .d-print-none {
     display: none !important; } }
 
+.color-primary {
+  color: #5E00FA; }
+
+.color-secondary {
+  color: #F08200; }
+
+.color-accent {
+  color: #B6FC33; }
+
+.color-dark {
+  color: #000000; }
+
+.color-light, footer a, footer ul li {
+  color: #ffffff; }
+
+.highlight-text, footer a, footer ul li {
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 120%;
+  text-transform: uppercase; }
+
+.body-small {
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 24px; }
+
+.links, footer a {
+  transition: .3s ease-in-out; }
+  .links:hover, footer a:hover {
+    color: #5E00FA; }
+
 .perro-isologotype {
   width: 120px; }
   @media screen and (min-width: 768px) {
@@ -9062,3 +9120,13 @@ textarea.form-control-lg {
 header {
   height: 80vh;
   min-height: 500px; }
+
+footer a {
+  text-decoration: none; }
+
+footer ul li {
+  list-style-type: none;
+  display: inline-block; }
+
+footer .legal p {
+  max-width: 600px; }
