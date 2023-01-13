@@ -12,12 +12,20 @@ header {
 
     img {
         width: 100%;
-        max-width: 150px;
+        max-width: 200px;
 
         @media screen and (min-width: 768px) {
             width: 80%;
             max-width: 500px;
             margin: auto;
         }
+    }
+
+    .word-wemake {
+        width: 100%;
+        max-width: 800px;
+
+        margin: 0;
+        margin-bottom: 32px;
     }
 }

@@ -5,3 +5,42 @@
         color: $primary;
     }
 }
+
+// Botoncito perro
+a {
+    text-decoration: none;
+}
+  
+.perro-boton {
+    --x: 50%;
+    --y: 50%;
+    
+    position: relative;
+    appearance: none;
+    cursor: pointer;
+    outline: none;
+
+    padding: 8px 32px;
+
+    color: #fff;
+    box-shadow: 0px 0px 20px 4px rgba(94, 0, 250, 0.4);
+
+    font-family: sans-serif;
+    font-size: 1.2em;
+    font-weight: lighter;
+    
+    // The magic
+    border: 2px solid transparent;
+    border-radius: 48px;  
+
+    background: linear-gradient(#000, #000) padding-box, radial-gradient(farthest-corner at var(--x) var(--y), #270067, #6000FF) border-box;
+
+    // The hover
+    transition: .2s all ease-in-out;
+}
+  
+  
+.perro-boton:hover {
+    background: linear-gradient(90deg, #6000FF 0%, #270067 100%) padding-box, radial-gradient(farthest-corner at var(--x) var(--y), #270067, #6000FF) border-box;
+    box-shadow: 0px 0px 32px 8px rgba(94, 0, 250, 0.6);
+}

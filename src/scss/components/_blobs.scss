@@ -1,0 +1,27 @@
+.blob {
+    position:absolute;
+
+    @media screen and (min-width: 768px) {
+        top: -50px;
+        left: -550px;
+    }
+
+    @media screen and (min-width: 1024px) {
+        top: -500px;
+        left: -1000px;
+    }
+}
+
+.blob-back, .blob-front  {
+    visibility: hidden;
+    filter: blur(50px);
+
+    @media screen and (min-width: 768px) {
+        visibility: visible;
+        width: 1200px;
+    }
+
+    @media screen and (min-width: 1024px) {
+        width: 2000px;
+    }
+}
