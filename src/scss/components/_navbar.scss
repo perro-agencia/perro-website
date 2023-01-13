@@ -1,3 +1,13 @@
+.navbar {
+    padding: 16px 24px;
+    position: sticky;
+    top: 0;
+
+    @media screen and (min-width: 768px) {
+        padding: 24px 48px;
+    }
+}
+
 .perro-isologotype {
     width: 120px;
 
@@ -8,6 +18,11 @@
 
 .offcanvas {
     background-color: $dark;
+    padding: 16px 24px;
+
+    @media screen and (min-width: 768px) {
+        padding: 24px 48px;
+    }
 
     .offcanvas-header {
         height: 40px;
@@ -21,26 +36,6 @@
                 list-style-type: none;
                 margin: 0;
                 padding: 0;
-
-                li {
-
-                    a {
-
-                    }
-                }
-            }
-        }
-    }
-
-    .offcanvas-footer {
-
-        ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-
-            li {
-                display: inline-block;
             }
         }
     }
