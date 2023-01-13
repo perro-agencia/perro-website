@@ -1,8 +1,15 @@
 .back-to-top {
-    width: 60px;
+    width: 50px;
     transform: rotate(-90deg);
     position: fixed;
 
-    top: 90vh;
-    right: 48px;
+    top: 88vh;
+    right: 40px;
+
+    @media screen and (min-width: 768px) {
+        width: 65px;
+
+        top: 88vh;
+        right: 40px;
+    }
 }

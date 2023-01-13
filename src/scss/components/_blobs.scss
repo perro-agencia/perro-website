@@ -13,15 +13,15 @@
 }
 
 .blob-back, .blob-front  {
-    visibility: hidden;
+    display: none;
     filter: blur(100px);
 
     @media screen and (min-width: 768px) {
-        visibility: visible;
+        display: block;
         width: 1200px;
     }
 
     @media screen and (min-width: 1024px) {
-        width: 2100px;
+        width: 2000px;
     }
 }

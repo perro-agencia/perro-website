@@ -1,6 +1,4 @@
 header {
-    height: 80vh;
-    min-height: 500px;
 }
 
 .home-header {
@@ -8,7 +6,6 @@ header {
 
     @media screen and (min-width: 768px) {
         padding: 48px;
-        min-height: 800px;
     }
 
     img {
@@ -28,5 +25,20 @@ header {
 
         margin: 0;
         margin-bottom: 32px;
+    }
+
+    .container {
+
+        .row {
+
+            .col-md-6 {
+                margin: 16px 0;
+
+            
+                @media screen and (min-width: 768px) {
+                    margin: 0;
+                }
+            }
+        }
     }
 }
