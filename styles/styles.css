@@ -5500,7 +5500,9 @@ textarea.form-control-lg {
   padding: var(--bs-offcanvas-padding-y) var(--bs-offcanvas-padding-x); }
   .offcanvas-header .btn-close {
     padding: calc(var(--bs-offcanvas-padding-y) * .5) calc(var(--bs-offcanvas-padding-x) * .5);
+
     margin-top: calc(-.5 * var(--bs-offcanvas-padding-y)); }
+
 
 .offcanvas-title {
   margin-bottom: 0;
@@ -6103,6 +6105,7 @@ textarea.form-control-lg {
 .mw-100 {
   max-width: 100% !important; }
 
+
 .mw-90 {
   max-width: 90% !important; }
 
@@ -6129,7 +6132,7 @@ textarea.form-control-lg {
 
 .mw-10 {
   max-width: 10% !important; }
-
+  
 .vw-100 {
   width: 100vw !important; }
 
