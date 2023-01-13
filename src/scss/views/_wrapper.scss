@@ -1,6 +1,37 @@
 // Main wrapper styles
-.main-wrapper {
+body {
     background-color: $dark;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.main-wrapper {
+    max-width: 1440px;
+    margin: auto;
+    overflow-x: hidden;
+}
+
+.home-main {
+
+    section {
+        padding: 80px 0;
+        position: relative;
+    }
+}
+
+//Business section
+#home-servicios {
+
+    p {
+        position: relative;
+        z-index: 9;
+    }
+
+    .word-perrosladran {
+        position: relative;
+        z-index: 9;
+        max-width: 900px;
+    }
 }
 
 //Business section
