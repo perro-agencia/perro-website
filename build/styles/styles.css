@@ -9157,14 +9157,21 @@ a {
 
 .blob-back, .blob-front {
   visibility: hidden;
-  filter: blur(50px); }
+  filter: blur(100px); }
   @media screen and (min-width: 768px) {
     .blob-back, .blob-front {
       visibility: visible;
       width: 1200px; } }
   @media screen and (min-width: 1024px) {
     .blob-back, .blob-front {
-      width: 2000px; } }
+      width: 2100px; } }
+
+.back-to-top {
+  width: 60px;
+  transform: rotate(-90deg);
+  position: fixed;
+  top: 90vh;
+  right: 48px; }
 
 .main-wrapper {
   background-color: #000000; }
@@ -9177,7 +9184,8 @@ header {
   padding: 48px 24px; }
   @media screen and (min-width: 768px) {
     .home-header {
-      padding: 48px; } }
+      padding: 48px;
+      min-height: 800px; } }
   .home-header img {
     width: 100%;
     max-width: 200px; }
@@ -9201,3 +9209,6 @@ footer ul li, .offcanvas-footer ul li {
 
 footer .legal p, .offcanvas-footer .legal p {
   max-width: 600px; }
+
+body {
+  position: relative; }
