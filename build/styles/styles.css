@@ -9094,9 +9094,8 @@ textarea.form-control-lg {
 
 .navbar {
   padding: 16px 24px;
-  position: sticky;
-  top: 0;
-  z-index: 999999; }
+  position: relative;
+  z-index: 9999; }
   @media screen and (min-width: 768px) {
     .navbar {
       padding: 24px 48px; } }
@@ -9109,7 +9108,8 @@ textarea.form-control-lg {
 
 .offcanvas {
   background-color: #000000;
-  padding: 16px 24px; }
+  padding: 16px 24px;
+  z-index: 9999999; }
   @media screen and (min-width: 768px) {
     .offcanvas {
       padding: 24px 48px; } }
@@ -9192,11 +9192,32 @@ a {
     top: -150px;
     right: -800px; } }
 
+@media screen and (min-width: 768px) {
+  .home-main #home-business .blob {
+    top: -50px;
+    left: -500px; } }
+
+@media screen and (min-width: 1024px) {
+  .home-main #home-business .blob {
+    top: -150px;
+    left: -800px; } }
+
+.gif img {
+  width: 300px;
+  position: absolute;
+  bottom: -120px;
+  left: -150px;
+  z-index: 9999;
+  display: none; }
+  @media screen and (min-width: 768px) {
+    .gif img {
+      display: block; } }
+
 .back-to-top {
   width: 50px;
   transform: rotate(-90deg);
   position: fixed;
-  z-index: 9;
+  z-index: 99;
   top: 88vh;
   right: 40px; }
   @media screen and (min-width: 768px) {
@@ -9211,25 +9232,33 @@ body {
   overflow-x: hidden; }
 
 .main-wrapper {
-  max-width: 1440px;
-  margin: auto;
   overflow-x: hidden; }
 
 .home-main section {
   padding: 80px 0;
   position: relative; }
+  @media screen and (min-width: 768px) {
+    .home-main section {
+      padding: 120px 0; } }
+  .home-main section .containter {
+    position: relative; }
 
 #home-servicios p {
   position: relative;
   z-index: 9; }
 
 #home-servicios .word-perrosladran {
-  position: relative;
-  z-index: 9;
   max-width: 900px; }
+
+#home-business .word-business {
+  max-width: 700px; }
 
 #home-business p {
   max-width: 700px; }
+
+header {
+  position: relative;
+  z-index: 999; }
 
 .home-header {
   padding: 48px 24px; }
@@ -9242,7 +9271,7 @@ body {
     @media screen and (min-width: 768px) {
       .home-header img {
         width: 80%;
-        max-width: 500px;
+        max-width: 400px;
         margin: auto; } }
   .home-header .word-wemake {
     width: 100%;
@@ -9254,6 +9283,10 @@ body {
     @media screen and (min-width: 768px) {
       .home-header .container .row .col-md-6 {
         margin: 0; } }
+
+footer {
+  position: relative;
+  z-index: 9; }
 
 footer a, .offcanvas-footer a {
   text-decoration: none; }

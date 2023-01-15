@@ -58,8 +58,22 @@
             @media screen and (min-width: 1024px) {
                 top: -150px;
                 right: -800px;
+            }
+        }
+    }
 
+    #home-business {
 
+        .blob {
+
+            @media screen and (min-width: 768px) {
+                top: -50px;
+                left: -500px;
+            }
+        
+            @media screen and (min-width: 1024px) {
+                top: -150px;
+                left: -800px;
             }
         }
     }
