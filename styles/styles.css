@@ -4309,9 +4309,12 @@ textarea.form-control-lg {
   --bs-btn-close-disabled-opacity: 0.25;
   --bs-btn-close-white-filter: invert(1) grayscale(100%) brightness(200%);
   box-sizing: content-box;
+
   padding: 0.25em 0.25em;
   color: var(--bs-btn-close-color);
   background: transparent var(--bs-btn-close-bg) center;
+
+
   border: 0;
   border-radius: 0.375rem;
   opacity: var(--bs-btn-close-opacity); }
@@ -9074,6 +9077,7 @@ textarea.form-control-lg {
   color: #ffffff; }
 
 .highlight-text, footer a, .offcanvas-footer a, footer ul li, .offcanvas-footer ul li {
+
   font-family: 'Work Sans', sans-serif;
   font-weight: 600;
   font-size: 24px;
@@ -9086,6 +9090,7 @@ textarea.form-control-lg {
   font-size: 16px;
   line-height: 24px; }
 
+
 .overline {
   font-family: 'Work Sans', sans-serif;
   font-weight: 300;
@@ -9096,6 +9101,7 @@ textarea.form-control-lg {
   padding: 16px 24px;
   position: relative;
   z-index: 9999; }
+
   @media screen and (min-width: 768px) {
     .navbar {
       padding: 24px 48px; } }
@@ -9178,6 +9184,7 @@ form {
     form .form-element textarea {
       margin-right: 8px; } }
 
+
 .links, footer a, .offcanvas-footer a {
   transition: .3s ease-in-out; }
   .links:hover, footer a:hover, .offcanvas-footer a:hover {
@@ -9221,6 +9228,7 @@ a {
   @media screen and (min-width: 1024px) {
     .blob-back, .blob-front {
       width: 2000px; } }
+
 
 @media screen and (min-width: 768px) {
   .offcanvas .blob {
@@ -9333,6 +9341,7 @@ header {
   position: relative;
   z-index: 999; }
 
+
 .home-header {
   padding: 48px 24px; }
   @media screen and (min-width: 768px) {
@@ -9345,6 +9354,7 @@ header {
       .home-header img {
         width: 80%;
         max-width: 400px;
+
         margin: auto; } }
   .home-header .word-wemake {
     width: 100%;
@@ -9360,6 +9370,7 @@ header {
 footer {
   position: relative;
   z-index: 9; }
+
 
 footer a, .offcanvas-footer a {
   text-decoration: none; }
