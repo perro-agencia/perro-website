@@ -113,7 +113,8 @@
 
     <!-- Back to top -->
     <a href="#header">
-      <img class="back-to-top" src="assets/img/arrow-dark.svg" alt="flecha back to top">
+
+      <img class="back-to-top" src="assets/img/arrow-dark.svg" alt="flecha back to top"> 
     </a>
     <!-- ===== -->
     <!-- Main nav -->
@@ -400,17 +401,38 @@
 
       <!-- ===== -->
       <!-- Contact -->
-      <section id="home-contanct" class="">
+      <section id="home-contact" class="">
         <div class="container">
           <div class="row">
             <div class="col-md-6">
               <p class="overline text-uppercase color-light mb-1">escribinos</p>
-              <img src="assets/words/word-compartinos.svg" class="mb-4" alt="palabra compartinos">
+              <img src="assets/words/word-compartinos.svg" class="word-compartinos w-100 mb-4" alt="palabra compartinos">
               <p class="body-small color-light mb-5">Ponete en contacto con nosotros y preparate para que llevemos tus ideas al siguiente nivel.</p>
             </div>
 
             <div class="col-md-6">
 
+              <script type="text/javascript">var submitted=false;</script>
+              <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" 
+              onload="if(submitted) {window.location='success.html';}"></iframe>
+
+              <form action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSfcSsokLvG8u93NAJHvzh53xWiT6jWdglPVSCTO72ZZPS4iDA/formResponse" target="hidden_iframe" onsubmit="submitted=true;">
+                <div class="form-element">
+                  <input type="email" name="entry.646064401" placeholder="Email">
+                  <input type="text" name="entry.1702112212" placeholder="Nombre">
+                </div>
+
+                <div class="form-element">
+                  <input type="text" name="entry.472651491" placeholder="Empresa">
+                  <input type="number" name="entry.406605562" placeholder="Teléfono">
+                </div>
+
+                <div class="form-element">
+                  <textarea name="entry.1051704025" id="" cols="30" rows="10" placeholder="Mensaje"></textarea>
+                </div>
+
+                <button type="submit" class="perro-boton">Enviar</button>
+              </form>
             </div>
           </div>
         </div>
