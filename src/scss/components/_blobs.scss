@@ -1,3 +1,4 @@
+//Estilos generales de las blobs
 .blob {
     position:absolute;
 }
@@ -16,6 +17,24 @@
     }
 }
 
+// Estilos offcanvas blobs
+.offcanvas {
+
+    .blob {
+
+        @media screen and (min-width: 768px) {
+            bottom: -250px;
+            right: -550px;
+        }
+    
+        @media screen and (min-width: 1024px) {
+            bottom: -500px;
+            right: -700px;
+        }
+    }
+}
+
+// Estilos header blob
 .home-header {
 
     .blob {
@@ -32,6 +51,7 @@
     }
 }
 
+// Estilos main blobs
 .home-main {
 
     .blob-back, .blob-front  {

@@ -9114,11 +9114,26 @@ textarea.form-control-lg {
     .offcanvas {
       padding: 24px 48px; } }
   .offcanvas .offcanvas-header {
-    height: 40px; }
-  .offcanvas .offcanvas-body .offcanvas-navigation ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0; }
+    height: 40px;
+    position: relative; }
+  .offcanvas .offcanvas-body {
+    position: relative; }
+    .offcanvas .offcanvas-body .offcanvas-navigation ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0; }
+    .offcanvas .offcanvas-body img {
+      height: 100%;
+      max-height: 25px;
+      margin: 24px 0; }
+      @media screen and (min-width: 768px) {
+        .offcanvas .offcanvas-body img {
+          max-height: 50px; } }
+      @media screen and (min-width: 1024px) {
+        .offcanvas .offcanvas-body img {
+          max-height: 80px; } }
+  .offcanvas .offcanvas-footer {
+    position: relative; }
 
 form {
   padding: 24px 0; }
@@ -9126,7 +9141,7 @@ form {
     display: flex;
     flex-direction: column; }
     form .form-element input, form .form-element textarea {
-      background-color: rgba(255, 255, 255, 0.2);
+      background-color: rgba(255, 255, 255, 0.05);
       padding: 8px;
       border: solid 2px #fff;
       border-radius: 4px; }
@@ -9190,7 +9205,8 @@ a {
   transition: .2s all ease-in-out; }
 
 .perro-boton:hover {
-  background: linear-gradient(90deg, #6000FF 0%, #270067 100%) padding-box, radial-gradient(farthest-corner at var(--x) var(--y), #270067, #6000FF) border-box; }
+  background: linear-gradient(90deg, #6000FF 0%, #270067 100%) padding-box, radial-gradient(farthest-corner at var(--x) var(--y), #270067, #6000FF) border-box;
+  box-shadow: 0px 0px 24px 6px rgba(94, 0, 250, 0.6); }
 
 .blob {
   position: absolute; }
@@ -9205,6 +9221,16 @@ a {
   @media screen and (min-width: 1024px) {
     .blob-back, .blob-front {
       width: 2000px; } }
+
+@media screen and (min-width: 768px) {
+  .offcanvas .blob {
+    bottom: -250px;
+    right: -550px; } }
+
+@media screen and (min-width: 1024px) {
+  .offcanvas .blob {
+    bottom: -500px;
+    right: -700px; } }
 
 @media screen and (min-width: 768px) {
   .home-header .blob {
