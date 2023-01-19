@@ -33,6 +33,10 @@
     .offcanvas-body {
         position: relative;
 
+        @media screen and (min-width: 1024px) {
+            padding: 10% 0;
+        }
+
         .offcanvas-navigation {
 
             ul {

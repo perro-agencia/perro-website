@@ -110,10 +110,9 @@
   <!-- ===== -->
   <!-- Main custom wrapper -->
   <div class="main-wrapper">
-
     <!-- ===== -->
     <!-- Main nav -->
-    <nav class="navbar navbar-expand-lg py-4 px-5">
+    <nav class="navbar navbar-expand-lg">
       <div class="container-fluid px-0">
         <span class="navbar-brand">
           <img class="perro-isologotype" src="../assets/img/perro-logotipo.svg" alt="logotipo perro agency">
@@ -130,7 +129,53 @@
     </nav>
     
     <!-- Offcanvas nav -->
-    <div class="offcanvas offcanvas-start py-4 px-5" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+      
+      <!-- Blob -->        
+      <svg class="blob blob-back"
+        viewBox="0 0 800 500"
+        preserveAspectRatio="none"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        width="100%"
+        id="blobSvg">
+        <g transform="translate(173.26698684692383, 0.7086639404296875)">
+          <path class="blob" fill="#F08200">
+            <animate attributeName="d"
+              dur="25000ms"
+              repeatCount="indefinite"
+              values="M316.5,269Q315,288,301.5,301.5Q288,315,269,404Q250,493,232.5,401.5Q215,310,157.5,323.5Q100,337,59,293.5Q18,250,44,198Q70,146,129,144.5Q188,143,219,97.5Q250,52,270.5,115.5Q291,179,334.5,177.5Q378,176,348,213Q318,250,316.5,269Z;
+              M397,284.5Q369,319,350.5,355.5Q332,392,291,441Q250,490,190.5,473Q131,456,113.5,397.5Q96,339,94,294.5Q92,250,99.5,208.5Q107,167,126,117.5Q145,68,197.5,67.5Q250,67,298.5,74.5Q347,82,349,137Q351,192,388,221Q425,250,397,284.5Z;
+              M422,312.5Q466,375,394.5,375.5Q323,376,286.5,354.5Q250,333,196,385Q142,437,92.5,403Q43,369,69.5,309.5Q96,250,75.5,193.5Q55,137,129,153Q203,169,226.5,174Q250,179,312,107Q374,35,361,114Q348,193,363,221.5Q378,250,422,312.5Z;
+              
+              M316.5,269Q315,288,301.5,301.5Q288,315,269,404Q250,493,232.5,401.5Q215,310,157.5,323.5Q100,337,59,293.5Q18,250,44,198Q70,146,129,144.5Q188,143,219,97.5Q250,52,270.5,115.5Q291,179,334.5,177.5Q378,176,348,213Q318,250,316.5,269Z">
+            </animate>
+          </path>
+        </g>
+      </svg>
+    
+      <svg class="blob blob-front"
+        viewBox="0 0 800 500"
+        preserveAspectRatio="none"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        width="100%"
+        id="blobSvg">
+        <g transform="translate(173.26698684692383, 0.7086639404296875)">
+          <path class="blob" fill="#F08200">
+            <animate attributeName="d"
+              dur="20000ms"
+              repeatCount="indefinite"
+              values="M316.5,269Q315,288,301.5,301.5Q288,315,269,404Q250,493,232.5,401.5Q215,310,157.5,323.5Q100,337,59,293.5Q18,250,44,198Q70,146,129,144.5Q188,143,219,97.5Q250,52,270.5,115.5Q291,179,334.5,177.5Q378,176,348,213Q318,250,316.5,269Z;
+              M397,284.5Q369,319,350.5,355.5Q332,392,291,441Q250,490,190.5,473Q131,456,113.5,397.5Q96,339,94,294.5Q92,250,99.5,208.5Q107,167,126,117.5Q145,68,197.5,67.5Q250,67,298.5,74.5Q347,82,349,137Q351,192,388,221Q425,250,397,284.5Z;
+              M422,312.5Q466,375,394.5,375.5Q323,376,286.5,354.5Q250,333,196,385Q142,437,92.5,403Q43,369,69.5,309.5Q96,250,75.5,193.5Q55,137,129,153Q203,169,226.5,174Q250,179,312,107Q374,35,361,114Q348,193,363,221.5Q378,250,422,312.5Z;
+              
+              M316.5,269Q315,288,301.5,301.5Q288,315,269,404Q250,493,232.5,401.5Q215,310,157.5,323.5Q100,337,59,293.5Q18,250,44,198Q70,146,129,144.5Q188,143,219,97.5Q250,52,270.5,115.5Q291,179,334.5,177.5Q378,176,348,213Q318,250,316.5,269Z">
+            </animate>
+          </path>
+        </g>
+      </svg>
+
       <div class="offcanvas-header p-0">
         <span class="offcanvas-title" id="offcanvasExampleLabel">
           <img class="perro-isologotype" src="../assets/img/perro-logotipo.svg" alt="logotipo perro agency">
@@ -143,29 +188,37 @@
         </button>
       </div>
 
-      <div class="offcanvas-body p-0">
-        <div class="offcanvas-navigation">
-          <ul>
+      <div class="offcanvas-body">
+        <div class="offcanvas-navigation h-100">
+          <ul class="h-100 d-flex flex-column align-items-start justify-content-center justify-content-lg-evenly">
             <li>
-              <a href="">home</a>
+              <a href="../index.html">
+                <img src="../assets/words/word-home.svg" alt="">
+              </a>
             </li>
             <li>
-              <a href="">cultura</a>
+              <a href="cultura.html">
+                <img src="../assets/words/word-cultura.svg" alt="">
+              </a>
             </li>
             <li>
-              <a href="">contacto</a>
+              <a href="contact.html">
+                <img src="../assets/words/word-contacto.svg" alt="">
+              </a>
             </li>
             <li>
-              <a href="">portfolio</a>
+              <a href="portfolio.html">
+                <img src="../assets/words/word-portfolio.svg" alt="">
+              </a>
             </li>
           </ul>
         </div>
       </div>
 
       <div class="offcanvas-footer">
-        <p>Encontranos en:</p>
+        <p class="body-small color-light text-uppercase mb-1">Encontranos en:</p>
 
-        <ul>
+        <ul class="p-0">
           <li>
             <a href="https://www.instagram.com/perroagency/" target="_blank">instagram</a> -
           </li>
@@ -182,35 +235,102 @@
       </div>
     </div>
 
-    <!-- ===== -->
-    <!-- Main -->
-    <main>
-        <section>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
-                        
-                    </div>
-        
-                    <div class="col-md-6">
-                        <p>escribinos</p>
-                        <p>compartinos tus ideas</p>
-                        <p></p>
-                    </div>
-                </div>
-              </div>
-        </section>
-    </main>
+    <main class="contact-main">
+      <!-- ===== -->
+      <!-- Contact -->
+      <section id="contact" class="">
 
+        <!-- Blob -->        
+        <svg class="blob blob-back"
+          viewBox="0 0 800 500"
+          preserveAspectRatio="none"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          width="100%"
+          id="blobSvg">
+          <g transform="translate(173.26698684692383, 0.7086639404296875)">
+            <path class="blob" fill="#6E00FF">
+              <animate attributeName="d"
+                dur="25000ms"
+                repeatCount="indefinite"
+                values="M316.5,269Q315,288,301.5,301.5Q288,315,269,404Q250,493,232.5,401.5Q215,310,157.5,323.5Q100,337,59,293.5Q18,250,44,198Q70,146,129,144.5Q188,143,219,97.5Q250,52,270.5,115.5Q291,179,334.5,177.5Q378,176,348,213Q318,250,316.5,269Z;
+                M397,284.5Q369,319,350.5,355.5Q332,392,291,441Q250,490,190.5,473Q131,456,113.5,397.5Q96,339,94,294.5Q92,250,99.5,208.5Q107,167,126,117.5Q145,68,197.5,67.5Q250,67,298.5,74.5Q347,82,349,137Q351,192,388,221Q425,250,397,284.5Z;
+                M422,312.5Q466,375,394.5,375.5Q323,376,286.5,354.5Q250,333,196,385Q142,437,92.5,403Q43,369,69.5,309.5Q96,250,75.5,193.5Q55,137,129,153Q203,169,226.5,174Q250,179,312,107Q374,35,361,114Q348,193,363,221.5Q378,250,422,312.5Z;
+                
+                M316.5,269Q315,288,301.5,301.5Q288,315,269,404Q250,493,232.5,401.5Q215,310,157.5,323.5Q100,337,59,293.5Q18,250,44,198Q70,146,129,144.5Q188,143,219,97.5Q250,52,270.5,115.5Q291,179,334.5,177.5Q378,176,348,213Q318,250,316.5,269Z">
+              </animate>
+            </path>
+          </g>
+        </svg>
+      
+        <svg class="blob blob-front"
+          viewBox="0 0 800 500"
+          preserveAspectRatio="none"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          width="100%"
+          id="blobSvg">
+          <g transform="translate(173.26698684692383, 0.7086639404296875)">
+            <path class="blob" fill="#6E00FF">
+              <animate attributeName="d"
+                dur="20000ms"
+                repeatCount="indefinite"
+                values="M316.5,269Q315,288,301.5,301.5Q288,315,269,404Q250,493,232.5,401.5Q215,310,157.5,323.5Q100,337,59,293.5Q18,250,44,198Q70,146,129,144.5Q188,143,219,97.5Q250,52,270.5,115.5Q291,179,334.5,177.5Q378,176,348,213Q318,250,316.5,269Z;
+                M397,284.5Q369,319,350.5,355.5Q332,392,291,441Q250,490,190.5,473Q131,456,113.5,397.5Q96,339,94,294.5Q92,250,99.5,208.5Q107,167,126,117.5Q145,68,197.5,67.5Q250,67,298.5,74.5Q347,82,349,137Q351,192,388,221Q425,250,397,284.5Z;
+                M422,312.5Q466,375,394.5,375.5Q323,376,286.5,354.5Q250,333,196,385Q142,437,92.5,403Q43,369,69.5,309.5Q96,250,75.5,193.5Q55,137,129,153Q203,169,226.5,174Q250,179,312,107Q374,35,361,114Q348,193,363,221.5Q378,250,422,312.5Z;
+                
+                M316.5,269Q315,288,301.5,301.5Q288,315,269,404Q250,493,232.5,401.5Q215,310,157.5,323.5Q100,337,59,293.5Q18,250,44,198Q70,146,129,144.5Q188,143,219,97.5Q250,52,270.5,115.5Q291,179,334.5,177.5Q378,176,348,213Q318,250,316.5,269Z">
+              </animate>
+            </path>
+          </g>
+        </svg>
+
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 order-2 order-sm-1">
+
+              <script type="text/javascript">var submitted=false;</script>
+              <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" 
+              onload="if(submitted) {window.location='success.html';}"></iframe>
+
+              <form class="position-relative" action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSfcSsokLvG8u93NAJHvzh53xWiT6jWdglPVSCTO72ZZPS4iDA/formResponse" target="hidden_iframe" onsubmit="submitted=true;">
+                <div class="form-element">
+                  <input type="email" name="entry.646064401" placeholder="Email">
+                  <input type="text" name="entry.1702112212" placeholder="Nombre">
+                </div>
+
+                <div class="form-element">
+                  <input type="text" name="entry.472651491" placeholder="Empresa">
+                  <input type="number" name="entry.406605562" placeholder="Teléfono">
+                </div>
+
+                <div class="form-element">
+                  <textarea name="entry.1051704025" id="" cols="30" rows="10" placeholder="Mensaje"></textarea>
+                </div>
+
+                <button type="submit" class="perro-boton">Enviar</button>
+              </form>
+            </div>
+
+            <div class="col-md-6 order-1 order-sm-2">
+              <p class="overline text-uppercase color-light mb-1">escribinos</p>
+              <img src="../assets/words/word-compartinos.svg" class="word-compartinos w-100 mb-4 position-relative" alt="palabra compartinos">
+              <p class="body-small color-light mb-5">Ponete en contacto con nosotros y preparate para que llevemos tus ideas al siguiente nivel.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    
     <!-- ===== -->
     <!-- Footer -->
-    <footer>
+    <footer class="py-4 px-5">
       <div class="container">
-        <div class="row">
+        <div class="row mb-3">
           <div class="col-12">
-            <p>Encontranos en:</p>
+            <p class="body-small color-light text-uppercase mb-1">Encontranos en:</p>
 
-            <ul>
+            <ul class="p-0">
               <li>
                 <a href="https://www.instagram.com/perroagency/" target="_blank">instagram</a> -
               </li>
@@ -227,21 +347,21 @@
           </div>
         </div>
 
-        <div class="row">
+        <div class="row mb-3">
           <div class="col-md-6">
-            <p>Hablanos por:</p>
-            <a href="">queonda@perroagency.com</a>
+            <p class="body-small color-light text-uppercase mb-1">Hablanos por:</p>
+            <a style="word-break: break-all;" href="">queonda@perroagency.com</a>
           </div>
 
           <div class="col-md-6">
-            <p>Actualmente en:</p>
-            <p>buenos aires - argentina</p>
+            <p class="body-small color-light text-uppercase mb-1">Actualmente en:</p>
+            <p class="highlight-text color-light">buenos aires - argentina</p>
           </div>
         </div>
 
-        <div class="row">
+        <div class="row mb-3 legal">
           <div class="col-12">
-            <p>© PERRO Agency 2022. All rights reserved. Your access to the website is subject to our Terms of Use. Privacy policy.</p>
+            <p class="body-small color-light text-center mx-auto">© PERRO Agency 2022. All rights reserved. Your access to the website is subject to our Terms of Use. Privacy policy.</p>
           </div>
         </div>
       </div>

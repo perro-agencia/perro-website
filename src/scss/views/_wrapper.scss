@@ -9,7 +9,7 @@ body {
     overflow-x: hidden;
 }
 
-.home-main {
+.home-main, .contact-main {
 
     section {
         padding: 80px 24px;
@@ -33,30 +33,13 @@ body {
         position: relative;
         z-index: 9;
     }
-
-    .word-perrosladran {
-        max-width: 900px;
-    }
 }
 
 //Business section
 #home-business {
-    
-    .word-business{
-        max-width: 700px;
-    }
 
     p {
         max-width: 700px;
     }
 }
-
-//Contact section
-#home-contact {
-    
-    .word-compartinos {
-        max-width: 900px;
-    }
-}
-
 

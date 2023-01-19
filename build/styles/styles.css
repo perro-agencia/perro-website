@@ -9118,6 +9118,9 @@ textarea.form-control-lg {
     position: relative; }
   .offcanvas .offcanvas-body {
     position: relative; }
+    @media screen and (min-width: 1024px) {
+      .offcanvas .offcanvas-body {
+        padding: 10% 0; } }
     .offcanvas .offcanvas-body .offcanvas-navigation ul {
       list-style-type: none;
       margin: 0;
@@ -9271,6 +9274,31 @@ a {
     top: -150px;
     left: -800px; } }
 
+@media screen and (min-width: 768px) {
+  .contact-main #contact .blob {
+    top: -50px;
+    left: -500px; } }
+
+@media screen and (min-width: 1024px) {
+  .contact-main #contact .blob {
+    top: -500px;
+    left: -800px; } }
+
+.word-wemake {
+  width: 100%;
+  max-width: 800px;
+  margin: 0;
+  margin-bottom: 32px; }
+
+.word-business {
+  max-width: 700px; }
+
+.word-perrosladran {
+  max-width: 900px; }
+
+.word-compartinos {
+  max-width: 900px; }
+
 .gif img {
   width: 300px;
   position: absolute;
@@ -9304,30 +9332,21 @@ body {
 .main-wrapper {
   overflow-x: hidden; }
 
-.home-main section {
+.home-main section, .contact-main section {
   padding: 80px 24px;
   position: relative; }
   @media screen and (min-width: 768px) {
-    .home-main section {
+    .home-main section, .contact-main section {
       padding: 120px 0; } }
-  .home-main section .containter {
+  .home-main section .containter, .contact-main section .containter {
     position: relative; }
 
 #home-servicios p {
   position: relative;
   z-index: 9; }
 
-#home-servicios .word-perrosladran {
-  max-width: 900px; }
-
-#home-business .word-business {
-  max-width: 700px; }
-
 #home-business p {
   max-width: 700px; }
-
-#home-contact .word-compartinos {
-  max-width: 900px; }
 
 header {
   position: relative;
@@ -9346,11 +9365,6 @@ header {
         width: 80%;
         max-width: 400px;
         margin: auto; } }
-  .home-header .word-wemake {
-    width: 100%;
-    max-width: 800px;
-    margin: 0;
-    margin-bottom: 32px; }
   .home-header .container .row .col-md-6 {
     margin: 16px 0; }
     @media screen and (min-width: 768px) {
