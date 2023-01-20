@@ -99,7 +99,7 @@
     }
 }
 
-// Estilos contact blobs
+// Estilos pagina contact blobs
 .contact-main {
 
     #contact {
@@ -117,5 +117,24 @@
 
         }
         
+    }
+}
+
+// Estilos contact blobs
+.culture-header {
+
+    .blob {
+        @media screen and (min-width: 768px) {
+            width: 800px;
+            top: -50px;
+            right: -300px;
+        }
+    
+        @media screen and (min-width: 1024px) {
+            width: 1500px;
+            top: -100px;
+            right: -600px;
+        }
+
     }
 }

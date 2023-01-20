@@ -1,20 +1,19 @@
 // Words
-.word-wemake {
-    width: 100%;
-    max-width: 800px;
+// Lo puse asi porque sino no pisa otro estilo que nos rompe todo
+.home-header {
 
-    margin: 0;
-    margin-bottom: 32px;
+    .word-wemake {
+        width: 100%;
+        max-width: 800px;
+    
+        margin: 0;
+        margin-bottom: 32px;
+    }
 }
 
-.word-business{
+.word-business, .word-somos {
     max-width: 700px;
 }
-
-.word-perrosladran {
-    max-width: 900px;
-}
-
-.word-compartinos {
+.word-perrosladran, .word-compartinos, .word-sabuesos {
     max-width: 900px;
 }

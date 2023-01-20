@@ -9,7 +9,7 @@ body {
     overflow-x: hidden;
 }
 
-.home-main, .contact-main {
+main {
 
     section {
         padding: 80px 24px;
@@ -43,3 +43,11 @@ body {
     }
 }
 
+//Culture Nosotros
+
+.culture-nosotros {
+
+    p {
+        max-width: 700px;
+    }
+}

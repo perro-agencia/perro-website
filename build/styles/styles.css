@@ -9284,19 +9284,28 @@ a {
     top: -500px;
     left: -800px; } }
 
-.word-wemake {
+@media screen and (min-width: 768px) {
+  .culture-header .blob {
+    width: 800px;
+    top: -50px;
+    right: -300px; } }
+
+@media screen and (min-width: 1024px) {
+  .culture-header .blob {
+    width: 1500px;
+    top: -100px;
+    right: -600px; } }
+
+.home-header .word-wemake {
   width: 100%;
   max-width: 800px;
   margin: 0;
   margin-bottom: 32px; }
 
-.word-business {
+.word-business, .word-somos {
   max-width: 700px; }
 
-.word-perrosladran {
-  max-width: 900px; }
-
-.word-compartinos {
+.word-perrosladran, .word-compartinos, .word-sabuesos {
   max-width: 900px; }
 
 .gif img {
@@ -9332,13 +9341,13 @@ body {
 .main-wrapper {
   overflow-x: hidden; }
 
-.home-main section, .contact-main section {
+main section {
   padding: 80px 24px;
   position: relative; }
   @media screen and (min-width: 768px) {
-    .home-main section, .contact-main section {
+    main section {
       padding: 120px 0; } }
-  .home-main section .containter, .contact-main section .containter {
+  main section .containter {
     position: relative; }
 
 #home-servicios p {
@@ -9348,28 +9357,32 @@ body {
 #home-business p {
   max-width: 700px; }
 
+.culture-nosotros p {
+  max-width: 700px; }
+
 header {
   position: relative;
-  z-index: 999; }
-
-.home-header {
+  z-index: 999;
   padding: 48px 24px; }
+
+@media screen and (min-width: 768px) {
+  .home-header {
+    padding: 48px; } }
+
+.home-header img {
+  width: 100%;
+  max-width: 200px; }
   @media screen and (min-width: 768px) {
-    .home-header {
-      padding: 48px; } }
-  .home-header img {
-    width: 100%;
-    max-width: 200px; }
-    @media screen and (min-width: 768px) {
-      .home-header img {
-        width: 80%;
-        max-width: 400px;
-        margin: auto; } }
-  .home-header .container .row .col-md-6 {
-    margin: 16px 0; }
-    @media screen and (min-width: 768px) {
-      .home-header .container .row .col-md-6 {
-        margin: 0; } }
+    .home-header img {
+      width: 80%;
+      max-width: 400px;
+      margin: auto; } }
+
+.home-header .container .row .col-md-6 {
+  margin: 16px 0; }
+  @media screen and (min-width: 768px) {
+    .home-header .container .row .col-md-6 {
+      margin: 0; } }
 
 footer {
   position: relative;
