@@ -138,3 +138,21 @@
 
     }
 }
+
+//Tyc
+.tyc-main {
+
+    .blob {
+        @media screen and (min-width: 768px) {
+            width: 800px;
+            top: 100px;
+            right: -300px;
+        }
+    
+        @media screen and (min-width: 1024px) {
+            width: 1500px;
+            right: -600px;
+        }
+
+    }
+}

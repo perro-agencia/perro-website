@@ -9296,6 +9296,17 @@ a {
     top: -100px;
     right: -600px; } }
 
+@media screen and (min-width: 768px) {
+  .tyc-main .blob {
+    width: 800px;
+    top: 100px;
+    right: -300px; } }
+
+@media screen and (min-width: 1024px) {
+  .tyc-main .blob {
+    width: 1500px;
+    right: -600px; } }
+
 .home-header .word-wemake {
   width: 100%;
   max-width: 800px;
@@ -9305,8 +9316,11 @@ a {
 .word-business, .word-somos {
   max-width: 700px; }
 
-.word-perrosladran, .word-compartinos, .word-sabuesos {
+.word-sabuesos {
   max-width: 900px; }
+
+.word-perrosladran, .word-compartinos {
+  max-width: 600px; }
 
 .gif img {
   width: 300px;
