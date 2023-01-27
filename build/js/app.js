@@ -10,6 +10,13 @@ document.querySelector('.perro-boton').onmousemove = (e) => {
 	
 }
 
+// Movimiento de botones
+var loader = document.getElementById("preloader");
+
+window.addEventListener("load", function() {
+  loader.style.display = "none";
+})
+
 // Movimiento de imagenes
 var VanillaTilt = (function () {
 'use strict';

@@ -9307,6 +9307,31 @@ a {
     width: 1500px;
     right: -600px; } }
 
+@media screen and (min-width: 768px) {
+  .success-wrapper .blob {
+    width: 800px;
+    top: 100px;
+    right: -400px; } }
+
+@media screen and (min-width: 1024px) {
+  .success-wrapper .blob {
+    width: 1500px;
+    top: 60px;
+    right: -800px; } }
+
+.success-wrapper .blob-1 {
+  position: absolute; }
+  @media screen and (min-width: 768px) {
+    .success-wrapper .blob-1 {
+      width: 600px;
+      top: -100px;
+      left: -200px; } }
+  @media screen and (min-width: 1024px) {
+    .success-wrapper .blob-1 {
+      width: 1200px;
+      top: -200px;
+      left: -500px; } }
+
 .home-header .word-wemake {
   width: 100%;
   max-width: 800px;
@@ -9316,10 +9341,13 @@ a {
 .word-business, .word-somos {
   max-width: 700px; }
 
+.word-perrosladran {
+  max-width: 900px; }
+
 .word-sabuesos {
   max-width: 900px; }
 
-.word-perrosladran, .word-compartinos {
+.word-compartinos {
   max-width: 600px; }
 
 .gif img {
@@ -9346,6 +9374,26 @@ a {
       width: 65px;
       top: 88vh;
       right: 40px; } }
+
+#preloader {
+  display: none;
+  height: 100vh;
+  width: 100vw;
+  padding: 0;
+  margin: 0;
+  background-color: #000000;
+  background-image: url("../assets/img/gif-blue.gif");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+  @media screen and (min-width: 768px) {
+    #preloader {
+      display: block;
+      position: relative;
+      z-index: 9999999; } }
 
 body {
   background-color: #000000;
