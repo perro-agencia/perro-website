@@ -44,3 +44,13 @@ a {
     background: linear-gradient(90deg, #6000FF 0%, #270067 100%) padding-box, radial-gradient(farthest-corner at var(--x) var(--y), #270067, #6000FF) border-box;
     box-shadow: 0px 0px 24px 6px rgba(94, 0, 250, 0.6);
 }
+
+
+// Links grandes
+.big-link {
+
+    text-decoration: none;
+    @extend .highlight-text;
+    @extend .color-light;
+    @extend .links;
+}

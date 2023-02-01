@@ -36,3 +36,22 @@ header {
         }
     }
 }
+
+//Culture header
+.culture-header {
+
+    .container {
+
+        .row {
+
+            .col-md-6 {
+                margin: 16px 0;
+
+            
+                @media screen and (min-width: 768px) {
+                    margin: 0;
+                }
+            }
+        }
+    }
+}

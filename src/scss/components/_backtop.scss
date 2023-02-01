@@ -4,15 +4,13 @@
     position: fixed;
     z-index: 99;
 
-    top: 88vh;
+    bottom: 64px;
     right: 40px;
     
     mix-blend-mode: difference;
 
     @media screen and (min-width: 768px) {
         width: 65px;
-
-        top: 88vh;
         right: 40px;
     }
 }

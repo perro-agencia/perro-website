@@ -1,16 +1,11 @@
 footer {
+    padding: 48px 24px;
+    
     position: relative;
     z-index: 9;
 }
 
 footer, .offcanvas-footer {
-
-    a {
-        text-decoration: none;
-        @extend .highlight-text;
-        @extend .color-light;
-        @extend .links;
-    }
     
     ul {
 

@@ -9070,10 +9070,10 @@ textarea.form-control-lg {
 .color-dark {
   color: #000000; }
 
-.color-light, footer a, .offcanvas-footer a, footer ul li, .offcanvas-footer ul li {
+.color-light, .big-link, footer ul li, .offcanvas-footer ul li {
   color: #ffffff; }
 
-.highlight-text, footer a, .offcanvas-footer a, footer ul li, .offcanvas-footer ul li {
+.highlight-text, .big-link, footer ul li, .offcanvas-footer ul li {
   font-family: 'Work Sans', sans-serif;
   font-weight: 600;
   font-size: 24px;
@@ -9181,9 +9181,9 @@ form {
     form .form-element textarea {
       margin-right: 8px; } }
 
-.links, footer a, .offcanvas-footer a {
+.links, .big-link {
   transition: .3s ease-in-out; }
-  .links:hover, footer a:hover, .offcanvas-footer a:hover {
+  .links:hover, .big-link:hover {
     color: #5E00FA; }
 
 a {
@@ -9210,6 +9210,9 @@ a {
 .perro-boton:hover {
   background: linear-gradient(90deg, #6000FF 0%, #270067 100%) padding-box, radial-gradient(farthest-corner at var(--x) var(--y), #270067, #6000FF) border-box;
   box-shadow: 0px 0px 24px 6px rgba(94, 0, 250, 0.6); }
+
+.big-link {
+  text-decoration: none; }
 
 .blob {
   position: absolute; }
@@ -9366,13 +9369,12 @@ a {
   transform: rotate(-90deg);
   position: fixed;
   z-index: 99;
-  top: 88vh;
+  bottom: 64px;
   right: 40px;
   mix-blend-mode: difference; }
   @media screen and (min-width: 768px) {
     .back-to-top {
       width: 65px;
-      top: 88vh;
       right: 40px; } }
 
 #preloader {
@@ -9385,7 +9387,7 @@ a {
   background-image: url("../assets/img/gif-blue.gif");
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 20%;
+  background-size: 50%;
   display: flex;
   align-items: center;
   justify-content: center; }
@@ -9393,7 +9395,8 @@ a {
     #preloader {
       display: block;
       position: relative;
-      z-index: 9999999; } }
+      z-index: 9999999;
+      background-size: 30%; } }
 
 body {
   background-color: #000000;
@@ -9404,7 +9407,7 @@ body {
   overflow-x: hidden; }
 
 main section {
-  padding: 80px 24px;
+  padding: 72px 24px;
   position: relative; }
   @media screen and (min-width: 768px) {
     main section {
@@ -9446,12 +9449,16 @@ header {
     .home-header .container .row .col-md-6 {
       margin: 0; } }
 
+.culture-header .container .row .col-md-6 {
+  margin: 16px 0; }
+  @media screen and (min-width: 768px) {
+    .culture-header .container .row .col-md-6 {
+      margin: 0; } }
+
 footer {
+  padding: 48px 24px;
   position: relative;
   z-index: 9; }
-
-footer a, .offcanvas-footer a {
-  text-decoration: none; }
 
 footer ul li, .offcanvas-footer ul li {
   list-style-type: none;
