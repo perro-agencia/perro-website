@@ -9350,7 +9350,7 @@ a {
 .word-sabuesos {
   max-width: 900px; }
 
-.word-compartinos {
+.word-compartinos, .word-confian {
   max-width: 600px; }
 
 .gif img {
@@ -9363,6 +9363,20 @@ a {
   @media screen and (min-width: 768px) {
     .gif img {
       display: block; } }
+
+.perro-animado {
+  display: none;
+  position: absolute;
+  bottom: -50px;
+  right: -80px;
+  z-index: 9999; }
+  @media screen and (min-width: 768px) {
+    .perro-animado {
+      display: block;
+      width: 200px; } }
+  @media screen and (min-width: 1024px) {
+    .perro-animado {
+      width: 250px; } }
 
 .back-to-top {
   width: 50px;

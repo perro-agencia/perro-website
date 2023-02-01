@@ -1,0 +1,18 @@
+// estilos para perros animados
+.perro-animado {
+    display: none;
+
+    position: absolute;
+    bottom: -50px;
+    right: -80px;
+    z-index: 9999;
+
+    @media screen and (min-width: 768px) {
+        display: block;
+        width: 200px;
+    }
+
+    @media screen and (min-width: 1024px) {
+        width: 250px;
+    }
+}
