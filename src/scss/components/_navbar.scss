@@ -65,3 +65,36 @@
         position: relative;
     }
 }
+
+//Words Hover
+@keyframes giro {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.offcanvas-navigation li {
+    position: relative;
+}
+
+.offcanvas-navigation li::after {
+    content: url("../assets/img/asterisco.svg");
+    width: 60px;
+    display: none;
+    position: absolute;
+    right: -90px;
+    top: 30px;
+
+    animation-name: giro;
+    animation-duration: 3s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.offcanvas-navigation li:hover::after {
+    display: inline-block;
+}

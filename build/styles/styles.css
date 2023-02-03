@@ -9138,6 +9138,30 @@ textarea.form-control-lg {
   .offcanvas .offcanvas-footer {
     position: relative; }
 
+@keyframes giro {
+  0% {
+    transform: rotate(0deg); }
+  100% {
+    transform: rotate(360deg); } }
+
+.offcanvas-navigation li {
+  position: relative; }
+
+.offcanvas-navigation li::after {
+  content: url("../assets/img/asterisco.svg");
+  width: 60px;
+  display: none;
+  position: absolute;
+  right: -90px;
+  top: 30px;
+  animation-name: giro;
+  animation-duration: 3s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite; }
+
+.offcanvas-navigation li:hover::after {
+  display: inline-block; }
+
 form {
   padding: 24px 0; }
   form .form-element {
@@ -9347,6 +9371,16 @@ a {
 .word-perrosladran {
   max-width: 900px; }
 
+@media screen and (min-width: 768px) {
+  .word-perrosladran-mobile {
+    display: none; } }
+
+.word-perrosladran-desktop {
+  display: none; }
+  @media screen and (min-width: 768px) {
+    .word-perrosladran-desktop {
+      display: inline-block; } }
+
 .word-sabuesos {
   max-width: 900px; }
 
@@ -9421,7 +9455,7 @@ body {
   overflow-x: hidden; }
 
 main section {
-  padding: 72px 24px;
+  padding: 48px 24px;
   position: relative; }
   @media screen and (min-width: 768px) {
     main section {

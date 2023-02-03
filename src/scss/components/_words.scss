@@ -15,8 +15,25 @@
     max-width: 700px;
 }
 
+//Word Perros Ladran
 .word-perrosladran {
     max-width: 900px;
+}
+
+.word-perrosladran-mobile {
+    
+    @media screen and (min-width: 768px) {
+        display: none;
+    }
+}
+
+.word-perrosladran-desktop {
+    display: none;
+    
+    @media screen and (min-width: 768px) {
+
+        display: inline-block;
+    }
 }
 
 .word-sabuesos {
