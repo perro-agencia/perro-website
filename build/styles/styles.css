@@ -9366,7 +9366,9 @@ a {
   margin-bottom: 32px; }
 
 .word-business, .word-somos {
-  max-width: 700px; }
+  max-width: 700px;
+  position: relative;
+  z-index: 999; }
 
 .word-perrosladran {
   max-width: 900px; }
@@ -9398,12 +9400,15 @@ a {
     .gif img {
       display: block; } }
 
+.culture-main .gif img {
+  top: 0; }
+
 .perro-animado {
   display: none;
   position: absolute;
   bottom: -50px;
   right: -80px;
-  z-index: 9999; }
+  z-index: 99; }
   @media screen and (min-width: 768px) {
     .perro-animado {
       display: block;
@@ -9411,6 +9416,18 @@ a {
   @media screen and (min-width: 1024px) {
     .perro-animado {
       width: 250px; } }
+
+@media screen and (min-width: 768px) {
+  #culture-clientes .perro-animado {
+    top: 0;
+    right: -50px;
+    width: 300px; } }
+
+@media screen and (min-width: 1440px) {
+  #culture-clientes .perro-animado {
+    top: -100px;
+    right: -50px;
+    width: 350px; } }
 
 .back-to-top {
   width: 50px;
@@ -9459,7 +9476,7 @@ main section {
   position: relative; }
   @media screen and (min-width: 768px) {
     main section {
-      padding: 80px 0; } }
+      padding: 96px 0; } }
   main section .containter {
     position: relative; }
 
@@ -9470,26 +9487,23 @@ main section {
 #home-business p {
   max-width: 700px; }
 
-#home-clientes .clientes img {
+#home-clientes .clientes img, #culture-clientes .clientes img {
   width: 130px;
   margin: 8px; }
   @media screen and (min-width: 768px) {
-    #home-clientes .clientes img {
+    #home-clientes .clientes img, #culture-clientes .clientes img {
       width: 100px;
       margin: 0; } }
   @media screen and (min-width: 1024px) {
-    #home-clientes .clientes img {
+    #home-clientes .clientes img, #culture-clientes .clientes img {
       width: 150px;
       margin: 0; } }
   @media screen and (min-width: 1440px) {
-    #home-clientes .clientes img {
+    #home-clientes .clientes img, #culture-clientes .clientes img {
       width: 200px; } }
 
-#home-clientes .clientes .onfire {
+#home-clientes .clientes .onfire, #culture-clientes .clientes .onfire {
   width: 80px; }
-  @media screen and (min-width: 1024px) {
-    #home-clientes .clientes .onfire {
-      width: 120px; } }
 
 .culture-nosotros p {
   max-width: 700px; }
