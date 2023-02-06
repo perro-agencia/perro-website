@@ -9365,7 +9365,7 @@ a {
   margin: 0;
   margin-bottom: 32px; }
 
-.word-business, .word-somos {
+.word-business, .word-crew {
   max-width: 700px;
   position: relative;
   z-index: 999; }
@@ -9449,7 +9449,7 @@ a {
   padding: 0;
   margin: 0;
   background-color: #000000;
-  background-image: url("../assets/img/gif-blue.gif");
+  background-image: url("../assets/img/worldLoader.gif");
   background-position: center;
   background-repeat: no-repeat;
   background-size: 50%;
