@@ -9459,7 +9459,7 @@ main section {
   position: relative; }
   @media screen and (min-width: 768px) {
     main section {
-      padding: 120px 0; } }
+      padding: 80px 0; } }
   main section .containter {
     position: relative; }
 
@@ -9469,6 +9469,27 @@ main section {
 
 #home-business p {
   max-width: 700px; }
+
+#home-clientes .clientes img {
+  width: 130px;
+  margin: 8px; }
+  @media screen and (min-width: 768px) {
+    #home-clientes .clientes img {
+      width: 100px;
+      margin: 0; } }
+  @media screen and (min-width: 1024px) {
+    #home-clientes .clientes img {
+      width: 150px;
+      margin: 0; } }
+  @media screen and (min-width: 1440px) {
+    #home-clientes .clientes img {
+      width: 200px; } }
+
+#home-clientes .clientes .onfire {
+  width: 80px; }
+  @media screen and (min-width: 1024px) {
+    #home-clientes .clientes .onfire {
+      width: 120px; } }
 
 .culture-nosotros p {
   max-width: 700px; }
