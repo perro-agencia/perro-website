@@ -9080,13 +9080,13 @@ textarea.form-control-lg {
   line-height: 120%;
   text-transform: uppercase; }
 
-.body-small {
+.body-small, #home-servicios .lista-servicios .servicio .servicio-description {
   font-family: 'Work Sans', sans-serif;
   font-weight: 300;
   font-size: 16px;
   line-height: 24px; }
 
-.overline {
+.overline, #home-servicios .lista-servicios .servicio h4, #home-servicios .lista-servicios .servicio .h4 {
   font-family: 'Work Sans', sans-serif;
   font-weight: 300;
   font-size: 20px;
@@ -9232,7 +9232,7 @@ a {
   transition: .2s all ease-in-out; }
 
 .perro-boton:hover {
-  background: linear-gradient(90deg, #6000FF 0%, #270067 100%) padding-box, radial-gradient(farthest-corner at var(--x) var(--y), #270067, #6000FF) border-box;
+  background: linear-gradient(90deg, #6000FF 0%, #270067 100%) padding-box, radial-gradient(farthest-corner at var(--x) var(--y), #6000FF, #270067) border-box;
   box-shadow: 0px 0px 24px 6px rgba(94, 0, 250, 0.6); }
 
 .big-link {
@@ -9483,6 +9483,41 @@ main section {
 #home-servicios p {
   position: relative;
   z-index: 9; }
+
+#home-servicios .lista-servicios {
+  margin: 16px 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  flex-wrap: wrap; }
+  #home-servicios .lista-servicios .servicio {
+    position: relative;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    color: #ffffff;
+    border: solid 3px transparent;
+    padding: 16px;
+    width: 250px;
+    height: 161px;
+    overflow-y: hidden;
+    transition: .3s ease-in; }
+    #home-servicios .lista-servicios .servicio img {
+      height: 100px;
+      position: relative; }
+    #home-servicios .lista-servicios .servicio h4, #home-servicios .lista-servicios .servicio .h4 {
+      margin-top: 16px; }
+    #home-servicios .lista-servicios .servicio .servicio-description {
+      transition: .3s ease-in-out; }
+
+#home-servicios .servicio:hover {
+  border: solid 3px #5E00FA;
+  border-radius: 8px;
+  height: auto;
+  width: 300px;
+  overflow-y: auto; }
 
 #home-business p {
   max-width: 700px; }
