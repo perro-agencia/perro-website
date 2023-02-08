@@ -57,7 +57,7 @@ main {
             height: 161px;
             overflow-y: hidden;
 
-            transition: .3s ease-in;
+            transition: .5s ease-in-out;
     
             img {
                 height: 100px;
@@ -71,7 +71,6 @@ main {
     
             .servicio-description {
                 @extend .body-small;
-                transition: .3s ease-in-out;
             }
         }
     }
@@ -80,9 +79,9 @@ main {
         border: solid 3px $primary;
         border-radius: 8px;
 
-        height: auto;
+        height: 300px;
         width: 300px;
-        overflow-y: auto;
+        overflow-y: visible;
     }
 }
 

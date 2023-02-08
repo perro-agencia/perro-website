@@ -9503,21 +9503,19 @@ main section {
     width: 250px;
     height: 161px;
     overflow-y: hidden;
-    transition: .3s ease-in; }
+    transition: .5s ease-in-out; }
     #home-servicios .lista-servicios .servicio img {
       height: 100px;
       position: relative; }
     #home-servicios .lista-servicios .servicio h4, #home-servicios .lista-servicios .servicio .h4 {
       margin-top: 16px; }
-    #home-servicios .lista-servicios .servicio .servicio-description {
-      transition: .3s ease-in-out; }
 
 #home-servicios .servicio:hover {
   border: solid 3px #5E00FA;
   border-radius: 8px;
-  height: auto;
+  height: 300px;
   width: 300px;
-  overflow-y: auto; }
+  overflow-y: visible; }
 
 #home-business p {
   max-width: 700px; }
