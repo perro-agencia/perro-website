@@ -36,10 +36,13 @@ main {
 
     .lista-servicios {
         margin: 16px 0;
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-evenly;
-        flex-wrap: wrap;
+
+        .servicio-wrap {
+            position: relative;
+            background: linear-gradient(to right, #270067, #6000FF);
+            padding: 3px;
+            border-radius: 8px;
+        }
 
         .servicio {
             position: relative;
@@ -51,16 +54,28 @@ main {
             justify-content: flex-start;
     
             color: $light;
-            border: solid 3px transparent;
             padding: 16px;
-            width: 250px;
-            height: 161px;
-            overflow-y: hidden;
+            width: 80%;
+            height: 350px;
 
+            border-radius: 8px;
+            background-color: black;
             transition: .5s ease-in-out;
+
+            &:hover {
+                background: linear-gradient(to right, #270067, #6000FF);
+            }
+
+            @media screen and (min-width: 768px) {
+                width: 250px;
+            }
+
+            @media screen and (min-width: 1440px) {
+                width: 230px;
+            }
     
             img {
-                height: 100px;
+                height: 80px;
                 position: relative;
             }
     
@@ -74,17 +89,7 @@ main {
             }
         }
     }
-
-    .servicio:hover {
-        border: solid 3px $primary;
-        border-radius: 8px;
-
-        height: 300px;
-        width: 300px;
-        overflow-y: visible;
-    }
 }
-
 //Business section
 #home-business {
 

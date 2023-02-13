@@ -9485,11 +9485,12 @@ main section {
   z-index: 9; }
 
 #home-servicios .lista-servicios {
-  margin: 16px 0;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-evenly;
-  flex-wrap: wrap; }
+  margin: 16px 0; }
+  #home-servicios .lista-servicios .servicio-wrap {
+    position: relative;
+    background: linear-gradient(to right, #270067, #6000FF);
+    padding: 3px;
+    border-radius: 8px; }
   #home-servicios .lista-servicios .servicio {
     position: relative;
     z-index: 9999;
@@ -9498,24 +9499,25 @@ main section {
     align-items: flex-start;
     justify-content: flex-start;
     color: #ffffff;
-    border: solid 3px transparent;
     padding: 16px;
-    width: 250px;
-    height: 161px;
-    overflow-y: hidden;
+    width: 80%;
+    height: 350px;
+    border-radius: 8px;
+    background-color: black;
     transition: .5s ease-in-out; }
+    #home-servicios .lista-servicios .servicio:hover {
+      background: linear-gradient(to right, #270067, #6000FF); }
+    @media screen and (min-width: 768px) {
+      #home-servicios .lista-servicios .servicio {
+        width: 250px; } }
+    @media screen and (min-width: 1440px) {
+      #home-servicios .lista-servicios .servicio {
+        width: 230px; } }
     #home-servicios .lista-servicios .servicio img {
-      height: 100px;
+      height: 80px;
       position: relative; }
     #home-servicios .lista-servicios .servicio h4, #home-servicios .lista-servicios .servicio .h4 {
       margin-top: 16px; }
-
-#home-servicios .servicio:hover {
-  border: solid 3px #5E00FA;
-  border-radius: 8px;
-  height: 300px;
-  width: 300px;
-  overflow-y: visible; }
 
 #home-business p {
   max-width: 700px; }
