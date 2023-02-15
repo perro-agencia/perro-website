@@ -9482,7 +9482,7 @@ main section {
 
 #home-servicios p {
   position: relative;
-  z-index: 9; }
+  z-index: 1; }
 
 #home-servicios .lista-servicios {
   margin: 16px 0; }
@@ -9490,18 +9490,22 @@ main section {
     position: relative;
     background: linear-gradient(to right, #270067, #6000FF);
     padding: 3px;
-    border-radius: 8px; }
+    border-radius: 8px;
+    margin: 16px 0; }
+    @media screen and (min-width: 1440px) {
+      #home-servicios .lista-servicios .servicio-wrap {
+        margin: 0; } }
   #home-servicios .lista-servicios .servicio {
     position: relative;
-    z-index: 9999;
+    z-index: 1;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     justify-content: flex-start;
     color: #ffffff;
+    height: 300px;
     padding: 16px;
-    width: 80%;
-    height: 350px;
+    text-align: center;
     border-radius: 8px;
     background-color: black;
     transition: .5s ease-in-out; }
@@ -9509,7 +9513,8 @@ main section {
       background: linear-gradient(to right, #270067, #6000FF); }
     @media screen and (min-width: 768px) {
       #home-servicios .lista-servicios .servicio {
-        width: 250px; } }
+        width: 250px;
+        height: 350px; } }
     @media screen and (min-width: 1440px) {
       #home-servicios .lista-servicios .servicio {
         width: 230px; } }
@@ -9517,6 +9522,7 @@ main section {
       height: 80px;
       position: relative; }
     #home-servicios .lista-servicios .servicio h4, #home-servicios .lista-servicios .servicio .h4 {
+      font-weight: 700;
       margin-top: 16px; }
 
 #home-business p {
