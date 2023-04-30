@@ -9135,6 +9135,8 @@ textarea.form-control-lg {
       @media screen and (min-width: 1024px) {
         .offcanvas .offcanvas-body img {
           max-height: 80px; } }
+    .offcanvas .offcanvas-body .link-portfolio {
+      opacity: 0.3; }
   .offcanvas .offcanvas-footer {
     position: relative; }
 
