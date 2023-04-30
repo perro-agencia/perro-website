@@ -1,0 +1,28 @@
+// Preloader styles
+
+#preloader {
+    display: none;
+    height: 100vh;
+    width: 100vw;
+    padding: 0;
+    margin: 0;
+
+    background-color: $dark;
+    background-image: url("../assets/img/worldLoader.gif");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @media screen and (min-width: 768px) {
+        display: block;
+        position: relative;
+        z-index: 9999999;
+
+        background-size: 30%;
+
+    }
+}

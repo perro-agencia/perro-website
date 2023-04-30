@@ -1,0 +1,34 @@
+// estilos para perros animados
+.perro-animado {
+    display: none;
+
+    position: absolute;
+    bottom: -50px;
+    right: -80px;
+    z-index: 99;
+
+    @media screen and (min-width: 768px) {
+        display: block;
+        width: 200px;
+    }
+
+    @media screen and (min-width: 1024px) {
+        width: 250px;
+    }
+}
+
+#culture-clientes .perro-animado{
+    
+
+    @media screen and (min-width: 768px) {
+        top: 0;
+        right: -50px;
+        width: 300px;
+    }
+
+    @media screen and (min-width: 1440px) {
+        top: -100px;
+        right: -50px;
+        width: 350px;
+    }
+}

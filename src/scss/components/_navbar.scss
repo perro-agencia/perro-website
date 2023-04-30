@@ -1,0 +1,100 @@
+.navbar {
+    padding: 16px 24px;
+    position: relative;
+    z-index: 9999;
+
+    @media screen and (min-width: 768px) {
+        padding: 24px 48px;
+    }
+}
+
+.perro-isologotype {
+    width: 120px;
+
+    @media screen and (min-width: 768px) {
+        width: 160px;
+    }
+}
+
+.offcanvas {
+    background-color: $dark;
+    padding: 16px 24px;
+    z-index: 9999999;
+
+    @media screen and (min-width: 768px) {
+        padding: 24px 48px;
+    }
+
+    .offcanvas-header {
+        height: 40px;
+        position: relative;
+    }
+    
+    .offcanvas-body {
+        position: relative;
+
+        @media screen and (min-width: 1024px) {
+            padding: 10% 0;
+        }
+
+        .offcanvas-navigation {
+
+            ul {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+            }
+        }
+
+        img {
+            height: 100%;
+            max-height: 25px;
+            margin: 24px 0;
+
+            @media screen and (min-width: 768px) {
+                max-height: 50px;
+            }
+
+            @media screen and (min-width: 1024px) {
+                max-height: 80px;
+            }
+        }
+    }
+
+    .offcanvas-footer {
+        position: relative;
+    }
+}
+
+//Words Hover
+@keyframes giro {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.offcanvas-navigation li {
+    position: relative;
+}
+
+.offcanvas-navigation li::after {
+    content: url("../assets/img/asterisco.svg");
+    width: 60px;
+    display: none;
+    position: absolute;
+    right: -90px;
+    top: 30px;
+
+    animation-name: giro;
+    animation-duration: 3s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.offcanvas-navigation li:hover::after {
+    display: inline-block;
+}

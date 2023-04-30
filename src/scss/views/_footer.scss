@@ -1,0 +1,26 @@
+footer {
+    padding: 48px 24px;
+    
+    position: relative;
+    z-index: 9;
+}
+
+footer, .offcanvas-footer {
+    
+    ul {
+
+        li {
+            list-style-type: none;
+            display: inline-block;
+            @extend .color-light;
+            @extend .highlight-text;
+        }
+    }
+
+    .legal {
+
+        p {
+            max-width: 600px;
+        }
+    }
+}

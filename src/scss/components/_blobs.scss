@@ -1,0 +1,195 @@
+//Estilos generales de las blobs
+.blob {
+    position:absolute;
+}
+
+.blob-back, .blob-front  {
+    display: none;
+    filter: blur(100px);
+
+    @media screen and (min-width: 768px) {
+        display: block;
+        width: 1200px;
+    }
+
+    @media screen and (min-width: 1024px) {
+        width: 2000px;
+    }
+}
+
+// Estilos offcanvas blobs
+.offcanvas {
+
+    .blob {
+
+        @media screen and (min-width: 768px) {
+            bottom: -250px;
+            right: -550px;
+        }
+    
+        @media screen and (min-width: 1024px) {
+            bottom: -500px;
+            right: -700px;
+        }
+    }
+}
+
+// Estilos header blob
+.home-header {
+
+    .blob {
+
+        @media screen and (min-width: 768px) {
+            top: -50px;
+            left: -550px;
+        }
+    
+        @media screen and (min-width: 1024px) {
+            top: -500px;
+            left: -1000px;
+        }
+    }
+}
+
+// Estilos main blobs
+.home-main {
+
+    .blob-back, .blob-front  {
+    
+        @media screen and (min-width: 768px) {
+            display: block;
+            width: 800px;
+        }
+    
+        @media screen and (min-width: 1024px) {
+            width: 1500px;
+        }
+    }
+
+    #home-servicios {
+
+        .blob {
+
+            @media screen and (min-width: 768px) {
+                top: -50px;
+                right: -500px;
+            }
+        
+            @media screen and (min-width: 1024px) {
+                top: -150px;
+                right: -800px;
+            }
+        }
+    }
+
+    #home-business {
+
+        .blob {
+
+            @media screen and (min-width: 768px) {
+                top: -50px;
+                left: -500px;
+            }
+        
+            @media screen and (min-width: 1024px) {
+                top: -150px;
+                left: -800px;
+            }
+        }
+    }
+}
+
+// Estilos pagina contact blobs
+.contact-main {
+
+    #contact {
+        
+        .blob {
+            @media screen and (min-width: 768px) {
+                top: -50px;
+                left: -500px;
+            }
+        
+            @media screen and (min-width: 1024px) {
+                top: -500px;
+                left: -800px;
+            }
+
+        }
+        
+    }
+}
+
+// Estilos contact blobs
+.culture-header {
+
+    .blob {
+        @media screen and (min-width: 768px) {
+            width: 800px;
+            top: -50px;
+            right: -300px;
+        }
+    
+        @media screen and (min-width: 1024px) {
+            width: 1500px;
+            top: -100px;
+            right: -600px;
+        }
+
+    }
+}
+
+//Tyc
+.tyc-main {
+
+    .blob {
+        @media screen and (min-width: 768px) {
+            width: 800px;
+            top: 100px;
+            right: -300px;
+        }
+    
+        @media screen and (min-width: 1024px) {
+            width: 1500px;
+            right: -600px;
+        }
+
+    }
+}
+
+// Succes
+
+.success-wrapper {
+
+    .blob {
+        @media screen and (min-width: 768px) {
+            width: 800px;
+            top: 100px;
+            right: -400px;
+        }
+    
+        @media screen and (min-width: 1024px) {
+            width: 1500px;
+            top: 60px;
+            right: -800px;
+        }
+
+    }
+
+    .blob-1 {
+        position:absolute;
+
+        @media screen and (min-width: 768px) {
+            width: 600px;
+            top: -100px;
+            left: -200px;
+        }
+    
+        @media screen and (min-width: 1024px) {
+            width: 1200px;
+            top: -200px;
+            left: -500px;
+        }
+
+    }
+}
