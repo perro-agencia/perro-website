@@ -77,7 +77,7 @@
     }
 }
 
-.offcanvas-navigation .link-portfolio::after {
+.offcanvas-navigation .link-disabled::after {
     display: none;
 }
 
@@ -99,7 +99,7 @@
     display: inline-block;
 }
 
-.offcanvas-navigation .link-portfolio:hover::after {
+.offcanvas-navigation .link-disabled:hover::after {
     content: 'Coming soon';
     animation-name: none;
     width: auto;

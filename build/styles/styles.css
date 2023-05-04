@@ -9144,7 +9144,7 @@ textarea.form-control-lg {
   100% {
     transform: rotate(360deg); } }
 
-.offcanvas-navigation .link-portfolio::after {
+.offcanvas-navigation .link-disabled::after {
   display: none; }
 
 .offcanvas-navigation li::after {
@@ -9162,7 +9162,7 @@ textarea.form-control-lg {
 .offcanvas-navigation li:hover::after {
   display: inline-block; }
 
-.offcanvas-navigation .link-portfolio:hover::after {
+.offcanvas-navigation .link-disabled:hover::after {
   content: 'Coming soon';
   animation-name: none;
   width: auto;
