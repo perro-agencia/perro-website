@@ -59,10 +59,6 @@
                 max-height: 80px;
             }
         }
-
-        .link-portfolio {
-            opacity: 0.3;
-        }
     }
 
     .offcanvas-footer {
@@ -81,8 +77,8 @@
     }
 }
 
-.offcanvas-navigation li {
-    position: relative;
+.offcanvas-navigation .link-portfolio::after {
+    display: none;
 }
 
 .offcanvas-navigation li::after {
@@ -101,4 +97,20 @@
 
 .offcanvas-navigation li:hover::after {
     display: inline-block;
+}
+
+.offcanvas-navigation .link-portfolio:hover::after {
+    content: 'Coming soon';
+    animation-name: none;
+    width: auto;
+    right: -90px;
+    top: 0;
+    color: #fff;
+    background-color: #000;
+    padding: 4px 16px;
+    border-radius: 48px;
+}
+
+.offcanvas-navigation li {
+    position: relative;
 }
