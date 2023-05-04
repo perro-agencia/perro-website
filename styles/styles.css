@@ -9144,8 +9144,8 @@ textarea.form-control-lg {
   100% {
     transform: rotate(360deg); } }
 
-.offcanvas-navigation li {
-  position: relative; }
+.offcanvas-navigation .link-disabled::after {
+  display: none; }
 
 .offcanvas-navigation li::after {
   content: url("../assets/img/asterisco.svg");
@@ -9161,6 +9161,20 @@ textarea.form-control-lg {
 
 .offcanvas-navigation li:hover::after {
   display: inline-block; }
+
+.offcanvas-navigation .link-disabled:hover::after {
+  content: 'Coming soon';
+  animation-name: none;
+  width: auto;
+  right: -90px;
+  top: 0;
+  color: #fff;
+  background-color: #000;
+  padding: 4px 16px;
+  border-radius: 48px; }
+
+.offcanvas-navigation li {
+  position: relative; }
 
 form {
   padding: 24px 0; }
