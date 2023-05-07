@@ -9551,11 +9551,8 @@ main section {
       margin: 0; } }
   @media screen and (min-width: 1024px) {
     #home-clientes .clientes img, #culture-clientes .clientes img {
-      width: 150px;
+      width: 120px;
       margin: 0; } }
-  @media screen and (min-width: 1440px) {
-    #home-clientes .clientes img, #culture-clientes .clientes img {
-      width: 200px; } }
 
 #home-clientes .clientes .onfire, #culture-clientes .clientes .onfire {
   width: 80px; }
