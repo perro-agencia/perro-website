@@ -9601,3 +9601,6 @@ footer ul li, .offcanvas-footer ul li {
 
 footer .legal p, .offcanvas-footer .legal p {
   max-width: 600px; }
+
+div {
+  background-color: red; }
