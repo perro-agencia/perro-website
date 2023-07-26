@@ -9144,37 +9144,34 @@ textarea.form-control-lg {
   100% {
     transform: rotate(360deg); } }
 
-.offcanvas-navigation .link-disabled::after {
-  display: none; }
-
-.offcanvas-navigation li::after {
-  content: url("../assets/img/asterisco.svg");
-  width: 60px;
-  display: none;
-  position: absolute;
-  right: -90px;
-  top: 30px;
-  animation-name: giro;
-  animation-duration: 3s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite; }
-
-.offcanvas-navigation li:hover::after {
-  display: inline-block; }
-
-.offcanvas-navigation .link-disabled:hover::after {
-  content: 'Coming soon';
-  animation-name: none;
-  width: auto;
-  right: -90px;
-  top: 0;
-  color: #fff;
-  background-color: #000;
-  padding: 4px 16px;
-  border-radius: 48px; }
-
-.offcanvas-navigation li {
-  position: relative; }
+@media screen and (min-width: 1024px) {
+  .offcanvas-navigation .link-disabled::after {
+    display: none; }
+  .offcanvas-navigation li::after {
+    content: url("../assets/img/asterisco.svg");
+    width: 60px;
+    display: none;
+    position: absolute;
+    right: -90px;
+    top: 30px;
+    animation-name: giro;
+    animation-duration: 3s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite; }
+  .offcanvas-navigation li:hover::after {
+    display: inline-block; }
+  .offcanvas-navigation .link-disabled:hover::after {
+    content: 'Coming soon';
+    animation-name: none;
+    width: auto;
+    right: -90px;
+    top: 0;
+    color: #fff;
+    background-color: #000;
+    padding: 4px 16px;
+    border-radius: 48px; }
+  .offcanvas-navigation li {
+    position: relative; } }
 
 form {
   padding: 24px 0; }
@@ -9547,12 +9544,12 @@ main section {
   margin: 8px; }
   @media screen and (min-width: 768px) {
     #home-clientes .clientes img, #culture-clientes .clientes img {
-      width: 100px;
-      margin: 0; } }
-  @media screen and (min-width: 1440px) {
-    #home-clientes .clientes img, #culture-clientes .clientes img {
       width: 120px;
-      margin: 0; } }
+      margin: 0 0 16px 0; } }
+  @media screen and (min-width: 1024px) {
+    #home-clientes .clientes img, #culture-clientes .clientes img {
+      width: 150px;
+      margin: 0 0 16px 0; } }
 
 #home-clientes .clientes .onfire, #culture-clientes .clientes .onfire {
   width: 80px; }
