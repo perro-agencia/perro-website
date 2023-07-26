@@ -9544,12 +9544,12 @@ main section {
   margin: 8px; }
   @media screen and (min-width: 768px) {
     #home-clientes .clientes img, #culture-clientes .clientes img {
-      width: 100px;
-      margin: 0; } }
+      width: 120px;
+      margin: 0 0 16px 0; } }
   @media screen and (min-width: 1024px) {
     #home-clientes .clientes img, #culture-clientes .clientes img {
-      width: 120px;
-      margin: 0; } }
+      width: 150px;
+      margin: 0 0 16px 0; } }
 
 #home-clientes .clientes .onfire, #culture-clientes .clientes .onfire {
   width: 80px; }

@@ -115,13 +115,13 @@ main {
             margin: 8px;
 
             @media screen and (min-width: 768px) {
-                width: 100px;
-                margin: 0;
+                width: 120px;
+                margin: 0 0 16px 0;
             }
 
             @media screen and (min-width: 1024px) {
-                width: 120px;
-                margin: 0;
+                width: 150px;
+                margin: 0 0 16px 0;
             }
         }
 
