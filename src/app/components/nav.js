@@ -6,6 +6,12 @@ const links = [{
 }, {
   label: 'Cultura',
   route: '/cultura'
+}, {
+  label: 'Portfolio',
+  route: '/portfolio'
+}, {
+  label: 'Contacto',
+  route: '/contacto'
 }]
 
 export default function Nav() {
