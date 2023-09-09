@@ -1,4 +1,5 @@
-import './globals.css'
+import './globals.scss'
+import './styles/styles.scss'
 import { Inter } from 'next/font/google'
 import Nav from './components/nav'
 

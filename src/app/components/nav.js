@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import perroIsologo from '../../../public/perroIsologo.svg'
-import styles from './nav.modules.css'
 
 const links = [{
   label: 'Home',
