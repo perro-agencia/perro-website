@@ -1,0 +1,28 @@
+ul {
+  list-style-type: none;
+}
+
+nav {
+  height: 100vh;
+  width: 100vw;
+
+  padding: 32px 48px;
+
+  display: flex;
+  flex-direction: column;
+  background-color: red;
+}
+
+.navHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navBody {
+  flex-grow: 1;
+}
+
+.navFooter ul {
+  display: flex;
+}
