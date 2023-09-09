@@ -1,17 +1,7 @@
 import './globals.scss'
 import './styles/styles.scss'
-import { Inter } from 'next/font/google'
+import { font } from './font.js'
 import Nav from './components/nav'
-
-const inter = Inter({ subsets: ['latin'] })
-
-const links = [{
-  label: 'Home',
-  route: '/'
-}, {
-  label: 'Cultura',
-  route: '/cultura'
-}]
 
 export const metadata = {
   title: 'Perro Agency',
@@ -21,7 +11,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={font.className}>
         <Nav />
         {children}
       </body>
