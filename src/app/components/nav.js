@@ -49,15 +49,29 @@ export default function Nav() {
         
         <ul>
           <li>
+            <Link href='https://www.instagram.com/perroagency/'  target="_blank" rel="noopener noreferrer">
               instagram
+            </Link>
           </li>
-          -
+
           <li>
-            twitter
+            -
           </li>
-          -
+
           <li>
-            linkedin
+            <Link href='https://www.instagram.com/perroagency/'  target="_blank" rel="noopener noreferrer">
+              twitter
+            </Link>
+          </li>
+
+          <li>
+            -
+          </li>
+          
+          <li>
+            <Link href='https://www.linkedin.com/company/perroagency' target="_blank" rel="noopener noreferrer">
+              linkedin
+            </Link>
           </li>
         </ul>
       </div>

@@ -1,16 +1,15 @@
-ul {
-  list-style-type: none;
-}
-
 nav {
   height: 100vh;
   width: 100vw;
 
-  padding: 32px 48px;
+  padding-top: $spacing * 4;
+  padding-bottom: $spacing * 4;
+  padding-left: $spacing * 5;
+  padding-right: $spacing * 5;
 
   display: flex;
   flex-direction: column;
-  background-color: red;
+  background-color: $primary-main;
 }
 
 .navHeader {
@@ -21,8 +20,25 @@ nav {
 
 .navBody {
   flex-grow: 1;
+
+  padding-top: $spacing * 3;
+  padding-bottom: $spacing * 3;
 }
 
-.navFooter ul {
-  display: flex;
+.navFooter {
+  p {
+    @include overline;
+  }
+
+  ul {
+    display: flex;
+
+    @include h4;
+    text-transform: uppercase;
+
+    & > li:not(:first-child) {
+      margin-left: $spacing * 2;
+    }
+  }
 }
+

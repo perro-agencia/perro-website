@@ -1,0 +1,33 @@
+// Branding colors
+// Primary
+$primary-main: #5E00FA;
+$primary-dark: #17003F;
+$primary-light: #EBDFFF;
+
+// Secondary
+$secondary-main: #F08200;
+$secondary-dark: #3C2100;
+$secondary-light: #FFE0BC;
+
+// Accent
+$accent-main: #B6FC33;
+$accent-dark: #192501;
+$accent-light: #EDFECC;
+
+// Text
+$text-primary: #111111;
+$text-secondary: #5A5A5A;
+$text-hint: #BABABA;
+
+// Gradients
+$primaryGradient-vertical: linear-gradient(180deg, #5E00FA 0%, #17003F 100%);
+$primaryGradient-horizontal: linear-gradient(90deg, #5E00FA 0.4%, #17003F 100%);
+$secondaryGradient-vertical: linear-gradient(180deg, #F08200 0%, #3C2100 100%);
+$secondaryGradient-horizontal: linear-gradient(90deg, #F08200 0.4%, #3C2100 100%);
+
+// Others
+$black: #000000;
+$white: #ffffff;
+
+// Spacing
+$spacing: 8px;
