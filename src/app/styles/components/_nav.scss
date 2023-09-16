@@ -28,6 +28,7 @@ nav {
 .navFooter {
   p {
     @include overline;
+    margin-bottom: $spacing;
   }
 
   ul {

@@ -1,6 +1,7 @@
 import './styles/styles.scss'
 import { font } from './font.js'
 import Nav from './components/nav'
+import Footer from './components/footer'
 
 export const metadata = {
   title: 'Perro Agency',
@@ -13,6 +14,7 @@ export default function RootLayout({ children }) {
       <body className={font.className}>
         <Nav />
         {children}
+        <Footer />
       </body>
     </html>
   )
