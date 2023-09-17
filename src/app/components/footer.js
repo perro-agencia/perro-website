@@ -42,12 +42,10 @@ export default function Footer() {
           <p>
             buscanos en:
           </p>
-
-          <h6>
-            <Link href='mailto:queonda@perroagency.com' target="_blank" rel="noopener noreferrer">
-              queonda@perroagency.com
-            </Link>
-          </h6>
+          
+          <Link href='mailto:queonda@perroagency.com' target="_blank" rel="noopener noreferrer">
+            queonda@perroagency.com
+          </Link>
         </div>
 
         <div>
