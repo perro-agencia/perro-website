@@ -1,7 +1,19 @@
 export default function ContactPage() {
+
   return (
-    <h1>
-      Esta es mi pagina Contacto
-    </h1>
+    <div className='contactBody'>
+      <div>
+      </div>
+
+      <div>
+        <h2>
+          contannos tus ideeas
+        </h2>
+
+        <p>
+          Ponete en contacto con nosotros y preparate para que llevemos tus ideas al siguiente nivel.
+        </p>
+      </div>
+    </div>
   )
 }

@@ -2,7 +2,7 @@ export default function TermsConditionsPage() {
   return (
     <div className='termsBody'>
       <h2>
-        Términos y <br /> Condiciones
+        Términos y <br />Condiciones
       </h2>
 
       <p>POLÍTICA DE PRIVACIDAD <br /><br />
