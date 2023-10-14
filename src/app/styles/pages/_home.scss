@@ -47,4 +47,65 @@
       }
     }
   }
+
+  main {
+
+    .homeServices {
+      color: $white;
+      padding-top: $spacing * 10;
+      padding-bottom: $spacing * 10;
+
+      .serviceTitle {
+        text-align: center;
+        margin-bottom: $spacing * 6;
+
+        p {
+          @include overline;
+          margin-bottom: $spacing;
+        }
+
+        h3 {
+          @include h2;
+          text-transform: uppercase;
+
+          span {
+            letter-spacing: -30px;
+          }
+        }
+      }
+
+      .serviceBody {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+
+        .service {
+          flex-direction: column;
+          text-align: left;
+          width: 100%;
+
+          @media screen and (min-width: "768px") {
+            width: 20%;
+          }
+
+          img {
+            margin-bottom: $spacing * 2;
+          }
+
+          div {
+            flex-direction: column;
+            
+            h4 {
+              @include subtitle2;
+              margin-bottom: $spacing;
+            }
+
+            p {
+              @include bodyNormal;
+            }
+          }
+        }
+      }
+    }
+  }
 }
