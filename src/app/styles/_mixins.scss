@@ -6,16 +6,32 @@
 // Typography
 @mixin h1 () {
   font-family: 'Stretch', sans-serif;
-  font-size: 80px;
+  font-size: 42px;
   font-weight: 400;
   line-height: 100%;
+
+  @media screen and (min-width: "1280px") {
+    font-size: 56px;
+  }
+
+  @media screen and (min-width: "1360px") {
+    font-size: 80px;
+  }
 }
 
 @mixin h2 () {
   font-family: 'Stretch', sans-serif;
-  font-size: 56px;
+  font-size: 40px;
   font-weight: 700;
   line-height: 100%;
+
+  // Hay que ver si queremos esto porque nos rompe todo el esquema de tipografias
+  word-wrap: break-word;
+  word-break: break-all;
+
+  @media screen and (min-width: "1280px") {
+    font-size: 48px;
+  }
 }
 
 @mixin h3 () {
