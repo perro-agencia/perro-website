@@ -87,7 +87,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className='homeClients'>
+        <div className='clients'>
           <div className='clientsTitle'>
             <p>nuestros clientes</p>
             <h3>confían en <br/> nosootros</h3>

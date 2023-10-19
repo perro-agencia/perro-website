@@ -120,6 +120,13 @@
           padding-bottom: $spacing * 3;
           transition: ease-in-out;
 
+          border-style: solid;
+          border-width: 2px;
+          border-color: rgba(0, 0, 0, 0.00);
+          border-radius: $spacing * 2;
+
+          transition: 0.2s ease-in-out;
+
           @media screen and (min-width: "1280px") {
             width: 23%;
           }
@@ -142,66 +149,10 @@
           }
 
           &:hover {
-            // Esto lo hacemos para eliminar el extra de 2px que se genera por el border
-            padding-left: ($spacing * 2) - 2px;
-            padding-right: ($spacing * 2) - 2px;
-            padding-top: ($spacing * 3) - 2px;
-            padding-bottom: ($spacing * 3) - 2px;
-
             background-color: rgba(0, 0, 0, 0.01);
-            border-style: solid;
-            border-width: 2px;
-            border-color: $primary-main;
-            border-radius: $spacing * 2;
+            border-color: $primary-main;            
             box-shadow: 0px 0px 20px 12px rgba(94, 0, 250, 0.4);
           }
-        }
-      }
-    }
-
-    // Estilos de Home Main Clients
-    .homeClients {
-      padding-top: $spacing * 3;
-      padding-bottom: $spacing * 3;
-
-      @media screen and (min-width: "768px") {
-        padding-top: $spacing * 5;
-        padding-bottom: $spacing * 5;
-      }
-
-      @media screen and (min-width: "1280px") {
-        padding-top: $spacing * 10;
-        padding-bottom: $spacing * 10;
-      }
-
-      .clientsTitle {
-        text-align: left;
-        color: $white;
-        margin-bottom: $spacing * 6;
-
-        p {
-          @include overline;
-          margin-bottom: $spacing;
-        }
-
-        h3 {
-          @include h2;
-          text-transform: uppercase;
-        }
-      }
-
-      .clientsCarousel {
-        display: flex;
-        overflow-x: scroll;
-
-        &::-webkit-scrollbar {
-          display: none;
-        }
-
-        img {
-          height: 60px;
-          width: auto;
-          margin-right: $spacing * 10;
         }
       }
     }

@@ -5,10 +5,10 @@ nav {
   padding-bottom: $spacing * 4;
   padding-left: $spacing * 5;
   padding-right: $spacing * 5;
-
   display: flex;
   flex-direction: column;
-  background-color: $primary-main;
+  background-color: $black;
+  color: $white;
 }
 
 .navHeader {
@@ -23,9 +23,20 @@ nav {
 
 .navBody {
   flex-grow: 1;
-
   padding-top: $spacing * 3;
   padding-bottom: $spacing * 3;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-evenly;
+
+  li {
+
+    a {
+      @include h1;
+      text-transform: uppercase
+    }
+  }
 }
 
 .navFooter {
@@ -50,7 +61,6 @@ nav {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-
   max-width: 1440px;
   margin: auto;
   padding-top: $spacing * 4;

@@ -10,24 +10,39 @@
   font-weight: 400;
   line-height: 100%;
 
+  @media screen and (min-width: "768px") {
+    font-size: 48px;
+  }
+
   @media screen and (min-width: "1280px") {
-    font-size: 56px;
+    font-size: 64px;
   }
 
   @media screen and (min-width: "1360px") {
-    font-size: 80px;
+    font-size: 76px;
   }
 }
 
 @mixin h2 () {
   font-family: 'Stretch', sans-serif;
-  font-size: 40px;
+  font-size: 30px;
   font-weight: 700;
   line-height: 100%;
-
-  // Hay que ver si queremos esto porque nos rompe todo el esquema de tipografias
   word-wrap: break-word;
   word-break: break-all;
+
+  // Hay que ver si queremos esto porque nos rompe todo el esquema de tipografias
+  // word-wrap: break-word;
+  // word-break: break-all;
+
+  @media screen and (min-width: "380px") {
+    word-wrap: normal;
+    word-break: normal;
+  }
+
+  @media screen and (min-width: "768px") {
+    font-size: 36px;
+  }
 
   @media screen and (min-width: "1280px") {
     font-size: 48px;
@@ -66,7 +81,7 @@
 @mixin subtitle2 () {
   // font-family: 'Work Sans', sans-serif;
   font-size: 24px;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 100%;
 }
 
