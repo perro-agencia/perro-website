@@ -1,3 +1,6 @@
+"use client"; 
+import { useState } from "react";
+
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -18,22 +21,33 @@ const links = [{
   route: '/portfolio'
 }, {
   label: 'Blog',
-  route: '/Blog'
+  route: '/blog'
 }, {
   label: 'Contact',
   route: '/contact'
 }]
 
 export default function Nav() {
+  const [isNavVisible, setNavVisible] = useState(false);
+
+  const toggleNavVisibility = () => {
+    setNavVisible(!isNavVisible);
+    document.documentElement.style.overflow = isNavVisible ? 'auto' : 'hidden';
+  };
+
+  const hideNavOnClick = () => {
+    setNavVisible(false);
+  };
+  
   return (
-    <div>
-      <nav>
+    <div className="navContainer">
+      <nav style={{ display: isNavVisible ? 'flex' : 'none' }}>
         <div className='navHeader'>
           <Image className='perrologo' src={perroIsologo}
             alt="isologo perro agency"
           />
 
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" onClick={toggleNavVisibility}>
             <rect x="1.35849" width="32.0198" height="1.92119" transform="rotate(45 1.35849 0)" fill="#F08200"/>
             <rect y="22.6415" width="32.0198" height="1.92119" transform="rotate(-45 0 22.6415)" fill="#F08200"/>
           </svg>
@@ -42,7 +56,7 @@ export default function Nav() {
         <ul className='navBody'>
           {links.map(({label, route}) => (
             <li key={route}>
-              <Link href={route}>
+              <Link href={route} onClick={hideNavOnClick}>
                 {label}
               </Link>
             </li>
@@ -91,7 +105,7 @@ export default function Nav() {
             />
         </Link>
 
-        <svg viewBox="0 0 48 29" fill="none">
+        <svg viewBox="0 0 48 29" fill="none" onClick={toggleNavVisibility}>
           <rect width="31" height="3" fill="#5E00FA"/>
           <rect y="13" width="48" height="3" fill="#5E00FA"/>
           <rect y="26" width="48" height="3" fill="#5E00FA"/>

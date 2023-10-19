@@ -1,5 +1,6 @@
 import './styles/styles.scss'
 import { font } from './font.js'
+
 import Nav from './components/nav'
 import Footer from './components/footer'
 
