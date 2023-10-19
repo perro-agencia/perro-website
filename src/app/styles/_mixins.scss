@@ -87,9 +87,13 @@
 
 @mixin bodyHuge () {
   // font-family: 'Work Sans', sans-serif;
-  font-size: 32px;
+  font-size: 24px;
   font-weight: 300;
   line-height: 125%;
+
+  @media screen and (min-width: "768px") {
+    font-size: 32px;
+  }
 }
 
 @mixin bodyNormal () {

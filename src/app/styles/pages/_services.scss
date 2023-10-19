@@ -1,0 +1,85 @@
+.servicesBody {
+  @include pagebody;
+  padding-top: $spacing * 4;
+  padding-bottom: $spacing * 4;
+
+  @media screen and (min-width: "768px") {
+    padding-top: $spacing * 5;
+    padding-bottom: $spacing * 5;
+  }
+
+  // Estilos de Home Header
+  header {
+    padding-top: $spacing * 10;
+    padding-bottom: $spacing * 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: $white;
+    text-align: center;
+
+    p {
+      @include overline;
+      margin-bottom: $spacing * 2;
+    }
+    
+    h2 {
+      @include h1;
+      color: $white;
+      text-transform: uppercase;
+      margin-bottom: $spacing * 4;
+      font-size: 25px;
+
+      span {
+        letter-spacing: -40px;
+      }
+    }
+  }
+
+  main {
+
+    .servicesItems {
+
+      .item {
+        padding-top: $spacing * 10;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        justify-content: space-between;
+        color: $white;
+
+        @media screen and (min-width: "1024px") {
+          min-height: 50vh;
+        }
+
+        h4 {
+          @include h2;
+          width: 100%;
+          text-transform: uppercase;
+
+          @media screen and (min-width: "1024px") {
+            width: 50%;
+          }
+
+          @media screen and (min-width: "1360px") {
+            font-size: 56px;
+          }
+
+          span {
+            letter-spacing: -40px;
+          }
+        }
+
+        p {
+          @include bodyHuge;
+          width: 100%;
+
+          @media screen and (min-width: "1024px") {
+            width: 50%;
+          }
+        }
+      }
+    }
+  }
+}
