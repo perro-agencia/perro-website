@@ -10,14 +10,18 @@ const links = [{
   label: 'Culture',
   route: '/culture'
 }, {
+  label: 'Services',
+  route: '/services'
+  
+}, {
   label: 'Portfolio',
   route: '/portfolio'
 }, {
+  label: 'Blog',
+  route: '/Blog'
+}, {
   label: 'Contact',
   route: '/contact'
-}, {
-  label: 'Services',
-  route: '/services'
 }]
 
 export default function Nav() {

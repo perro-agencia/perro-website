@@ -28,13 +28,24 @@ nav {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: space-evenly;
+  justify-content: center;
 
   li {
+    margin-bottom: $spacing * 4;
+
+    @media screen and (min-width: "768px") {
+      margin-bottom: $spacing * 3;
+    }
+
+    @media screen and (min-width: "1360px") {
+      margin-bottom: $spacing;
+    }
 
     a {
       @include h1;
-      text-transform: uppercase
+      text-transform: uppercase;
+      
+      font-size: 32px;
     }
   }
 }
@@ -47,12 +58,18 @@ nav {
 
   ul {
     display: flex;
+    flex-wrap: wrap;
 
     @include h4;
     text-transform: uppercase;
 
+    
     & > li:not(:first-child) {
-      margin-left: $spacing * 2;
+      margin-left: $spacing;
+
+      @media screen and (min-width: "768px") {
+        margin-left: $spacing * 2;
+      }
     }
   }
 }
