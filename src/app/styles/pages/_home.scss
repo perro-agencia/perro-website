@@ -227,6 +227,13 @@
       }
 
       .contactCopy {
+        span {
+          @include overline;
+          color: $white;
+          display: inline-block;
+          margin-bottom: $spacing;
+        }
+
         h3 {
           @include h2;
           color: $white;

@@ -1,5 +1,5 @@
 "use client"; 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Link from 'next/link'
 import Image from 'next/image'
@@ -30,9 +30,20 @@ const links = [{
 export default function Nav() {
   const [isNavVisible, setNavVisible] = useState(false);
 
+  useEffect(() => {
+    if (isNavVisible) {
+      document.documentElement.style.overflow = 'hidden';
+    } else {
+      document.documentElement.style.overflow = 'auto';
+    }
+
+    return () => {
+      document.documentElement.style.overflow = 'auto';
+    };
+  }, [isNavVisible]);
+
   const toggleNavVisibility = () => {
     setNavVisible(!isNavVisible);
-    document.documentElement.style.overflow = isNavVisible ? 'auto' : 'hidden';
   };
 
   const hideNavOnClick = () => {

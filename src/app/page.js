@@ -126,6 +126,7 @@ export default function Home() {
           </div>
 
           <div className='contactCopy'>
+            <span>contacto</span>
             <h3>
               compartinos tus ideeas
             </h3>

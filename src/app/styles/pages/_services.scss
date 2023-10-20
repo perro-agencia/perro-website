@@ -40,6 +40,18 @@
   main {
 
     .servicesItems {
+      padding-top: $spacing * 3;
+      padding-bottom: $spacing * 3;
+
+      @media screen and (min-width: "768px") {
+        padding-top: $spacing * 5;
+        padding-bottom: $spacing * 5;
+      }
+
+      @media screen and (min-width: "1280px") {
+        padding-top: $spacing * 10;
+        padding-bottom: $spacing * 10;
+      }
 
       .item {
         padding-top: $spacing * 10;
