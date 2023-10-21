@@ -15,8 +15,10 @@ footer {
   }
 
   a {
+    transition: 0.3s ease;
+
     &:hover {
-      color: $primary-main;
+      color: $accent-main;
     }
   }
 }
@@ -88,6 +90,7 @@ footer {
   margin: auto;
 
   a {
+    color: $accent-main;
     display: inline-block;
     margin-left: 4px;
 

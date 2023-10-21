@@ -18,7 +18,7 @@ export default function PortfolioPage() {
         <div className='portfolioItems'>
           <div className='item'>
             <Image src={portfolioTest}
-              alt="partner perro agency toto"
+              alt="..."
             />
             
             <div className='itemCopy'>
@@ -32,7 +32,7 @@ export default function PortfolioPage() {
 
           <div className='item'>
             <Image src={portfolioTest}
-              alt="partner perro agency toto"
+              alt="..."
             />
             
             <div className='itemCopy'>

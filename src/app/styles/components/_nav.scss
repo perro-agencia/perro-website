@@ -102,6 +102,17 @@ nav {
         margin-left: $spacing * 2;
       }
     }
+
+    li {
+
+      a {
+        transition: 0.3s ease;
+        
+        &:hover {
+          color: $accent-main;
+        }
+      }
+    }
   }
 }
 
