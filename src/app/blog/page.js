@@ -1,9 +1,32 @@
+"use client"; 
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link'
 import Image from 'next/image'
 
 import blogTest from '../../../public/blog-test.png'
 
 export default function BlogPage() {
+  const [filter, setFilter] = useState('all');
+
+  useEffect(() => {
+    const items = document.querySelectorAll('.item');
+    items.forEach(item => {
+      if (filter === 'all' || item.id === filter) {
+        item.style.display = 'block';
+      } else {
+        item.style.display = 'none';
+      }
+    });
+  }, [filter]);
+
+  const handleFilter = (newFilter) => {
+    if (newFilter === 'all') {
+      setFilter('all');
+    } else {
+      setFilter(newFilter);
+    }
+  };
+
   return (
     <div className='blogBody'>
       <header>
@@ -16,57 +39,71 @@ export default function BlogPage() {
 
       <main>
         <div className='blogContainer'>
-          <div className="blogNav">
-            
+          <div className='blogNav'>
+            <button onClick={() => handleFilter('all')} data-filter="all">Todos</button>
+            <button onClick={() => handleFilter('marketing')} data-filter="marketing">Marketing</button>
+            <button onClick={() => handleFilter('cultura')} data-filter="cultura">Cultura</button>
           </div>
 
           <div className='blogItems'>
-            <div className='item'>
-              <Image src={blogTest}
-                alt="partner perro agency toto"
-              />
-              
-              <div className='itemCopy'>
-                <h5>¿Qué es SEM y para qué sirve?</h5>
-
-                <div>
-                  <p>Marketing</p>
-
-                  <span>Nov 2023</span>
+            <div className='item' id="marketing">
+              <Link href='/blog/blogFeed/que-es-el-marketing'>
+                <div className='itemImage'>
+                  <Image src={blogTest}
+                    alt="partner perro agency toto"
+                  />
                 </div>
-              </div>
+                
+                <div className='itemCopy'>
+                  <h5>¿Qué es SEM y para qué sirve?</h5>
+
+                  <div>
+                    <p>Marketing</p>
+
+                    <span>Nov 2023</span>
+                  </div>
+                </div>
+              </Link>
             </div>
 
-            <div className='item'>
-              <Image src={blogTest}
-                alt="partner perro agency toto"
-              />
-              
-              <div className='itemCopy'>
-                <h5>¿Qué es SEM y para qué sirve? ¿Qué es SEM y para qué sirve?</h5>
-
-                <div>
-                  <p>Marketing</p>
-
-                  <span>Nov 2023</span>
+            <div className='item' id="cultura">
+              <Link href='/blog/blogFeed/que-es-el-marketing'>
+                <div className='itemImage'>
+                  <Image src={blogTest}
+                    alt="partner perro agency toto"
+                  />
                 </div>
-              </div>
+                
+                <div className='itemCopy'>
+                  <h5>¿Qué es SEM y para qué sirve?</h5>
+
+                  <div>
+                    <p>Cultura</p>
+
+                    <span>Nov 2023</span>
+                  </div>
+                </div>
+              </Link>
             </div>
 
-            <div className='item'>
-              <Image src={blogTest}
-                alt="partner perro agency toto"
-              />
-              
-              <div className='itemCopy'>
-                <h5>¿Qué es SEM y para qué sirve?</h5>
-
-                <div>
-                  <p>Marketing</p>
-
-                  <span>Nov 2023</span>
+            <div className='item' id="cultura">
+              <Link href='/blog/blogFeed/que-es-el-marketing'>
+                <div className='itemImage'>
+                  <Image src={blogTest}
+                    alt="partner perro agency toto"
+                  />
                 </div>
-              </div>
+                
+                <div className='itemCopy'>
+                  <h5>¿Qué es SEM y para qué sirve?</h5>
+
+                  <div>
+                    <p>Cultura</p>
+
+                    <span>Nov 2023</span>
+                  </div>
+                </div>
+              </Link>
             </div>
           </div>
         </div>
