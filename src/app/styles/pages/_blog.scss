@@ -1,3 +1,8 @@
+.active {
+  color: $accent-main !important;
+  text-decoration: underline
+}
+
 .blogBody {
   @include pagebody;
   padding-top: $spacing * 4;
@@ -43,8 +48,18 @@
     .blogContainer {
 
       .blogNav {
-        color: $white;
+        margin-bottom: $spacing * 3;
 
+        button {
+          @include subtitle1;
+          color: $white;
+          border: none;
+          background: none;
+        }
+
+        & > button:not(:last-child) {
+          margin-right: $spacing * 2;
+        }
       }
 
       .blogItems {

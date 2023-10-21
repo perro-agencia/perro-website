@@ -17,9 +17,6 @@ const links = [{
   route: '/services'
   
 }, {
-  label: 'Portfolio',
-  route: '/portfolio'
-}, {
   label: 'Blog',
   route: '/blog'
 }, {

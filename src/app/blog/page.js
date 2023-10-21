@@ -7,6 +7,7 @@ import blogTest from '../../../public/blog-test.png'
 
 export default function BlogPage() {
   const [filter, setFilter] = useState('all');
+  const [activeButton, setActiveButton] = useState('all');
 
   useEffect(() => {
     const items = document.querySelectorAll('.item');
@@ -25,6 +26,8 @@ export default function BlogPage() {
     } else {
       setFilter(newFilter);
     }
+
+    setActiveButton(newFilter); // Establece el botón activo al hacer clic
   };
 
   return (
@@ -40,9 +43,9 @@ export default function BlogPage() {
       <main>
         <div className='blogContainer'>
           <div className='blogNav'>
-            <button onClick={() => handleFilter('all')} data-filter="all">Todos</button>
-            <button onClick={() => handleFilter('marketing')} data-filter="marketing">Marketing</button>
-            <button onClick={() => handleFilter('cultura')} data-filter="cultura">Cultura</button>
+          <button onClick={() => handleFilter('all')} data-filter="all" className={activeButton === 'all' ? 'active' : ''}>Todas</button>
+            <button onClick={() => handleFilter('marketing')} data-filter="marketing" className={activeButton === 'marketing' ? 'active' : ''}>Marketing</button>
+            <button onClick={() => handleFilter('cultura')} data-filter="cultura" className={activeButton === 'cultura' ? 'active' : ''}>Cultura</button>
           </div>
 
           <div className='blogItems'>
