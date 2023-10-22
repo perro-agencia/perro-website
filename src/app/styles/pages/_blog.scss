@@ -1,6 +1,7 @@
 .active {
   color: $accent-main !important;
-  text-decoration: underline
+  text-decoration: underline;
+  font-weight: 700 !important;
 }
 
 .blogBody {
@@ -51,8 +52,9 @@
         margin-bottom: $spacing * 3;
 
         button {
-          @include subtitle1;
+          @include bodyHuge;
           color: $white;
+          cursor: pointer;
           border: none;
           background: none;
         }
@@ -96,7 +98,7 @@
           .itemImage {
             margin-bottom: $spacing * 2;
             overflow: hidden;
-            height: 180px;
+            max-height: 180px;
             width: 100%;
 
             img {
