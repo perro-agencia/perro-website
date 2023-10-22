@@ -1,6 +1,5 @@
 "use client"; 
 import { useState, useEffect } from "react";
-
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -49,7 +48,8 @@ export default function Nav() {
   
   return (
     <div className="navContainer">
-      <nav style={{ display: isNavVisible ? 'flex' : 'none' }}>
+      <nav style={{opacity: isNavVisible ? '1' : '0',
+        zIndex: isNavVisible ? '999' : '-9'}}>
         <div className='navHeader'>
           <Image className='perrologo' src={perroIsologo}
             alt="isologo perro agency"
