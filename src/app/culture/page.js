@@ -69,12 +69,13 @@ export default function CulturePage() {
           </div>
 
           <div className='clients'>
-            <div className='clientsTitle'>
-              <p>nuestros clientes</p>
-              <h3>confían en <br/> nosootros</h3>
-            </div>
-
-            <div className='clientsCarousel'>
+          <div className='clientsTitle'>
+            <p>nuestros clientes</p>
+            <h3>confían en <br/> nosootros</h3>
+          </div>
+          
+          <div className='clientsCarousel'>
+            <div className='carouselTrack'>
               <Image src={clientArcadia}
                 alt="cliente"/>
 
@@ -91,6 +92,7 @@ export default function CulturePage() {
                 alt="cliente"/>
             </div>
           </div>
+        </div>
         </div>
       </main>
     </div>

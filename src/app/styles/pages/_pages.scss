@@ -7,7 +7,12 @@
 @import "blog";
 @import "blogTemplate";
 
-// Estilos de Home Main Clients
+// Animation
+@keyframes scroll {
+	0% { transform: translateX(0); }
+	100% { transform: translateX(calc(-250px * 10))}
+}
+
 .clients {
   padding-top: $spacing * 3;
   padding-bottom: $spacing * 3;
@@ -40,15 +45,43 @@
 
   .clientsCarousel {
     display: flex;
-    overflow-x: scroll;
+    overflow: hidden;
+    position: relative;
+
+    &::before,
+    &::after {
+      background: linear-gradient(to right,  rgba(0,0,0,1) 0%,rgba(0,0,0,0) 100%);
+      content: "";
+      height: 100px;
+      position: absolute;
+      width: 200px;
+      z-index: 2;
+    }
+    
+    &::after {
+      right: 0;
+      top: 0;
+      transform: rotateZ(180deg);
+    }
+
+    &::before {
+      left: 0;
+      top: 0;
+    }
 
     &::-webkit-scrollbar {
       display: none;
     }
 
+    .carouselTrack {
+      display: flex;
+      animation: scroll 40s linear infinite;
+      animation-fill-mode: both;
+      width: calc(250px * 10);
+    }
+
     img {
-      height: 60px;
-      width: auto;
+      width: 250px;
       margin-right: $spacing * 10;
     }
   }

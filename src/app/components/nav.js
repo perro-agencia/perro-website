@@ -28,13 +28,13 @@ export default function Nav() {
 
   useEffect(() => {
     if (isNavVisible) {
-      document.documentElement.style.overflow = 'hidden';
+      document.documentElement.style.overflowY = 'hidden';
     } else {
-      document.documentElement.style.overflow = 'auto';
+      document.documentElement.style.overflowY = 'auto';
     }
 
     return () => {
-      document.documentElement.style.overflow = 'auto';
+      document.documentElement.style.overflowY = 'auto';
     };
   }, [isNavVisible]);
 

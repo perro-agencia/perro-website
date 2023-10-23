@@ -92,22 +92,24 @@ export default function Home() {
             <p>nuestros clientes</p>
             <h3>confían en <br/> nosootros</h3>
           </div>
-
+          
           <div className='clientsCarousel'>
-            <Image src={clientArcadia}
-              alt="cliente"/>
+            <div className='carouselTrack'>
+              <Image src={clientArcadia}
+                alt="cliente"/>
 
-            <Image src={clientIntergya}
-              alt="cliente"/>
+              <Image src={clientIntergya}
+                alt="cliente"/>
 
-            <Image src={clientLatin}
-              alt="cliente"/>
+              <Image src={clientLatin}
+                alt="cliente"/>
 
-            <Image src={clientMelon}
-              alt="cliente"/>
+              <Image src={clientMelon}
+                alt="cliente"/>
 
-            <Image src={clientTienda}
-              alt="cliente"/>
+              <Image src={clientTienda}
+                alt="cliente"/>
+            </div>
           </div>
         </div>
 
