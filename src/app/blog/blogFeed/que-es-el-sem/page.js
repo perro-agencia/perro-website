@@ -17,12 +17,12 @@ const projectData = {
         alt="..."
       />
 
-      <p>Como pueden ver en la imágen 👆​ los anuncios que muestran por arriba del título de cada anuncio la palabra Sponsored, estos anuncios son los anuncios pagos a los que llamamos anuncios de SEM.
+      <p>Como pueden ver en la imágen 👆​ los anuncios que muestran por arriba del título de cada anuncio la palabra Sponsored, estos anuncios son los anuncios pagos a los que llamamos anuncios de SEM.<br /><br />
       <strong>Beneficios del SEM:</strong><br /><br />
       Visibilidad instantánea: Tu anuncio aparecerá de inmediato en la parte superior de los resultados de búsqueda, lo que aumenta las posibilidades de que los usuarios hagan clic en tu sitio web.<br /><br />
       <strong>Segmentación precisa:</strong><br /><br />
       Puedes dirigir tus anuncios a públicos específicos según ubicación geográfica, intereses y más.
-      Control del presupuesto: Tienes el control total sobre cuánto gastas en publicidad y puedes ajustar tu presupuesto en cualquier momento.
+      Control del presupuesto: Tienes el control total sobre cuánto gastas en publicidad y puedes ajustar tu presupuesto en cualquier momento.<br /><br />
       <strong>Nuestra Experiencia en SEM:</strong><br /><br />
       En Perro Agency, contamos con un equipo de expertos en SEM con años de experiencia en la creación y gestión de campañas exitosas. Hemos ayudado a numerosas empresas a aumentar su visibilidad online y atraer más clientes a sus sitios web.<br /><br />
       <strong>¿Listo para llevar tu presencia online al siguiente nivel?</strong><br /><br />

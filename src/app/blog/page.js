@@ -50,7 +50,7 @@ export default function BlogPage() {
 
           <div className='blogItems'>
             <div className='item' id="marketing">
-              <Link href='/blog/blogFeed/que-es-el-marketing'>
+              <Link href='/blog/blogFeed/que-es-el-sem'>
                 <div className='itemImage'>
                   <Image src={blogTest}
                     alt="partner perro agency toto"
@@ -63,14 +63,14 @@ export default function BlogPage() {
                   <div>
                     <p>Marketing</p>
 
-                    <span>Nov 2023</span>
+                    <span>Oct 2023</span>
                   </div>
                 </div>
               </Link>
             </div>
 
-            <div className='item' id="cultura">
-              <Link href='/blog/blogFeed/que-es-el-marketing'>
+            <div className='item' id="marketing">
+              <Link href='/blog/blogFeed/domina-el-seo'>
                 <div className='itemImage'>
                   <Image src={blogTest}
                     alt="partner perro agency toto"
@@ -78,19 +78,19 @@ export default function BlogPage() {
                 </div>
                 
                 <div className='itemCopy'>
-                  <h5>¿Qué es SEM y para qué sirve?</h5>
+                  <h5>Domina el SEO para impulsar tu Presencia online</h5>
 
                   <div>
-                    <p>Cultura</p>
+                    <p>Marketing</p>
 
-                    <span>Nov 2023</span>
+                    <span>Oct 2023</span>
                   </div>
                 </div>
               </Link>
             </div>
 
-            <div className='item' id="cultura">
-              <Link href='/blog/blogFeed/que-es-el-marketing'>
+            <div className='item' id="marketing">
+              <Link href='/blog/blogFeed/sem-vs-seo'>
                 <div className='itemImage'>
                   <Image src={blogTest}
                     alt="partner perro agency toto"
@@ -98,10 +98,10 @@ export default function BlogPage() {
                 </div>
                 
                 <div className='itemCopy'>
-                  <h5>¿Qué es SEM y para qué sirve?</h5>
+                  <h5>SEM vs SEO</h5>
 
                   <div>
-                    <p>Cultura</p>
+                    <p>Marketing</p>
 
                     <span>Nov 2023</span>
                   </div>
