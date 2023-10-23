@@ -15,7 +15,7 @@ nav {
   
   transition: z-index 0.5s, opacity 0.5s,;
   transition-delay: 0.3s;
-  //Solucionamos el tema con un z-index, ahora resta resolver que parezca mas transicion 
+  //Solucionamos el tema con un z-index, ahora resta resolver que parezca mas transicion
 }
 
 .navHeader {
@@ -150,3 +150,38 @@ nav {
   }
 }
 
+//Words Hover
+@keyframes giro {
+  0% {
+      transform: rotate(0deg);
+  }
+
+  100% {
+      transform: rotate(360deg);
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  
+  .navBody li::after {
+      content: url("../../../../public/asterisco.svg");
+      width: 60px;
+      display: none;
+      position: absolute;
+      right: -70px;
+      top: 6px;
+  
+      animation-name: giro;
+      animation-duration: 3s;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+  }
+  
+  .navBody li:hover::after {
+      display: inline-block;
+  }
+  
+  .navBody li {
+      position: relative;
+  }
+}

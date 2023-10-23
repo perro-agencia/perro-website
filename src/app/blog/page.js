@@ -27,7 +27,7 @@ export default function BlogPage() {
       setFilter(newFilter);
     }
 
-    setActiveButton(newFilter); // Establece el botón activo al hacer clic
+    setActiveButton(newFilter);
   };
 
   return (
@@ -45,7 +45,6 @@ export default function BlogPage() {
           <div className='blogNav'>
             <button onClick={() => handleFilter('all')} data-filter="all" className={activeButton === 'all' ? 'active' : ''}>Todas</button>
             <button onClick={() => handleFilter('marketing')} data-filter="marketing" className={activeButton === 'marketing' ? 'active' : ''}>Marketing</button>
-            <button onClick={() => handleFilter('cultura')} data-filter="cultura" className={activeButton === 'cultura' ? 'active' : ''}>Cultura</button>   
           </div>
 
           <div className='blogItems'>
