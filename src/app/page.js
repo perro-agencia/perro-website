@@ -110,6 +110,23 @@ export default function Home() {
               <Image src={clientTienda}
                 alt="cliente"/>
             </div>
+
+            <div className='carouselTrack'>
+              <Image src={clientArcadia}
+                alt="cliente"/>
+
+              <Image src={clientIntergya}
+                alt="cliente"/>
+
+              <Image src={clientLatin}
+                alt="cliente"/>
+
+              <Image src={clientMelon}
+                alt="cliente"/>
+
+              <Image src={clientTienda}
+                alt="cliente"/>
+            </div>
           </div>
         </div>
 
