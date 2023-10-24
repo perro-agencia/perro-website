@@ -33,4 +33,20 @@
     @include bodyNormal;
     color: $white;
   }
+
+  .contactCopy {
+    order: 1;
+
+    @media screen and (min-width: "768px") {
+      order: 2;
+    }
+  }
+
+  .contactForm {
+    order: 2;
+
+    @media screen and (min-width: "768px") {
+      order: 1;
+    }
+  }
 }
