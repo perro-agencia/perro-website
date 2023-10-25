@@ -6,15 +6,12 @@ import serviceBranding from '../../public/service-branding.svg'
 import serviceSemSeo from '../../public/service-sem&seo.svg'
 import serviceSocial from '../../public/service-social.svg'
 import serviceUxUi from '../../public/service-uxui.svg'
-
 import clientArcadia from '../../public/client-arcadia.png'
 import clientIntergya from '../../public/client-intergya.png'
 import clientLatin from '../../public/client-latincloud.png'
 import clientMelon from '../../public/client-melonHelp.png'
 import clientTienda from '../../public/client-tiendanube.png'
-
 import businessEnhancers from '../../public/businessEnhancers.png'
-
 
 export default function Home() {
   return (
