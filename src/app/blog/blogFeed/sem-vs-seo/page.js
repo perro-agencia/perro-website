@@ -2,7 +2,6 @@ import React from 'react';
 import Image from 'next/image'
 
 import BlogTemplate from '../../blogTemplate';
-import notaSem from '../../../../../public/blog/nota-sem.png'
 
 const projectData = {
   date: '06-11-2023',
