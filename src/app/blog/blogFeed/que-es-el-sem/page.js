@@ -5,6 +5,8 @@ import BlogTemplate from '../../blogTemplate';
 import notaSem from '../../../../../public/blog/nota-sem.png'
 
 const projectData = {
+  date: '06-11-2023',
+  tag: 'Marketing',
   title: '¿Qué es SEM y para qué sirve? ',
   body: (
     <div>
@@ -30,6 +32,10 @@ const projectData = {
       No dejes que tu competencia te supere en el mundo digital.</p>
     </div>
   ),
+  img: '/partner-pista.svg',
+  alt: 'partner pista',
+  person: 'Sebastian Konig',
+  jobTitle: 'MARKETING DIRECTOR',
 };
 
 export default function queEsElMarketing() {

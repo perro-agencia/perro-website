@@ -25,12 +25,43 @@
     }
   }
 
-  h1 {
-    @include h2;
-    color: $white;
-    text-align: left;
-    text-transform: uppercase;
-    margin-bottom: $spacing * 6;
+  .templateHeading {
+    h1 {
+      @include h2;
+      color: $white;
+      text-align: left;
+      text-transform: uppercase;
+      margin-bottom: $spacing * 3;
+    }
+
+    p {
+      @include bodyNormal;
+      color: $white;
+      margin-bottom: $spacing * 3;
+
+      span {
+        color: $accent-main
+      }
+    }
+
+    div {
+      display: flex;
+      align-items: center;
+      margin-bottom: $spacing * 6;
+
+      img {
+        width: 25px;
+        height: 25px;
+        margin: 0;
+        margin-right: $spacing;
+      }
+
+      p {
+        @include bodyNormal;
+        color: $white;
+        margin: 0;
+      }
+    }
   }
 
   p {

@@ -1,7 +1,8 @@
 import React from 'react';
-import Link from 'next/link'
+import Link from 'next/link';
+import Image from 'next/image'
 
-export default function BlogTemplate({ title, body, body2 }) {
+export default function BlogTemplate({ date, tag, title, body, img, alt, person, jobTitle}) {
   return (
     <div className="blogTemplateBody">
       <Link href='../../blog'>
@@ -12,7 +13,21 @@ export default function BlogTemplate({ title, body, body2 }) {
         </svg>
       </Link>
 
-      <h1>{title}</h1>
+      <div className='templateHeading'>
+        <p>{date} - <span>{tag}</span></p>
+
+        <h1>{title}</h1>
+
+        <div>
+          <Image src={img}
+            alt={alt}
+            width={25}
+            height={25}
+          />
+
+          <p>{person} - {jobTitle}</p>
+        </div>
+      </div>
 
       <p>{body}</p>
     </div>

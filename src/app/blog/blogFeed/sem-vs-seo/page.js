@@ -5,6 +5,8 @@ import BlogTemplate from '../../blogTemplate';
 import notaSem from '../../../../../public/blog/nota-sem.png'
 
 const projectData = {
+  date: '06-11-2023',
+  tag: 'Marketing',
   title: 'SEM vs. SEO y sus Diferencias Clave ',
   body: (
     <div>
@@ -27,6 +29,10 @@ const projectData = {
       </p>
     </div>
   ),
+  img: '/partner-pista.svg',
+  alt: 'partner pista',
+  person: 'Sebastian Konig',
+  jobTitle: 'MARKETING DIRECTOR',
 };
 
 export default function queEsElMarketing() {
