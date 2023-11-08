@@ -2,13 +2,15 @@ import React from 'react';
 import Link from 'next/link'
 import Image from 'next/image'
 
-export default function blogCard({ id, link, img, alt, title, tag, date }) {
+export default function BlogCard({ id, link, img, alt, title, tag, date }) {
   return (
     <div className='blogCard' id={id}>
       <Link href={link}>
         <div className='itemImage'>
           <Image src={img}
             alt={alt}
+            width={100}
+            height={100}
           />
         </div>
         
@@ -23,5 +25,5 @@ export default function blogCard({ id, link, img, alt, title, tag, date }) {
         </div>
       </Link>
     </div>
-  )
+  );
 }

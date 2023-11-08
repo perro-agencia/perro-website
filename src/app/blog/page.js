@@ -3,7 +3,37 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link'
 import Image from 'next/image'
 
-import blogTest from '../../../public/blog-test.png'
+import BlogCard from '../components/cards/blogCard';
+
+const blogCard1 = {
+  id:'marketing',
+  link:'/blog/blogFeed/que-es-el-sem',
+  img:'/blog-test.png',
+  alt:'Que es el sem',
+  title:'¿Qué es SEM y para qué sirve?',
+  tag:'Marketing',
+  date:'Oct 2023',
+};
+
+const blogCard2 = {
+  id:'marketing',
+  link:'/blog/blogFeed/domina-el-seo',
+  img:'/blog-test.png',
+  alt:'Domina el seo',
+  title:'Domina el SEO para impulsar tu Presencia online',
+  tag:'Marketing',
+  date:'Oct 2023',
+};
+
+const blogCard3 = {
+  id:'marketing',
+  link:'/blog/blogFeed/sem-vs-seo',
+  img:'/blog-test.png',
+  alt:'sem vs seo',
+  title:'SEM vs SEO',
+  tag:'Marketing',
+  date:'Oct 2023',
+};
 
 export default function BlogPage() {
   const [filter, setFilter] = useState('all');
@@ -48,65 +78,9 @@ export default function BlogPage() {
           </div>
 
           <div className='blogItems'>
-            <div className='item' id="marketing">
-              <Link href='/blog/blogFeed/que-es-el-sem'>
-                <div className='itemImage'>
-                  <Image src={blogTest}
-                    alt="partner perro agency toto"
-                  />
-                </div>
-                
-                <div className='itemCopy'>
-                  <h5>¿Qué es SEM y para qué sirve?</h5>
-
-                  <div>
-                    <p>Marketing</p>
-
-                    <span>Oct 2023</span>
-                  </div>
-                </div>
-              </Link>
-            </div>
-
-            <div className='item' id="marketing">
-              <Link href='/blog/blogFeed/domina-el-seo'>
-                <div className='itemImage'>
-                  <Image src={blogTest}
-                    alt="partner perro agency toto"
-                  />
-                </div>
-                
-                <div className='itemCopy'>
-                  <h5>Domina el SEO para impulsar tu Presencia online</h5>
-
-                  <div>
-                    <p>Marketing</p>
-
-                    <span>Oct 2023</span>
-                  </div>
-                </div>
-              </Link>
-            </div>
-
-            <div className='item' id="marketing">
-              <Link href='/blog/blogFeed/sem-vs-seo'>
-                <div className='itemImage'>
-                  <Image src={blogTest}
-                    alt="partner perro agency toto"
-                  />
-                </div>
-                
-                <div className='itemCopy'>
-                  <h5>SEM vs SEO</h5>
-
-                  <div>
-                    <p>Marketing</p>
-
-                    <span>Nov 2023</span>
-                  </div>
-                </div>
-              </Link>
-            </div>
+            <BlogCard {...blogCard1} />
+            <BlogCard {...blogCard2} />
+            <BlogCard {...blogCard3} />
           </div>
         </div>
       </main>
