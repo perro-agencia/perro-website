@@ -5,20 +5,20 @@ export default function ContactPage() {
       <div className="contactForm">
         <form>
           <div>
-            <input type="email" placeholder="Email" />
-            <input type="text" placeholder="Nombre" />
+            <input className="primary-input" type="email" placeholder="Email" />
+            <input className="primary-input" type="text" placeholder="Nombre" />
           </div>
 
-          <div class="form-element">
-            <input type="text" placeholder="Empresa" />
-            <input type="number" placeholder="Teléfono" />
+          <div>
+            <input className="primary-input" type="text" placeholder="Empresa" />
+            <input className="primary-input" type="number" placeholder="Teléfono" />
           </div>
 
-          <div class="form-element">
-            <textarea id="" cols="30" rows="10" placeholder="Mensaje"></textarea>
+          <div>
+            <textarea className="primary-textarea" id="" cols="30" rows="10" placeholder="Mensaje"></textarea>
           </div>
 
-          <button type="submit">Enviar</button>
+          <button className="primary-button" type="submit">Enviar</button>
         </form>
       </div>
 

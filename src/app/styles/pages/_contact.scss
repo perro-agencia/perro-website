@@ -36,9 +36,11 @@
 
   .contactCopy {
     order: 1;
+    margin-bottom: $spacing * 4;
 
     @media screen and (min-width: "768px") {
       order: 2;
+      margin-bottom: 0;
     }
   }
 
@@ -46,7 +48,25 @@
     order: 2;
 
     @media screen and (min-width: "768px") {
+      margin-right: $spacing * 3;
       order: 1;
+    }
+
+    form {
+
+      div {
+        display: flex;
+        margin-bottom: $spacing * 2;
+        width: 100%;
+
+        input, textarea {
+          width: 100%;
+        }
+
+        & > input:not(:last-child) {
+          margin-right: $spacing * 2;
+        }
+      }
     }
   }
 }

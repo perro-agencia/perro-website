@@ -138,7 +138,24 @@ export default function Home() {
         </div>
 
         <div className='homeContact'>
-          <div className='contactForm'>
+          <div className="contactForm">
+            <form>
+              <div>
+                <input className="primary-input" type="email" placeholder="Email" />
+                <input className="primary-input" type="text" placeholder="Nombre" />
+              </div>
+
+              <div>
+                <input className="primary-input" type="text" placeholder="Empresa" />
+                <input className="primary-input" type="number" placeholder="Teléfono" />
+              </div>
+
+              <div>
+                <textarea className="primary-textarea" id="" cols="30" rows="10" placeholder="Mensaje"></textarea>
+              </div>
+
+              <button className="primary-button" type="submit">Enviar</button>
+            </form>
           </div>
 
           <div className='contactCopy'>
