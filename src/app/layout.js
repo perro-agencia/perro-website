@@ -16,6 +16,7 @@ export default function RootLayout({ children }) {
       <body className={font.className}>
         <Nav id="nav"/>
         {children}
+        
         <Link href="#nav">
           <svg className='backToTop' width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M71 36C71 16.67 55.33 0.999998 36 0.999998C16.67 0.999999 0.999998 16.67 0.999998 36C0.999999 55.33 16.67 71 36 71C55.33 71 71 55.33 71 36Z" stroke="#6000FF" stroke-width="2"/>

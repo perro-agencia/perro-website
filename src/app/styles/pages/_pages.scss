@@ -91,3 +91,17 @@
     }
   }
 }
+
+.backToTop {
+  width: 56px;
+  position: fixed;
+  bottom: $spacing * 3;
+  right: $spacing * 3;
+  z-index: 3;
+  mix-blend-mode: difference;
+
+  @media screen and (min-width: "768px") {
+    bottom: $spacing * 5;
+    right: $spacing * 5;
+  }
+}

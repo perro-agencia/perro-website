@@ -80,4 +80,20 @@
       }
     }    
   }
+
+  //BlobStyles
+  .blobOne{
+    z-index: 1;
+    position: absolute;
+  }
+
+  .blobOne {
+    top: -200px;
+    left: -700px;
+
+    @media screen and (min-width: "1024px") {
+      top: -400px;
+      left: -800px;
+    }
+  }
 }

@@ -1,7 +1,13 @@
+import BlobAnimation from "../components/blobAnimation"
+
 export default function ContactPage() {
 
   return (
     <div className='contactBody'>
+      <div className='blobOne'>
+        <BlobAnimation />
+      </div>
+      
       <div className="contactForm">
         <form>
           <div>

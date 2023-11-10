@@ -47,7 +47,7 @@ export default function Nav() {
   };
   
   return (
-    <div className="navContainer">
+    <div className="navContainer" style={{zIndex: isNavVisible ? '999' : '2'}}>
       <nav style={{opacity: isNavVisible ? '1' : '0',
         zIndex: isNavVisible ? '999' : '-9'}}>
         <div className='navHeader'>

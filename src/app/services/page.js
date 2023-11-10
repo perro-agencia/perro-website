@@ -1,9 +1,15 @@
 import Link from 'next/link'
 import Image from 'next/image'
 
+import BlobAnimation from '../components/blobAnimation'
+
 export default function ServicesPage() {
   return (
     <div className='servicesBody'>
+      <div className='blobOne'>
+        <BlobAnimation />
+      </div>
+
       <header>
         <p>nuestros servicios</p>
         
@@ -39,6 +45,10 @@ export default function ServicesPage() {
             <p>Podés elegir cualquiera de nuestros servicios y solicitar una consultoría personalizada según la necesidad de tu proyecto.</p>
           </div>
         </div>
+
+        <div className='blobTwo'>
+            <BlobAnimation />
+          </div>
       </main>
     </div>
   )

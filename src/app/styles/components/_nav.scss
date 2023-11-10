@@ -1,6 +1,8 @@
 .navContainer {
   position: relative;
-  z-index: 999;
+  z-index: 2;
+  transition: z-index 0.5s;
+  transition-delay: 0.5s;
 }
 
 nav {
@@ -18,7 +20,7 @@ nav {
   position: absolute;
   top: 0;
   
-  transition: z-index 0.5s, opacity 0.5s,;
+  transition: z-index 0.5s, opacity 0.5s;
   transition-delay: 0.5s;
   //Solucionamos el tema con un z-index, ahora resta resolver que parezca mas transicion
 }
@@ -43,6 +45,7 @@ nav {
 
   svg {
     cursor: pointer;
+    mix-blend-mode: difference;
   }
 }
 

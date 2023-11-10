@@ -6,16 +6,20 @@ import usSebas from '../../../public/us-sebas.jpg'
 import usLau from '../../../public/us-lau.jpg'
 import usFede from '../../../public/us-fede.jpg'
 import usMaga from '../../../public/us-maga.jpg'
-
 import clientArcadia from '../../../public/client-arcadia.png'
 import clientIntergya from '../../../public/client-intergya.png'
 import clientLatin from '../../../public/client-latincloud.png'
 import clientMelon from '../../../public/client-melonHelp.png'
 import clientTienda from '../../../public/client-tiendanube.png'
+import BlobAnimation from '../components/blobAnimation'
 
 export default function CulturePage() {
   return (
     <div className='cultureBody'>
+      <div className='blobOne'>
+        <BlobAnimation />
+      </div>
+
       <header>
         <h2>
           sabbuesos del munndo digitaal
@@ -69,30 +73,48 @@ export default function CulturePage() {
           </div>
 
           <div className='clients'>
-          <div className='clientsTitle'>
-            <p>nuestros clientes</p>
-            <h3>confían en <br/> nosootros</h3>
-          </div>
-          
-          <div className='clientsCarousel'>
-            <div className='carouselTrack'>
-              <Image src={clientArcadia}
-                alt="cliente"/>
 
-              <Image src={clientIntergya}
-                alt="cliente"/>
+            <div className='clientsTitle'>
+              <p>nuestros clientes</p>
+              <h3>confían en <br/> nosootros</h3>
+            </div>
+            
+            <div className='clientsCarousel'>
+              <div className='carouselTrack'>
+                <Image src={clientArcadia}
+                  alt="cliente"/>
 
-              <Image src={clientLatin}
-                alt="cliente"/>
+                <Image src={clientIntergya}
+                  alt="cliente"/>
 
-              <Image src={clientMelon}
-                alt="cliente"/>
+                <Image src={clientLatin}
+                  alt="cliente"/>
 
-              <Image src={clientTienda}
-                alt="cliente"/>
+                <Image src={clientMelon}
+                  alt="cliente"/>
+
+                <Image src={clientTienda}
+                  alt="cliente"/>
+              </div>
+
+              <div className='carouselTrack'>
+                <Image src={clientArcadia}
+                  alt="cliente"/>
+
+                <Image src={clientIntergya}
+                  alt="cliente"/>
+
+                <Image src={clientLatin}
+                  alt="cliente"/>
+
+                <Image src={clientMelon}
+                  alt="cliente"/>
+
+                <Image src={clientTienda}
+                  alt="cliente"/>
+              </div>
             </div>
           </div>
-        </div>
         </div>
       </main>
     </div>

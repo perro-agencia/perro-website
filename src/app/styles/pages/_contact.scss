@@ -1,4 +1,6 @@
 .contactBody {
+  position: relative;
+
   @include pagebody;
   padding-top: $spacing * 4;
   padding-bottom: $spacing * 4;
@@ -35,6 +37,8 @@
   }
 
   .contactCopy {
+    position: relative;
+    z-index: 2;
     order: 1;
     margin-bottom: $spacing * 4;
 
@@ -45,6 +49,8 @@
   }
 
   .contactForm {
+    position: relative;
+    z-index: 2;
     order: 2;
 
     @media screen and (min-width: "768px") {
@@ -67,6 +73,22 @@
           margin-right: $spacing * 2;
         }
       }
+    }
+  }
+
+  //BlobStyles
+  .blobOne{
+    z-index: 1;
+    position: absolute;
+  }
+
+  .blobOne {
+    top: -100px;
+    right: -700px;
+
+    @media screen and (min-width: "1024px") {
+      top: -700px;
+      right: 400px;
     }
   }
 }
