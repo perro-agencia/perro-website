@@ -1,15 +1,12 @@
 export default function BlobAnimation() {
   return (
     <div>
-      <svg className="blob blob-front"
+      <svg className="blob"
         viewBox="0 0 800 500"
         preserveAspectRatio="none"
-        xmlns="http://www.w3.org/2000/svg"
-        xmlnsXlink="http://www.w3.org/1999/xlink"
-        width="100%"
-        id="blobSvg">
+        width="100%">
         <g transform="translate(173.26698684692383, 0.7086639404296875)">
-          <path className="blob" fill="#F08200">
+          <path className="blob" fill="#6E00FF">
             <animate attributeName="d"
               dur="20000ms"
               repeatCount="indefinite"

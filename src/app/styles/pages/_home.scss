@@ -158,6 +158,8 @@
 
     // Estilos de Home Main Business
     .homeBusiness {
+      position: relative;
+
       padding-top: $spacing * 3;
       padding-bottom: $spacing * 3;
 
@@ -172,6 +174,8 @@
       }
 
       .businessTitle {
+        position: relative;
+        z-index: 2;
         text-align: center;
         color: $white;
         margin-bottom: $spacing * 6;
@@ -192,6 +196,8 @@
       }
 
       img {
+        position: relative;
+        z-index: 2;
         width: 100%;
         height: auto;
       }
@@ -199,6 +205,9 @@
 
     // Estilos de Home Main Contact
     .homeContact {
+      position: relative;
+      z-index: 2;
+
       display: flex;
       flex-direction: column;
       align-items: flex-start;
@@ -279,6 +288,34 @@
           color: $white;
         }
       }
+    }
+  }
+  
+
+  //BlobStyles
+  .blobOne, .blobTwo{
+    z-index: 1;
+    position: absolute;
+  }
+
+  .blobOne {
+    
+    top: -200px;
+    left: -700px;
+
+    @media screen and (min-width: "1024px") {
+      top: -400px;
+      left: -800px;
+    }
+  }
+
+  .blobTwo {
+    top: 0;
+    right: -700px;
+
+    @media screen and (min-width: "1024px") {
+      top: -100px;
+      right: -800px;
     }
   }
 }

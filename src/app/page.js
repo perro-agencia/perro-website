@@ -12,10 +12,15 @@ import clientLatin from '../../public/client-latincloud.png'
 import clientMelon from '../../public/client-melonHelp.png'
 import clientTienda from '../../public/client-tiendanube.png'
 import businessEnhancers from '../../public/businessEnhancers.png'
+import BlobAnimation from './components/blobAnimation'
 
 export default function Home() {
   return (
     <div className='homeBody'>
+      <div className='blobOne'>
+        <BlobAnimation />
+      </div>
+
       <header>
         <div>
           <Image src={partnerToto}
@@ -128,6 +133,10 @@ export default function Home() {
         </div>
 
         <div className='homeBusiness'>
+          <div className='blobTwo'>
+            <BlobAnimation />
+          </div>
+
           <div className='businessTitle'>
             <p>nosotros</p>
             <h3>businnes<span> </span>s<br/> enhancers</h3>

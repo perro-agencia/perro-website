@@ -9,6 +9,16 @@ body {
   overflow-x: hidden;
   scroll-behavior: smooth;
   background-color: $black;
+
+  header {
+    position: relative;
+    z-index: 2;
+  }
+
+  main {
+    position: relative;
+    z-index: 2;
+  }
 }
 
 a {
@@ -25,7 +35,7 @@ ul {
   position: fixed;
   bottom: $spacing * 3;
   right: $spacing * 3;
-  z-index: 9;
+  z-index: 3;
   mix-blend-mode: difference;
 
   @media screen and (min-width: "768px") {
