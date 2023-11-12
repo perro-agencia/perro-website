@@ -145,6 +145,8 @@ export default function Home() {
           <div className='businessTitle'>
             <p>nosotros</p>
             <h3>businnes<span> </span>s<br/> enhancers</h3>
+
+            <p>Diseñamos la imagen de tu marca, optimizamos las propuestas de valor de servicios y aplicamos las tácticas necesarias para incrementar el crecimiento de los negocios. </p>
           </div>
 
           <Image src={businessEnhancers}

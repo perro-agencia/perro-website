@@ -216,10 +216,18 @@
         h3 {
           @include h2;
           text-transform: uppercase;
+          margin-bottom: $spacing * 3;
 
           span {
             letter-spacing: -30px;
           }
+        }
+
+        p:nth-child(3) {
+          @include bodyNormal;
+          text-transform: none;
+          max-width: 700px;
+          margin: auto;
         }
       }
 
@@ -314,6 +322,7 @@
         p {
           @include bodyNormal;
           color: $white;
+          max-width: 500px;
         }
       }
     }
