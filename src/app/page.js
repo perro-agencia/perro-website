@@ -12,6 +12,7 @@ import clientLatin from '../../public/client-latincloud.png'
 import clientMelon from '../../public/client-melonHelp.png'
 import clientTienda from '../../public/client-tiendanube.png'
 import businessEnhancers from '../../public/businessEnhancers.png'
+import gifServices from '../../public/gif-services.gif'
 import BlobDark from './components/blobDark'
 
 export default function Home() {
@@ -41,6 +42,10 @@ export default function Home() {
 
       <main>
         <div className='homeServices'>
+          <Image src={gifServices}
+            className='gifServices'
+            alt="gif servicios perro"/>
+          
           <div className='serviceTitle'>
             <p>nuestros servicios</p>
             <h3>per<span> </span>ro que ladra, <br /> mueerde</h3>

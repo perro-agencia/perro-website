@@ -69,6 +69,7 @@
     // Estilos de Home Main Services
     .homeServices {
       color: $white;
+      position: relative;
       padding-top: $spacing * 3;
       padding-bottom: $spacing * 3;
 
@@ -80,6 +81,33 @@
       @media screen and (min-width: "1280px") {
         padding-top: $spacing * 10;
         padding-bottom: $spacing * 10;
+      }
+
+      .gifServices {
+        display: none;
+        position: absolute;
+        z-index: -1;
+
+        @media screen and (min-width: "768px") {
+          display: block;
+          width: 200px;
+          height: 200px;
+          top: 0;
+          right: -150px;
+        }
+
+        @media screen and (min-width: "1280px") {
+          width: 300px;
+          height: 300px;
+          top: 0;
+          right: -200px;
+        }
+
+        @media screen and (min-width: "1440px") {
+          width: 350px;
+          height: 350px;
+          right: -250px;
+        }
       }
 
       .serviceTitle {
