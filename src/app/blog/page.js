@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 import BlogCard from '../components/cards/blogCard';
-import BlobAnimation from '../components/blobAnimation';
+import BlobDark from '../components/blobDark';
 
 const blogCard1 = {
   id:'marketing',
@@ -64,7 +64,7 @@ export default function BlogPage() {
   return (
     <div className='blogBody'>
       <div className='blobOne'>
-        <BlobAnimation />
+        <BlobDark />
       </div>
       
       <header>

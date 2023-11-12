@@ -1,4 +1,4 @@
-export default function BlobAnimation() {
+export default function BlobLight() {
   return (
     <div>
       <svg className="blob"
@@ -6,7 +6,7 @@ export default function BlobAnimation() {
         preserveAspectRatio="none"
         width="100%">
         <g transform="translate(173.26698684692383, 0.7086639404296875)">
-          <path className="blob" fill="#6E00FF">
+          <path className="blob" fill="#F08200">
             <animate attributeName="d"
               dur="20000ms"
               repeatCount="indefinite"

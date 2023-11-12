@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 import perroIsologo from '../../../public/perroIsologo.svg'
+import BlobLight from "./blobLight";
 
 const links = [{
   label: 'Home',
@@ -50,6 +51,15 @@ export default function Nav() {
     <div className="navContainer" style={{zIndex: isNavVisible ? '999' : '2'}}>
       <nav style={{opacity: isNavVisible ? '1' : '0',
         zIndex: isNavVisible ? '999' : '-9'}}>
+        
+        <div className="blobOne">
+          <BlobLight />
+        </div>
+
+        <div className="blobTwo">
+          <BlobLight />
+        </div>
+
         <div className='navHeader'>
           <Image className='perrologo' src={perroIsologo}
             alt="isologo perro agency"

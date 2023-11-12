@@ -1,11 +1,11 @@
-import BlobAnimation from "../components/blobAnimation"
+import BlobDark from "../components/blobDark"
 
 export default function ContactPage() {
 
   return (
     <div className='contactBody'>
       <div className='blobOne'>
-        <BlobAnimation />
+        <BlobDark />
       </div>
       
       <div className="contactForm">

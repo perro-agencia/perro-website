@@ -12,13 +12,13 @@ import clientLatin from '../../public/client-latincloud.png'
 import clientMelon from '../../public/client-melonHelp.png'
 import clientTienda from '../../public/client-tiendanube.png'
 import businessEnhancers from '../../public/businessEnhancers.png'
-import BlobAnimation from './components/blobAnimation'
+import BlobDark from './components/blobDark'
 
 export default function Home() {
   return (
     <div className='homeBody'>
       <div className='blobOne'>
-        <BlobAnimation />
+        <BlobDark />
       </div>
 
       <header>
@@ -134,7 +134,7 @@ export default function Home() {
 
         <div className='homeBusiness'>
           <div className='blobTwo'>
-            <BlobAnimation />
+            <BlobDark />
           </div>
 
           <div className='businessTitle'>

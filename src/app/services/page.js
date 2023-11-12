@@ -1,13 +1,13 @@
 import Link from 'next/link'
 import Image from 'next/image'
 
-import BlobAnimation from '../components/blobAnimation'
+import BlobDark from '../components/blobDark'
 
 export default function ServicesPage() {
   return (
     <div className='servicesBody'>
       <div className='blobOne'>
-        <BlobAnimation />
+        <BlobDark />
       </div>
 
       <header>
@@ -47,7 +47,7 @@ export default function ServicesPage() {
         </div>
 
         <div className='blobTwo'>
-            <BlobAnimation />
+            <BlobDark />
           </div>
       </main>
     </div>
