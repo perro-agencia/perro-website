@@ -1,4 +1,4 @@
-"use client"; 
+"use client";
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link'
 import Image from 'next/image'
@@ -34,6 +34,36 @@ const blogCard3 = {
   title:'SEM vs SEO',
   tag:'Marketing',
   date:'Oct 2023',
+};
+
+const blogCard4 = {
+  id:'marketing',
+  link:'/blog/blogFeed/maximiza-tu-alcance-con-reels',
+  img:'/blog-test.png',
+  alt:'Maximizando tu Alcance con Reels y Contenidos Estáticos',
+  title:'Maximizando tu Alcance con Reels y Contenidos Estáticos',
+  tag:'Marketing',
+  date:'Nov 2023',
+};
+
+const blogCard5 = {
+  id:'marketing',
+  link:'/blog/blogFeed/seleccionar-con-vision',
+  img:'/blog-test.png',
+  alt:'Seleccionar con Visión: Agencias de Marketing Digital que Potencian tu Inversión',
+  title:'Seleccionar con Visión',
+  tag:'Marketing',
+  date:'Nov 2023',
+};
+
+const blogCard6 = {
+  id:'marketing',
+  link:'/blog/blogFeed/inteligencia-artificial-en-el-marketing-digital',
+  img:'/blog-test.png',
+  alt:'Inteligencia Artificial en el Marketing Digital',
+  title:'Inteligencia Artificial en el Marketing Digital',
+  tag:'Marketing',
+  date:'Nov 2023',
 };
 
 export default function BlogPage() {
@@ -86,6 +116,9 @@ export default function BlogPage() {
             <BlogCard {...blogCard1} />
             <BlogCard {...blogCard2} />
             <BlogCard {...blogCard3} />
+            <BlogCard {...blogCard4} />
+            <BlogCard {...blogCard5} />
+            <BlogCard {...blogCard6} />
           </div>
         </div>
       </main>

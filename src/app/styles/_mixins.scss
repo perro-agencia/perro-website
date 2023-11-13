@@ -50,14 +50,14 @@
 }
 
 @mixin h3 () {
-  // font-family: 'Work Sans', sans-serif;
+  font-family: 'workSans', sans-serif;
   font-size: 42px;
   font-weight: 700;
   line-height: 100%;
 }
 
 @mixin h4 () {
-  // font-family: 'Work Sans', sans-serif;
+  font-family: 'workSans', sans-serif;
   font-size: 16px;
   font-weight: 600;
   line-height: 100%;
@@ -72,21 +72,21 @@
 }
 
 @mixin subtitle1 () {
-  // font-family: 'Work Sans', sans-serif;
+  font-family: 'workSans', sans-serif;
   font-size: 26px;
   font-weight: 400;
   line-height: 100%;
 }
 
 @mixin subtitle2 () {
-  // font-family: 'Work Sans', sans-serif;
+  font-family: 'workSans', sans-serif;
   font-size: 24px;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 100%;
 }
 
 @mixin bodyHuge () {
-  font-family: 'Work Sans', sans-serif;
+  font-family: 'workSans', sans-serif;
   font-size: 24px;
   font-weight: 300;
   line-height: 125%;
@@ -97,7 +97,7 @@
 }
 
 @mixin bodyNormal () {
-  font-family: 'Work Sans', sans-serif;
+  font-family: 'workSans', sans-serif;
   font-size: 12px;
   font-weight: 300;
   line-height: 125%;
@@ -108,7 +108,7 @@
 }
 
 @mixin overline () {
-  // font-family: 'Work Sans', sans-serif;
+  font-family: 'workSans', sans-serif;
   font-size: 14px;
   font-weight: 400;
   line-height: 100%;
@@ -116,7 +116,7 @@
 }
 
 @mixin caption () {
-  // font-family: 'Work Sans', sans-serif;
+  font-family: 'workSans', sans-serif;
   font-size: 10px;
   font-weight: 600;
   line-height: 100%;

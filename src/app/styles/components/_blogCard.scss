@@ -33,7 +33,7 @@
     color: $white;
 
     h5 {
-      @include h4;
+      @include subtitle2;
       margin-bottom: $spacing;
     }
 

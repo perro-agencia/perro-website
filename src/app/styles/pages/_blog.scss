@@ -1,6 +1,7 @@
 .active {
   color: $accent-main !important;
   text-decoration: underline;
+  font-weight: 600 !important
 }
 
 .blogBody {
@@ -51,7 +52,7 @@
         margin-bottom: $spacing * 3;
 
         button {
-          @include bodyNormal;
+          @include bodyHuge;
           color: $white;
           cursor: pointer;
           border: none;
@@ -74,7 +75,7 @@
           justify-content: flex-start;
 
           & > .blogCard:not(:last-child) {
-            margin-right: 4.5%;
+            margin-right: 3%;
           }
         }
       }
