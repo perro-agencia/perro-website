@@ -1,4 +1,6 @@
 .blogTemplateBody {
+  position: relative;
+  z-index: 3;
   @include pagebody;
   max-width: 1000px;
   margin: auto;

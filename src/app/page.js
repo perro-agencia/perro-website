@@ -1,3 +1,5 @@
+"use client"; 
+import React, { useState } from 'react';
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -16,6 +18,15 @@ import gifServices from '../../public/gif-services.gif'
 import BlobDark from './components/blobDark'
 
 export default function Home() {
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
+    setSubmitted(true);
+  };
+
   return (
     <div className='homeBody'>
       <div className='blobOne'>
@@ -155,23 +166,31 @@ export default function Home() {
 
         <div className='homeContact'>
           <div className="contactForm">
-            <form>
+            {submitted ? (
+              <div className="formSuccessMessage">
+                <p>¡Gracias por enviar el formulario! Nos pondremos en contacto contigo pronto.</p>
+              </div>
+            ) : (
+            <form action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSfcSsokLvG8u93NAJHvzh53xWiT6jWdglPVSCTO72ZZPS4iDA/formResponse"
+              target="hidden_iframe"
+              onSubmit={handleSubmit}>
               <div>
-                <input className="primary-input" type="email" placeholder="Email" />
-                <input className="primary-input" type="text" placeholder="Nombre" />
+                <input className="primary-input" type="email" name="entry.646064401" placeholder="Email" />
+                <input className="primary-input" type="text" name="entry.1702112212" placeholder="Nombre" />
               </div>
 
               <div>
-                <input className="primary-input" type="text" placeholder="Empresa" />
-                <input className="primary-input" type="number" placeholder="Teléfono" />
+                <input className="primary-input" type="text" name="entry.472651491" placeholder="Empresa" />
+                <input className="primary-input" type="number" name="entry.406605562" placeholder="Teléfono" />
               </div>
 
               <div>
-                <textarea className="primary-textarea" id="" cols="30" rows="10" placeholder="Mensaje"></textarea>
+                <textarea className="primary-textarea" name="entry.1051704025" cols="30" rows="10" placeholder="Mensaje"></textarea>
               </div>
 
               <button className="primary-button" type="submit">Enviar</button>
             </form>
+            )}
           </div>
 
           <div className='contactCopy'>
