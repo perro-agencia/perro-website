@@ -1,5 +1,6 @@
 import { font } from './font.js'
 import Link from 'next/link'
+import Head from 'next/head'
 
 import './styles/styles.scss'
 import Nav from './components/nav'
@@ -15,6 +16,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
+    <>
     <html lang="en">
       <body className={font.className}>
         <Nav id="nav"/>
@@ -31,5 +33,6 @@ export default function RootLayout({ children }) {
         <Footer />
       </body>
     </html>
+    </>
   )
 }

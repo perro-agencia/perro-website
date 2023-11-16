@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link'
 import Image from 'next/image'
+import Head from 'next/head';
 
 import BlogCard from '../components/cards/blogCard';
 import BlobDark from '../components/blobDark';
@@ -92,36 +93,42 @@ export default function BlogPage() {
   };
 
   return (
-    <div className='blogBody'>
-      <div className='blobOne'>
-        <BlobDark />
-      </div>
-      
-      <header>
-        <p>decimos lo que pensamos</p>
-        
-        <h2>
-          a otrro per<span> </span>ro <br/> con ese huueso
-        </h2>
-      </header>
+    <>
+      <Head>
+        <title>Perro Agency || Blog</title>
+      </Head>
 
-      <main>
-        <div className='blogContainer'>
-          <div className='blogNav'>
-            <button onClick={() => handleFilter('all')} data-filter="all" className={activeButton === 'all' ? 'active' : ''}>Todas</button>
-            <button onClick={() => handleFilter('marketing')} data-filter="marketing" className={activeButton === 'marketing' ? 'active' : ''}>Marketing</button>
-          </div>
-
-          <div className='blogItems'>
-            <BlogCard {...blogCard1} />
-            <BlogCard {...blogCard2} />
-            <BlogCard {...blogCard3} />
-            <BlogCard {...blogCard4} />
-            <BlogCard {...blogCard5} />
-            <BlogCard {...blogCard6} />
-          </div>
+      <div className='blogBody'>
+        <div className='blobOne'>
+          <BlobDark />
         </div>
-      </main>
-    </div>
+        
+        <header>
+          <p>decimos lo que pensamos</p>
+          
+          <h2>
+            a otrro per<span> </span>ro <br/> con ese huueso
+          </h2>
+        </header>
+
+        <main>
+          <div className='blogContainer'>
+            <div className='blogNav'>
+              <button onClick={() => handleFilter('all')} data-filter="all" className={activeButton === 'all' ? 'active' : ''}>Todas</button>
+              <button onClick={() => handleFilter('marketing')} data-filter="marketing" className={activeButton === 'marketing' ? 'active' : ''}>Marketing</button>
+            </div>
+
+            <div className='blogItems'>
+              <BlogCard {...blogCard1} />
+              <BlogCard {...blogCard2} />
+              <BlogCard {...blogCard3} />
+              <BlogCard {...blogCard4} />
+              <BlogCard {...blogCard5} />
+              <BlogCard {...blogCard6} />
+            </div>
+          </div>
+        </main>
+      </div>
+    </>
   )
 }

@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link'
 import Image from 'next/image'
+import Head from 'next/head';
 
 import partnerToto from '../../public/partner-toto.svg'
 import serviceBranding from '../../public/service-branding.svg'
@@ -28,6 +29,11 @@ export default function Home() {
   };
 
   return (
+    <>
+    <Head>
+      <title style={{ color: 'red' }}>Perro Agency</title>
+    </Head>
+    
     <div className='homeBody'>
       <div className='blobOne'>
         <BlobDark />
@@ -206,5 +212,6 @@ export default function Home() {
         </div>
       </main>
     </div>
+    </>
   )
 }
