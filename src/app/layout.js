@@ -8,6 +8,9 @@ import Footer from './components/footer'
 export const metadata = {
   title: 'Perro Agency',
   description: 'We make your company grooow',
+  icons: {
+    icon: '/icon.png',
+  },
 }
 
 export default function RootLayout({ children }) {

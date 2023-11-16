@@ -21,11 +21,6 @@ export default function ServicesPage() {
       <main>
         <div className='servicesItems'>
           <div className='item'>
-            <h4>Branding & Diseño</h4>
-            <p>Creamos marcas únicas, le damos identidad a tu negocio y su historia. También hacemos contenido para Social Media y pauta digital.</p>
-          </div>
-
-          <div className='item'>
             <h4>sem & seo</h4>
             <p>Gestionamos y moderamos los perfiles de tu marca en redes sociales a través de estrategias de contenido y atención al cliente.</p>
           </div>
@@ -33,6 +28,11 @@ export default function ServicesPage() {
           <div className='item'>
             <h4>social <br/> media</h4>
             <p>Podés elegir cualquiera de nuestros servicios y solicitar una consultoría personalizada según la necesidad de tu proyecto.</p>
+          </div>
+
+          <div className='item'>
+            <h4>Branding & Diseño</h4>
+            <p>Creamos marcas únicas, le damos identidad a tu negocio y su historia. También hacemos contenido para Social Media y pauta digital.</p>
           </div>
           
           <div className='item'>

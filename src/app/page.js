@@ -64,16 +64,6 @@ export default function Home() {
 
           <div className='serviceBody'>
             <div className='service'>
-              <Image src={serviceBranding}
-                alt="servicio Branding & Diseño"/>
-              
-              <div>
-                <h4>Branding & Diseño</h4>
-                <p>Creamos marcas únicas, le damos identidad a tu negocio y su historia. También hacemos contenido para Social Media y pauta digital.</p>
-              </div>
-            </div>
-
-            <div className='service'>
               <Image src={serviceSocial}
                 alt="servicio Social Media"/>
               
@@ -90,6 +80,16 @@ export default function Home() {
               <div>
                 <h4>SEM & SEO</h4>
                 <p>Gestionamos y moderamos los perfiles de tu marca en redes sociales a través de estrategias de contenido y atención al cliente.</p>
+              </div>
+            </div>
+
+            <div className='service'>
+              <Image src={serviceBranding}
+                alt="servicio Branding & Diseño"/>
+              
+              <div>
+                <h4>Branding & Diseño</h4>
+                <p>Creamos marcas únicas, le damos identidad a tu negocio y su historia. También hacemos contenido para Social Media y pauta digital.</p>
               </div>
             </div>
 
