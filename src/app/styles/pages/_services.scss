@@ -63,8 +63,8 @@
         align-items: flex-start;
         justify-content: space-between;
         color: $white;
-        //No logro encontrar como hacer el cursor una imagen o svg
-        //cursor: url('...'), auto;
+        //La imagen de cursor no puede ser de mas de 128px, creo que si lo hacemos como el video con un componente que siga el mouse podriamos hacerlo ams grande
+        cursor: url('../../../../public/test-cursor.png'), auto;
 
         @media screen and (min-width: "1024px") {
           min-height: 50vh;
