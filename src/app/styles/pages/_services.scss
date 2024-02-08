@@ -63,6 +63,8 @@
         align-items: flex-start;
         justify-content: space-between;
         color: $white;
+        //No logro encontrar como hacer el cursor una imagen o svg
+        //cursor: url('...'), auto;
 
         @media screen and (min-width: "1024px") {
           min-height: 50vh;

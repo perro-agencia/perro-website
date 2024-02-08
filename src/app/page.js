@@ -14,6 +14,8 @@ import clientIntergya from '../../public/client-intergya.png'
 import clientLatin from '../../public/client-latincloud.png'
 import clientMelon from '../../public/client-melonHelp.png'
 import clientTienda from '../../public/client-tiendanube.png'
+import clientPrusia from '../../public/client-prusia.png'
+import clientDevra from '../../public/client-devra.png'
 import businessEnhancers from '../../public/businessEnhancers.png'
 import gifServices from '../../public/gif-services.gif'
 import BlobDark from './components/blobDark'
@@ -133,6 +135,12 @@ export default function Home() {
 
               <Image src={clientTienda}
                 alt="cliente"/>
+
+              <Image src={clientPrusia}
+                alt="cliente"/>
+
+              <Image src={clientDevra}
+                alt="cliente"/>
             </div>
 
             <div className='carouselTrack'>
@@ -149,6 +157,12 @@ export default function Home() {
                 alt="cliente"/>
 
               <Image src={clientTienda}
+                alt="cliente"/>
+
+              <Image src={clientPrusia}
+                alt="cliente"/>
+
+              <Image src={clientDevra}
                 alt="cliente"/>
             </div>
           </div>
