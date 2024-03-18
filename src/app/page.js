@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Link from 'next/link'
 import Image from 'next/image'
 import Head from 'next/head';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 import partnerToto from '../../public/partner-toto.svg'
 import serviceBranding from '../../public/service-branding.svg'
@@ -21,12 +22,25 @@ import gifServices from '../../public/gif-services.gif'
 import BlobDark from './components/blobDark'
 
 export default function Home() {
+
   const [submitted, setSubmitted] = useState(false);
+  const [recaptchaAccepted, setRecaptchaAccepted] = useState(false);
+
+  const handleRecaptchaChange = (value) => {
+    if (value) {
+      setRecaptchaAccepted(true);
+    } else {
+      setRecaptchaAccepted(false);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!recaptchaAccepted) {
+      alert("Por favor, acepta el recaptcha.");
+      return;
+    }
     await new Promise(resolve => setTimeout(resolve, 2000));
-
     setSubmitted(true);
   };
 
@@ -208,7 +222,8 @@ export default function Home() {
                 <textarea className="primary-textarea" name="entry.1051704025" cols="30" rows="10" placeholder="Mensaje"></textarea>
               </div>
 
-              <button className="primary-button" type="submit">Enviar</button>
+              <ReCAPTCHA sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY} onChange={handleRecaptchaChange}/>
+              <button className="primary-button" type="submit" disabled={!recaptchaAccepted}>Enviar</button>
             </form>
             )}
           </div>
