@@ -30,7 +30,7 @@ export default function Home() {
     const options = {
       root: null,
       rootMargin: '0px',
-      threshold: 0.5, // Cuando al menos el 50% del video esté visible
+      threshold: 0.1, // Cuando al menos el 50% del video esté visible
     };
 
     const observer = new IntersectionObserver(handleIntersection, options);

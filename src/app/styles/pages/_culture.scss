@@ -31,18 +31,25 @@
       text-transform: uppercase;
       margin-bottom: $spacing * 4;
       font-size: 25px;
+      text-align: center;
+
+      @media screen and (min-width: "768px") {
+        text-align: left;
+      }
     }
 
 
     img {
       height: auto;
       width: 100%;
-      max-width: 400px;
+      margin: auto;
+      max-width: 200px;
       margin-bottom: $spacing * 3;
       @extend .float;
 
       @media screen and (min-width: "768px") {
         max-width: 500px;
+        margin: 0;
       }
     }
   }
