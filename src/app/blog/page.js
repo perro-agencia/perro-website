@@ -10,7 +10,7 @@ import BlobDark from '../components/blobDark';
 const blogCard1 = {
   id:'marketing',
   link:'/blog/blogFeed/que-es-el-sem',
-  img:'/perro-blog-05-mkt-semsirve.png',
+  img:'/Perro_Blog_05_MKT_SEMsirve.png',
   alt:'Que es el sem',
   title:'¿Qué es SEM y para qué sirve?',
   tag:'Marketing',

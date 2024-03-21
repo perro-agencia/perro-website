@@ -1,5 +1,5 @@
 "use client"; 
-import React, { useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import Link from 'next/link'
 import Image from 'next/image'
 import Head from 'next/head';
@@ -22,6 +22,44 @@ import gifServices from '../../public/gif-services.gif'
 import BlobDark from './components/blobDark'
 
 export default function Home() {
+  const videoRef = useRef(null);
+  const observerRef = useRef(null);
+
+  useEffect(() => {
+    // Observador de intersección
+    const options = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.5, // Cuando al menos el 50% del video esté visible
+    };
+
+    const observer = new IntersectionObserver(handleIntersection, options);
+    observerRef.current = observer;
+
+    // Comienza a observar el elemento de video
+    if (videoRef.current) {
+      observer.observe(videoRef.current);
+    }
+
+    // Limpia la observación cuando el componente se desmonta
+    return () => {
+      if (observerRef.current && videoRef.current) {
+        observerRef.current.unobserve(videoRef.current);
+      }
+    };
+  }, []);
+
+  const handleIntersection = (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        // Si el video está visible, comienza la reproducción
+        videoRef.current.play();
+      } else {
+        // Si el video no está visible, pausa la reproducción
+        videoRef.current.pause();
+      }
+    });
+  };
 
   const [submitted, setSubmitted] = useState(false);
   const [recaptchaAccepted, setRecaptchaAccepted] = useState(false);
@@ -194,8 +232,11 @@ export default function Home() {
             <p>Diseñamos la imagen de tu marca, optimizamos las propuestas de valor de servicios y aplicamos las tácticas necesarias para incrementar el crecimiento de los negocios. </p>
           </div>
 
-          <Image src={businessEnhancers}
-            alt="Perro founders"/>
+          <div className="videoContainer">
+            <video loop autoPlay muted ref={videoRef} className="videoPlayer">
+              <source src="/weareperro_web2.mp4" type="video/mp4" />
+            </video>
+          </div>
         </div>
 
         <div className='homeContact'>

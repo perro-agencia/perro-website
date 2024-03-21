@@ -327,7 +327,14 @@
       }
     }
   }
-  
+
+  .videoContainer {
+    width: 100%;
+
+    .videoPlayer {
+      width: 100%;
+    }
+  }
 
   //BlobStyles
   .blobOne, .blobTwo{
@@ -351,7 +358,7 @@
 
     @media screen and (min-width: "1024px") {
       top: -100px;
-      right: -800px;
+      right: -1200px;
     }
   }
 }

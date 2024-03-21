@@ -18,16 +18,6 @@ export default function Footer() {
           <li>
             -
           </li>
-
-          <li>
-            <Link href='https://www.instagram.com/perroagency/'  target="_blank" rel="noopener noreferrer">
-              twitter
-            </Link>
-          </li>
-
-          <li>
-            -
-          </li>
           
           <li>
             <Link href='https://www.linkedin.com/company/perroagency' target="_blank" rel="noopener noreferrer">

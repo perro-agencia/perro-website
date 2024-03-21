@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import Head from 'next/head'
 
-import imgSabuesos from '../../../public/img-sabuesos.jpg'
+import imgSabuesos from '../../../public/partner-pista.svg'
 import usSebas from '../../../public/us-sebas.jpg'
 import usLau from '../../../public/us-lau.jpg'
 import usFede from '../../../public/us-fede.jpg'
