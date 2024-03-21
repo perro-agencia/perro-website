@@ -63,8 +63,6 @@
         align-items: flex-start;
         justify-content: space-between;
         color: $white;
-        //La imagen de cursor no puede ser de mas de 128px, creo que si lo hacemos como el video con un componente que siga el mouse podriamos hacerlo ams grande
-        cursor: url('../../../../public/test-cursor.png'), auto;
 
         @media screen and (min-width: "1024px") {
           min-height: 50vh;
@@ -96,6 +94,26 @@
             width: 50%;
           }
         }
+      }
+
+      .item1 {
+        cursor: url('../../../../public/cursor-sem&seo.png'), auto;
+      }
+
+      .item2 {
+        cursor: url('../../../../public/cursor-social.png'), auto;
+      }
+
+      .item3 {
+        cursor: url('../../../../public/cursor-branding.png'), auto;
+      }
+
+      .item4 {
+        cursor: url('../../../../public/cursor-uxui.png'), auto;
+      }
+
+      .item5 {
+        cursor: url('../../../../public/cursor-consult.png'), auto;
       }
     }
   }
