@@ -57,7 +57,7 @@ export default function CulturePage() {
                   alt="partner perro agency toto"
                 />
                 <h4>Sebastian Konig</h4>
-                <p>marketing director <br/> paid media specialist</p>
+                <p>CEO - Founder <br/><br/> marketing director <br/> paid media specialist</p>
               </div>
 
               <div className='item'>
@@ -65,7 +65,7 @@ export default function CulturePage() {
                   alt="partner perro agency toto"
                 />
                 <h4>Federico Gilles</h4>
-                <p>product design <br/> director</p>
+                <p>Founder <br/><br/> product design <br/> director</p>
               </div>
 
               <div className='item'>

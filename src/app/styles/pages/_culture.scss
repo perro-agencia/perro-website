@@ -171,6 +171,11 @@
             @include bodyNormal;
             text-transform: uppercase;
             text-align: center;
+
+            @media screen and (min-width: 768px) {
+              // Overrides main mixin style for bodyNormal
+              font-size: 14px;
+            }
           }
         }
       }
