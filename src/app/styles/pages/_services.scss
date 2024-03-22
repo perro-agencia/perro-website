@@ -95,26 +95,6 @@
           }
         }
       }
-
-      .item1 {
-        cursor: url('../../../../public/cursor-sem&seo.png'), auto;
-      }
-
-      .item2 {
-        cursor: url('../../../../public/cursor-social.png'), auto;
-      }
-
-      .item3 {
-        cursor: url('../../../../public/cursor-branding.png'), auto;
-      }
-
-      .item4 {
-        cursor: url('../../../../public/cursor-uxui.png'), auto;
-      }
-
-      .item5 {
-        cursor: url('../../../../public/cursor-consult.png'), auto;
-      }
     }
   }
 
@@ -142,4 +122,17 @@
       right: -1000px;
     }
   }
+}
+
+.custom-cursor {
+  position: fixed;
+  margin-top: -150px;
+  margin-left: -150px;
+  width: 300px; /* Ajusta el tamaño de acuerdo a tu imagen */
+  height: 300px; /* Ajusta el tamaño de acuerdo a tu imagen */
+  background-image: url('../../../../public/partner-indi.svg'); /* Cambia la ruta a tu imagen */
+  background-color: #fff;
+  background-size: cover;
+  pointer-events: none;
+  z-index: 1;
 }

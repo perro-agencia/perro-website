@@ -61,14 +61,6 @@ export default function CulturePage() {
               </div>
 
               <div className='item'>
-                <Image src={usLau}
-                  alt="partner perro agency toto"
-                />
-                <h4>Laura Rovira</h4>
-                <p>art design <br/> director</p>
-              </div>
-
-              <div className='item'>
                 <Image src={usFede}
                   alt="partner perro agency toto"
                 />

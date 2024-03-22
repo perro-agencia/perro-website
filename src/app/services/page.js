@@ -1,3 +1,5 @@
+"use client";
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link'
 import Image from 'next/image'
 import Head from 'next/head'
@@ -5,6 +7,21 @@ import Head from 'next/head'
 import BlobDark from '../components/blobDark'
 
 export default function ServicesPage() {
+  
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      const cursor = document.querySelector('.custom-cursor');
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
+
   return (
     <>
       <Head>
@@ -57,6 +74,8 @@ export default function ServicesPage() {
             </div>
         </main>
       </div>
+
+      <div className='custom-cursor'></div>
     </>
   )
 }
