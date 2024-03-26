@@ -143,11 +143,12 @@
 
         .service {
           text-align: left;
-          width: 250px;
+          width: 80%;
           padding-left: $spacing * 2;
           padding-right: $spacing * 2;
           padding-top: $spacing * 3;
           padding-bottom: $spacing * 3;
+          margin-bottom: $spacing * 2;
 
           border-style: solid;
           border-width: 2px;
@@ -156,8 +157,13 @@
 
           transition: 0.2s ease-in-out;
 
+          @media screen and (min-width: "768px") {
+            max-width: 250px;
+          }
+
           @media screen and (min-width: "1280px") {
             width: 23%;
+            max-width: 300px;
           }
 
           img {
