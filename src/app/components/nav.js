@@ -113,10 +113,10 @@ export default function Nav() {
             />
         </Link>
 
-        <svg viewBox="0 0 48 29" fill="none" onClick={toggleNavVisibility}>
-          <rect width="31" height="3" fill="#5E00FA"/>
-          <rect y="13" width="48" height="3" fill="#5E00FA"/>
-          <rect y="26" width="48" height="3" fill="#5E00FA"/>
+        <svg viewBox="0 0 48 29" onClick={toggleNavVisibility}>
+          <rect width="31" height="3"/>
+          <rect y="13" width="48" height="3"/>
+          <rect y="26" width="48" height="3"/>
         </svg>
       </div>
     </div>

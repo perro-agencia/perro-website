@@ -99,6 +99,12 @@
   right: $spacing * 3;
   z-index: 3;
   mix-blend-mode: difference;
+  stroke: $primary-main;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    stroke: $accent-main;
+  }
 
   @media screen and (min-width: "768px") {
     bottom: $spacing * 5;

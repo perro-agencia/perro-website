@@ -68,7 +68,6 @@ nav {
 
   svg {
     cursor: pointer;
-    mix-blend-mode: difference;
   }
 }
 
@@ -180,6 +179,12 @@ nav {
     width: 40px;
     cursor: pointer;
     mix-blend-mode: difference;
+    fill: $primary-main;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      fill: $accent-main;
+    }
   }
 }
 
