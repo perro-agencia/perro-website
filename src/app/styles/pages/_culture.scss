@@ -1,0 +1,208 @@
+.cultureBody {
+  @include pagebody;
+  padding-top: $spacing * 4;
+  padding-bottom: $spacing * 4;
+
+  @media screen and (min-width: "768px") {
+    padding-top: $spacing * 5;
+    padding-bottom: $spacing * 5;
+  }
+
+  // Estilos de Home Header
+  header {
+    padding-top: $spacing * 10;
+    padding-bottom: $spacing * 10;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    @media screen and (min-width: "1024px") {
+      height: 60vh;
+      min-height: 500px;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    h2 {
+      @include h1;
+      color: $white;
+      text-transform: uppercase;
+      margin-bottom: $spacing * 4;
+      text-align: center;
+      word-break: break-all;
+
+      @media screen and (min-width: "768px") {
+        text-align: left;
+        word-break: normal;
+      }
+    }
+
+
+    img {
+      display: none;
+      height: auto;
+      width: 100%;
+      margin: auto;
+      max-width: 200px;
+      margin-bottom: $spacing * 3;
+      @extend .float;
+      //Test
+
+      @media screen and (min-width: "768px") {
+        display: inline-block;
+        max-width: 500px;
+        margin: 0;
+      }
+    }
+  }
+
+  // Estilos de Culture Main
+  main {
+
+    // Estilos de Culture Main Crew
+    .cultureCrew {
+      position: relative;
+      color: $white;
+      padding-top: $spacing * 3;
+      padding-bottom: $spacing * 3;
+
+      @media screen and (min-width: "768px") {
+        padding-top: $spacing * 5;
+        padding-bottom: $spacing * 5;
+      }
+
+      @media screen and (min-width: "1280px") {
+        padding-top: $spacing * 10;
+        padding-bottom: $spacing * 10;
+      }
+
+      .gifContact {
+        display: none;
+        position: absolute;
+        z-index: -1;
+
+        @media screen and (min-width: "768px") {
+          display: block;
+          width: 200px;
+          height: 200px;
+          bottom: 0;
+          left: -150px;
+        }
+
+        @media screen and (min-width: "1280px") {
+          width: 300px;
+          height: 300px;
+          left: -200px;
+        }
+
+        @media screen and (min-width: "1440px") {
+          width: 350px;
+          height: 350px;
+          left: -250px;
+        }
+      }
+
+      .crewTitle {
+        text-align: center;
+        margin-bottom: $spacing * 6;
+
+        @media screen and (min-width: "768px") {
+          margin-bottom: $spacing * 10;
+        }
+
+        p {
+          @include overline;
+          margin-bottom: $spacing;
+        }
+
+        h3 {
+          @include h2;
+          text-transform: uppercase;
+          word-wrap: normal;
+          word-break: normal;
+          margin-bottom: $spacing * 2;
+
+          span {
+            letter-spacing: -30px;
+          }
+        }
+
+        .crewDescrip {
+          @include bodyNormal;
+          text-transform: initial;
+          max-width: 800px;
+          margin: auto;
+        }
+      }
+
+      .crewItems {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-wrap: wrap;
+
+        .item {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: flex-start;
+          width: 100%;
+          margin-bottom: $spacing * 6;
+
+          @media screen and (min-width: "768px") {
+            width: 50%;
+          }
+
+          @media screen and (min-width: "1240px") {
+            width: 33%;
+          }
+
+          img {
+            border-radius: 100%;
+            width: 150px;
+            height: auto;
+            margin-bottom: $spacing * 2;
+
+            @media screen and (min-width: "768px") {
+              width: 200px;
+            }
+          }
+
+          h4 {
+            @include h4;
+            margin-bottom: $spacing;
+          }
+
+          p {
+            @include bodyNormal;
+            text-transform: uppercase;
+            text-align: center;
+
+            @media screen and (min-width: 768px) {
+              // Overrides main mixin style for bodyNormal
+              font-size: 14px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  //BlobStyles
+  .blobOne{
+    z-index: 1;
+    position: absolute;
+  }
+
+  .blobOne {
+    top: -200px;
+    right: -700px;
+
+    @media screen and (min-width: "1024px") {
+      top: -400px;
+      right: -800px;
+    }
+  }
+}

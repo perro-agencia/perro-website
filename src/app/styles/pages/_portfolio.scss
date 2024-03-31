@@ -1,0 +1,104 @@
+.portfolioBody {
+  @include pagebody;
+  padding-top: $spacing * 4;
+  padding-bottom: $spacing * 4;
+
+  @media screen and (min-width: "768px") {
+    padding-top: $spacing * 5;
+    padding-bottom: $spacing * 5;
+  }
+
+  // Estilos de Home Header
+  header {
+    padding-top: $spacing * 10;
+    padding-bottom: $spacing * 10;
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: $white;
+    text-align: center;
+
+    p {
+      @include overline;
+      margin-bottom: $spacing * 2;
+    }
+    
+    h2 {
+      @include h1;
+      color: $white;
+      text-transform: uppercase;
+      margin-bottom: $spacing * 4;
+      font-size: 25px;
+
+      span {
+        letter-spacing: -40px;
+      }
+    }
+  }
+
+  main {
+
+    .portfolioItems {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+
+      @media screen and (min-width: "768px") {
+        // justify-content: flex-start; Tenemos el problema de que si lo metemos en flex-start nos queda el tercero centrado... FlexStart lo soluciona pero no queda en el centro del contenedor...
+        flex-direction: row;
+
+        .item:nth-child(even) {
+          position: relative;
+          top: $spacing * 15;
+        }
+
+        .item:nth-child(odd) {
+          margin-right: $spacing * 10;
+        }
+      }
+      
+      .item {
+        margin-bottom: $spacing * 5;
+
+        @media screen and (min-width: "768px") {
+          margin-bottom: $spacing * 15;
+        }
+
+        img {
+          width: 100%;
+          max-width: 500px;
+          height: auto;
+          margin-bottom: $spacing * 4;
+        }
+  
+        .itemCopy {
+          color: $white;
+  
+          h5 {
+            @include h2;
+            text-transform: uppercase;
+            margin-bottom: $spacing * 2;
+          }
+  
+          div {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            p {
+              @include subtitle2;
+            }
+
+            span {
+              @include subtitle1;
+            }
+          }
+        }
+      }
+    }
+  }
+}

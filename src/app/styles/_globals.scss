@@ -1,0 +1,52 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  background-color: $black;
+
+  header {
+    position: relative;
+    z-index: 2;
+  }
+
+  main {
+    position: relative;
+    z-index: 2;
+  }
+
+  ::selection {
+    background-color: $accent-main;
+    color: $accent-dark;
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.float {
+  animation: floatAnim 3s infinite ease-in-out;
+}
+
+@keyframes floatAnim {
+  0% {
+    transform: translate(3px, 1%);
+  }
+  50% {
+    transform: translate(7px, 4%);
+  }
+  100% {
+    transform: translate(3px, 1%);
+  }
+}

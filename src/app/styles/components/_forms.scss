@@ -1,0 +1,49 @@
+input {
+  background: none;
+  border: none;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+textarea {
+  background: none;
+  border: none;
+}
+
+.primary-input, .primary-textarea {
+  border-style: solid;
+  border-width: 1px;
+  border-color: $white;
+  border-radius: 16px;
+  
+  padding: 12px 20px;
+
+  @include overline;
+  color: $white;
+
+  &:hover {
+    border-width: 2px;
+    padding: 11px 19px;
+  }
+
+  /* Estilos cuando estás escribiendo en el input */
+  &:active,
+  &:focus {
+    border-width: 2px;
+    padding: 11px 19px;
+  }
+
+  &:focus-visible {
+    outline: none;
+  }
+}

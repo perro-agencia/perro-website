@@ -1,0 +1,241 @@
+.navContainer {
+  position: relative;
+  z-index: 2;
+  transition: z-index 0.5s;
+  transition-delay: 0.5s;
+}
+
+nav {
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  padding-top: $spacing * 4;
+  padding-bottom: $spacing * 4;
+  background-color: $black;
+  color: $white;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  position: absolute;
+  top: 0;
+  
+  transition: z-index 0.5s, opacity 0.5s;
+  transition-delay: 0.8s;
+
+  .blobOne {
+    position: absolute;
+    top: -300px;
+    left: -800px;
+
+    @media screen and (min-width: "1024px") {
+      top: -500px;
+      left: -1000px;
+    }
+  }
+
+  .blobTwo {
+    position: absolute;
+    bottom: -300px;
+    right: -800px;
+
+    @media screen and (min-width: "1024px") {
+      bottom: -500px;
+    right: -1000px;
+    }
+  }
+}
+
+.navHeader {
+  position: relative;
+  width: 100%;
+  max-width: 1440px;
+  padding-right: $spacing * 2;
+  padding-left: $spacing * 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  @media screen and (min-width: "768px") {
+    padding-right: $spacing * 6;
+    padding-left: $spacing * 6;
+  }
+
+  .perrologo {
+    height: 24px;
+  }
+
+  svg {
+    cursor: pointer;
+  }
+}
+
+.navBody {
+  position: relative;
+  flex-grow: 1;
+  padding-top: $spacing * 2;
+  padding-bottom: $spacing * 2;
+  padding-right: $spacing * 2;
+  padding-left: $spacing * 2;
+  width: 100%;
+  max-width: 1440px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+
+  @media screen and (min-width: "768px") {
+    padding-right: $spacing * 6;
+    padding-left: $spacing * 6;
+    justify-content: space-evenly;
+  }
+
+  li {
+    margin-bottom: $spacing * 4;
+
+    @media screen and (min-width: "768px") {
+      margin-bottom: $spacing * 3;
+    }
+
+    @media screen and (min-width: "1360px") {
+      margin-bottom: $spacing;
+    }
+
+    a {
+      @include h1;
+      text-transform: uppercase;
+    }
+  }
+}
+
+.navFooter {
+  position: relative;
+  width: 100%;
+  max-width: 1440px;
+  padding-right: $spacing * 2;
+  padding-left: $spacing * 2;
+
+  @media screen and (min-width: "768px") {
+    padding-right: $spacing * 6;
+    padding-left: $spacing * 6;
+  }
+  p {
+    @include overline;
+    margin-bottom: $spacing;
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+
+    @include h4;
+    text-transform: uppercase;
+
+    
+    & > li:not(:first-child) {
+      margin-left: $spacing;
+
+      @media screen and (min-width: "768px") {
+        margin-left: $spacing * 2;
+      }
+    }
+
+    li {
+
+      a {
+        transition: 0.3s ease;
+        
+        &:hover {
+          color: $accent-main;
+        }
+      }
+    }
+  }
+}
+
+.navbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  width: 100%;
+  max-width: 1440px;
+  margin: auto;
+  
+  padding-top: $spacing * 4;
+  padding-right: $spacing * 2;
+  padding-bottom: $spacing * 4;
+  padding-left: $spacing * 2;
+
+  @media screen and (min-width: "768px") {
+    padding-top: $spacing * 4;
+    padding-right: $spacing * 6;
+    padding-bottom: $spacing * 4;
+    padding-left: $spacing * 6;
+  }
+
+  svg {
+    width: 40px;
+    cursor: pointer;
+    mix-blend-mode: difference;
+    fill: $primary-main;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      fill: $accent-main;
+    }
+  }
+}
+
+//Words Hover
+@keyframes giro {
+  0% {
+      transform: rotate(0deg);
+  }
+
+  100% {
+      transform: rotate(360deg);
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  
+  .navBody li::after {
+      content: url("../../../../public/asterisco.svg");
+      width: 40px;
+      display: none;
+      position: absolute;
+      right: -50px;
+      top: 2px;
+  
+      animation-name: giro;
+      animation-duration: 3s;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+  }
+  
+  .navBody li:hover::after {
+      display: inline-block;
+  }
+  
+  .navBody li {
+      position: relative;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .navBody li::after {
+    width: 50px;
+    right: -60px;
+    top: 4px;
+  }
+}
+
+@media screen and (min-width: 1360px) {
+  .navBody li::after {
+    width: 60px;
+    right: -70px;
+    top: 6px;
+  }
+}

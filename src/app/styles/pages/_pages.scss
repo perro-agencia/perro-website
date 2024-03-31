@@ -1,0 +1,113 @@
+@import "terms";
+@import "contact";
+@import "home";
+@import "culture";
+@import "services";
+@import "portfolio";
+@import "blog";
+@import "blogTemplate";
+
+// Animation
+@keyframes scroll {
+	0% {
+    transform: translateX(0);
+  }
+
+	100% {
+    transform: translateX(-100%)
+  }
+}
+
+.clients {
+  padding-top: $spacing * 3;
+  padding-bottom: $spacing * 3;
+
+  @media screen and (min-width: "768px") {
+    padding-top: $spacing * 5;
+    padding-bottom: $spacing * 5;
+  }
+
+  @media screen and (min-width: "1280px") {
+    padding-top: $spacing * 10;
+    padding-bottom: $spacing * 10;
+  }
+
+  .clientsTitle {
+    text-align: left;
+    color: $white;
+    margin-bottom: $spacing * 6;
+
+    p {
+      @include overline;
+      margin-bottom: $spacing;
+    }
+
+    h3 {
+      @include h2;
+      text-transform: uppercase;
+    }
+  }
+
+  .clientsCarousel {
+    display: flex;
+    overflow: hidden;
+    position: relative;
+
+    &::before,
+    &::after {
+      background: linear-gradient(to right,  rgba(0,0,0,1) 0%,rgba(0,0,0,0) 100%);
+      content: "";
+      height: 100px;
+      position: absolute;
+      width: 200px;
+      z-index: 2;
+    }
+    
+    &::after {
+      right: -1px;
+      top: 0;
+      transform: rotateZ(180deg);
+    }
+
+    &::before {
+      left: 0;
+      top: 0;
+    }
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .carouselTrack {
+      display: flex;
+      animation: scroll 40s linear infinite;
+      animation-fill-mode: both;
+      width: calc(250px * 10);
+    }
+
+    img {
+      width: 250px;
+      margin-right: $spacing * 10;
+    }
+  }
+}
+
+.backToTop {
+  width: 56px;
+  position: fixed;
+  bottom: $spacing * 3;
+  right: $spacing * 3;
+  z-index: 3;
+  mix-blend-mode: difference;
+  stroke: $primary-main;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    stroke: $accent-main;
+  }
+
+  @media screen and (min-width: "768px") {
+    bottom: $spacing * 5;
+    right: $spacing * 5;
+  }
+}

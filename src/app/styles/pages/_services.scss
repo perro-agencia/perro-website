@@ -1,0 +1,139 @@
+.servicesBody {
+  @include pagebody;
+  padding-top: $spacing * 4;
+  padding-bottom: $spacing * 4;
+
+  @media screen and (min-width: "768px") {
+    padding-top: $spacing * 5;
+    padding-bottom: $spacing * 5;
+  }
+
+  // Estilos de Home Header
+  header {
+    padding-top: $spacing * 10;
+    padding-bottom: $spacing * 10;
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: $white;
+    text-align: center;
+
+    p {
+      @include overline;
+      margin-bottom: $spacing * 2;
+    }
+    
+    h2 {
+      @include h1;
+      color: $white;
+      text-transform: uppercase;
+      margin-bottom: $spacing * 4;
+
+      span {
+        letter-spacing: -40px;
+      }
+    }
+  }
+
+  main {
+
+    .servicesItems {
+      position: relative;
+      z-index: 2;
+      padding-top: $spacing * 3;
+      padding-bottom: $spacing * 3;
+
+      @media screen and (min-width: "768px") {
+        padding-top: $spacing * 5;
+        padding-bottom: $spacing * 5;
+      }
+
+      @media screen and (min-width: "1280px") {
+        padding-top: $spacing * 10;
+        padding-bottom: $spacing * 10;
+      }
+
+      .item {
+        padding-top: $spacing * 10;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        justify-content: space-between;
+        color: $white;
+
+        @media screen and (min-width: "1024px") {
+          min-height: 50vh;
+        }
+
+        h4 {
+          @include h2;
+          width: 100%;
+          margin-bottom: $spacing * 2;
+          text-transform: uppercase;
+
+          @media screen and (min-width: "1024px") {
+            width: 50%;
+            margin-bottom: 0;
+          }
+
+          @media screen and (min-width: "1360px") {
+            font-size: 56px;
+          }
+
+          span {
+            letter-spacing: -40px;
+          }
+        }
+
+        p {
+          @include bodyHuge;
+          width: 100%;
+
+          @media screen and (min-width: "1024px") {
+            width: 50%;
+          }
+        }
+      }
+    }
+  }
+
+  //BlobStyles
+  .blobOne, .blobTwo{
+    z-index: 1;
+    position: absolute;
+  }
+
+  .blobOne {
+    top: -200px;
+    left: -700px;
+
+    @media screen and (min-width: "1024px") {
+      top: -400px;
+      left: -800px;
+    }
+  }
+
+  .blobTwo {
+    bottom: 0;
+    right: -700px;
+
+    @media screen and (min-width: "1024px") {
+      right: -1000px;
+    }
+  }
+}
+
+.custom-cursor {
+  position: fixed;
+  margin-top: -150px;
+  margin-left: -150px;
+  width: 300px; /* Ajusta el tamaño de acuerdo a tu imagen */
+  height: 300px; /* Ajusta el tamaño de acuerdo a tu imagen */
+  background-image: url('../../../../public/partner-indi.svg'); /* Cambia la ruta a tu imagen */
+  background-color: #fff;
+  background-size: cover;
+  pointer-events: none;
+  z-index: 1;
+}

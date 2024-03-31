@@ -1,0 +1,138 @@
+@font-face {
+  font-family: 'Stretch';
+  src: url('../../../public/StretchPro.otf');
+}
+
+// Typography
+@mixin h1 () {
+  font-family: 'Stretch', sans-serif;
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 100%;
+  word-break: break-all;
+
+  @media screen and (min-width: "768px") {
+    font-size: 48px;
+    word-break: normal;
+  }
+
+  @media screen and (min-width: "1280px") {
+    font-size: 64px;
+  }
+
+  @media screen and (min-width: "1360px") {
+    font-size: 76px;
+  }
+}
+
+@mixin h2 () {
+  font-family: 'Stretch', sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 100%;
+  word-wrap: break-word;
+  word-break: break-all;
+
+  // Hay que ver si queremos esto porque nos rompe todo el esquema de tipografias
+  // word-wrap: break-word;
+  // word-break: break-all;
+
+  @media screen and (min-width: "380px") {
+    word-wrap: normal;
+    word-break: normal;
+  }
+
+  @media screen and (min-width: "768px") {
+    font-size: 36px;
+  }
+
+  @media screen and (min-width: "1280px") {
+    font-size: 64px;
+  }
+}
+
+@mixin h3 () {
+  font-family: 'workSans', sans-serif;
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 100%;
+}
+
+@mixin h4 () {
+  font-family: 'workSans', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 100%;
+
+  @media screen and (min-width: "768px") {
+    font-size: 24px;
+  }
+
+  @media screen and (min-width: "1024px") {
+    font-size: 28px;
+  }
+}
+
+@mixin subtitle1 () {
+  font-family: 'workSans', sans-serif;
+  font-size: 26px;
+  font-weight: 400;
+  line-height: 100%;
+}
+
+@mixin subtitle2 () {
+  font-family: 'workSans', sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 100%;
+}
+
+@mixin bodyHuge () {
+  font-family: 'workSans', sans-serif;
+  font-size: 16px;
+  font-weight: 100;
+  line-height: 125%;
+
+  @media screen and (min-width: "768px") {
+    font-size: 20px;
+  }
+}
+
+@mixin bodyNormal () {
+  font-family: 'workSans', sans-serif;
+  font-size: 12px;
+  font-weight: 200;
+  line-height: 125%;
+
+  @media screen and (min-width: "768px") {
+    font-size: 16px;
+  }
+}
+
+@mixin overline () {
+  font-family: 'workSans', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 100%;
+  text-transform: uppercase;
+}
+
+@mixin caption () {
+  font-family: 'workSans', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 100%;
+}
+
+// Body styles
+@mixin pagebody () {
+  max-width: 1440px;
+  margin: auto;
+  padding-right: $spacing * 2;
+  padding-left: $spacing * 2;
+
+  @media screen and (min-width: "768px") {
+    padding-right: $spacing * 6;
+    padding-left: $spacing * 6;
+  }
+}

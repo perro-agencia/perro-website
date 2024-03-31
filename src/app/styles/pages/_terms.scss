@@ -1,0 +1,25 @@
+.termsBody {
+  @include pagebody;
+  padding-top: $spacing * 4;
+  padding-bottom: $spacing * 4;
+
+  @media screen and (min-width: "768px") {
+    padding-top: $spacing * 5;
+    padding-bottom: $spacing * 5;
+  }
+
+  h2 {
+    @include h2;
+    color: $white;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: $spacing * 6;
+  }
+
+  p {
+    @include bodyNormal;
+    color: $white;
+    max-width: 1000px;
+    margin: auto;
+  }
+}
