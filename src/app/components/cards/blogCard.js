@@ -11,6 +11,9 @@ export default function BlogCard({ id, link, img, alt, title, tag, date }) {
             alt={alt}
             width={100}
             height={100}
+            quality={100}
+            unoptimized={true}
+            priority
           />
         </div>
         

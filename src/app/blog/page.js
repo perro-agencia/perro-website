@@ -10,7 +10,7 @@ import BlobDark from '../components/blobDark';
 const blogCard1 = {
   id:'marketing',
   link:'/blog/blogFeed/que-es-el-sem',
-  img:'/Perro_Blog_05_MKT_SEMsirve.png',
+  img:'/perro-blog-05-mkt-semsirve.png',
   alt:'Que es el sem',
   title:'¿Qué es SEM y para qué sirve?',
   tag:'Marketing',
@@ -20,7 +20,7 @@ const blogCard1 = {
 const blogCard2 = {
   id:'marketing',
   link:'/blog/blogFeed/domina-el-seo',
-  img:'/Perro_Blog_04_MKT_DominaSEO.png',
+  img:'/perro-blog-04-mkt-dominaseo.png',
   alt:'Domina el seo',
   title:'Domina el SEO para impulsar tu Presencia online',
   tag:'Marketing',
@@ -30,7 +30,7 @@ const blogCard2 = {
 const blogCard3 = {
   id:'marketing',
   link:'/blog/blogFeed/sem-vs-seo',
-  img:'/Perro_Blog_01_MKT_SEMvsSEO.png',
+  img:'/perro-blog-01-mkt-semvsseo.png',
   alt:'sem vs seo',
   title:'SEM vs SEO',
   tag:'Marketing',
@@ -40,7 +40,7 @@ const blogCard3 = {
 const blogCard4 = {
   id:'marketing',
   link:'/blog/blogFeed/maximiza-tu-alcance-con-reels',
-  img:'/Perro_Blog_07_MKT_Contenidos.png',
+  img:'/perro-blog-07-mkt-contenidos.png',
   alt:'Maximizando tu Alcance con Reels y Contenidos Estáticos',
   title:'Maximizando tu Alcance con Reels y Contenidos Estáticos',
   tag:'Marketing',
@@ -50,7 +50,7 @@ const blogCard4 = {
 const blogCard5 = {
   id:'marketing',
   link:'/blog/blogFeed/seleccionar-con-vision',
-  img:'/Perro_Blog_06_MKT_Agencia.png',
+  img:'/perro-blog-06-mkt-agencia.png',
   alt:'Seleccionar con Visión: Agencias de Marketing Digital que Potencian tu Inversión',
   title:'Seleccionar con Visión',
   tag:'Marketing',
@@ -60,7 +60,7 @@ const blogCard5 = {
 const blogCard6 = {
   id:'marketing',
   link:'/blog/blogFeed/inteligencia-artificial-en-el-marketing-digital',
-  img:'/Perro_Blog_03_MKT_AImkt.png',
+  img:'/perro-blog-03-mkt-aimkt.png',
   alt:'Inteligencia Artificial en el Marketing Digital',
   title:'Inteligencia Artificial en el Marketing Digital',
   tag:'Marketing',

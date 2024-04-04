@@ -176,9 +176,6 @@ export default function Home() {
               <Image src={clientArcadia}
                 alt="cliente"/>
 
-              <Image src={clientIntergya}
-                alt="cliente"/>
-
               <Image src={clientLatin}
                 alt="cliente"/>
 
@@ -197,9 +194,6 @@ export default function Home() {
 
             <div className='carouselTrack'>
               <Image src={clientArcadia}
-                alt="cliente"/>
-
-              <Image src={clientIntergya}
                 alt="cliente"/>
 
               <Image src={clientLatin}
