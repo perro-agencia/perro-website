@@ -129,7 +129,7 @@ export default function Home() {
               
               <div>
                 <h4>Social Media</h4>
-                <p>Podés elegir cualquiera de nuestros servicios y solicitar una consultoría personalizada según la necesidad de tu proyecto.</p>
+                <p>Nuestra estrategia en redes va más allá de perfiles, incluye contenido personalizado y atención al cliente efectiva.</p>
               </div>
             </div>
 
