@@ -30,7 +30,7 @@ export default function Footer() {
       <div className='footerContact'>
         <div>
           <p>
-            buscanos en:
+            escribinos a:
           </p>
           
           <Link href='mailto:queonda@perroagency.com' target="_blank" rel="noopener noreferrer">

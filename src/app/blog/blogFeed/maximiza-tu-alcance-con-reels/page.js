@@ -21,7 +21,7 @@ const projectData = {
   img: '/partner-pista.svg',
   alt: 'partner pista',
   person: 'Sebastian Konig',
-  jobTitle: 'MARKETING DIRECTOR',
+  jobTitle: 'Marketing Director',
 };
 
 export default function queEsElMarketing() {

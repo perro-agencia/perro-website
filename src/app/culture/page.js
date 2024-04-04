@@ -57,7 +57,7 @@ export default function CulturePage() {
                   alt="partner perro agency toto"
                 />
                 <h4>Sebastian Konig</h4>
-                <p>CEO - Founder <br/><br/> marketing director <br/> paid media specialist</p>
+                <p>CEO - Founder <br/> marketing director <br/> paid media specialist</p>
               </div>
 
               <div className='item'>
@@ -65,7 +65,7 @@ export default function CulturePage() {
                   alt="partner perro agency toto"
                 />
                 <h4>Federico Gilles</h4>
-                <p>Founder <br/><br/> product design <br/> director</p>
+                <p>Founder <br/> product design <br/> director</p>
               </div>
 
               <div className='item'>
@@ -90,9 +90,6 @@ export default function CulturePage() {
                   <Image src={clientArcadia}
                     alt="cliente"/>
 
-                  <Image src={clientIntergya}
-                    alt="cliente"/>
-
                   <Image src={clientLatin}
                     alt="cliente"/>
 
@@ -111,9 +108,6 @@ export default function CulturePage() {
 
                 <div className='carouselTrack'>
                   <Image src={clientArcadia}
-                    alt="cliente"/>
-
-                  <Image src={clientIntergya}
                     alt="cliente"/>
 
                   <Image src={clientLatin}
