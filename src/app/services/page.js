@@ -23,7 +23,7 @@ export default function ServicesPage() {
           <p>nuestros servicios</p>
           
           <h2>
-            per<span> </span>ro que laadra, <br /> mueerde
+            per<span> </span>ro que ladra, <br /> muerde
           </h2>
         </header>
 
