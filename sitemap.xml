@@ -1,14 +1,64 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--Created using XmlSitemapGenerator.org - Free HTML, RSS and XML sitemap generator-->
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-  <url>
-    <loc>http://www.perroagency.com</loc>
-    <lastmod>2022-08-18</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-    <image:image>
-      <image:loc>http://www.perroagency.com/public/img/perro-logotipo.svg</image:loc>
-      <!--ERROR - Object reference not set to an instance of an object.-->
-    </image:image>
-    <!--Created using XmlSitemapGenerator.org - Free HTML, RSS and XML sitemap generator-->
-  </url>
+<?xml version="1.0" encoding="UTF-8"?>
+		<!--	created with www.mysitemapgenerator.com	-->
+		<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+	<loc>https://www.perroagency.com/</loc>
+	<lastmod>2024-04-05T03:15:47+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.perroagency.com/culture</loc>
+	<lastmod>2024-04-05T03:15:47+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.perroagency.com/services</loc>
+	<lastmod>2024-04-05T03:15:47+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.perroagency.com/blog</loc>
+	<lastmod>2024-04-05T03:15:47+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.perroagency.com/contact</loc>
+	<lastmod>2024-04-05T03:15:47+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.perroagency.com/terms</loc>
+	<lastmod>2024-04-05T03:15:47+01:00</lastmod>
+	<priority>1.0</priority>
+</url>
+<url>
+	<loc>https://www.perroagency.com/blog/blogFeed/que-es-el-sem</loc>
+	<lastmod>2024-04-05T03:15:49+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.perroagency.com/blog/blogFeed/domina-el-seo</loc>
+	<lastmod>2024-04-05T03:15:49+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.perroagency.com/blog/blogFeed/sem-vs-seo</loc>
+	<lastmod>2024-04-05T03:15:49+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.perroagency.com/blog/blogFeed/maximiza-tu-alcance-con-reels</loc>
+	<lastmod>2024-04-05T03:15:49+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.perroagency.com/blog/blogFeed/seleccionar-con-vision</loc>
+	<lastmod>2024-04-05T03:15:49+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+<url>
+	<loc>https://www.perroagency.com/blog/blogFeed/inteligencia-artificial-en-el-marketing-digital</loc>
+	<lastmod>2024-04-05T03:15:49+01:00</lastmod>
+	<priority>0.6</priority>
+</url>
+</urlset>
