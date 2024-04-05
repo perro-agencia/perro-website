@@ -31,7 +31,7 @@ export default function CulturePage() {
 
         <header>
           <h2>
-            sabbuesos del munndo digitaal
+            sabuesos del mundo digital
           </h2>
 
           <Image src={imgSabuesos}

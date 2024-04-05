@@ -227,7 +227,7 @@ export default function Home() {
           </div>
 
           <div className="videoContainer">
-            <video loop autoPlay muted ref={videoRef} className="videoPlayer">
+            <video loop autoPlay muted playsInline controls={false} ref={videoRef} className="videoPlayer">
               <source src="/weareperro_web2.mp4" type="video/mp4" />
             </video>
           </div>

@@ -107,7 +107,7 @@ export default function BlogPage() {
           <p>decimos lo que pensamos</p>
           
           <h2>
-            a otrro per<span> </span>ro <br/> con ese huueso
+            a otro per<span> </span>ro <br/> con ese hueso
           </h2>
         </header>
 

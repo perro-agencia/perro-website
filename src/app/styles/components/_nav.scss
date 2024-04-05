@@ -105,6 +105,7 @@ nav {
     a {
       @include h1;
       text-transform: uppercase;
+      font-size: 45px;
     }
   }
 }
