@@ -29,20 +29,27 @@
       @include h1;
       color: $white;
       text-transform: uppercase;
-      margin-bottom: $spacing * 4;
       text-align: center;
-      font-size: 45px;
 
       @media screen and (min-width: "768px") {
         text-align: left;
       }
+    }
 
-      span {
+    .h-mobile {
+      display: inline-block;
+      font-size: 40px;
+
+      @media screen and (min-width: "768px") {
         display: none;
+      }
+    }
 
-        @media screen and (min-width: "768px") {
-          display: inline-block;
-        }
+    .h-desktop {
+      display: none;
+
+      @media screen and (min-width: "768px") {
+        display: inline-block;
       }
     }
 

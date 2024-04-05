@@ -29,7 +29,25 @@
     color: $white;
     text-transform: uppercase;
     margin-bottom: $spacing * 2;
+    font-size: 45px
   }
+
+  .h-mobile {
+    display: inline-block;
+
+    @media screen and (min-width: "768px") {
+      display: none;
+    }
+  }
+
+  .h-desktop {
+    display: none;
+
+    @media screen and (min-width: "768px") {
+      display: inline-block;
+    }
+  }
+
 
   p {
     @include bodyNormal;

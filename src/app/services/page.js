@@ -22,8 +22,12 @@ export default function ServicesPage() {
         <header>
           <p>nuestros servicios</p>
           
-          <h2>
+          <h2 className='h-mobile'>
             per<span> </span>ro que ladra, <br /> muerde
+          </h2>
+
+          <h2 className='h-desktop'>
+            per<span> </span>ro que laadra, <br /> mueerde
           </h2>
         </header>
 

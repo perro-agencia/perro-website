@@ -30,10 +30,26 @@
       color: $white;
       text-transform: uppercase;
       margin-bottom: $spacing * 4;
-      font-size: 54px;
 
       span {
         letter-spacing: -40px;
+      }
+    }
+
+    .h-mobile {
+      display: inline-block;
+      font-size: 54px;
+
+      @media screen and (min-width: "768px") {
+        display: none;        
+      }
+    }
+
+    .h-desktop {
+      display: none;
+
+      @media screen and (min-width: "768px") {
+        display: inline-block;        
       }
     }
   }
