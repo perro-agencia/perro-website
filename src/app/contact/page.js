@@ -68,7 +68,11 @@ export default function ContactPage() {
         </div>
 
         <div className="contactCopy">
-          <h2>
+          <h2 className='h-mobile'>
+            contanos tus ideas
+          </h2>
+
+          <h2 className='h-desktop'>
             contannos tus ideeas
           </h2>
 

@@ -30,8 +30,12 @@ export default function CulturePage() {
         </div>
 
         <header>
-          <h2>
+          <h2 className='h-mobile'>
             sabuesos del mundo digital
+          </h2>
+
+          <h2 className='h-desktop'>
+            sabbuesos del mundo digitaal
           </h2>
 
           <Image src={imgSabuesos}

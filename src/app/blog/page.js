@@ -106,8 +106,12 @@ export default function BlogPage() {
         <header>
           <p>decimos lo que pensamos</p>
           
-          <h2>
+          <h2 className='h-mobile'>
             a otro per<span> </span>ro <br/> con ese hueso
+          </h2>
+
+          <h2 className='h-desktop'>
+            a otrro per<span> </span>ro <br/> con ese huueso
           </h2>
         </header>
 
