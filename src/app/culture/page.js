@@ -7,6 +7,7 @@ import usSebas from '../../../public/us-sebas.jpg'
 import usLau from '../../../public/us-lau.jpg'
 import usFede from '../../../public/us-fede.jpg'
 import usMaga from '../../../public/us-maga.jpg'
+import usAbi from '../../../public/us-abi.jpg'
 import clientArcadia from '../../../public/client-arcadia.png'
 import clientIntergya from '../../../public/client-intergya.png'
 import clientLatin from '../../../public/client-latincloud.png'
@@ -78,6 +79,14 @@ export default function CulturePage() {
                 />
                 <h4>Magali Cuartas</h4>
                 <p>content creator lead</p>
+              </div>
+
+              <div className='item'>
+                <Image src={usAbi}
+                  alt="partner perro agency toto"
+                />
+                <h4>Abraham Villa</h4>
+                <p>SEO strategist</p>
               </div>
             </div>
           </div>
