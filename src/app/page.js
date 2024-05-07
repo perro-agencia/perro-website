@@ -139,7 +139,7 @@ export default function Home() {
               
               <div>
                 <h4>SEM & SEO</h4>
-                <p>Gestionamos y moderamos los perfiles de tu marca en redes sociales a través de estrategias de contenido y atención al cliente.</p>
+                <p>Potencia tu visibilidad online con SEM & SEO. Posicionamiento en buscadores y calidad del tráfico con estrategias integrales.</p>
               </div>
             </div>
 
