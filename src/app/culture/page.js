@@ -8,6 +8,7 @@ import usLau from '../../../public/us-lau.jpg'
 import usFede from '../../../public/us-fede.jpg'
 import usMaga from '../../../public/us-maga.jpg'
 import usAbi from '../../../public/us-abi.jpg'
+import usEmi from '../../../public/us-emi.jpg'
 import clientArcadia from '../../../public/client-arcadia.png'
 import clientIntergya from '../../../public/client-intergya.png'
 import clientLatin from '../../../public/client-latincloud.png'
@@ -59,7 +60,7 @@ export default function CulturePage() {
             <div className='crewItems'>
               <div className='item'>
                 <Image src={usSebas}
-                  alt="partner perro agency toto"
+                  alt="partner Sebastian Konig"
                 />
                 <h4>Sebastian Konig</h4>
                 <p>CEO - Founder <br/> marketing director <br/> paid media specialist</p>
@@ -67,7 +68,7 @@ export default function CulturePage() {
 
               <div className='item'>
                 <Image src={usFede}
-                  alt="partner perro agency toto"
+                  alt="partner Federico Gilles"
                 />
                 <h4>Federico Gilles</h4>
                 <p>Founder <br/> product design <br/> director</p>
@@ -75,7 +76,7 @@ export default function CulturePage() {
 
               <div className='item'>
                 <Image src={usMaga}
-                  alt="partner perro agency toto"
+                  alt="partner Magali Cuartas"
                 />
                 <h4>Magali Cuartas</h4>
                 <p>content creator lead</p>
@@ -83,10 +84,18 @@ export default function CulturePage() {
 
               <div className='item'>
                 <Image src={usAbi}
-                  alt="partner perro agency toto"
+                  alt="partner Abraham Villa"
                 />
                 <h4>Abraham Villa</h4>
                 <p>SEO strategist</p>
+              </div>
+
+              <div className='item'>
+                <Image src={usEmi}
+                  alt="partner Emiliano Mario Elias"
+                />
+                <h4>Emiliano Mario Elias</h4>
+                <p>Motion Designer</p>
               </div>
             </div>
           </div>
