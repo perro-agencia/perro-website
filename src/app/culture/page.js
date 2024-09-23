@@ -4,9 +4,8 @@ import Head from 'next/head'
 
 import imgSabuesos from '../../../public/partner-pista.svg'
 import usSebas from '../../../public/us-sebas.jpg'
-import usLau from '../../../public/us-lau.jpg'
 import usFede from '../../../public/us-fede.jpg'
-import usMaga from '../../../public/us-maga.jpg'
+import usSebaLugo from '../../../public/us-sebaLugo.jpg'
 import usAbi from '../../../public/us-abi.jpg'
 import usEmi from '../../../public/us-emi.jpg'
 import clientArcadia from '../../../public/client-arcadia.png'
@@ -75,11 +74,11 @@ export default function CulturePage() {
               </div>
 
               <div className='item'>
-                <Image src={usMaga}
+                <Image src={usSebaLugo}
                   alt="partner Magali Cuartas"
                 />
-                <h4>Magali Cuartas</h4>
-                <p>content creator lead</p>
+                <h4>Sebastián Lugo</h4>
+                <p>Head of Paid Media</p>
               </div>
 
               <div className='item'>
