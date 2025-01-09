@@ -89,26 +89,13 @@ export default function Home() {
     </Head>
     
     <div className='homeBody'>
-      <div className='blobOne'>
-        <BlobDark />
-      </div>
 
       <header>
-        <div>
-          <Image src={partnerToto}
-            alt="partner perro agency toto"
-          />
-        </div>
-
-        <div>
-          <h2>
-            we make your company grooow
-          </h2>
-
-          <Link href='/contact' className='primary-button'>
-          Contactanos
-          </Link>
-        </div>
+          <div className="videoContainer">
+            <video loop autoPlay muted playsInline controls={false} ref={videoRef} className="videoPlayer">
+              <source src="/weareperro_web.mp4" type="video/mp4" />
+            </video>
+          </div>
       </header>
 
       <main>
@@ -211,25 +198,6 @@ export default function Home() {
               <Image src={clientDevra}
                 alt="cliente"/>
             </div>
-          </div>
-        </div>
-
-        <div className='homeBusiness'>
-          <div className='blobTwo'>
-            <BlobDark />
-          </div>
-
-          <div className='businessTitle'>
-            <p>nosotros</p>
-            <h3>businnes<span> </span>s<br/> enhancers</h3>
-
-            <p>Diseñamos la imagen de tu marca, optimizamos las propuestas de valor de servicios y aplicamos las tácticas necesarias para incrementar el crecimiento de los negocios. </p>
-          </div>
-
-          <div className="videoContainer">
-            <video loop autoPlay muted playsInline controls={false} ref={videoRef} className="videoPlayer">
-              <source src="/weareperro_web2.mp4" type="video/mp4" />
-            </video>
           </div>
         </div>
 
