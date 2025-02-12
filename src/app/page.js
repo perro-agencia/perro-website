@@ -92,8 +92,12 @@ export default function Home() {
 
       <header>
           <div className="videoContainer">
-            <video loop autoPlay muted playsInline controls={false} ref={videoRef} className="videoPlayer">
+            <video loop autoPlay muted playsInline controls={false} ref={videoRef} className="videoPlayer videoDesktop">
               <source src="/weareperro_web.mp4" type="video/mp4" />
+            </video>
+
+            <video loop autoPlay muted playsInline controls={false} ref={videoRef} className="videoPlayer videoMobile">
+              <source src="/WeArePerro_01.mp4" type="video/mp4" />
             </video>
           </div>
       </header>
