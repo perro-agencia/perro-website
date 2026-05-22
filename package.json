@@ -2,19 +2,45 @@
   "name": "perro-website",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint . --ext .ts,.tsx --max-warnings 0",
+    "typegen": "sanity typegen generate"
   },
   "dependencies": {
-    "next": "^14.2.4",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "@portabletext/react": "^3.2.1",
+    "@sanity/client": "^7.22.0",
+    "@sanity/code-input": "^7.1.1",
+    "@sanity/image-url": "^2.1.1",
+    "@sanity/preview-url-secret": "^4.0.6",
+    "@sanity/vision": "^5.26.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.40.0",
+    "lucide-react": "^1.16.0",
+    "next": "^16.2.6",
+    "next-sanity": "^13.0.3",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "sanity": "^5.26.0",
+    "tailwind-merge": "^3.2.0"
   },
   "devDependencies": {
-    "eslint": "8.45.0",
-    "eslint-config-next": "13.4.12"
+    "@eslint/eslintrc": "^3.3.5",
+    "@tailwindcss/typography": "^0.5.16",
+    "@types/node": "^22.15.3",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "@typescript-eslint/eslint-plugin": "^8.59.4",
+    "@typescript-eslint/parser": "^8.59.4",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "^14.2.35",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.8.3"
   }
 }
