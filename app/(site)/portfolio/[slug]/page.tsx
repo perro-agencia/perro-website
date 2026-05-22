@@ -3,6 +3,7 @@ import { sanityFetch } from "@/sanity/lib/fetch"
 import { projectBySlugQuery } from "@/sanity/lib/queries"
 import { urlFor } from "@/sanity/lib/image"
 import { CaseStudyBody } from "@/components/portfolio/CaseStudyBody"
+import { siteConfig } from "@/lib/site"
 import type { Project } from "@/types/sanity"
 import { notFound } from "next/navigation"
 
@@ -19,11 +20,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!project) return {}
 
+  const ogImage = project.coverImage ? urlFor(project.coverImage).url() : siteConfig.ogImage
+  const fullTitle = `${project.title} | ${siteConfig.name}`
+
   return {
     title: project.title,
     description: project.summary,
     openGraph: {
-      images: project.coverImage ? [{ url: urlFor(project.coverImage).url() }] : undefined,
+      title: fullTitle,
+      description: project.summary,
+      images: [{ url: ogImage, width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: fullTitle,
+      description: project.summary,
+      images: [ogImage],
     },
   }
 }

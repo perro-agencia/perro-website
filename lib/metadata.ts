@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { siteConfig } from "./site"
 
 export function buildMetadata({
   title,
@@ -11,18 +12,34 @@ export function buildMetadata({
   path?: string
   ogImage?: string
 }): Metadata {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://perro.agency"
-  const siteName = "PERRO"
+  const url = path ? `${siteConfig.url}${path}` : siteConfig.url
+  const fullTitle = `${title} | ${siteConfig.name}`
 
   return {
-    title: `${title} | ${siteName}`,
+    title,
     description,
     openGraph: {
-      title: `${title} | ${siteName}`,
+      title: fullTitle,
       description,
-      url: path ? `${baseUrl}${path}` : baseUrl,
-      siteName,
-      images: ogImage ? [{ url: ogImage }] : undefined,
+      url,
+      siteName: siteConfig.name,
+      images: [
+        {
+          url: ogImage || siteConfig.ogImage,
+          width: 1200,
+          height: 630,
+          alt: siteConfig.ogImageAlt,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: fullTitle,
+      description,
+      images: [ogImage || siteConfig.ogImage],
+    },
+    alternates: {
+      canonical: url,
     },
   }
 }

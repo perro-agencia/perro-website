@@ -1,10 +1,12 @@
-import type { Metadata } from "next"
+import { buildMetadata } from "@/lib/metadata"
 import { TeamSection } from "@/components/sections/TeamSection"
 
-export const metadata: Metadata = {
+export const metadata = buildMetadata({
   title: "Nosotros",
-  description: "Conocé el equipo detrás de PERRO.",
-}
+  description:
+    "Conocé el equipo detrás de PERRO. Somos un equipo multidisciplinario apasionado por crear experiencias digitales que dejan huella.",
+  path: "/nosotros",
+})
 
 export default function NosotrosPage() {
   return (

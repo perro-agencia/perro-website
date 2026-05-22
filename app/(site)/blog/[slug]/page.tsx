@@ -3,6 +3,7 @@ import { sanityFetch } from "@/sanity/lib/fetch"
 import { postBySlugQuery } from "@/sanity/lib/queries"
 import { urlFor } from "@/sanity/lib/image"
 import { PostBody } from "@/components/blog/PostBody"
+import { siteConfig } from "@/lib/site"
 import type { Post } from "@/types/sanity"
 import { notFound } from "next/navigation"
 
@@ -16,11 +17,24 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!post) return {}
 
+  const title = post.seoTitle || post.title
+  const description = post.seoDescription || post.excerpt
+  const ogImage = post.coverImage ? urlFor(post.coverImage).url() : siteConfig.ogImage
+  const fullTitle = `${title} | ${siteConfig.name}`
+
   return {
-    title: post.seoTitle || post.title,
-    description: post.seoDescription || post.excerpt,
+    title,
+    description,
     openGraph: {
-      images: post.coverImage ? [{ url: urlFor(post.coverImage).url() }] : undefined,
+      title: fullTitle,
+      description,
+      images: [{ url: ogImage, width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: fullTitle,
+      description,
+      images: [ogImage],
     },
   }
 }

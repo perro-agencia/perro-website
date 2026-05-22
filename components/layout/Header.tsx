@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { Navigation } from "./Navigation"
+import { Button } from "@/components/ui/Button"
 
 export function Header() {
   return (
@@ -8,7 +9,10 @@ export function Header() {
         <Link href="/" className="text-display-md font-display">
           PERRO
         </Link>
-        <Navigation />
+        <div className="flex items-center gap-6">
+          <Navigation />
+          <Button href="/contacto">Contacto</Button>
+        </div>
       </div>
     </header>
   )

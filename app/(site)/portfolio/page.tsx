@@ -1,10 +1,12 @@
-import type { Metadata } from "next"
+import { buildMetadata } from "@/lib/metadata"
 import { PortfolioGrid } from "@/components/sections/PortfolioGrid"
 
-export const metadata: Metadata = {
+export const metadata = buildMetadata({
   title: "Portfolio",
-  description: "Casos de estudio de proyectos con clientes reales.",
-}
+  description:
+    "Casos de estudio de proyectos con clientes reales. Proyectos que nos enorgullecen.",
+  path: "/portfolio",
+})
 
 export default function PortfolioPage() {
   return (
