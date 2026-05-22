@@ -15,12 +15,12 @@
 - Draft mode y revalidación on-demand vía API routes
 - Header con navegación principal (fixed, backdrop blur)
 - Footer con copyright dinámico
+- Formulario de contacto funcional con Resend (`/contacto`)
 
 ### Features en progreso
 - *Ninguna por el momento*
 
 ### Deuda técnica conocida
-- Página de contacto (`/contacto`) sin formulario funcional — solo texto placeholder
 - Sin tests automatizados
 - Sin componentes de mobile navigation (menú hamburguesa)
 - Las imágenes de Sanity no tienen sizes/priority optimizados en todos los casos
@@ -49,6 +49,7 @@
 | class-variance-authority | ^0.7.1 | Variantes de componentes |
 | clsx | ^2.1.1 | Condicionales de clases |
 | tailwind-merge | ^3.2.0 | Merge de clases Tailwind |
+| resend | ^6.12.3 | Envío de emails desde formulario de contacto |
 | typescript | ^5.8.3 | Tipado estático |
 
 ### Decisiones técnicas (ADRs)
@@ -176,6 +177,8 @@ Tipo de bloque rich text con soporte para:
 | `NEXT_PUBLIC_VERCEL_ANALYTICS_ID` | ✅ Pública | ID de Vercel Analytics | - |
 | `NEXT_PUBLIC_BASE_URL` | ✅ Pública | URL base del sitio para metadata/OG images | `lib/metadata.ts` |
 | `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` | ✅ Pública | Site key de Google reCAPTCHA (sin uso activo aún) | `.env` presente, sin referencia en código actual |
+| `RESEND_API_KEY` | ❌ Servidor | API key de Resend para envío de emails | `lib/email.ts` |
+| `CONTACT_EMAIL_TO` | ❌ Servidor | Dirección de email donde llegan los mensajes del formulario de contacto | `lib/email.ts` (default: `hola@perro.agency`) |
 
 ⚠️ **Nota:** El `.env.example` aún lista `REVALIDATION_SECRET` (nombre antiguo). El nombre correcto usado en código es `SANITY_REVALIDATE_SECRET`. Pendiente actualizar `.env.example`.
 
@@ -192,7 +195,7 @@ Tipo de bloque rich text con soporte para:
 | `/portfolio/[slug]` | Dinámica | Fetch project by slug | `app/(site)/portfolio/[slug]/page.tsx` |
 | `/blog` | Estática | Fetch posts | `app/(site)/blog/page.tsx` |
 | `/blog/[slug]` | Dinámica | Fetch post by slug | `app/(site)/blog/[slug]/page.tsx` |
-| `/contacto` | Estática | Sin fetch (placeholder) | `app/(site)/contacto/page.tsx` |
+| `/contacto` | Estática | Formulario funcional con Resend (POST a `/api/contact`) | `app/(site)/contacto/page.tsx` |
 | `/studio` | Estática | Sanity Studio embedido | `app/studio/[[...tool]]/page.tsx` |
 
 Todas las rutas bajo `(site)` comparten el layout con Header + Footer.
@@ -245,7 +248,7 @@ brand: {
 
 ## 8. Decisiones pendientes
 
-- [ ] **Formulario de contacto**: definir servicio/API (EmailJS, Resend, Nodemailer, etc.)
+- [x] **Formulario de contacto**: definido — se usa Resend (`lib/email.ts`)
 - [ ] **Mobile navigation**: implementar menú hamburguesa para < md breakpoint
 - [ ] **Blog comments**: ¿se habilita? ¿con qué servicio?
 - [ ] **SEO**: definir estrategia de metadata dinámica (más allá del title/description básico)
@@ -267,3 +270,4 @@ brand: {
 | 2026-05-22 | Documentación funcional inicial (PROJECT_DOC.md) |
 | 2026-05-22 | Creación del agente `analyst` para mantenimiento de doc |
 | 2026-05-22 | Auditoría de documentación: 7 discrepancias encontradas y corregidas (stack, env vars, schemas, decisiones pendientes) |
+| 2026-05-22 | Integración de Resend para formulario de contacto (`lib/email.ts`, `app/api/contact/route.ts`, `components/forms/ContactForm.tsx`) |

@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { fontBody } from "@/lib/fonts"
+import { fontBody, fontDisplay } from "@/lib/fonts"
 import "@/styles/globals.css"
 
 export const metadata: Metadata = {
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" className={fontBody.variable}>
+    <html lang="es" className={`${fontDisplay.variable} ${fontBody.variable}`}>
       <body>{children}</body>
     </html>
   )

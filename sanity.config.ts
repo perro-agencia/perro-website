@@ -15,7 +15,7 @@ export default defineConfig({
   schema: { types: schemaTypes },
   plugins: [
     structureTool(),
-    visionTool(),
+    ...(process.env.NODE_ENV === "development" ? [visionTool()] : []),
     presentationTool({
       previewUrl: {
         draftMode: {

@@ -1,9 +1,11 @@
-import type { Metadata } from "next"
+import { ContactForm } from "@/components/forms/ContactForm"
+import { buildMetadata } from "@/lib/metadata"
 
-export const metadata: Metadata = {
+export const metadata = buildMetadata({
   title: "Contacto",
   description: "Trabajemos juntos. Contanos sobre tu proyecto.",
-}
+  path: "/contacto",
+})
 
 export default function ContactoPage() {
   return (
@@ -13,6 +15,7 @@ export default function ContactoPage() {
         <p className="text-lg text-brand-white/70 mb-12">
           Tienes un proyecto en mente? Contanos.
         </p>
+        <ContactForm />
       </div>
     </section>
   )
