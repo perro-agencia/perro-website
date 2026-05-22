@@ -18,6 +18,9 @@ const config: Config = {
         body: ["var(--font-body)", "sans-serif"],
         mono: ["var(--font-mono)", "monospace"],
       },
+      transitionTimingFunction: {
+        "brand-bounce": "cubic-bezier(.977,.953,.187,1.011)",
+      },
       fontSize: {
         "display-xl": ["clamp(3rem, 8vw, 7rem)", { lineHeight: "1" }],
         "display-lg": ["clamp(2rem, 5vw, 4rem)", { lineHeight: "1.1" }],

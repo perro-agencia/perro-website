@@ -2,6 +2,7 @@ import { defineConfig } from "sanity"
 import { structureTool } from "sanity/structure"
 import { visionTool } from "@sanity/vision"
 import { presentationTool } from "sanity/presentation"
+import { codeInput } from "@sanity/code-input"
 import { schemaTypes } from "./sanity/schemas"
 import { resolve } from "./sanity/lib/resolveHref"
 
@@ -15,6 +16,7 @@ export default defineConfig({
   schema: { types: schemaTypes },
   plugins: [
     structureTool(),
+    codeInput(),
     ...(process.env.NODE_ENV === "development" ? [visionTool()] : []),
     presentationTool({
       previewUrl: {

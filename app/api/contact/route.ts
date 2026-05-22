@@ -5,6 +5,15 @@ const rateLimit = new Map<string, { count: number; resetAt: number }>()
 const RATE_LIMIT_MAX = 5
 const RATE_LIMIT_WINDOW = 60_000
 
+if (typeof globalThis !== "undefined") {
+  setInterval(() => {
+    const now = Date.now()
+    for (const [ip, entry] of rateLimit) {
+      if (now > entry.resetAt) rateLimit.delete(ip)
+    }
+  }, 300_000)
+}
+
 function getRateLimitInfo(ip: string) {
   const now = Date.now()
   const entry = rateLimit.get(ip)

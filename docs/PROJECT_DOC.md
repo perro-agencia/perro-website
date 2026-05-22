@@ -15,7 +15,9 @@
 - Draft mode y revalidación on-demand vía API routes
 - Header con navegación principal (fixed, backdrop blur)
 - Footer con copyright dinámico
-- Formulario de contacto funcional con Resend (`/contacto`)
+- Formulario de contacto funcional con Resend + rate limiting (`/contacto`)
+- Botón CTA reutilizable con variantes (`components/ui/Button.tsx`)
+- Security headers (CSP, X-Frame-Options, etc.) en `next.config.ts`
 
 ### Features en progreso
 - *Ninguna por el momento*
@@ -25,6 +27,7 @@
 - Sin componentes de mobile navigation (menú hamburguesa)
 - Las imágenes de Sanity no tienen sizes/priority optimizados en todos los casos
 - No hay loading states / skeletons para las páginas que fetchan datos
+- Rate limiting en memoria (no persiste entre reinicios del servidor/serverless)
 
 ---
 
@@ -59,6 +62,10 @@
 - **Tailwind CSS** sin componentes de UI externos — mínimo peso, control total del diseño, consistencia con el brand.
 - **pnpm** como package manager por velocidad y eficiencia de disco.
 - **RSC (Server Components)** para todas las secciones que obtienen data de Sanity — menos JS enviado al cliente.
+- **Security headers** implementados vía `next.config.ts` — CSP restrictivo con excepciones para Sanity (cdn, apicdn, *.sanity.io) y Vercel (vercel.live). Incluye `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`.
+- **Rate limiting en memoria** para el endpoint `/api/contact` — solución liviana (Map en memoria, sin dependencias externas). 5 requests por minuto por IP. Migrar a Vercel KV o Redis si el tráfico crece.
+- **@sanity/code-input** registrado como plugin en `sanity.config.ts` — provee syntax highlighting para code blocks dentro del Portable Text del CMS.
+- **Vision Tool condicional** — solo se habilita en `development` (`process.env.NODE_ENV === "development" ? [visionTool()] : []`) para evitar exposición de datos en producción.
 
 ---
 
@@ -73,9 +80,11 @@ components/
 │   ├── ProjectCard.tsx      — Card para grid de proyectos. Props: { project: Project }
 │   └── CaseStudyBody.tsx    — Renderiza Portable Text del body de un proyecto
 ├── layout/
-│   ├── Header.tsx           — Header fixed con logo + Navigation
-│   ├── Navigation.tsx       — Nav links con active state (usePathname). "use client"
+│   ├── Header.tsx           — Header fixed con logo + Navigation + Button CTA (Contacto)
+│   ├── Navigation.tsx       — Nav links (Inicio, Nosotros, Servicios, Portfolio, Blog) con active state. "use client"
 │   └── Footer.tsx           — Footer simple con logo y copyright
+├── ui/
+│   └── Button.tsx           — Botón CTA reutilizable (Link de Next.js), 3 variantes: cta, primary, outline
 ├── sections/
 │   ├── HeroSection.tsx      — Hero de homepage (estático, sin data de Sanity)
 │   ├── ServicesSection.tsx  — Grid de servicios. Fetch: sanityFetch(servicesQuery)
@@ -85,6 +94,16 @@ components/
     ├── AnimatedText.tsx     — Texto con animación (Framer Motion)
     └── TransitionWrapper.tsx — Wrapper de animaciones de página
 ```
+
+### `Button` (`components/ui/Button.tsx`)
+Componente `"use client"` (usa `next/link`) que renderiza un Link estilizado con 3 variantes:
+- **cta** (default): pill blanco con icono `ArrowRight`, hover invierte colores (fondo oscuro, texto blanco). Usado en Header como CTA de contacto.
+- **primary**: botón relleno con `bg-brand-primary-main`.
+- **outline**: botón con borde semitransparente.
+
+**Props:** `{ href: Route; children: React.ReactNode; variant?: ButtonVariant; className?: string; showIcon?: boolean }`
+
+No usa `class-variance-authority` (CVA); las variantes se definen en un objeto `Record<ButtonVariant, string>` dentro del mismo archivo.
 
 ### Convenciones
 - Componentes async cuando fetchan data de Sanity (Server Components)
@@ -195,7 +214,7 @@ Tipo de bloque rich text con soporte para:
 | `/portfolio/[slug]` | Dinámica | Fetch project by slug | `app/(site)/portfolio/[slug]/page.tsx` |
 | `/blog` | Estática | Fetch posts | `app/(site)/blog/page.tsx` |
 | `/blog/[slug]` | Dinámica | Fetch post by slug | `app/(site)/blog/[slug]/page.tsx` |
-| `/contacto` | Estática | Formulario funcional con Resend (POST a `/api/contact`) | `app/(site)/contacto/page.tsx` |
+| `/contacto` | Estática | Formulario funcional con Resend + rate limiting (5 req/min por IP, POST a `/api/contact`) | `app/(site)/contacto/page.tsx` |
 | `/studio` | Estática | Sanity Studio embedido | `app/studio/[[...tool]]/page.tsx` |
 
 Todas las rutas bajo `(site)` comparten el layout con Header + Footer.
@@ -244,6 +263,18 @@ brand: {
 - Grids responsivos: `grid gap-8 md:grid-cols-2 lg:grid-cols-3`
 - Sin sidebar — layouts de una sola columna con max-width controlado
 
+### Botones (`components/ui/Button.tsx`)
+Componente wrapper de `next/link` con 3 variantes:
+
+| Variante | Clase visual | Uso típico |
+|---|---|---|
+| `cta` (default) | `bg-brand-white` texto oscuro, `rounded-full`, icono `ArrowRight` con animación de hover | CTA principal en Header, llamados a la acción destacados |
+| `primary` | `bg-brand-primary-main` texto blanco, `rounded-lg` | Botones primarios en secciones |
+| `outline` | `border border-brand-white/20` texto blanco, `rounded-lg` | Botones secundarios / alternativos |
+
+**Props:** `href: Route` (Next.js Route), `children`, `variant?`, `className?`, `showIcon?` (default: true).
+El icono solo se muestra en variante `cta` por defecto (el componente siempre recibe `showIcon` pero los estilos de circle icon son parte de la variante cta).
+
 ---
 
 ## 8. Decisiones pendientes
@@ -259,7 +290,8 @@ brand: {
 - [ ] **reCAPTCHA key sin uso**: `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` está en `.env` pero no hay código que la referencie. Posible vestigio de un intento de formulario.
 - [ ] **Componentes sin uso**: `AnimatedText` y `TransitionWrapper` existen en `components/common/` pero no se importan en ninguna página. Evaluar si se integran o se eliminan.
 - [ ] **`.env.example` desactualizado**: lista `REVALIDATION_SECRET` pero el código usa `SANITY_REVALIDATE_SECRET`. Actualizar el ejemplo.
-
+- [ ] **Rate limiting en memoria**: el endpoint `/api/contact` usa un `Map` en memoria para rate limiting. No persiste entre reinicios del servidor y no escala horizontalmente. Evaluar migrar a Vercel KV o Redis si el tráfico crece.
+ 
 ---
 
 ## 9. Historial de cambios relevantes
@@ -271,3 +303,6 @@ brand: {
 | 2026-05-22 | Creación del agente `analyst` para mantenimiento de doc |
 | 2026-05-22 | Auditoría de documentación: 7 discrepancias encontradas y corregidas (stack, env vars, schemas, decisiones pendientes) |
 | 2026-05-22 | Integración de Resend para formulario de contacto (`lib/email.ts`, `app/api/contact/route.ts`, `components/forms/ContactForm.tsx`) |
+| 2026-05-22 | Creación de `components/ui/Button.tsx` y directorio `components/ui/` |
+| 2026-05-22 | Security headers en `next.config.ts` y rate limiting en API de contacto |
+| 2026-05-22 | Registro de plugin `codeInput` y Vision Tool condicional en `sanity.config.ts` |
