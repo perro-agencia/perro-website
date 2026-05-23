@@ -106,20 +106,22 @@ export function Nav() {
     setIsOpen(false)
   }, [pathname])
 
+  const showScrolled = scrolled && !isOpen
+
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-50 py-2">
         <div
           className={cn(
             "transition-all duration-300 ease-in-out",
-            scrolled
+            showScrolled
               ? "mx-auto mt-4 max-w-[90vw] md:max-w-[1000px] bg-brand-black/70 backdrop-blur-xl border border-brand-white/10 shadow-xl rounded-full px-6"
               : "bg-brand-black/80 backdrop-blur-md border border-transparent"
           )}
         >
           <div className={cn(
             "flex items-center justify-between h-16 md:h-20",
-            !scrolled && "container mx-auto px-6"
+            !showScrolled && "container mx-auto px-6"
           )}>
             <motion.div
               initial={{ opacity: 0, y: -10 }}
@@ -182,7 +184,7 @@ export function Nav() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-brand-black flex flex-col items-center justify-center gap-8 md:hidden"
+            className="fixed inset-0 z-40 bg-brand-black/70 backdrop-blur-xl flex flex-col items-center justify-center gap-8 md:hidden"
           >
             {links.map((link, i) => (
               <motion.div
