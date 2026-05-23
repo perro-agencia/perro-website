@@ -1,5 +1,8 @@
+"use client"
+
 import Link from "next/link"
 import Image from "next/image"
+import { motion } from "framer-motion"
 
 const sitemapLinks = [
   { href: "/servicios", label: "Servicios" },
@@ -16,9 +19,28 @@ const linkHoverStyle = "transition-all duration-200 hover:text-brand-accent-02 h
 
 export function Footer() {
   return (
-    <footer className="bg-white">
-      <div className="container mx-auto px-6 py-16 md:py-24">
-        <div className="flex flex-col items-center text-center md:text-left">
+    <footer>
+      <div className="bg-brand-black w-full max-w-[1500px] mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+          className="hidden md:block"
+        >
+          <Image
+            src="/miscelaneous/perro-logo-cut-white.svg"
+            alt="PERRO Agency logo"
+            width={268}
+            height={352}
+            className="w-full h-auto"
+          />
+              
+        </motion.div>
+      </div>
+
+      <div className="bg-white mx-auto px-6 py-16 md:py-24">
+        <div className="container md:mx-auto flex flex-col items-center text-center md:text-left">
           <div className="flex flex-col items-start text-start md:flex-row justify-between w-full gap-12 md:gap-8">
             <div className="flex flex-col gap-4">
               <h2 className="text-5xl max-w-md font-display text-brand-black">
