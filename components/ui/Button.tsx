@@ -8,9 +8,9 @@ const buttonVariants = cva("inline-flex items-center gap-2 transition-all durati
   variants: {
     variant: {
       cta: cn(
-        "group py-1.5 pl-3 pr-1.5",
+        "group py-2.5 pl-6 pr-4",
         "border-2 border-brand-white bg-brand-white rounded-full",
-        "text-sm font-display uppercase tracking-wide leading-none text-brand-black",
+        "text-md font-display uppercase tracking-wide leading-none text-brand-black",
         "hover:bg-brand-black hover:text-brand-white",
         "ease-brand-bounce"
       ),
@@ -43,7 +43,7 @@ export function Button({ href, children, variant, className, showIcon = true }: 
     <Link href={href} className={cn(buttonVariants({ variant }), className)}>
       <span>{children}</span>
       {showIcon && (
-        <span aria-hidden="true" className="flex items-center justify-center w-6 h-6 rounded-full bg-brand-black group-hover:bg-brand-white transition-colors">
+        <span aria-hidden="true" className="flex items-center justify-center w-7 h-7 rounded-full bg-brand-black group-hover:bg-brand-white transition-colors mb-[2px]">
           <ArrowRight className="w-4 h-4 text-brand-white group-hover:text-brand-black transition-colors" />
         </span>
       )}

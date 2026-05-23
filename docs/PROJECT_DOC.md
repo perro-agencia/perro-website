@@ -2,7 +2,7 @@
 
 ## 1. Estado actual del proyecto
 
-**Última actualización:** 2026-05-22
+**Última actualización:** 2026-05-23
 
 ### Features completadas
 - Homepage con Hero, Servicios, Portfolio y Team section (data desde Sanity)
@@ -13,18 +13,17 @@
 - Sanity Studio embebido en `/studio`
 - Sitemap dinámico y robots.txt
 - Draft mode y revalidación on-demand vía API routes
-- Header con navegación principal (fixed, backdrop blur)
+- Nav component con navegación principal: hamburger animado, menú mobile fullscreen con fade animation, scroll behavior con pill flotante glassmorphism
 - Footer con copyright dinámico
 - Formulario de contacto funcional con Resend + rate limiting (`/contacto`)
 - Botón CTA reutilizable con variantes (`components/ui/Button.tsx`)
 - Security headers (CSP, X-Frame-Options, etc.) en `next.config.ts`
 
 ### Features en progreso
-- *Ninguna por el momento*
+- Homepage sections (Hero, Services, Portfolio, Team) pendientes de actualizar para coincidir con el diseño original de perroagency.com
 
 ### Deuda técnica conocida
 - Sin tests automatizados
-- Sin componentes de mobile navigation (menú hamburguesa)
 - Las imágenes de Sanity no tienen sizes/priority optimizados en todos los casos
 - No hay loading states / skeletons para las páginas que fetchan datos
 - Rate limiting en memoria (no persiste entre reinicios del servidor/serverless)
@@ -80,8 +79,8 @@ components/
 │   ├── ProjectCard.tsx      — Card para grid de proyectos. Props: { project: Project }
 │   └── CaseStudyBody.tsx    — Renderiza Portable Text del body de un proyecto
 ├── layout/
-│   ├── Header.tsx           — Header fixed con logo + Navigation + Button CTA (Contacto)
-│   ├── Navigation.tsx       — Nav links (Inicio, Nosotros, Servicios, Portfolio, Blog) con active state. "use client"
+│   ├── Header.tsx           — Header simplificado que solo renderiza `<Nav />`
+│   ├── Nav.tsx              — Nav component completo con logo inline SVG, links desktop, CTA + hamburger animado, menú mobile full overlay con Framer Motion AnimatePresence, y scroll behavior (pill flotante glassmorphism). "use client"
 │   └── Footer.tsx           — Footer simple con logo y copyright
 ├── ui/
 │   └── Button.tsx           — Botón CTA reutilizable (Link de Next.js), 3 variantes: cta, primary, outline
@@ -94,6 +93,27 @@ components/
     ├── AnimatedText.tsx     — Texto con animación (Framer Motion)
     └── TransitionWrapper.tsx — Wrapper de animaciones de página
 ```
+
+### `Nav` (`components/layout/Nav.tsx`)
+Componente `"use client"` que centraliza toda la navegación del sitio. Estructura de 3 contenedores:
+1. **Logo** — SVG inline con `currentColor` (altura 8 en mobile), texto alternativo "Ir al inicio". Hover: `text-brand-primary-main`.
+2. **Links desktop** — 4 links (Nosotros, Servicios, Proyectos, Blog) en `text-lg uppercase text-brand-white`, hover `underline decoration-brand-accent-02`, active link `text-brand-accent-02`. Ocultos en mobile (`hidden md:flex`).
+3. **CTA + Hamburger** — Botón `Button` con variante `cta` hacia `/contacto` (solo desktop), y `HamburgerButton` (solo mobile).
+
+**Mobile menu:**
+- `HamburgerButton`: 3 spans CSS que se transforman en X (rotación 45°, fade out del span central, rotación -45°).
+- Overlay: `fixed inset-0 z-40 bg-brand-black`, columna centrada con los mismos links + CTA.
+- Animación: `AnimatePresence` de Framer Motion con fade in/out del overlay y entrada escalonada de links (delay `i * 0.05`).
+- Scroll lock: `document.body.style.overflow = "hidden"` cuando el menú está abierto.
+- Cierre automático al cambiar de ruta (via `usePathname`).
+
+**Scroll behavior:**
+- `useEffect` con evento `scroll` (passive) detecta `window.scrollY > 50`.
+- En reposo: nav con `bg-brand-black/80 backdrop-blur-md` y borde transparente.
+- Al scrollear: se transforma en una pill flotante: `mx-auto mt-4 max-w-[90vw] md:max-w-[1000px] bg-brand-black/70 backdrop-blur-xl border border-brand-white/10 shadow-xl rounded-full px-6`. Transición suave CSS `transition-all duration-300 ease-in-out`.
+
+**Animaciones de entrada:**
+- Logo, links desktop y CTA tienen entrada escalonada con `motion.div` (`opacity: 0, y: -10` → `opacity: 1, y: 0`) con delays progresivos (`0.05`, `0.1 + i * 0.08`).
 
 ### `Button` (`components/ui/Button.tsx`)
 Componente `"use client"` (usa `next/link`) que renderiza un Link estilizado con 3 variantes:
@@ -280,7 +300,7 @@ El icono solo se muestra en variante `cta` por defecto (el componente siempre re
 ## 8. Decisiones pendientes
 
 - [x] **Formulario de contacto**: definido — se usa Resend (`lib/email.ts`)
-- [ ] **Mobile navigation**: implementar menú hamburguesa para < md breakpoint
+- [x] **Mobile navigation**: implementar menú hamburguesa para < md breakpoint
 - [ ] **Blog comments**: ¿se habilita? ¿con qué servicio?
 - [ ] **SEO**: definir estrategia de metadata dinámica (más allá del title/description básico)
 - [ ] **Performance**: evaluar si conviene SSG + ISR o mantener SSR con revalidate
@@ -306,3 +326,4 @@ El icono solo se muestra en variante `cta` por defecto (el componente siempre re
 | 2026-05-22 | Creación de `components/ui/Button.tsx` y directorio `components/ui/` |
 | 2026-05-22 | Security headers en `next.config.ts` y rate limiting en API de contacto |
 | 2026-05-22 | Registro de plugin `codeInput` y Vision Tool condicional en `sanity.config.ts` |
+| 2026-05-23 | Migración de Header + Navigation a nuevo Nav component con mobile menu (`components/layout/Nav.tsx`, `Header.tsx` simplificado) |
