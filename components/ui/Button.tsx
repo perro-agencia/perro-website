@@ -1,6 +1,5 @@
 import Link from "next/link"
 import type { Route } from "next"
-import { ArrowRight } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { cva, type VariantProps } from "class-variance-authority"
 
@@ -8,7 +7,7 @@ const buttonVariants = cva("inline-flex items-center gap-2 transition-all durati
   variants: {
     variant: {
       cta: cn(
-        "group py-2.5 pl-6 pr-4",
+        "group py-2 pl-6 pr-3",
         "border-2 border-brand-white bg-brand-white rounded-full",
         "text-md font-display uppercase tracking-wide leading-none text-brand-black",
         "hover:bg-brand-black hover:text-brand-white",
@@ -43,8 +42,15 @@ export function Button({ href, children, variant, className, showIcon = true }: 
     <Link href={href} className={cn(buttonVariants({ variant }), className)}>
       <span>{children}</span>
       {showIcon && (
-        <span aria-hidden="true" className="flex items-center justify-center w-7 h-7 rounded-full bg-brand-black group-hover:bg-brand-white transition-colors mb-[2px]">
-          <ArrowRight className="w-4 h-4 text-brand-white group-hover:text-brand-black transition-colors" />
+        <span aria-hidden="true" className="flex items-center justify-center w-9 h-9 rounded-full bg-brand-black group-hover:bg-brand-white transition-colors mb-[2px]">
+          <svg
+            viewBox="0 0 24 24"
+            className="w-5 h-5 fill-current text-white group-hover:text-brand-black transition-colors"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M9 5V7H15.59L4 18.59L5.41 20L17 8.41V15H19V5H9Z" />
+          </svg>
         </span>
       )}
     </Link>

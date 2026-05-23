@@ -133,7 +133,7 @@ export function Nav() {
                 aria-label="Ir al inicio"
                 className="text-brand-white transition-colors duration-200 hover:text-brand-primary-main"
               >
-                <Logo className="h-8 w-auto" />
+                <Logo className="h-6 w-auto" />
               </Link>
             </motion.div>
 
