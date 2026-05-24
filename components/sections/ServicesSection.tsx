@@ -98,13 +98,13 @@ export function ServicesSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
-          className="grid gap-8 md:grid-cols-2 max-w-[1000px] mx-auto"
+          className="grid gap-8 md:grid-cols-2 max-w-[1200px] mx-auto"
         >
           {services.map((service) => (
             <motion.div
               key={service.title}
               variants={cardVariants}
-              className={`text-left flex flex-col rounded-3xl transition-shadow duration-300 min-h-[460px] ${service.bg}`}
+              className={`text-left flex flex-col rounded-3xl transition-shadow duration-300 min-h-[450px] md:min-h-[550px] ${service.bg}`}
               style={{ boxShadow: `0 0 0 0 ${service.shadowColor}33` } as React.CSSProperties}
               whileHover={{ boxShadow: `0 0 48px -8px ${service.shadowColor}` }}
               transition={{ duration: 0 }}
