@@ -26,7 +26,7 @@ export function StrategySection() {
   return (
     <section
       ref={sectionRef}
-      className="relative py-16 md:pb-48 overflow-hidden max-w-[1500px] mx-auto"
+      className="relative py-16 overflow-hidden max-w-[1500px] mx-auto"
     >
       <div className="max-w-[1500px] mx-auto px-6">
         <div className="grid gap-12 md:gap-16 items-center">

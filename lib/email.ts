@@ -8,10 +8,12 @@ function getResend() {
 
 export async function sendContactEmail({
   name,
+  company,
   email,
   message,
 }: {
   name: string
+  company?: string
   email: string
   message: string
 }) {
@@ -22,6 +24,7 @@ export async function sendContactEmail({
     html: `
       <h2>Nuevo mensaje de contacto</h2>
       <p><strong>Nombre:</strong> ${escapeHtml(name)}</p>
+      ${company ? `<p><strong>Compañía:</strong> ${escapeHtml(company)}</p>` : ""}
       <p><strong>Email:</strong> ${escapeHtml(email)}</p>
       <p><strong>Mensaje:</strong></p>
       <p>${escapeHtml(message).replace(/\n/g, "<br>")}</p>

@@ -4,6 +4,7 @@ import { ServicesSection } from "@/components/sections/ServicesSection"
 import { StrategySection } from "@/components/sections/StrategySection"
 import { PortfolioGrid } from "@/components/sections/PortfolioGrid"
 import { TeamSection } from "@/components/sections/TeamSection"
+import { ContactSection } from "@/components/sections/ContactSection"
 
 export default function HomePage() {
   return (
@@ -14,6 +15,7 @@ export default function HomePage() {
       <StrategySection />
       <PortfolioGrid />
       <TeamSection />
+      <ContactSection />
     </>
   )
 }

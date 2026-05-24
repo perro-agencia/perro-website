@@ -37,7 +37,7 @@ function getItalicDelay(lineIndex: number, wordIndex: number): number {
 
 export function HeroSection() {
   return (
-    <section className="relative md:h-[100vh] min-h-[600px] flex items-center overflow-hidden pt-[80px] md:py-[10px] max-w-[1500px] mx-auto">
+    <section className="relative md:h-[100vh] min-h-[600px] flex items-center pt-[80px] md:py-[10px] max-w-[1500px] mx-auto">
       <div className="absolute inset-0">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -50,7 +50,7 @@ export function HeroSection() {
             alt=""
             width={694}
             height={1000}
-            className="absolute -right-200 md:right-0 top-1/2 -translate-y-1/2 h-[1000px] w-auto object-contain -rotate-9"
+            className="absolute right-[-200px] md:right-0 top-1/2 -translate-y-1/2 h-[1300px] w-auto object-contain -rotate-[-15deg]"
             priority
           />
         </motion.div>

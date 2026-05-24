@@ -39,13 +39,13 @@ export async function POST(req: Request) {
     }
 
     const body = await req.json()
-    const { name, email, message } = body
+    const { name, company, email, message } = body
 
     if (!name || !email || !message) {
       return NextResponse.json({ error: "Faltan campos requeridos" }, { status: 400 })
     }
 
-    if (typeof name !== "string" || typeof email !== "string" || typeof message !== "string") {
+    if (typeof name !== "string" || (company !== undefined && typeof company !== "string") || typeof email !== "string" || typeof message !== "string") {
       return NextResponse.json({ error: "Tipos inválidos" }, { status: 400 })
     }
 
@@ -53,7 +53,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Email inválido" }, { status: 400 })
     }
 
-    const { error } = await sendContactEmail({ name, email, message })
+    const { error } = await sendContactEmail({ name, company, email, message })
 
     if (error) {
       return NextResponse.json({ error: "Error al enviar el mensaje" }, { status: 500 })

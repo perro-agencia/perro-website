@@ -17,6 +17,7 @@
     font-family: var(--font-body);
     background-color: #000000;
     color: theme("colors.brand.white");
+    overflow-x: hidden;
   }
 
   a {

@@ -26,7 +26,7 @@ export function Footer() {
         <div className="container md:mx-auto flex flex-col items-center text-center md:text-left">
           <div className="flex flex-col items-start text-start md:flex-row justify-between w-full gap-12 md:gap-8">
             <div className="flex flex-col gap-4">
-              <h2 className="text-5xl max-w-md font-medium text-brand-black">
+              <h2 className="text-5xl max-w-md font-semibold text-brand-black">
                 Perro que ladra, muerde
               </h2>
               <div className="flex flex-col gap-2 text-brand-black/60">
