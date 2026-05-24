@@ -5,12 +5,13 @@
 **Última actualización:** 2026-05-24
 
 ### Features completadas
-- Homepage sections rediseñadas completamente (Hero, Clients, Services, Strategy, Portfolio, Team)
+- Homepage sections rediseñadas completamente (Hero, Clients, Services, Strategy, Portfolio, Team, ContactSection)
 - HeroSection con animación palabra por palabra con stagger, GIF de fondo, itálicas animadas con framer-motion (sin setTimeout)
-- ClientsSection con grilla de logos, animaciones whileInView, subtítulo "nuestra huella"
+- ClientsSection con grilla de logos, animaciones whileInView, subtítulo "nuestra huella", hover con border-radius animado, scale y shadow
 - ServicesSection con datos hardcodeados (sin Sanity), cards con colores brand, box-shadow hover con framer-motion
 - StrategySection con imagen de equipo, título grande, chips flotantes con parallax scroll (useScroll + useTransform)
-- Componente Chip reusable con variantes primary/outline (cva)
+- ContactSection en homepage: grid 2 columnas, headline con palabras animadas, chips outline con keywords, formulario funcional con inputs animados al hacer scroll
+- Componente Chip reusable con variantes primary/outline (cva) y hover glow en outline (texto/borde accent-02 + shadow framer-motion)
 - Componente FooterLogo extraído como Client Component para logo animado
 - Footer convertido a Server Component
 - Página de servicios (`/servicios`)
@@ -23,8 +24,9 @@
 - Nav component con navegación principal: hamburger animado, menú mobile fullscreen con fade animation, scroll behavior con pill flotante glassmorphism
 - Footer con sitemap, redes sociales, copyright dinámico
 - Formulario de contacto funcional con Resend + rate limiting (`/contacto`)
-- Botón CTA reutilizable con variantes (`components/ui/Button.tsx`)
+- Botón CTA reutilizable con variantes (`components/ui/Button.tsx`) — arrow con animación diagonal hover (entra/sale por lados opuestos con overflow-hidden)
 - Security headers (CSP, X-Frame-Options, etc.) en `next.config.ts`
+- Componente AmbientBlob (`components/ui/AmbientBlob.tsx`) — glow animado que rebota con morph shape, configurable (color, tamaño, blur, velocidad)
 
 ### Features en progreso
 - PortfolioGrid y TeamSection aún fetchan data de Sanity — posible migración a datos hardcodeados en el futuro
@@ -91,13 +93,16 @@ components/
 │   ├── Footer.tsx           — Server Component. Sitemap, redes sociales, copyright, contacto. Renderiza `<FooterLogo />` para la parte animada
 │   └── FooterLogo.tsx       — "use client". Logo animado del Footer con framer-motion whileInView. Oculto en mobile (hidden md:block)
 ├── ui/
-│   ├── Button.tsx           — Botón CTA reutilizable (Link de Next.js), 3 variantes: cta, primary, outline
-│   └── Chip.tsx             — Chip reusable con variantes primary (fondo púrpura) / outline (borde blanco). Usa cva
+│   ├── AmbientBlob.tsx      — [SIN USO] Glow animado que rebota con morph shape. Configurable: color, size, blur, speed. Usa requestAnimationFrame
+│   ├── BackgroundBlob.tsx   — [SIN USO] Wrapper de AmbientBlob para fondo de página con absolute inset-0
+│   ├── Button.tsx           — Botón CTA reutilizable (Link de Next.js), 3 variantes: cta, primary, outline. Arrow con animación diagonal en hover
+│   └── Chip.tsx             — "use client" con motion.span. Variantes primary / outline (cva). Outline: hover accent-02 + glow shadow
 ├── sections/
-│   ├── HeroSection.tsx      — "use client". Hero animado: palabras con stagger, GIF de fondo, itálicas con framer-motion delay. Sin data de Sanity
-│   ├── ClientsSection.tsx   — "use client". Grilla de logos de clientes con animación whileInView stagger. 13 clientes hardcodeados. Subtítulo "nuestra huella"
-│   ├── ServicesSection.tsx  — "use client". Grid de 4 servicios hardcodeados con colores brand, box-shadow hover con framer-motion whileHover. Sin fetch de Sanity
+│   ├── HeroSection.tsx      — "use client". Hero animado: palabras con stagger, GIF de fondo, itálicas con framer-motion delay. Sin data de Sanity. overflow-hidden removido, se usa overflow-x-hidden en body
+│   ├── ClientsSection.tsx   — "use client". Grilla de logos de clientes con animación whileInView stagger. 13 clientes hardcodeados. Subtítulo "nuestra huella". Hover: border-radius animado, scale, shadow blanco
+│   ├── ServicesSection.tsx  — "use client". Grid de 4 servicios hardcodeados con colores brand, box-shadow hover con framer-motion. Sin fetch de Sanity
 │   ├── StrategySection.tsx  — "use client". Imagen de equipo + título grande + chips flotantes con parallax (useScroll + useTransform). Usa `<Chip>`
+│   ├── ContactSection.tsx   — "use client". Grid 2 cols (1 en mobile). Headline con palabras animadas + chips outline con keywords. Formulario funcional: Nombre, Compañía, Correo, Mensaje. Inputs con bg-black, border white rounded-full. Animación scroll con stagger por grupo
 │   ├── PortfolioGrid.tsx    — Server Component. Grid de proyectos. Fetch: sanityFetch(projectsQuery)
 │   └── TeamSection.tsx      — Server Component. Grid de miembros con foto. Fetch: sanityFetch(teamMembersQuery)
 └── common/
@@ -127,14 +132,14 @@ Componente `"use client"` que centraliza toda la navegación del sitio. Estructu
 - Logo, links desktop y CTA tienen entrada escalonada con `motion.div` (`opacity: 0, y: -10` → `opacity: 1, y: 0`) con delays progresivos (`0.05`, `0.1 + i * 0.08`).
 
 ### `Button` (`components/ui/Button.tsx`)
-Componente `"use client"` (usa `next/link`) que renderiza un Link estilizado con 3 variantes:
+Componente `"use client"` que renderiza un Link estilizado con 3 variantes usando CVA:
 - **cta** (default): pill blanco con icono `ArrowRight`, hover invierte colores (fondo oscuro, texto blanco). Usado en Header como CTA de contacto.
 - **primary**: botón relleno con `bg-brand-primary-main`.
 - **outline**: botón con borde semitransparente.
 
 **Props:** `{ href: Route; children: React.ReactNode; variant?: ButtonVariant; className?: string; showIcon?: boolean }`
 
-No usa `class-variance-authority` (CVA); las variantes se definen en un objeto `Record<ButtonVariant, string>` dentro del mismo archivo.
+**Animación hover del arrow:** El contenedor del icono tiene `overflow-hidden`. Al hover: el SVG arrow se desplaza en diagonal (keyframes x/y 16px) — sale hacia arriba-derecha y reaparece desde abajo-izquierda con framer-motion. El contenedor además tiene un leve `translate-x` de bounce.
 
 ### Convenciones
 - Componentes async cuando fetchan data de Sanity (Server Components)
@@ -309,12 +314,12 @@ Componente wrapper de `next/link` con 3 variantes:
 El icono solo se muestra en variante `cta` por defecto (el componente siempre recibe `showIcon` pero los estilos de circle icon son parte de la variante cta).
 
 ### Chip (`components/ui/Chip.tsx`)
-Componente `span` estilizado con `class-variance-authority` (cva). Dos variantes:
+Componente `"use client"` con `motion.span` y `class-variance-authority` (cva). Dos variantes:
 
 | Variante | Clase visual | Uso típico |
-|---|---|---|
+|---|---|---|---|
 | `primary` (default) | `bg-brand-primary-main text-black rounded-full`, padding `py-1 px-8 md:py-3 md:px-24` | Chips destacados en StrategySection |
-| `outline` | `border border-brand-white text-brand-white rounded-full`, padding `py-3 px-8` | Chips secundarios |
+| `outline` | `border border-brand-white text-brand-white rounded-full`, padding `py-3 px-8`. Hover: texto/borde → `brand-accent-02` + box-shadow glow verde vía framer-motion `whileHover` | Chips secundarios, keywords en ContactSection |
 
 **Props:** `{ children: React.ReactNode; variant?: "primary" | "outline"; className?: string }`
 
@@ -360,3 +365,9 @@ Componente `span` estilizado con `class-variance-authority` (cva). Dos variantes
 | 2026-05-24 | Fixes: shadowColor desde brandColors, rAF loop → useScroll+useTransform en StrategySection, right-[-200]→-right-200, -rotate-[-9deg]→-rotate-9, Chip migrado a cva, subtítulos h2 semántico |
 | 2026-05-24 | Font Display aplicado en layout.tsx (decisión pendiente resuelta) |
 | 2026-05-24 | servicesQuery marcada como huérfana (sin consumidores en el código) |
+| 2026-05-24 | ContactSection creada: grid 2 cols con headline animado, chips outline, formulario funcional (company agregado a API y email) |
+| 2026-05-24 | Chip outline: hover con border/text accent-02 + glow shadow via framer-motion. Chip convertido a "use client" |
+| 2026-05-24 | HeroSection: overflow-hidden removido, overflow-x-hidden agregado a body en globals.css |
+| 2026-05-24 | AmbientBlob + BackgroundBlob: componente de glow animado con morph shape (sin uso en layout) |
+| 2026-05-24 | ClientsSection: hover con border-radius animado (transition-all), scale y shadow blanco |
+| 2026-05-24 | Button: arrow animado con desplazamiento diagonal (entra/sale por lados opuestos) + contenedor con translate-x bounce |

@@ -5,6 +5,23 @@ import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
 import { Chip } from "@/components/ui/Chip"
 
+const containerVariants = {
+  initial: { x: 0 },
+  hover: {
+    x: 2,
+    transition: { duration: 0.2, ease: "easeOut" as const },
+  },
+}
+
+const arrowVariants = {
+  initial: { x: 0, y: 0 },
+  hover: {
+    x: [0, 16, -16, 0],
+    y: [0, -16, 16, 0],
+    transition: { duration: 0.5, ease: "easeInOut" as const },
+  },
+}
+
 const keywords = [
   "websites", "marketing", "motion", "diseño", "producto",
   "creatividad", "seo", "paid media", "desarrollo", "social media",
@@ -30,6 +47,7 @@ const itemVariants = {
 
 export function ContactSection() {
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle")
+  const [isHovered, setIsHovered] = useState(false)
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -160,6 +178,8 @@ export function ContactSection() {
                 <button
                   type="submit"
                   disabled={status === "sending"}
+                  onMouseEnter={() => setIsHovered(true)}
+                  onMouseLeave={() => setIsHovered(false)}
                   className={cn(
                     "group inline-flex items-center gap-2 transition-all duration-200",
                     "py-2 pl-6 pr-3",
@@ -171,19 +191,23 @@ export function ContactSection() {
                   )}
                 >
                   <span>{status === "sending" ? "ENVIANDO..." : "ENVIAR"}</span>
-                  <span
+                  <motion.span
                     aria-hidden="true"
-                    className="flex items-center justify-center w-9 h-9 rounded-full bg-brand-black group-hover:bg-brand-white transition-colors mb-[2px]"
+                    className="flex items-center justify-center w-9 h-9 rounded-full bg-brand-black group-hover:bg-brand-white transition-colors mb-[2px] overflow-hidden"
+                    animate={isHovered ? "hover" : "initial"}
+                    variants={containerVariants}
                   >
-                    <svg
+                    <motion.svg
                       viewBox="0 0 24 24"
                       className="w-5 h-5 fill-current text-white group-hover:text-brand-black transition-colors"
                       aria-hidden="true"
                       xmlns="http://www.w3.org/2000/svg"
+                      animate={isHovered ? "hover" : "initial"}
+                      variants={arrowVariants}
                     >
                       <path d="M9 5V7H15.59L4 18.59L5.41 20L17 8.41V15H19V5H9Z" />
-                    </svg>
-                  </span>
+                    </motion.svg>
+                  </motion.span>
                 </button>
               </motion.div>
 

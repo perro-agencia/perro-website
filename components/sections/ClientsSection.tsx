@@ -71,7 +71,7 @@ export function ClientsSection() {
                 href={client.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center p-4"
+                className="flex items-center justify-center border rounded-sm border-black hover:border-white hover:rounded-lg hover:scale-[1.03] hover:shadow-[0_0_24px_-8px_rgba(245,245,240,0.5)] transition-all duration-300 ease-in-out"
               >
                 <Image
                   src={client.image}
