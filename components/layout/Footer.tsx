@@ -20,7 +20,7 @@ const linkHoverStyle = "transition-all duration-200 hover:text-brand-accent-02 h
 export function Footer() {
   return (
     <footer>
-      <div className="bg-brand-black w-full max-w-[1500px] mx-auto">
+      <div className="bg-black w-full max-w-[1500px] mx-auto">
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           whileInView={{ opacity: 1, y: 0 }}

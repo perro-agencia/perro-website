@@ -57,22 +57,27 @@ export function HeroSection() {
   }, [])
 
   return (
-    <section className="relative min-h-[100vh] flex items-center overflow-hidden py-12 md:py-[140px]">
-      <div className="absolute inset-0 hidden md:block">
-        <Image
-          src="/miscelaneous/star-animation.gif"
-          alt=""
-          fill
-          className="object-cover"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-black via-brand-black/60 to-transparent" />
+    <section className="relative min-h-[100vh] flex items-center overflow-hidden py-12 md:py-[10px] max-w-[1500px] mx-auto">
+      <div className="absolute inset-0">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.5, ease: "easeOut" }}
+          className="absolute inset-0"
+        >
+          <Image
+            src="/miscelaneous/atar-animation.gif"
+            alt=""
+            width={694}
+            height={1000}
+            className="absolute right-[-200] md:right-0 top-1/2 -translate-y-1/2 h-[1000px] w-auto object-contain -rotate-[-9deg]"
+            priority
+          />
+        </motion.div>
       </div>
 
-      <div className="absolute inset-0 bg-brand-black md:hidden" />
-
       <div className="relative z-10 container mx-auto px-6">
-        <h1 className="font-display font-regular leading-[0.9] -tracking-[0.03em] text-[clamp(3rem,15vw,12rem)]">
+        <h1 className="font-display font-regular leading-[0.9] -tracking-[0.03em] text-[clamp(6rem,15vw,12rem)]">
           {lines.map((line, li) => (
             <div key={li} className="flex flex-wrap gap-x-[0.2em]">
               {line.map((word, wi) => {
