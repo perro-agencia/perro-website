@@ -3,6 +3,13 @@
 import { motion } from "framer-motion"
 import Image from "next/image"
 
+const brandColors: Record<string, string> = {
+  "bg-brand-primary-main": "#885de3",
+  "bg-brand-accent-01": "#de4a27",
+  "bg-brand-accent-02": "#c4f875",
+  "bg-brand-white": "#f5f5f0",
+}
+
 type Service = {
   title: string
   image: string
@@ -20,7 +27,7 @@ const services: Service[] = [
       "Visibilidad digital: creamos campañas estratégicas que maximizan la presencia y performance de tus anuncios.",
     bg: "bg-brand-primary-main",
     textColor: "text-brand-white",
-    shadowColor: "#885de3",
+    shadowColor: brandColors["bg-brand-primary-main"],
   },
   {
     title: "Producto",
@@ -29,7 +36,7 @@ const services: Service[] = [
       "Estrategia & usabilidad: diseñamos y construimos productos que combinan visión de negocio, diseño centrado en el usuario y desarrollo sólido.",
     bg: "bg-brand-accent-01",
     textColor: "text-brand-white",
-    shadowColor: "#de4a27",
+    shadowColor: brandColors["bg-brand-accent-01"],
   },
   {
     title: "Design",
@@ -38,7 +45,7 @@ const services: Service[] = [
       "No hacemos logos, creamos marcas únicas. Le damos identidad a tu negocio y su propia historia.",
     bg: "bg-brand-accent-02",
     textColor: "text-brand-black",
-    shadowColor: "#c4f875",
+    shadowColor: brandColors["bg-brand-accent-02"],
   },
   {
     title: "Social Content",
@@ -47,7 +54,7 @@ const services: Service[] = [
       "Transformamos tu estrategia en contenido relevante y coherente, capaz de atraer resultados, fidelizar y generar interacción con tu comunidad digital.",
     bg: "bg-brand-white",
     textColor: "text-brand-black",
-    shadowColor: "#f5f5f0",
+    shadowColor: brandColors["bg-brand-white"],
   },
 ]
 
@@ -73,7 +80,7 @@ export function ServicesSection() {
   return (
     <section className="py-24 md:py-32">
       <div className="container mx-auto px-6 text-center">
-        <motion.span
+        <motion.h2
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
@@ -81,7 +88,7 @@ export function ServicesSection() {
           className="block text-xl uppercase text-brand-white mb-6"
         >
           nuestros servicios
-        </motion.span>
+        </motion.h2>
 
         <motion.h2
           initial={{ opacity: 0, y: 24 }}
@@ -105,7 +112,7 @@ export function ServicesSection() {
               key={service.title}
               variants={cardVariants}
               className={`text-left flex flex-col rounded-3xl transition-shadow duration-300 min-h-[450px] md:min-h-[550px] ${service.bg}`}
-              style={{ boxShadow: `0 0 0 0 ${service.shadowColor}33` } as React.CSSProperties}
+              style={{ boxShadow: `0 0 0 0 ${service.shadowColor}33` }}
               whileHover={{ boxShadow: `0 0 48px -8px ${service.shadowColor}` }}
               transition={{ duration: 0 }}
             >

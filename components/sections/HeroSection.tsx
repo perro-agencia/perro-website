@@ -1,6 +1,5 @@
 "use client"
 
-import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import Image from "next/image"
 
@@ -37,25 +36,6 @@ function getItalicDelay(lineIndex: number, wordIndex: number): number {
 }
 
 export function HeroSection() {
-  const [italicStates, setItalicStates] = useState<Record<string, boolean>>({})
-
-  useEffect(() => {
-    const timers: ReturnType<typeof setTimeout>[] = []
-    lines.forEach((line, li) => {
-      line.forEach((word, wi) => {
-        if (word.italicIndex !== undefined) {
-          const key = `${li}-${wi}`
-          const delay = getItalicDelay(li, wi) * 1000
-          const timer = setTimeout(() => {
-            setItalicStates((prev) => ({ ...prev, [key]: true }))
-          }, delay)
-          timers.push(timer)
-        }
-      })
-    })
-    return () => timers.forEach(clearTimeout)
-  }, [])
-
   return (
     <section className="relative md:h-[100vh] min-h-[600px] flex items-center overflow-hidden pt-[80px] md:py-[10px] max-w-[1500px] mx-auto">
       <div className="absolute inset-0">
@@ -70,7 +50,7 @@ export function HeroSection() {
             alt=""
             width={694}
             height={1000}
-            className="absolute right-[-200] md:right-0 top-1/2 -translate-y-1/2 h-[1000px] w-auto object-contain -rotate-[-9deg]"
+            className="absolute -right-200 md:right-0 top-1/2 -translate-y-1/2 h-[1000px] w-auto object-contain -rotate-9"
             priority
           />
         </motion.div>
@@ -82,8 +62,7 @@ export function HeroSection() {
             <div key={li} className="flex flex-wrap gap-x-[0.2em]">
               {line.map((word, wi) => {
                 const wDelay = getWordDelay(li, wi)
-                const italicKey = `${li}-${wi}`
-                const isItalic = italicStates[italicKey]
+                const iDelay = getItalicDelay(li, wi)
 
                 if (word.italicIndex !== undefined) {
                   const before = word.text.slice(0, word.italicIndex)
@@ -104,8 +83,9 @@ export function HeroSection() {
                     >
                       {before}
                       <motion.span
-                        animate={{ fontStyle: isItalic ? "italic" : "normal" }}
-                        transition={{ duration: 0.3, ease: "easeIn" }}
+                        initial={{ fontStyle: "normal" }}
+                        animate={{ fontStyle: "italic" }}
+                        transition={{ duration: 0.3, delay: iDelay, ease: "easeIn" }}
                         className="inline-block"
                       >
                         {italicChar}

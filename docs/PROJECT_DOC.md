@@ -2,10 +2,17 @@
 
 ## 1. Estado actual del proyecto
 
-**Última actualización:** 2026-05-23
+**Última actualización:** 2026-05-24
 
 ### Features completadas
-- Homepage con Hero, Servicios, Portfolio y Team section (data desde Sanity)
+- Homepage sections rediseñadas completamente (Hero, Clients, Services, Strategy, Portfolio, Team)
+- HeroSection con animación palabra por palabra con stagger, GIF de fondo, itálicas animadas con framer-motion (sin setTimeout)
+- ClientsSection con grilla de logos, animaciones whileInView, subtítulo "nuestra huella"
+- ServicesSection con datos hardcodeados (sin Sanity), cards con colores brand, box-shadow hover con framer-motion
+- StrategySection con imagen de equipo, título grande, chips flotantes con parallax scroll (useScroll + useTransform)
+- Componente Chip reusable con variantes primary/outline (cva)
+- Componente FooterLogo extraído como Client Component para logo animado
+- Footer convertido a Server Component
 - Página de servicios (`/servicios`)
 - Página "Nosotros" con equipo (`/nosotros`)
 - Página de portfolio con grid + detalle por proyecto (`/portfolio`, `/portfolio/[slug]`)
@@ -14,13 +21,13 @@
 - Sitemap dinámico y robots.txt
 - Draft mode y revalidación on-demand vía API routes
 - Nav component con navegación principal: hamburger animado, menú mobile fullscreen con fade animation, scroll behavior con pill flotante glassmorphism
-- Footer con copyright dinámico
+- Footer con sitemap, redes sociales, copyright dinámico
 - Formulario de contacto funcional con Resend + rate limiting (`/contacto`)
 - Botón CTA reutilizable con variantes (`components/ui/Button.tsx`)
 - Security headers (CSP, X-Frame-Options, etc.) en `next.config.ts`
 
 ### Features en progreso
-- Homepage sections (Hero, Services, Portfolio, Team) pendientes de actualizar para coincidir con el diseño original de perroagency.com
+- PortfolioGrid y TeamSection aún fetchan data de Sanity — posible migración a datos hardcodeados en el futuro
 
 ### Deuda técnica conocida
 - Sin tests automatizados
@@ -81,17 +88,21 @@ components/
 ├── layout/
 │   ├── Header.tsx           — Header simplificado que solo renderiza `<Nav />`
 │   ├── Nav.tsx              — Nav component completo con logo inline SVG, links desktop, CTA + hamburger animado, menú mobile full overlay con Framer Motion AnimatePresence, y scroll behavior (pill flotante glassmorphism). "use client"
-│   └── Footer.tsx           — Footer simple con logo y copyright
+│   ├── Footer.tsx           — Server Component. Sitemap, redes sociales, copyright, contacto. Renderiza `<FooterLogo />` para la parte animada
+│   └── FooterLogo.tsx       — "use client". Logo animado del Footer con framer-motion whileInView. Oculto en mobile (hidden md:block)
 ├── ui/
-│   └── Button.tsx           — Botón CTA reutilizable (Link de Next.js), 3 variantes: cta, primary, outline
+│   ├── Button.tsx           — Botón CTA reutilizable (Link de Next.js), 3 variantes: cta, primary, outline
+│   └── Chip.tsx             — Chip reusable con variantes primary (fondo púrpura) / outline (borde blanco). Usa cva
 ├── sections/
-│   ├── HeroSection.tsx      — Hero de homepage (estático, sin data de Sanity)
-│   ├── ServicesSection.tsx  — Grid de servicios. Fetch: sanityFetch(servicesQuery)
-│   ├── PortfolioGrid.tsx    — Grid de proyectos. Fetch: sanityFetch(projectsQuery)
-│   └── TeamSection.tsx      — Grid de miembros con foto. Fetch: sanityFetch(teamMembersQuery)
+│   ├── HeroSection.tsx      — "use client". Hero animado: palabras con stagger, GIF de fondo, itálicas con framer-motion delay. Sin data de Sanity
+│   ├── ClientsSection.tsx   — "use client". Grilla de logos de clientes con animación whileInView stagger. 13 clientes hardcodeados. Subtítulo "nuestra huella"
+│   ├── ServicesSection.tsx  — "use client". Grid de 4 servicios hardcodeados con colores brand, box-shadow hover con framer-motion whileHover. Sin fetch de Sanity
+│   ├── StrategySection.tsx  — "use client". Imagen de equipo + título grande + chips flotantes con parallax (useScroll + useTransform). Usa `<Chip>`
+│   ├── PortfolioGrid.tsx    — Server Component. Grid de proyectos. Fetch: sanityFetch(projectsQuery)
+│   └── TeamSection.tsx      — Server Component. Grid de miembros con foto. Fetch: sanityFetch(teamMembersQuery)
 └── common/
-    ├── AnimatedText.tsx     — Texto con animación (Framer Motion)
-    └── TransitionWrapper.tsx — Wrapper de animaciones de página
+    ├── AnimatedText.tsx     — [SIN USO] Texto con animación (Framer Motion). No importado en ninguna página
+    └── TransitionWrapper.tsx — [SIN USO] Wrapper de animaciones de página. No importado en ninguna página
 ```
 
 ### `Nav` (`components/layout/Nav.tsx`)
@@ -199,8 +210,8 @@ Tipo de bloque rich text con soporte para:
 | postsQuery | `*[_type == "post"] \| order(publishedAt desc)` con author expandido | Blog list |
 | postBySlugQuery | `*[_type == "post" && slug.current == $slug][0]` | Detalle de post |
 | teamMembersQuery | `*[_type == "teamMember"] \| order(order asc)` | Team grid |
-| servicesQuery | `*[_type == "service"] \| order(order asc)` | Services section |
-| settingsQuery | `*[_type == "settings"][0]` | Configuración general |
+| servicesQuery | `*[_type == "service"] \| order(order asc)` | ⚠️ **HUÉRFANA — ServicesSection ya no usa Sanity.** La query existe en `sanity/lib/queries.ts` pero no tiene consumidores. Pendiente decidir si se elimina o se mantiene para uso futuro |
+| settingsQuery | `*[_type == "settings"][0]` | Configuración general (⚠️ no existe schema settings en `sanity/schemas/index.ts`) |
 
 ---
 
@@ -227,7 +238,7 @@ Tipo de bloque rich text con soporte para:
 
 | Ruta | Tipo | Data | Archivo |
 |---|---|---|---|
-| `/` | Estática | Hero estático + fetch services, projects, team | `app/(site)/page.tsx` |
+| `/` | Estática | Hero → Clients → Services → Strategy → PortfolioGrid → TeamSection. Sin fetch directo en page.tsx (PortfolioGrid y TeamSection fetchan internamente) | `app/(site)/page.tsx` |
 | `/servicios` | Estática | Fetch services | `app/(site)/servicios/page.tsx` |
 | `/nosotros` | Estática | Fetch team members | `app/(site)/nosotros/page.tsx` |
 | `/portfolio` | Estática | Fetch projects | `app/(site)/portfolio/page.tsx` |
@@ -256,11 +267,13 @@ brand: {
 ```
 
 ### Tipografía
-| Token | Font | Tamaño |
-|---|---|---|
-| `font-display` | DM Sans | Para headings display |
-| `font-body` | Inter | Para texto corriente |
-| `font-mono` | var(--font-mono) | Para código |
+| Token | Font | Pesos | Uso |
+|---|---|---|---|
+| `font-display` | Helvetica Neue (local) | 100, 200, 300, 400, 500, 700, 800, 900 + itálicas | Para headings display |
+| `font-body` | Helvetica Neue (local) | 400, 500, 700 + itálicas | Para texto corriente |
+| `font-mono` | var(--font-mono) | — | Para código |
+
+**Nota:** Los pesos `thin(100)`, `ultralight(200)` y `light(300)` se agregaron a `fontDisplay` en la sesión 2026-05-24 para soportar el diseño de headings grandes con `font-light` en StrategySection y ServicesSection.
 
 ### Tamaños de texto display
 | Clase | Tamaño | Line-height |
@@ -295,6 +308,16 @@ Componente wrapper de `next/link` con 3 variantes:
 **Props:** `href: Route` (Next.js Route), `children`, `variant?`, `className?`, `showIcon?` (default: true).
 El icono solo se muestra en variante `cta` por defecto (el componente siempre recibe `showIcon` pero los estilos de circle icon son parte de la variante cta).
 
+### Chip (`components/ui/Chip.tsx`)
+Componente `span` estilizado con `class-variance-authority` (cva). Dos variantes:
+
+| Variante | Clase visual | Uso típico |
+|---|---|---|
+| `primary` (default) | `bg-brand-primary-main text-black rounded-full`, padding `py-1 px-8 md:py-3 md:px-24` | Chips destacados en StrategySection |
+| `outline` | `border border-brand-white text-brand-white rounded-full`, padding `py-3 px-8` | Chips secundarios |
+
+**Props:** `{ children: React.ReactNode; variant?: "primary" | "outline"; className?: string }`
+
 ---
 
 ## 8. Decisiones pendientes
@@ -305,7 +328,8 @@ El icono solo se muestra en variante `cta` por defecto (el componente siempre re
 - [ ] **SEO**: definir estrategia de metadata dinámica (más allá del title/description básico)
 - [ ] **Performance**: evaluar si conviene SSG + ISR o mantener SSR con revalidate
 - [ ] **Analytics**: Vercel Analytics configurado pero sin verificar si se usa
-- [ ] **Font Display no aplicado**: `lib/fonts.ts` exporta `fontDisplay` (DM Sans) pero `app/layout.tsx` solo aplica `fontBody.variable` en el `<html>`. La clase `font-display` usada en componentes referencia `var(--font-display)` que nunca se define. Decidir si se agrega al root layout.
+- [x] **Font Display aplicado**: `app/layout.tsx` ahora incluye `fontDisplay.variable` en la className del `<html>` junto con `fontBody.variable`. La clase `font-display` ya resuelve correctamente a `var(--font-display)`.
+- [ ] **`servicesQuery` huérfana**: `sanity/lib/queries.ts` exporta `servicesQuery` pero ningún componente la importa (ServicesSection ahora usa datos hardcodeados). Decidir si se elimina o se mantiene para uso futuro.
 - [ ] **Schema `settings` faltante**: `sanity/lib/queries.ts` exporta `settingsQuery` pero no existe schema `settings` en `sanity/schemas/`. Decidir si se crea o se elimina la query.
 - [ ] **reCAPTCHA key sin uso**: `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` está en `.env` pero no hay código que la referencie. Posible vestigio de un intento de formulario.
 - [ ] **Componentes sin uso**: `AnimatedText` y `TransitionWrapper` existen en `components/common/` pero no se importan en ninguna página. Evaluar si se integran o se eliminan.
@@ -327,3 +351,12 @@ El icono solo se muestra en variante `cta` por defecto (el componente siempre re
 | 2026-05-22 | Security headers en `next.config.ts` y rate limiting en API de contacto |
 | 2026-05-22 | Registro de plugin `codeInput` y Vision Tool condicional en `sanity.config.ts` |
 | 2026-05-23 | Migración de Header + Navigation a nuevo Nav component con mobile menu (`components/layout/Nav.tsx`, `Header.tsx` simplificado) |
+| 2026-05-24 | Homepage rediseñada: nuevo orden Hero → Clients → Services → Strategy → PortfolioGrid → TeamSection |
+| 2026-05-24 | Nuevos componentes: `ClientsSection.tsx`, `StrategySection.tsx`, `ui/Chip.tsx`, `layout/FooterLogo.tsx` |
+| 2026-05-24 | `HeroSection.tsx` convertido a "use client": animación palabra por palabra con stagger, GIF de fondo, itálicas con framer-motion delay |
+| 2026-05-24 | `ServicesSection.tsx` convertido a "use client" con datos hardcodeados (ya no fetch de Sanity), colores brand centralizados, framer-motion hover |
+| 2026-05-24 | `Footer.tsx` convertido a Server Component — parte animada extraída a `FooterLogo.tsx` |
+| 2026-05-24 | `lib/fonts.ts`: pesos thin(100), ultralight(200), light(300) agregados a fontDisplay |
+| 2026-05-24 | Fixes: shadowColor desde brandColors, rAF loop → useScroll+useTransform en StrategySection, right-[-200]→-right-200, -rotate-[-9deg]→-rotate-9, Chip migrado a cva, subtítulos h2 semántico |
+| 2026-05-24 | Font Display aplicado en layout.tsx (decisión pendiente resuelta) |
+| 2026-05-24 | servicesQuery marcada como huérfana (sin consumidores en el código) |

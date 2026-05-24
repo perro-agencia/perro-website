@@ -48,7 +48,7 @@ export function ClientsSection() {
   return (
     <section className="py-24">
       <div className="text-center container mx-auto px-6">
-        <motion.span
+        <motion.h2
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
@@ -56,7 +56,7 @@ export function ClientsSection() {
           className="block text-xl uppercase text-brand-white mb-12"
         >
           nuestra huella
-        </motion.span>
+        </motion.h2>
 
         <motion.div
           variants={containerVariants}

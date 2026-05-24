@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useEffect, useState } from "react"
+import { useRef } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import Image from "next/image"
 import { Chip } from "@/components/ui/Chip"
@@ -14,29 +14,14 @@ const chips = [
 
 export function StrategySection() {
   const sectionRef = useRef<HTMLElement>(null)
-  const [offsets, setOffsets] = useState<number[]>(chips.map(() => 0))
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  })
 
-  useEffect(() => {
-    let rafId: number
-    const update = () => {
-      if (!sectionRef.current) return
-      const rect = sectionRef.current.getBoundingClientRect()
-      const viewportH = window.innerHeight
-      const sectionVisible = rect.bottom - rect.top
-      const scrollable = sectionVisible + viewportH
-      const progress = Math.max(0, Math.min(1, (viewportH - rect.top) / scrollable))
-
-      setOffsets(chips.map((_, i) => {
-        const from = 400 - i * 80
-        const to = -300 + i * 50
-        return from + (to - from) * progress
-      }))
-
-      rafId = requestAnimationFrame(update)
-    }
-    rafId = requestAnimationFrame(update)
-    return () => cancelAnimationFrame(rafId)
-  }, [])
+  const yOffsets = chips.map((_, i) =>
+    useTransform(scrollYProgress, [0, 1], [400 - i * 80, -300 + i * 50])
+  )
 
   return (
     <section
@@ -46,8 +31,8 @@ export function StrategySection() {
       <div className="max-w-[1500px] mx-auto px-6">
         <div className="grid gap-12 md:gap-16 items-center">
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
             className="relative"
@@ -75,13 +60,13 @@ export function StrategySection() {
       </div>
 
       {chips.map((chip, i) => (
-        <div
+        <motion.div
           key={chip.label}
           className={`absolute block ${chip.z} ${chip.pos}`}
-          style={{ transform: `translateY(${offsets[i]}px)` }}
+          style={{ y: yOffsets[i] }}
         >
           <Chip variant="primary">{chip.label}</Chip>
-        </div>
+        </motion.div>
       ))}
     </section>
   )
