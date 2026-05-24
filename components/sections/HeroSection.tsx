@@ -57,7 +57,7 @@ export function HeroSection() {
   }, [])
 
   return (
-    <section className="relative min-h-[100vh] flex items-center overflow-hidden py-12 md:py-[10px] max-w-[1500px] mx-auto">
+    <section className="relative md:h-[100vh] min-h-[600px] flex items-center overflow-hidden pt-[80px] md:py-[10px] max-w-[1500px] mx-auto">
       <div className="absolute inset-0">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
