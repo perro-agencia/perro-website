@@ -9,7 +9,7 @@ const buttonVariants = cva("inline-flex items-center gap-2 transition-all durati
       cta: cn(
         "group py-2 pl-6 pr-3",
         "border-2 border-brand-white bg-brand-white rounded-full",
-        "text-md font-display uppercase tracking-wide leading-none text-brand-black",
+        "text-md font-display uppercase tracking-wide leading-none text-brand-black font-medium",
         "hover:bg-brand-black hover:text-brand-white",
         "ease-brand-bounce"
       ),

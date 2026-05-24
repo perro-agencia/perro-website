@@ -115,8 +115,8 @@ export function Nav() {
           className={cn(
             "transition-all duration-300 ease-in-out",
             showScrolled
-              ? "mx-auto mt-4 max-w-[90vw] md:max-w-[1000px] bg-brand-black/70 backdrop-blur-xl border border-brand-white/10 shadow-xl rounded-full px-6"
-              : "bg-brand-black/80 backdrop-blur-md border border-transparent"
+              ? "mx-auto mt-4 max-w-[90vw] md:max-w-[1200px] bg-brand-black/40 backdrop-blur-xl border border-brand-white/10 shadow-xl rounded-full px-6 md:pr-4"
+              : " border border-transparent"
           )}
         >
           <div className={cn(
