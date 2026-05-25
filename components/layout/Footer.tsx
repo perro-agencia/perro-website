@@ -15,13 +15,13 @@ const socialLinks = [
 
 const linkHoverStyle = "transition-all duration-200 hover:text-brand-accent-02 hover:underline underline-offset-2"
 
-export function Footer() {
+type FooterProps = {
+  logoSrc?: string
+}
+
+export function Footer({ logoSrc }: FooterProps) {
   return (
     <footer>
-      <div className="bg-black w-full max-w-[1500px] mx-auto">
-        <FooterLogo />
-      </div>
-
       <div className="bg-white mx-auto px-6 py-16 md:py-24">
         <div className="container md:mx-auto flex flex-col items-center text-center md:text-left">
           <div className="flex flex-col items-start text-start md:flex-row justify-between w-full gap-12 md:gap-8">

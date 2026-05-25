@@ -3,7 +3,11 @@
 import { motion } from "framer-motion"
 import Image from "next/image"
 
-export function FooterLogo() {
+type FooterLogoProps = {
+  logoSrc?: string
+}
+
+export function FooterLogo({ logoSrc = "/miscelaneous/perro-logo-cut-white.svg" }: FooterLogoProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: -10 }}
@@ -13,7 +17,7 @@ export function FooterLogo() {
       className="hidden md:block"
     >
       <Image
-        src="/miscelaneous/perro-logo-cut-white.svg"
+        src={logoSrc}
         alt="PERRO Agency logo"
         width={268}
         height={352}

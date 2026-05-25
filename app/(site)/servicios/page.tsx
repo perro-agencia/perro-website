@@ -1,6 +1,7 @@
 import { buildMetadata } from "@/lib/metadata"
 import { ServicesFullScreen } from "@/components/sections/ServicesFullScreen"
 import { Banner } from "@/components/ui/Banner"
+import { FooterLogo } from "@/components/layout/FooterLogo"
 
 export const metadata = buildMetadata({
   title: "Servicios",
@@ -21,6 +22,9 @@ export default function ServiciosPage() {
           buttonHref="/contacto"
         />
       </section>
+      <div className="w-full max-w-[1500px] mx-auto">
+        <FooterLogo logoSrc="/miscelaneous/perro-logo-cut-black.svg"/>
+      </div>
     </div>
     </>
   )
