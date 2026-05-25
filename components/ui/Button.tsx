@@ -7,14 +7,14 @@ import { cn } from "@/lib/utils"
 import { cva, type VariantProps } from "class-variance-authority"
 import { motion } from "framer-motion"
 
-const buttonVariants = cva("inline-flex items-center gap-2 transition-all duration-200", {
+const buttonVariants = cva("inline-flex items-center justify-between gap-3 transition-all duration-200", {
   variants: {
     variant: {
       cta: cn(
-        "group py-2 pl-6 pr-3",
+        "group py-1 pl-4 pr-1",
         "border-2 border-brand-white bg-brand-white rounded-full",
         "text-md font-display uppercase tracking-wide leading-none text-brand-black font-medium",
-        "hover:bg-brand-black hover:text-brand-white",
+        "hover:bg-brand-black/10 hover:text-brand-white",
         "ease-brand-bounce"
       ),
       primary: cn(

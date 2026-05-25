@@ -149,7 +149,7 @@ export function Nav() {
                     href={link.href}
                     className={cn(
                       "text-lg tracking-wide uppercase transition-all duration-200 text-brand-white hover:underline underline-offset-4 decoration-brand-accent-02 hover:text-brand-accent-02",
-                      pathname === link.href && "text-brand-accent-02"
+                      pathname === link.href && "text-brand-accent-02 underline"
                     )}
                   >
                     {link.label}

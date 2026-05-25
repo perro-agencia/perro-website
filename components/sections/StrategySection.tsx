@@ -6,10 +6,10 @@ import Image from "next/image"
 import { Chip } from "@/components/ui/Chip"
 
 const chips = [
-  { label: "Estrategia", z: "z-10", pos: "left-[5%] bottom-[50%] md:bottom-[15%]" },
-  { label: "crecimiento", z: "z-30", pos: "right-[18%] bottom-[25%]" },
-  { label: "resultados", z: "z-10", pos: "left-[10%] bottom-[35%]" },
-  { label: "innovación", z: "z-30", pos: "right-[5%] bottom-[40%]" },
+  { label: "Estrategia", z: "z-10", pos: "left-[5%] bottom-[50%] md:bottom-[15%]", speed: [0, 0.8], range: [250, -250] },
+  { label: "crecimiento", z: "z-30", pos: "right-[18%] bottom-[25%]", speed: [0, 1.2], range: [180, -300] },
+  { label: "resultados", z: "z-10", pos: "left-[10%] bottom-[35%]", speed: [0, 0.6], range: [350, -150] },
+  { label: "innovación", z: "z-30", pos: "right-[5%] bottom-[40%]", speed: [0, 1.0], range: [150, -200] },
 ]
 
 export function StrategySection() {
@@ -19,14 +19,14 @@ export function StrategySection() {
     offset: ["start end", "end start"],
   })
 
-  const yOffsets = chips.map((_, i) =>
-    useTransform(scrollYProgress, [0, 1], [400 - i * 80, -300 + i * 50])
+  const yOffsets = chips.map((chip) =>
+    useTransform(scrollYProgress, chip.speed, chip.range)
   )
 
   return (
     <section
       ref={sectionRef}
-      className="relative py-16 overflow-hidden max-w-[1500px] mx-auto"
+      className="relative py-16 md:pb-48 overflow-hidden max-w-[1500px] mx-auto"
     >
       <div className="max-w-[1500px] mx-auto px-6">
         <div className="grid gap-12 md:gap-16 items-center">
