@@ -1,5 +1,5 @@
 import { buildMetadata } from "@/lib/metadata"
-import { NosotrosContent } from "@/components/NosotrosContent"
+import { NosotrosContent } from "@/components/sections/NosotrosContent"
 import { Banner } from "@/components/ui/Banner"
 
 export const metadata = buildMetadata({
@@ -12,14 +12,16 @@ export const metadata = buildMetadata({
 export default function NosotrosPage() {
   return (
     <>
+    <div className="bg-brand-white min-h-screen">
       <NosotrosContent />
       <section className="py-32 px-6">
         <Banner
-          title="¿Empezamos con tu proyecto?"
+          title="Unite a la manada"
           buttonText="Contacto"
           buttonHref="/contacto"
         />
       </section>
+    </div>
     </>
   )
 }

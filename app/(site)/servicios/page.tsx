@@ -12,6 +12,7 @@ export const metadata = buildMetadata({
 export default function ServiciosPage() {
   return (
     <>
+    <div className="bg-brand-white min-h-screen">
       <ServicesFullScreen />
       <section className="py-32 px-6">
         <Banner
@@ -20,6 +21,7 @@ export default function ServiciosPage() {
           buttonHref="/contacto"
         />
       </section>
+    </div>
     </>
   )
 }

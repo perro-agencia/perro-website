@@ -12,7 +12,7 @@ const chipVariants = cva(
         primary:
           "bg-brand-primary-main text-black border-brand-primary-main py-1 px-8 md:py-3 md:px-24",
         outline:
-          "border-white text-brand-white hover:text-brand-accent-02 hover:border-brand-accent-02 py-3 px-8 border-2",
+          "border-white text-brand-white hover:text-brand-accent-02 hover:border-brand-accent-02 py-3 px-8 border-[1px]",
       },
     },
     defaultVariants: {

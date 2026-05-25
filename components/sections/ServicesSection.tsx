@@ -34,8 +34,8 @@ const services: Service[] = [
     image: "/services/service-product.png",
     description:
       "Estrategia & usabilidad: diseñamos y construimos productos que combinan visión de negocio, diseño centrado en el usuario y desarrollo sólido.",
-    bg: "bg-brand-accent-01",
-    textColor: "text-brand-white",
+    bg: "bg-brand-white",
+    textColor: "text-brand-black",
     shadowColor: brandColors["bg-brand-accent-01"],
   },
   {
@@ -52,8 +52,8 @@ const services: Service[] = [
     image: "/services/service-social.png",
     description:
       "Transformamos tu estrategia en contenido relevante y coherente, capaz de atraer resultados, fidelizar y generar interacción con tu comunidad digital.",
-    bg: "bg-brand-white",
-    textColor: "text-brand-black",
+    bg: "bg-brand-accent-01",
+    textColor: "text-brand-white",
     shadowColor: brandColors["bg-brand-white"],
   },
 ]
@@ -120,7 +120,7 @@ export function ServicesSection() {
                 <h3 className={`text-3xl font-medium font-display mb-2 ${service.textColor}`}>
                   {service.title}
                 </h3>
-                <p className={`${service.textColor}`}>
+                <p className={`text-lg font-light ${service.textColor}`}>
                   {service.description}
                 </p>
               </div>
