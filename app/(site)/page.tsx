@@ -1,0 +1,30 @@
+import { Nav } from "@/components/layout/Nav"
+import { HeroSection } from "@/components/sections/HeroSection"
+import { ClientsSection } from "@/components/sections/ClientsSection"
+import { ServicesSection } from "@/components/sections/ServicesSection"
+import { StrategySection } from "@/components/sections/StrategySection"
+import { ContactSection } from "@/components/sections/ContactSection"
+import { FooterLogo } from "@/components/layout/FooterLogo"
+import { buildMetadata } from "@/lib/metadata"
+
+export const metadata = buildMetadata({
+  title: "Inicio",
+  description:
+    "Soluciones que potencian el crecimiento de tu negocio. Diseño, Producto, Social Content, Paid Media & SEO.",
+})
+
+export default function HomePage() {
+  return (
+    <>
+      <Nav />
+      <HeroSection />
+      <ClientsSection />
+      <ServicesSection />
+      <StrategySection />
+      <ContactSection />
+      <div className="bg-black w-full max-w-[1500px] mx-auto">
+        <FooterLogo logoSrc="/miscelaneous/perro-logo-cut-white.svg"/>
+      </div>
+    </>
+  )
+}
