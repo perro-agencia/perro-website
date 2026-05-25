@@ -11,8 +11,6 @@ import { Button } from "@/components/ui/Button"
 const links = [
   { href: "/nosotros", label: "Nosotros" },
   { href: "/servicios", label: "Servicios" },
-  { href: "/portfolio", label: "Proyectos" },
-  { href: "/blog", label: "Blog" },
 ]
 
 function Logo({ className }: { className?: string }) {

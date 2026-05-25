@@ -7,7 +7,7 @@ import { FooterLogo } from "@/components/layout/FooterLogo"
 export const metadata = buildMetadata({
   title: "Nosotros",
   description:
-    "Conocé el equipo detrás de PERRO. Somos un equipo multidisciplinario apasionado por crear experiencias digitales que dejan huella.",
+    "Especialistas en Marketing, Diseño & Desarrollo, unidos por el instinto de hacer crcecer marcas.",
   path: "/nosotros",
 })
 

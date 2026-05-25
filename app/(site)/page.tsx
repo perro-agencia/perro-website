@@ -5,6 +5,13 @@ import { ServicesSection } from "@/components/sections/ServicesSection"
 import { StrategySection } from "@/components/sections/StrategySection"
 import { ContactSection } from "@/components/sections/ContactSection"
 import { FooterLogo } from "@/components/layout/FooterLogo"
+import { buildMetadata } from "@/lib/metadata"
+
+export const metadata = buildMetadata({
+  title: "Inicio",
+  description:
+    "Soluciones que potencian el crecimiento de tu negocio. Diseño, Producto, Social Content, Paid Media & SEO.",
+})
 
 export default function HomePage() {
   return (

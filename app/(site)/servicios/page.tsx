@@ -7,7 +7,7 @@ import { FooterLogo } from "@/components/layout/FooterLogo"
 export const metadata = buildMetadata({
   title: "Servicios",
   description:
-    "Branding, diseño UX/UI, desarrollo web, SEM & SEO, y más. Soluciones que potencian el crecimiento de tu negocio.",
+    "Soluciones que potencian el crecimiento de tu negocio. Diseño, Producto, Social Content, Paid Media & SEO.",
   path: "/servicios",
 })
 
