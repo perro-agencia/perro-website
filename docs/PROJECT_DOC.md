@@ -35,6 +35,12 @@
 - **Refactor global**: `text-white` → `text-brand-white` en todos los componentes (Button, Nav, Footer, sections, etc.)
 - **Refactor de nomenclatura**: `text-md` → `text-base`, `font-regular` → `font-normal`, `max-w-8xl` → `max-w-7xl` — alineado con Tailwind v3
 - **Sistema page-theme revertido**: se creó y eliminó `lib/page-theme.tsx`, `lib/page-themes.ts`, `components/PageThemeSetter.tsx`. Se restauraron Nav, Footer, layout a su estado original. Decisión: Nav/Footer único en todo el sitio.
+- **Button con 4 esquemas de color** via prop `colorScheme` (`default`, `primary`, `accent`, `dark`). Cada esquema define colores de container, texto, arrow y sus hovers. Implementado con CSS variables + Tailwind arbitrary values.
+- **Nav con props custom**: `logoSrc`, `logoHoverSrc` (crossfade 300ms), `linkColor`, `linkHoverColor`, `buttonColorScheme`. Cada página renderiza su propio `<Nav />` con props independientes.
+- **Nav renderizado por página**: se removió `<Header />` del layout `(site)`. Cada una de las 10 páginas importa y renderiza `<Nav />` directamente.
+- **fontBody unificado**: ahora incluye todos los pesos 100-900 con itálicas (como fontDisplay). Ambos usan la misma familia Helvetica Neue completa.
+- **TeamCard extendido**: `BgClass` incluye `"bg-brand-black"`, el rol soporta `\n` via `whitespace-pre-line`.
+- **NosotrosContent con fondo blanco**: secciones con `bg-brand-white` y textos `text-brand-black` para contraste.
 
 ### Features en progreso
 - TeamSection en homepage aún fetcha data de Sanity — posible migración a datos hardcodeados en el futuro
@@ -94,11 +100,6 @@ components/
 ├── AnimateInView.tsx          — Generic "use client" wrapper para animaciones scroll-triggered con framer-motion.
 │                                Props: { children, className?, as?: "section" | "div", delay?: number }
 │                                Por defecto: opacity: 0, y:30 → opacity:1, y:0 con duration 0.6, viewport once amount:0.3
-├── NosotrosContent.tsx        — "use client". Contiene todas las secciones animadas de /nosotros:
-│                                - Hero con título "Un equipo. Una manada." (clamp 2.5rem-250px)
-│                                - Team grid 4 cols con 8 miembros hardcodeados y staggerChildren 0.08
-│                                - Mission section con heading animado
-│                                Renderiza TeamCard para cada miembro
 ├── blog/
 │   ├── PostCard.tsx           — Card para listado de posts. Props: { post: Post }
 │   └── PostBody.tsx           — Renderiza Portable Text del body de un post
@@ -107,26 +108,46 @@ components/
 │   └── CaseStudyBody.tsx      — Renderiza Portable Text del body de un proyecto
 ├── layout/
 │   ├── Header.tsx             — Header simplificado que solo renderiza `<Nav />`
-│   ├── Nav.tsx                — Nav component completo con logo inline SVG, links desktop, CTA + hamburger animado,
-│                                menú mobile full overlay con Framer Motion AnimatePresence, y scroll behavior
-│                                (pill flotante glassmorphism). "use client"
+│   ├── Nav.tsx                — "use client". Nav component con logo via Image (logoSrc default /brand/isologotipo-white.svg),
+│                                links desktop con linkColor/linkHoverColor customizables, CTA + hamburger animado,
+│                                menú mobile full overlay con Framer Motion AnimatePresence, scroll behavior (pill flotante),
+│                                soporte logoHoverSrc para crossfade en hover.
+│                                Props: { logoSrc?, logoHoverSrc?, linkColor?, linkHoverColor?, buttonColorScheme? }
 │   ├── Footer.tsx             — Server Component. Sitemap, redes sociales, copyright, contacto. Renderiza `<FooterLogo />`
+│                                Props: { logoSrc? }
 │   └── FooterLogo.tsx         — "use client". Logo animado del Footer con framer-motion whileInView. Oculto en mobile
+│                                Props: { logoSrc? } (default: "/miscelaneous/perro-logo-cut-white.svg")
 ├── ui/
 │   ├── AmbientBlob.tsx        — [SIN USO] Glow animado que rebota con morph shape
 │   ├── BackgroundBlob.tsx     — [SIN USO] Wrapper de AmbientBlob
 │   ├── Banner.tsx             — Reusable banner (NO "use client"). Props: { title, buttonText, buttonHref: Route }
 │                                Renderiza: AnimateInView as="section" > div flex > h2 + Button variant="cta"
 │                                Estilos: rounded-[32px] bg-brand-primary-main, text-6xl, flex-col md:flex-row
-│   ├── Button.tsx             — Botón CTA reutilizable (Link de Next.js), 3 variantes: cta, primary, outline.
-│                                Arrow con animación diagonal en hover. Sin props arrowClassName/arrowIconClassName
-│                                (eliminadas durante revert del page-theme system)
+│   ├── Button.tsx             — "use client". Botón CTA reutilizable (Link de Next.js), 3 variantes: cta, primary, outline.
+│                                Arrow con animación diagonal en hover. Variante cta acepta prop `colorScheme` con 4 esquemas:
+│                                default (blanco), primary (púrpura), accent (verde lima), dark (negro).
+│                                Colores via CSS variables + Tailwind arbitrary values.
+│                                Tabla de esquemas:
+│                                default:   bg #fff border #fff text #000 arrowBg #000 arrowText #fff
+│                                           hoverBg #000 hoverText #fff hoverArrowText #000
+│                                primary:   bg #885de3 border #885de3 text #fff arrowBg #fff arrowText #885de3
+│                                           hoverBg #6b3fc9 hoverText #fff hoverArrowText #6b3fc9
+│                                accent:    bg #c4f875 border #c4f875 text #0a0a0a arrowBg #0a0a0a arrowText #c4f875
+│                                           hoverBg #a8e05a hoverText #0a0a0a hoverArrowText #a8e05a
+│                                dark:      bg #0a0a0a border #0a0a0a text #fff arrowBg #fff arrowText #0a0a0a
+│                                           hoverBg #1a1a1a hoverText #fff hoverArrowText #1a1a1a
 │   ├── Chip.tsx               — "use client" con motion.span. Variantes primary / outline (cva).
 │                                Outline: hover accent-02 + glow shadow. Retiene text-[13px]
 │   └── TeamCard.tsx           — "use client". Card de miembro con framer-motion cardVariants.
+│                                BgClass incluye "bg-brand-black". Rol con whitespace-pre-line para \n.
 │                                Props tipadas con union types: BgClass, TextColorClass
 │                                rounded-3xl, Image fill object-cover (sin sizes)
 ├── sections/
+│   ├── NosotrosContent.tsx    — "use client". Contiene todas las secciones animadas de /nosotros:
+│   │                            - Hero con título "Un equipo. Una manada." (clamp 2.5rem-250px), bg-brand-white
+│   │                            - Team grid 4 cols con 8 miembros hardcodeados y staggerChildren 0.08
+│   │                            - Mission section con heading animado, texto brand-black sobre bg-brand-white
+│   │                            Renderiza TeamCard para cada miembro
 │   ├── HeroSection.tsx        — "use client". Hero animado: palabras con stagger, GIF de fondo,
 │                                itálicas con framer-motion delay. Sin data de Sanity.
 │                                overflow-hidden removido, overflow-x-hidden en body
@@ -176,8 +197,10 @@ Server Component (NO `"use client"`). Usa `AnimateInView` para la animación, ma
 Componente `"use client"` con props tipadas mediante union types.
 
 ```
-type BgClass = "bg-brand-primary-main" | "bg-brand-accent-01" | "bg-brand-accent-02" | "bg-brand-white"
+type BgClass = "bg-brand-primary-main" | "bg-brand-accent-01" | "bg-brand-accent-02" | "bg-brand-white" | "bg-brand-black"
 type TextColorClass = "text-brand-white" | "text-brand-black"
+
+**Rol:** el `<p>` del rol usa `whitespace-pre-line` para renderizar saltos de línea con `\n`.
 ```
 
 **Comportamiento:** motion.div con cardVariants (hidden → visible), Image fill object-cover, contenedor `aspect-[4/5]`.
@@ -309,7 +332,7 @@ Tipo de bloque rich text con soporte para:
 | `/legal/politicas-de-privacidad` | Estática | Server component, misma estructura. Sin "use client", sin fetch. | `app/(site)/legal/politicas-de-privacidad/page.tsx` |
 | `/studio` | Estática | Sanity Studio embebido | `app/studio/[[...tool]]/page.tsx` |
 
-Todas las rutas bajo `(site)` comparten layout con Header + Footer.
+Cada página renderiza su propio `<Nav />` directamente (no hay Header en el layout). `Footer` se mantiene en el layout compartido.
 Fetch calls usan `sanityFetch()` con revalidate: 60 y tags para ISR on-demand.
 
 ---
@@ -333,7 +356,7 @@ brand: {
 | Token | Font | Pesos | Uso |
 |---|---|---|---|
 | `font-display` | Helvetica Neue (local) | 100, 200, 300, 400, 500, 700, 800, 900 + itálicas | Headings display |
-| `font-body` | Helvetica Neue (local) | 400, 500, 700 + itálicas | Texto corriente |
+| `font-body` | Helvetica Neue (local) | 100-900 + itálicas (unificado con fontDisplay) | Texto corriente |
 | `font-mono` | var(--font-mono) | — | Código |
 
 ### Tamaños de texto display
@@ -368,6 +391,8 @@ brand: {
 - [x] **brand-white actualizado**: de `#f5f5f0` a `#ffffff`. `text-white` reemplazado por `text-brand-white` globalmente.
 - [x] **Nomenclatura Tailwind**: `text-md` → `text-base`, `font-regular` → `font-normal`, `max-w-8xl` → `max-w-7xl`.
 - [x] **Páginas legales**: contenido en un solo `<p>` con `<br />`. Sin "use client".
+- [x] **Nav renderizado por página**: se removió `<Header />` del layout. Cada página importa su propio `<Nav />` con props independientes.
+- [x] **Button color schemes**: 4 esquemas via prop `colorScheme` con CSS variables.
 - [ ] **Blog comments**: ¿se habilita? ¿con qué servicio?
 - [ ] **SEO**: definir estrategia de metadata dinámica (más allá del title/description básico)
 - [ ] **Performance**: evaluar si conviene SSG + ISR o mantener SSR con revalidate
@@ -418,3 +443,9 @@ brand: {
 | **2026-05-25** | **Per-page theme system creado y revertido — Nav/Footer único en todo el sitio** |
 | **2026-05-25** | **Refactor global: `text-md`→`text-base`, `font-regular`→`font-normal`, `max-w-8xl`→`max-w-7xl`** |
 | **2026-05-25** | **Union types en TeamCardProps y ServiceConfig** |
+| **2026-05-25** | **Button con 4 esquemas de color (`default`, `primary`, `accent`, `dark`) via prop `colorScheme` + CSS variables** |
+| **2026-05-25** | **Nav con props custom: `logoSrc`, `logoHoverSrc`, `linkColor`, `linkHoverColor`, `buttonColorScheme`** |
+| **2026-05-25** | **Nav renderizado directamente en cada página (Header removido del layout)** |
+| **2026-05-25** | **fontBody unificado con todos los pesos 100-900 (igual que fontDisplay)** |
+| **2026-05-25** | **TeamCard: BgClass extendido con `bg-brand-black`, rol con `whitespace-pre-line`** |
+| **2026-05-25** | **FooterLogo y Footer con nueva prop `logoSrc`** |
