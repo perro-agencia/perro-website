@@ -1,3 +1,4 @@
+import { Nav } from "@/components/layout/Nav"
 import { buildMetadata } from "@/lib/metadata"
 import { sanityFetch } from "@/sanity/lib/fetch"
 import { postsQuery } from "@/sanity/lib/queries"
@@ -18,7 +19,9 @@ export default async function BlogPage() {
   })
 
   return (
-    <section className="py-24">
+    <>
+      <Nav />
+      <section className="py-24">
       <div className="container mx-auto px-4">
         <h1 className="text-display-lg mb-8">Blog</h1>
         <p className="text-lg text-brand-white/70 max-w-2xl mb-16">
@@ -31,5 +34,6 @@ export default async function BlogPage() {
         </div>
       </div>
     </section>
+    </>
   )
 }

@@ -3,6 +3,7 @@ import { sanityFetch } from "@/sanity/lib/fetch"
 import { postBySlugQuery } from "@/sanity/lib/queries"
 import { urlFor } from "@/sanity/lib/image"
 import { PostBody } from "@/components/blog/PostBody"
+import { Nav } from "@/components/layout/Nav"
 import { siteConfig } from "@/lib/site"
 import type { Post } from "@/types/sanity"
 import { notFound } from "next/navigation"
@@ -46,7 +47,9 @@ export default async function BlogPostPage({ params }: Props) {
   if (!post) notFound()
 
   return (
-    <article className="py-24">
+    <>
+      <Nav />
+      <article className="py-24">
       <div className="container mx-auto px-4 max-w-3xl">
         <header className="mb-12">
           <h1 className="text-display-lg mb-4">{post.title}</h1>
@@ -63,5 +66,6 @@ export default async function BlogPostPage({ params }: Props) {
         <PostBody post={post} />
       </div>
     </article>
+    </>
   )
 }

@@ -26,6 +26,7 @@ type NavProps = {
   logoHoverSrc?: string
   linkColor?: string
   linkHoverColor?: string
+  buttonColorScheme?: "default" | "primary" | "accent" | "dark"
 }
 
 function HamburgerButton({
@@ -65,9 +66,10 @@ function HamburgerButton({
 
 export function Nav({
   logoSrc = "/brand/isologotipo-white.svg",
-  logoHoverSrc  = "/brand/isologotipo-color.svg",
+  logoHoverSrc,
   linkColor = "text-brand-white",
   linkHoverColor = "#c4f875",
+  buttonColorScheme,
 }: NavProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [logoHover, setLogoHover] = useState(false)
@@ -181,7 +183,7 @@ export function Nav({
                 transition={{ duration: 0.4, delay: 0.1 + links.length * 0.08 }}
                 className="hidden md:block"
               >
-                <Button href="/contacto" variant="cta">
+                <Button href="/contacto" variant="cta" colorScheme={buttonColorScheme}>
                   Contacto
                 </Button>
               </motion.div>
@@ -228,7 +230,7 @@ export function Nav({
               exit={{ opacity: 0, y: 10 }}
               transition={{ duration: 0.3, delay: 0.1 }}
             >
-              <Button href="/contacto" variant="cta" className="mt-4">
+              <Button href="/contacto" variant="cta" className="mt-4" colorScheme={buttonColorScheme}>
                 Contacto
               </Button>
             </motion.div>

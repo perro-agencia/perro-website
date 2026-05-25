@@ -3,6 +3,7 @@ import { sanityFetch } from "@/sanity/lib/fetch"
 import { projectBySlugQuery } from "@/sanity/lib/queries"
 import { urlFor } from "@/sanity/lib/image"
 import { CaseStudyBody } from "@/components/portfolio/CaseStudyBody"
+import { Nav } from "@/components/layout/Nav"
 import { siteConfig } from "@/lib/site"
 import type { Project } from "@/types/sanity"
 import { notFound } from "next/navigation"
@@ -50,7 +51,9 @@ export default async function ProjectPage({ params }: Props) {
   if (!project) notFound()
 
   return (
-    <article className="py-24">
+    <>
+      <Nav />
+      <article className="py-24">
       <div className="container mx-auto px-4">
         <header className="mb-16">
           <h1 className="text-display-xl mb-4">{project.title}</h1>
@@ -60,5 +63,6 @@ export default async function ProjectPage({ params }: Props) {
         <CaseStudyBody project={project} />
       </div>
     </article>
+    </>
   )
 }

@@ -1,3 +1,4 @@
+import { Nav } from "@/components/layout/Nav"
 import { ContactForm } from "@/components/forms/ContactForm"
 import { buildMetadata } from "@/lib/metadata"
 import { ContactSection } from "@/components/sections/ContactSection"
@@ -11,7 +12,8 @@ export const metadata = buildMetadata({
 
 export default function ContactoPage() {
   return (
-    <>  
+    <>
+      <Nav />
       <section className="py-24 pt-40">
         <ContactSection />
       </section>

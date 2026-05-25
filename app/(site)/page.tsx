@@ -1,3 +1,4 @@
+import { Nav } from "@/components/layout/Nav"
 import { HeroSection } from "@/components/sections/HeroSection"
 import { ClientsSection } from "@/components/sections/ClientsSection"
 import { ServicesSection } from "@/components/sections/ServicesSection"
@@ -8,6 +9,7 @@ import { FooterLogo } from "@/components/layout/FooterLogo"
 export default function HomePage() {
   return (
     <>
+      <Nav />
       <HeroSection />
       <ClientsSection />
       <ServicesSection />

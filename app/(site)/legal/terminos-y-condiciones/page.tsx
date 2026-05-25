@@ -1,3 +1,4 @@
+import { Nav } from "@/components/layout/Nav"
 import { buildMetadata } from "@/lib/metadata"
 
 export const metadata = buildMetadata({
@@ -7,7 +8,9 @@ export const metadata = buildMetadata({
 
 export default function TerminosPage() {
   return (
-    <section className="py-24 md:py-32">
+    <>
+      <Nav />
+      <section className="py-24 md:py-32">
       <div className="container mx-auto px-6 max-w-4xl">
         <h1 className="font-display font-light text-center leading-[0.95] -tracking-[0.03em] text-[clamp(2.5rem,8vw,6rem)] text-brand-white mb-16">
           Términos & Condiciones
@@ -83,5 +86,6 @@ export default function TerminosPage() {
         </p>
       </div>
     </section>
+    </>
   )
 }
