@@ -1,5 +1,6 @@
 import { buildMetadata } from "@/lib/metadata"
 import { ServicesFullScreen } from "@/components/sections/ServicesFullScreen"
+import { Banner } from "@/components/ui/Banner"
 
 export const metadata = buildMetadata({
   title: "Servicios",
@@ -9,5 +10,16 @@ export const metadata = buildMetadata({
 })
 
 export default function ServiciosPage() {
-  return <ServicesFullScreen />
+  return (
+    <>
+      <ServicesFullScreen />
+      <section className="py-24 px-6">
+        <Banner
+          title="¿Queres resultados?"
+          buttonText="Contactanos"
+          buttonHref="/contacto"
+        />
+      </section>
+    </>
+  )
 }

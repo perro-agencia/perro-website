@@ -79,7 +79,7 @@ export function ServicesFullScreen() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, ease: "easeOut" }}
-              className={`font-display font-regular leading-[0.85] -tracking-[0.04em] whitespace-pre-line text-[clamp(2.5rem,12vw,250px)] ${service.textColor}`}
+              className={`font-display font-regular leading-[0.85] -tracking-[0.04em] whitespace-pre-line text-[clamp(5rem,12vw,250px)] ${service.textColor}`}
             >
               {service.title}
             </motion.h1>
