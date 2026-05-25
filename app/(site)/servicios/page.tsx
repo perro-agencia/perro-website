@@ -13,7 +13,7 @@ export default function ServiciosPage() {
   return (
     <>
       <ServicesFullScreen />
-      <section className="py-24 px-6">
+      <section className="py-32 px-6">
         <Banner
           title="¿Queres resultados?"
           buttonText="Contactanos"

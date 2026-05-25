@@ -3,12 +3,15 @@
 import { motion } from "framer-motion"
 import Image from "next/image"
 
+type BgClass = "bg-brand-primary-main" | "bg-brand-accent-01" | "bg-brand-accent-02" | "bg-brand-white"
+type TextColorClass = "text-brand-white" | "text-brand-black"
+
 type TeamCardProps = {
   name: string
   role: string
   image: string
-  bg: string
-  textColor: string
+  bg: BgClass
+  textColor: TextColorClass
 }
 
 const cardVariants = {

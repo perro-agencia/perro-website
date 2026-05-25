@@ -86,7 +86,7 @@ export function ContactSection() {
           variants={staggerVariants(0.15)}
         >
           <motion.div variants={itemVariants}>
-            <h2 className="font-display font-regular leading-[0.95] -tracking-[0.03em] text-[clamp(4rem,8vw,6rem)] mb-8">
+            <h2 className="font-display font-normal leading-[0.95] -tracking-[0.03em] text-[clamp(4rem,8vw,6rem)] mb-8">
               {headlineWords.map((word) => (
                 <motion.span
                   key={word}
@@ -184,7 +184,7 @@ export function ContactSection() {
                     "group inline-flex items-center gap-2 transition-all duration-200",
                     "py-2 pl-6 pr-3",
                     "border-2 border-brand-white bg-brand-white rounded-full",
-                    "text-md font-display uppercase tracking-wide leading-none text-brand-black font-medium",
+                    "text-base font-display uppercase tracking-wide leading-none text-brand-black font-medium",
                     "hover:bg-brand-black hover:text-brand-white",
                     "ease-brand-bounce",
                     "disabled:opacity-50 disabled:cursor-not-allowed"
@@ -199,7 +199,7 @@ export function ContactSection() {
                   >
                     <motion.svg
                       viewBox="0 0 24 24"
-                      className="w-5 h-5 fill-current text-white group-hover:text-brand-black transition-colors"
+                      className="w-5 h-5 fill-current text-brand-white group-hover:text-brand-black transition-colors"
                       aria-hidden="true"
                       xmlns="http://www.w3.org/2000/svg"
                       animate={isHovered ? "hover" : "initial"}

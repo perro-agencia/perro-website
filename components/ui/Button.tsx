@@ -13,7 +13,7 @@ const buttonVariants = cva("inline-flex items-center justify-between gap-3 trans
       cta: cn(
         "group py-1 pl-4 pr-1",
         "border-2 border-brand-white bg-brand-white rounded-full",
-        "text-md font-display uppercase tracking-wide leading-none text-brand-black font-medium",
+        "text-base font-display uppercase tracking-wide leading-none text-brand-black font-medium",
         "hover:bg-brand-black/10 hover:text-brand-white",
         "ease-brand-bounce"
       ),
@@ -78,7 +78,7 @@ export function Button({ href, children, variant, className, showIcon = true }: 
         >
           <motion.svg
             viewBox="0 0 24 24"
-            className="w-5 h-5 fill-current text-white group-hover:text-brand-black transition-colors"
+            className="w-5 h-5 fill-current text-brand-white group-hover:text-brand-black transition-colors"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             animate={isHovered ? "hover" : "initial"}

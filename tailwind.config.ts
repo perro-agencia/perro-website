@@ -7,7 +7,7 @@ const config: Config = {
       colors: {
         brand: {
           black: "#0a0a0a",
-          white: "#f5f5f0",
+          white: "#ffffff",
           "primary-main": "#885de3",
           "accent-01": "#de4a27",
           "accent-02": "#c4f875",

@@ -3,12 +3,16 @@
 import { motion } from "framer-motion"
 import { Chip } from "@/components/ui/Chip"
 
+type ServiceBg = "bg-brand-primary-main" | "bg-brand-accent-01" | "bg-brand-accent-02" | "bg-brand-white"
+type ServiceTextColor = "text-brand-white" | "text-brand-black"
+type ServiceDescColor = "text-brand-white" | "text-brand-white/80" | "text-brand-black" | "text-brand-black/70"
+
 interface ServiceConfig {
   title: string
   description: string
-  bg: string
-  textColor: string
-  descColor: string
+  bg: ServiceBg
+  textColor: ServiceTextColor
+  descColor: ServiceDescColor
   chips: string[]
   chipClass?: string
 }
@@ -47,7 +51,7 @@ const services: ServiceConfig[] = [
     title: "Social\nContent",
     description:
       "Transformamos tu estrategia en contenido relevante y coherente, capaz de atraer resultados, fidelizar y generar interacción con tu comunidad digital.",
-    bg: "bg-white",
+    bg: "bg-brand-white",
     textColor: "text-brand-black",
     descColor: "text-brand-black/70",
     chips: ["Redes", "Contenido", "Community Management", "Influencers"],
@@ -74,15 +78,15 @@ export function ServicesFullScreen() {
           className={`relative min-h-screen flex flex-col justify-center overflow-hidden ${service.bg}`}
         >
           <div className="container relative mx-auto px-6 py-24 flex flex-col justify-center flex-1">
-            <motion.h1
+            <motion.h3
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, ease: "easeOut" }}
-              className={`font-display font-regular leading-[0.85] -tracking-[0.04em] whitespace-pre-line text-[clamp(5rem,12vw,250px)] ${service.textColor}`}
+              className={`font-display font-normal leading-[0.85] -tracking-[0.04em] whitespace-pre-line text-[clamp(5rem,12vw,250px)] ${service.textColor}`}
             >
               {service.title}
-            </motion.h1>
+            </motion.h3>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -103,7 +107,7 @@ export function ServicesFullScreen() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className={`pt-6 text-xl md:text-3xl font-display font-thin max-w-xl md:absolute md:bottom-[10%] md:right-0 md:text-right ${service.descColor}`}
+              className={`pt-6 text-xl md:text-xl font-display font-thin max-w-3xl md:absolute md:bottom-[10%] md:right-0 md:text-right ${service.descColor}`}
             >
               {service.description}
             </motion.p>

@@ -57,7 +57,7 @@ export function HeroSection() {
       </div>
 
       <div className="relative z-10 container mx-auto px-6">
-        <h1 className="font-display font-regular leading-[0.9] -tracking-[0.03em] text-[clamp(6rem,15vw,12rem)]">
+        <h1 className="font-display font-normal leading-[0.9] -tracking-[0.03em] text-[clamp(6rem,15vw,12rem)]">
           {lines.map((line, li) => (
             <div key={li} className="flex flex-wrap gap-x-[0.2em]">
               {line.map((word, wi) => {
