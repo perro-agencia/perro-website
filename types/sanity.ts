@@ -15,7 +15,7 @@ export interface Post {
   _id: string
   title: string
   slug: { current: string }
-  author?: TeamMember
+  author?: string
   publishedAt?: string
   coverImage?: Record<string, unknown>
   excerpt?: string
@@ -23,21 +23,4 @@ export interface Post {
   tags?: string[]
   seoTitle?: string
   seoDescription?: string
-}
-
-export interface TeamMember {
-  _id: string
-  name: string
-  role?: string
-  photo?: Record<string, unknown>
-  bio?: string
-  order?: number
-}
-
-export interface Service {
-  _id: string
-  title: string
-  description?: string
-  icon?: string
-  order?: number
 }

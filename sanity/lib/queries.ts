@@ -28,7 +28,7 @@ export const postsQuery = defineQuery(`*[_type == "post"] | order(publishedAt de
   _id,
   title,
   slug,
-  author->,
+  author,
   publishedAt,
   coverImage,
   excerpt,
@@ -39,7 +39,7 @@ export const postBySlugQuery = defineQuery(`*[_type == "post" && slug.current ==
   _id,
   title,
   slug,
-  author->,
+  author,
   publishedAt,
   coverImage,
   excerpt,
@@ -47,23 +47,4 @@ export const postBySlugQuery = defineQuery(`*[_type == "post" && slug.current ==
   tags,
   seoTitle,
   seoDescription
-}`)
-
-export const teamMembersQuery = defineQuery(`*[_type == "teamMember"] | order(order asc) {
-  _id,
-  name,
-  role,
-  photo,
-  bio
-}`)
-
-export const servicesQuery = defineQuery(`*[_type == "service"] | order(order asc) {
-  _id,
-  title,
-  description,
-  icon
-}`)
-
-export const settingsQuery = defineQuery(`*[_type == "settings"][0] {
-  ...
 }`)

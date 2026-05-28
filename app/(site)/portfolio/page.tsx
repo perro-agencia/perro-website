@@ -13,7 +13,9 @@ export const metadata = buildMetadata({
 export default function PortfolioPage() {
   return (
     <>
-      <Nav />
+      <Nav
+        logoSrc="/brand/isologotipo-white.svg"
+        logoHoverSrc="/brand/isologotipo-color.svg" />
       <PortfolioHeader />
       <section className="pb-32">
         <div className="container mx-auto px-6">

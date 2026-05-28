@@ -43,7 +43,6 @@
 - **NosotrosContent con fondo blanco**: secciones con `bg-brand-white` y textos `text-brand-black` para contraste.
 
 ### Features en progreso
-- TeamSection en homepage aún fetcha data de Sanity — posible migración a datos hardcodeados en el futuro
 - PortfolioGrid también pendiente de migración a datos hardcodeados
 
 ### Deuda técnica conocida
@@ -175,7 +174,6 @@ components/
 │                                Lógica de clases responsive: 1 col en mobile, 2 columnas alternadas en md,
 │                                3 columnas alternadas en lg. Cada card tiene w-[%] + grow + hover:grow que
 │                                empuja a las cards hermanas.
-│   └── TeamSection.tsx        — Server Component. Grid de miembros con foto. Fetch: sanityFetch(teamMembersQuery)
 └── common/
     ├── AnimatedText.tsx       — [SIN USO] Texto con animación (Framer Motion)
     └── TransitionWrapper.tsx  — [SIN USO] Wrapper de animaciones de página
@@ -254,7 +252,7 @@ type ServiceDescColor = "text-brand-white" | "text-brand-white/80" | "text-brand
 |---|---|---|
 | title | string | Requerido |
 | slug | slug | source: title, requerido |
-| author | reference → teamMember | Autor del post |
+| author | string | Autor del post (texto plano) |
 | publishedAt | datetime | Fecha de publicación |
 | coverImage | image | Con hotspot |
 | excerpt | text | Extracto/resumen |
@@ -262,23 +260,6 @@ type ServiceDescColor = "text-brand-white" | "text-brand-white/80" | "text-brand
 | tags | array of string | Tags |
 | seoTitle | string | Título para SEO |
 | seoDescription | text | Descripción para SEO |
-
-### Team Member (`sanity/schemas/teamMember.ts`)
-| Campo | Tipo | Descripción |
-|---|---|---|
-| name | string | Requerido |
-| role | string | Cargo |
-| photo | image | Con hotspot |
-| bio | text | Biografía |
-| order | number | Orden de aparición (default: 0) |
-
-### Service (`sanity/schemas/service.ts`)
-| Campo | Tipo | Descripción |
-|---|---|---|
-| title | string | Requerido |
-| description | text | Descripción del servicio |
-| icon | string | Nombre del ícono Lucide |
-| order | number | Orden de aparición (default: 0) |
 
 ### Block Content (`sanity/schemas/blockContent.ts`)
 Tipo de bloque rich text con soporte para:
@@ -288,19 +269,14 @@ Tipo de bloque rich text con soporte para:
 - Imágenes embebidas (con hotspot)
 - Code blocks (plugin `@sanity/code-input`)
 
-⚠️ **Nota:** La query `settingsQuery` está definida en `sanity/lib/queries.ts` pero **no existe un schema `settings`** en `sanity/schemas/index.ts`. La query devolverá `undefined` a menos que se cree el schema y el documento correspondiente.
-
 ### Queries GROQ existentes (`sanity/lib/queries.ts`)
 
 | Query | GROQ | Uso |
 |---|---|---|
 | projectsQuery | `*[_type == "project"] \| order(order asc, title asc)` — solo campos: _id, title, slug, client, logo, gradientFrom, gradientTo, order, hoverImage | Portfolio grid |
 | projectBySlugQuery | `*[_type == "project" && slug.current == $slug][0]` — mismos campos que projectsQuery | Detalle de proyecto |
-| postsQuery | `*[_type == "post"] \| order(publishedAt desc)` con author expandido | Blog list |
-| postBySlugQuery | `*[_type == "post" && slug.current == $slug][0]` | Detalle de post |
-| teamMembersQuery | `*[_type == "teamMember"] \| order(order asc)` | Team grid (solo homepage) |
-| servicesQuery | `*[_type == "service"] \| order(order asc)` | ⚠️ **HUÉRFANA — ningún componente la importa** |
-| settingsQuery | `*[_type == "settings"][0]` | ⚠️ **no existe schema settings** |
+| postsQuery | `*[_type == "post"] \| order(publishedAt desc)` — campos: _id, title, slug, author, publishedAt, coverImage, excerpt, tags | Blog list |
+| postBySlugQuery | `*[_type == "post" && slug.current == $slug][0]` — mismos campos + body, seoTitle, seoDescription | Detalle de post |
 
 ---
 
@@ -327,7 +303,7 @@ Tipo de bloque rich text con soporte para:
 
 | Ruta | Tipo | Data | Archivo |
 |---|---|---|---|
-| `/` | Estática | Hero → Clients → Services → Strategy → PortfolioGrid → TeamSection | `app/(site)/page.tsx` |
+| `/` | Estática | Hero → Clients → Services → Strategy → ContactSection | `app/(site)/page.tsx` |
 | `/servicios` | Estática | ServicesFullScreen con 4 servicios hardcodeados. Sin Sanity. | `app/(site)/servicios/page.tsx` |
 | `/nosotros` | Estática | NosotrosContent (hero, team grid, mission) + Banner. Equipo hardcodeado. | `app/(site)/nosotros/page.tsx` |
 | `/portfolio` | Estática | PortfolioHeader + PortfolioGrid (fetch projects con tags: ["project"]) | `app/(site)/portfolio/page.tsx` |
@@ -404,14 +380,14 @@ brand: {
 - [ ] **SEO**: definir estrategia de metadata dinámica (más allá del title/description básico)
 - [ ] **Performance**: evaluar si conviene SSG + ISR o mantener SSR con revalidate
 - [ ] **Analytics**: Vercel Analytics configurado pero sin verificar si se usa
-- [ ] **`servicesQuery` huérfana**: ningún componente la importa. Decidir si se elimina o se mantiene.
-- [ ] **Schema `settings` faltante**: query existe pero no schema.
+- [x] **`servicesQuery` huérfana**: eliminada junto con los schemas `teamMember` y `service`.
+- [x] **Schema `settings` faltante**: eliminado — la query `settingsQuery` también fue eliminada.
 - [ ] **reCAPTCHA key sin uso**: en `.env` pero sin código que la referencie.
 - [ ] **Componentes sin uso**: `AnimatedText` y `TransitionWrapper` no se importan en ninguna página.
 - [ ] **`.env.example` desactualizado**: lista `REVALIDATION_SECRET` en vez de `SANITY_REVALIDATE_SECRET`.
 - [ ] **Rate limiting en memoria**: no persiste entre reinicios y no escala horizontalmente.
 - [ ] **TeamCard sin `sizes`**: imágenes con `fill` sin `sizes` — evaluar optimización.
-- [ ] **Sanity features sin uso**: `/servicios` y `/nosotros` ya no consumen Sanity. Evaluar migración completa a hardcode.
+- [x] **Sanity features sin uso**: servicios y team migrados a hardcodeado. Schemas `teamMember` y `service` eliminados de Sanity.
 
 ---
 
@@ -457,3 +433,4 @@ brand: {
 | **2026-05-25** | **TeamCard: BgClass extendido con `bg-brand-black`, rol con `whitespace-pre-line`** |
 | **2026-05-25** | **FooterLogo y Footer con nueva prop `logoSrc`** |
 | **2026-05-28** | **Portfolio rediseñado: schema project.ts simplificado (logo, gradientFrom/To, hoverImage, order); ProjectCard reescrito "use client" con gradient, logo centrado, hoverImage; PortfolioGrid migrado de grid a flex-wrap con grow effect; CaseStudyBody eliminado; [slug] simplificado (solo título + cliente). Queries simplificadas y ordenadas por order asc, title asc.** |
+| **2026-05-28** | **Schemas `teamMember` y `service` eliminados de Sanity. `TeamSection.tsx` eliminado (homepage sin team grid). Equipo migrado a hardcode dentro de `NosotrosContent.tsx` con fotos locales `/team/`. Queries `teamMembersQuery`, `servicesQuery`, `settingsQuery` eliminadas. `Post.author` cambiado de reference a `string`. Interfaces `TeamMember` y `Service` eliminadas de types. Nota de `settingsQuery` eliminada de doc.** |
