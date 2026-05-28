@@ -11,19 +11,19 @@ type Client = {
 }
 
 const clients: Client[] = [
-  { name: "H Basadores", image: "/clients/cliente-hbasadores.png", href: "#" },
-  { name: "Intrepid", image: "/clients/cliente-intrepid.png", href: "#" },
-  { name: "Legal Meet", image: "/clients/cliente-legalmeet.png", href: "#" },
-  { name: "Simón", image: "/clients/cliente-simon.png", href: "#" },
-  { name: "Melon Help", image: "/clients/cliente-melonhelp.png", href: "#" },
-  { name: "Latin Cloud", image: "/clients/cliente-latincloud.png", href: "#" },
+  { name: "H Basadores", image: "/clients/cliente-hbasadores.png", href: "https://www.hbasadores.com/" },
+  { name: "Intrepid", image: "/clients/cliente-intrepid.png", href: "https://www.intrepid-logistics.com/en" },
+  { name: "Legal Meet", image: "/clients/cliente-legalmeet.png", href: "https://legalmeet.com.ar/" },
+  { name: "Simón", image: "/clients/cliente-simon.png", href: "https://www.simonvgroup.com.ar/" },
+  { name: "Melon Help", image: "/clients/cliente-melonhelp.png", href: "https://melonhelp.com/es/home/" },
+  { name: "Latin Cloud", image: "/clients/cliente-latincloud.png", href: "https://latincloud.com/" },
   { name: "Arcadia", image: "/clients/cliente-arcadia.png", href: "#" },
-  { name: "United T Experience", image: "/clients/cliente-unitedTexperience.png", href: "#" },
-  { name: "Planexware", image: "/clients/cliente-planexware.png", href: "#" },
+  { name: "United T Experience", image: "/clients/cliente-unitedTexperience.png", href: "unitedtexperience.com" },
+  { name: "Planexware", image: "/clients/cliente-planexware.png", href: "https://www.planexware.com/" },
   { name: "Reposarte", image: "/clients/cliente-reposarte.png", href: "#" },
-  { name: "Prusia", image: "/clients/cliente-prusia.png", href: "#" },
-  { name: "Tienda Nube", image: "/clients/cliente-tiendanube.png", href: "#" },
-  { name: "Devra", image: "/clients/cliente-devra.png", href: "#" },
+  { name: "Prusia", image: "/clients/cliente-prusia.png", href: "https://prusiadesign.com/" },
+  { name: "Tienda Nube", image: "/clients/cliente-tiendanube.png", href: "https://www.tiendanube.com/" },
+  { name: "Devra", image: "/clients/cliente-devra.png", href: "https://www.devrastore.com/" },
 ]
 
 const containerVariants = {

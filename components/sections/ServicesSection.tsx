@@ -36,7 +36,7 @@ const services: Service[] = [
       "Estrategia & usabilidad: diseñamos y construimos productos que combinan visión de negocio, diseño centrado en el usuario y desarrollo sólido.",
     bg: "bg-brand-white",
     textColor: "text-brand-black",
-    shadowColor: brandColors["bg-brand-accent-01"],
+    shadowColor: brandColors["bg-brand-white"],
   },
   {
     title: "Design",
@@ -54,7 +54,7 @@ const services: Service[] = [
       "Transformamos tu estrategia en contenido relevante y coherente, capaz de atraer resultados, fidelizar y generar interacción con tu comunidad digital.",
     bg: "bg-brand-accent-01",
     textColor: "text-brand-white",
-    shadowColor: brandColors["bg-brand-white"],
+    shadowColor: brandColors["bg-brand-accent-01"],
   },
 ]
 
@@ -105,18 +105,18 @@ export function ServicesSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
-          className="grid gap-8 md:grid-cols-2 max-w-[1200px] mx-auto"
+          className="grid gap-x-4 gap-y-8 md:grid-cols-2 max-w-[1100px] mx-auto justify-items-center"
         >
           {services.map((service) => (
             <motion.div
               key={service.title}
               variants={cardVariants}
-              className={`text-left flex flex-col rounded-3xl transition-shadow duration-300 min-h-[450px] md:min-h-[550px] ${service.bg}`}
+              className={`text-left flex flex-col rounded-3xl transition-shadow duration-300 max-w-[500px] ${service.bg}`}
               style={{ boxShadow: `0 0 0 0 ${service.shadowColor}33` }}
               whileHover={{ boxShadow: `0 0 48px -8px ${service.shadowColor}` }}
               transition={{ duration: 0 }}
             >
-              <div className="p-8 md:p-10">
+              <div className="p-8 pb-0">
                 <h3 className={`text-3xl font-medium font-display mb-2 ${service.textColor}`}>
                   {service.title}
                 </h3>
@@ -124,15 +124,14 @@ export function ServicesSection() {
                   {service.description}
                 </p>
               </div>
-              <div className="relative flex-1 min-h-0 overflow-hidden">
-                <Image
-                  src={service.image}
-                  alt={service.title}
-                  width={600}
-                  height={400}
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-              </div>
+
+              <Image
+                src={service.image}
+                alt={service.title}
+                width={600}
+                height={400}
+                className="w-full max-w-[450px] self-center mt-auto"
+              />
             </motion.div>
           ))}
         </motion.div>
