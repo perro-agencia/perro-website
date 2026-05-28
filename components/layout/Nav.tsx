@@ -11,6 +11,8 @@ import { Button } from "@/components/ui/Button"
 const links = [
   { href: "/nosotros", label: "Nosotros" },
   { href: "/servicios", label: "Servicios" },
+  { href: "/portfolio", label: "Portfolio" },
+
 ]
 
 function Logo({ className }: { className?: string }) {
@@ -164,7 +166,7 @@ export function Nav({
                     href={link.href}
                     style={{ "--link-hover": linkHoverColor } as React.CSSProperties}
                     className={cn(
-                      `text-lg tracking-wide uppercase transition-all duration-200 ${linkColor} hover:underline underline-offset-4 decoration-current hover:text-[var(--link-hover)]`,
+                      `text-lg sm:text-sm tracking-wide uppercase transition-all duration-200 ${linkColor} hover:underline underline-offset-4 decoration-current hover:text-[var(--link-hover)]`,
                       pathname === link.href && `text-[var(--link-hover)] underline`
                     )}
                   >

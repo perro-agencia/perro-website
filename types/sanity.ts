@@ -5,14 +5,10 @@ export interface Project {
   title: string
   slug: { current: string }
   client?: string
-  services?: Service[]
-  coverImage?: Record<string, unknown>
-  images?: Record<string, unknown>[]
-  summary?: string
-  body?: PortableTextBlock[]
-  year?: number
-  featured?: boolean
-  tags?: string[]
+  logo?: Record<string, unknown>
+  gradientFrom?: string
+  gradientTo?: string
+  hoverImage?: Record<string, unknown>
 }
 
 export interface Post {

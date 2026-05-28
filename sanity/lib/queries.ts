@@ -1,16 +1,15 @@
 import { defineQuery } from "next-sanity"
 
-export const projectsQuery = defineQuery(`*[_type == "project"] | order(year desc) {
+export const projectsQuery = defineQuery(`*[_type == "project"] | order(order asc, title asc) {
   _id,
   title,
   slug,
   client,
-  services,
-  coverImage,
-  summary,
-  year,
-  featured,
-  tags
+  logo,
+  gradientFrom,
+  gradientTo,
+  order,
+  hoverImage
 }`)
 
 export const projectBySlugQuery = defineQuery(`*[_type == "project" && slug.current == $slug][0] {
@@ -18,14 +17,11 @@ export const projectBySlugQuery = defineQuery(`*[_type == "project" && slug.curr
   title,
   slug,
   client,
-  services[]->,
-  coverImage,
-  images[],
-  summary,
-  body,
-  year,
-  featured,
-  tags
+  logo,
+  gradientFrom,
+  gradientTo,
+  order,
+  hoverImage
 }`)
 
 export const postsQuery = defineQuery(`*[_type == "post"] | order(publishedAt desc) {

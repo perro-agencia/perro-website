@@ -2,7 +2,7 @@
 
 ## 1. Estado actual del proyecto
 
-**Última actualización:** 2026-05-25
+**Última actualización:** 2026-05-28
 
 ### Features completadas
 - Homepage sections rediseñadas completamente (Hero, Clients, Services, Strategy, Portfolio, Team, ContactSection)
@@ -17,7 +17,7 @@
 - Página de servicios (`/servicios`) con ServicesFullScreen — 4 secciones full-screen (100vh) con datos hardcodeados, títulos grandes (~250px), chips outline, descripción bottom-right en desktop
 - Página "Nosotros" (`/nosotros`) con NosotrosContent + TeamCard — hero animado, grilla de 8 miembros con stagger, sección misión. Equipo hardcodeado (sin Sanity)
 - Páginas legales: `/legal/terminos-y-condiciones` y `/legal/politicas-de-privacidad` — server components estáticos con título grande (clamp 2.5rem-6rem) y contenido en `<p>` único con `<br />`. Metadata SEO con buildMetadata.
-- Página de portfolio con grid + detalle por proyecto (`/portfolio`, `/portfolio/[slug]`)
+- Página de portfolio rediseñada (`/portfolio`, `/portfolio/[slug]`): ProjectCard con gradient, logo, hoverImage, grow effect on hover. Schema simplificado (gradientFrom, gradientTo, logo, hoverImage, order). CaseStudyBody eliminado.
 - Página de blog con listado + detalle por post (`/blog`, `/blog/[slug]`)
 - Sanity Studio embebido en `/studio`
 - Sitemap dinámico y robots.txt
@@ -104,8 +104,12 @@ components/
 │   ├── PostCard.tsx           — Card para listado de posts. Props: { post: Post }
 │   └── PostBody.tsx           — Renderiza Portable Text del body de un post
 ├── portfolio/
-│   ├── ProjectCard.tsx        — Card para grid de proyectos. Props: { project: Project }
-│   └── CaseStudyBody.tsx      — Renderiza Portable Text del body de un proyecto
+│   └── ProjectCard.tsx        — "use client". Card para grid de proyectos con gradient, logo y hoverImage.
+│                                Props: { project: Project, className?, index? }
+│                                Comportamiento: gradient inline con gradientFrom/gradientTo (opacity 0 en hover),
+│                                logo centrado con Image fill, hoverImage con scale 100→105, animación de entrada
+│                                con framer-motion whileInView (stagger según index). Sin shadow. Efecto grow via
+│                                clases del padre (flex-[2] en hover).
 ├── layout/
 │   ├── Header.tsx             — Header simplificado que solo renderiza `<Nav />`
 │   ├── Nav.tsx                — "use client". Nav component con logo via Image (logoSrc default /brand/isologotipo-white.svg),
@@ -166,7 +170,11 @@ components/
 │   ├── ContactSection.tsx     — "use client". Grid 2 cols. Headline con palabras animadas + chips outline.
 │                                Formulario funcional: Nombre, Compañía, Correo, Mensaje.
 │                                Inputs con bg-black, border white rounded-full. Animación scroll con stagger
-│   ├── PortfolioGrid.tsx      — Server Component. Grid de proyectos. Fetch: sanityFetch(projectsQuery)
+│   ├── PortfolioGrid.tsx      — Server Component. Grid de proyectos con flex-wrap (no CSS Grid) para permitir
+│                                grow effect. Fetch: sanityFetch(projectsQuery) con tags: ["project"].
+│                                Lógica de clases responsive: 1 col en mobile, 2 columnas alternadas en md,
+│                                3 columnas alternadas en lg. Cada card tiene w-[%] + grow + hover:grow que
+│                                empuja a las cards hermanas.
 │   └── TeamSection.tsx        — Server Component. Grid de miembros con foto. Fetch: sanityFetch(teamMembersQuery)
 └── common/
     ├── AnimatedText.tsx       — [SIN USO] Texto con animación (Framer Motion)
@@ -233,14 +241,13 @@ type ServiceDescColor = "text-brand-white" | "text-brand-white/80" | "text-brand
 | title | string | Requerido |
 | slug | slug | source: title, requerido |
 | client | string | Nombre del cliente |
-| services | array of reference → service | Servicios relacionados |
-| coverImage | image | Con hotspot |
-| images | array of image | Galería, con hotspot |
-| summary | text | Resumen breve |
-| body | blockContent | Contenido rich text |
-| year | number | Año del proyecto |
-| featured | boolean | Para destacar (default: false) |
-| tags | array of string | Tags |
+| logo | image | Logo del cliente para la card |
+| gradientFrom | string | Color inicial del gradient (ej: #885de3) |
+| gradientTo | string | Color final del gradient (ej: #0a0a0a) |
+| order | number | Orden de aparición en la grilla |
+| hoverImage | image | Imagen que aparece al hacer hover sobre la card |
+
+**Preview:** `select: { title: "title", subtitle: "client", media: "logo" }`
 
 ### Post (`sanity/schemas/post.ts`)
 | Campo | Tipo | Descripción |
@@ -287,8 +294,8 @@ Tipo de bloque rich text con soporte para:
 
 | Query | GROQ | Uso |
 |---|---|---|
-| projectsQuery | `*[_type == "project"] \| order(year desc)` | Portfolio grid |
-| projectBySlugQuery | `*[_type == "project" && slug.current == $slug][0]` con services expandidos | Detalle de proyecto |
+| projectsQuery | `*[_type == "project"] \| order(order asc, title asc)` — solo campos: _id, title, slug, client, logo, gradientFrom, gradientTo, order, hoverImage | Portfolio grid |
+| projectBySlugQuery | `*[_type == "project" && slug.current == $slug][0]` — mismos campos que projectsQuery | Detalle de proyecto |
 | postsQuery | `*[_type == "post"] \| order(publishedAt desc)` con author expandido | Blog list |
 | postBySlugQuery | `*[_type == "post" && slug.current == $slug][0]` | Detalle de post |
 | teamMembersQuery | `*[_type == "teamMember"] \| order(order asc)` | Team grid (solo homepage) |
@@ -323,8 +330,8 @@ Tipo de bloque rich text con soporte para:
 | `/` | Estática | Hero → Clients → Services → Strategy → PortfolioGrid → TeamSection | `app/(site)/page.tsx` |
 | `/servicios` | Estática | ServicesFullScreen con 4 servicios hardcodeados. Sin Sanity. | `app/(site)/servicios/page.tsx` |
 | `/nosotros` | Estática | NosotrosContent (hero, team grid, mission) + Banner. Equipo hardcodeado. | `app/(site)/nosotros/page.tsx` |
-| `/portfolio` | Estática | Fetch projects | `app/(site)/portfolio/page.tsx` |
-| `/portfolio/[slug]` | Dinámica | Fetch project by slug | `app/(site)/portfolio/[slug]/page.tsx` |
+| `/portfolio` | Estática | PortfolioHeader + PortfolioGrid (fetch projects con tags: ["project"]) | `app/(site)/portfolio/page.tsx` |
+| `/portfolio/[slug]` | Dinámica | Fetch project by slug con tags: ["project"]. Muestra solo título (text-display-xl) y cliente. Sin urlFor, sin body, sin year. | `app/(site)/portfolio/[slug]/page.tsx` |
 | `/blog` | Estática | Fetch posts | `app/(site)/blog/page.tsx` |
 | `/blog/[slug]` | Dinámica | Fetch post by slug | `app/(site)/blog/[slug]/page.tsx` |
 | `/contacto` | Estática | Formulario con Resend + rate limiting | `app/(site)/contacto/page.tsx` |
@@ -449,3 +456,4 @@ brand: {
 | **2026-05-25** | **fontBody unificado con todos los pesos 100-900 (igual que fontDisplay)** |
 | **2026-05-25** | **TeamCard: BgClass extendido con `bg-brand-black`, rol con `whitespace-pre-line`** |
 | **2026-05-25** | **FooterLogo y Footer con nueva prop `logoSrc`** |
+| **2026-05-28** | **Portfolio rediseñado: schema project.ts simplificado (logo, gradientFrom/To, hoverImage, order); ProjectCard reescrito "use client" con gradient, logo centrado, hoverImage; PortfolioGrid migrado de grid a flex-wrap con grow effect; CaseStudyBody eliminado; [slug] simplificado (solo título + cliente). Queries simplificadas y ordenadas por order asc, title asc.** |
