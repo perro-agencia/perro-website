@@ -11,6 +11,8 @@ export type Service = {
   bg: string
   textColor: string
   shadowColor: string
+  gradientFrom: string
+  gradientTo: string
   floatingIcons?: string[]
 }
 
@@ -23,7 +25,7 @@ const cardVariants = {
   },
 }
 
-export function ServiceCard({ service }: { service: Service }) {
+export function ServiceCard({ service, className, index }: { service: Service; className?: string; index?: number }) {
   const containerRef = useRef<HTMLDivElement>(null)
 
   const { scrollYProgress } = useScroll({
@@ -40,19 +42,23 @@ export function ServiceCard({ service }: { service: Service }) {
   ]
 
   const positionClasses = [
-    "absolute left-[5%] top-[15%] w-[100px] h-[100px]",
-    "absolute right-[8%] top-[25%] w-[100px] h-[100px]",
-    "absolute left-[15%] bottom-[20%] w-[100px] h-[100px]",
-    "absolute right-[20%] bottom-[15%] w-[100px] h-[100px]",
+    "absolute left-[15%] top-[15%] w-[75px] h-[75px]",
+    "absolute right-[18%] top-[25%] w-[75px] h-[75px]",
+    "absolute left-[25%] bottom-[20%] w-[75px] h-[75px]",
+    "absolute right-[30%] bottom-[15%] w-[75px] h-[75px]",
   ]
 
   return (
     <motion.div
       ref={containerRef}
       variants={cardVariants}
-      className={`group text-left flex flex-col rounded-3xl max-w-[500px] w-full overflow-hidden ${service.bg}`}
+      className={`group text-left flex flex-col justify-between rounded-3xl w-full overflow-hidden relative ${service.bg} ${className || ""}`}
     >
-      <div className="p-8 pb-0">
+      <div
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-in-out rounded-3xl"
+        style={{ background: `linear-gradient(135deg, ${service.gradientFrom}, ${service.gradientTo})` }}
+      />
+      <div className="p-8 pb-0 relative z-10">
         <h3 className={`text-3xl font-medium font-display mb-2 ${service.textColor}`}>
           {service.title}
         </h3>
@@ -63,14 +69,14 @@ export function ServiceCard({ service }: { service: Service }) {
 
       {service.floatingIcons && service.floatingIcons.length > 0 ? (
         <div
-          className="relative w-full max-w-[500px] aspect-[4/3] mx-auto mt-auto flex items-end justify-center select-none overflow-visible"
+          className="relative w-full mt-10 mx-auto mt-auto flex items-end justify-center select-none overflow-visible z-10"
         >
           <Image
             src={service.image}
             alt={service.title}
             width={260}
             height={350}
-            className="object-contain w-[60%] sm:w-[55%] pointer-events-none select-none transition-transform duration-700 ease-out group-hover:scale-[1.2]"
+            className="object-contain w-[40%] sm:w-[50%] max-w-[250px] pointer-events-none select-none transition-transform duration-700 ease-out group-hover:scale-[1.10]"
           />
           {service.floatingIcons.map((icon, index) => {
             const yVal = yOffsets[index % yOffsets.length]
@@ -81,19 +87,21 @@ export function ServiceCard({ service }: { service: Service }) {
                 style={{ y: yVal }}
                 className={posClass}
               >
-                <Image src={icon} alt="" fill className="object-contain pointer-events-none select-none" />
+                <Image src={icon} alt="" fill className="object-contain pointer-events-none select-none max-w-[90px]" />
               </motion.div>
             )
           })}
         </div>
       ) : (
-        <Image
-          src={service.image}
-          alt={service.title}
-          width={600}
-          height={400}
-          className="w-full max-w-[450px] self-center mt-auto pointer-events-none select-none transition-transform duration-700 ease-out group-hover:scale-105"
-        />
+        <div className="w-full mx-auto mt-auto flex items-center justify-center overflow-hidden relative z-10">
+          <Image
+            src={service.image}
+            alt={service.title}
+            width={600}
+            height={400}
+            className="w-full max-w-[450px] h-full object-contain pointer-events-none select-none transition-transform duration-700 ease-out group-hover:scale-105"
+          />
+        </div>
       )}
     </motion.div>
   )
