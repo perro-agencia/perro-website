@@ -1,5 +1,11 @@
 import type { PortableTextBlock } from "@portabletext/react"
 
+export interface GalleryImage {
+  asset?: Record<string, unknown>
+  span?: number
+  alt?: string
+}
+
 export interface Project {
   _id: string
   title: string
@@ -9,6 +15,16 @@ export interface Project {
   gradientFrom?: string
   gradientTo?: string
   hoverImage?: Record<string, unknown>
+  headerImage1?: Record<string, unknown>
+  headerImage2?: Record<string, unknown>
+  headerImage3?: Record<string, unknown>
+  description?: PortableTextBlock[]
+  year?: string
+  country?: string
+  industry?: string
+  service?: string
+  link?: string
+  gallery?: GalleryImage[]
 }
 
 export interface Post {

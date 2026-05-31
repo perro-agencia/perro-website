@@ -2,7 +2,7 @@
 
 ## 1. Estado actual del proyecto
 
-**Última actualización:** 2026-05-28
+**Última actualización:** 2026-05-30
 
 ### Features completadas
 - Homepage sections rediseñadas completamente (Hero, Clients, Services, Strategy, Portfolio, Team, ContactSection)
@@ -41,6 +41,7 @@
 - **fontBody unificado**: ahora incluye todos los pesos 100-900 con itálicas (como fontDisplay). Ambos usan la misma familia Helvetica Neue completa.
 - **TeamCard extendido**: `BgClass` incluye `"bg-brand-black"`, el rol soporta `\n` via `whitespace-pre-line`.
 - **NosotrosContent con fondo blanco**: secciones con `bg-brand-white` y textos `text-brand-black` para contraste.
+- **Página de detalle de portfolio (`/portfolio/[slug]`) rediseñada**: header con grid de 3 imágenes (main izquierda 2x2, dos apiladas derecha), descripción rich text con PortableText + link a sitio, sidebar de metadatos (Year, Country, Industry, Service), galería con GalleryGrid con animación stagger y span de 1-2 columnas. Todas las secciones envueltas en AnimateInView.
 
 ### Features en progreso
 - PortfolioGrid también pendiente de migración a datos hardcodeados
@@ -103,12 +104,18 @@ components/
 │   ├── PostCard.tsx           — Card para listado de posts. Props: { post: Post }
 │   └── PostBody.tsx           — Renderiza Portable Text del body de un post
 ├── portfolio/
-│   └── ProjectCard.tsx        — "use client". Card para grid de proyectos con gradient, logo y hoverImage.
-│                                Props: { project: Project, className?, index? }
-│                                Comportamiento: gradient inline con gradientFrom/gradientTo (opacity 0 en hover),
-│                                logo centrado con Image fill, hoverImage con scale 100→105, animación de entrada
-│                                con framer-motion whileInView (stagger según index). Sin shadow. Efecto grow via
-│                                clases del padre (flex-[2] en hover).
+│   ├── ProjectCard.tsx        — "use client". Card para grid de proyectos con gradient, logo y hoverImage.
+│   │                            Props: { project: Project, className?, index? }
+│   │                            Comportamiento: gradient inline con gradientFrom/gradientTo (opacity 0 en hover),
+│   │                            logo centrado con Image fill, hoverImage con scale 100→105, animación de entrada
+│   │                            con framer-motion whileInView (stagger según index). Sin shadow. Efecto grow via
+│   │                            clases del padre (flex-[2] en hover).
+│   └── GalleryGrid.tsx        — "use client". Grid de imágenes de galería para detalle de proyecto.
+│                                Props: { images: GalleryImage[], projectTitle: string }
+│                                Comportamiento: flex-wrap layout con gap-4. Si span = 1 → w-full md:w-[calc(50%-8px)],
+│                                aspect-[4/3], md:min-h-[300px] (half width). Si span = 2 → w-full, aspect-[16/9],
+│                                md:min-h-[500px] (full width). Animación con framer-motion containerVariants
+│                                + itemVariants: staggerChildren 0.1s, hidden→visible con opacity+y.
 ├── layout/
 │   ├── Header.tsx             — Header simplificado que solo renderiza `<Nav />`
 │   ├── Nav.tsx                — "use client". Nav component con logo via Image (logoSrc default /brand/isologotipo-white.svg),
@@ -123,9 +130,9 @@ components/
 ├── ui/
 │   ├── AmbientBlob.tsx        — [SIN USO] Glow animado que rebota con morph shape
 │   ├── BackgroundBlob.tsx     — [SIN USO] Wrapper de AmbientBlob
-│   ├── Banner.tsx             — Reusable banner (NO "use client"). Props: { title, buttonText, buttonHref: Route }
+│   ├── Banner.tsx             — Reusable banner (NO "use client"). Props: { title, buttonText, buttonHref: Route, variant?: "dark" | "white" }
 │                                Renderiza: AnimateInView as="section" > div flex > h2 + Button variant="cta"
-│                                Estilos: rounded-[32px] bg-brand-primary-main, text-6xl, flex-col md:flex-row
+│                                Estilos dinámicos según variant. Variant "white": bg-brand-white, text-brand-black, button dark
 │   ├── Button.tsx             — "use client". Botón CTA reutilizable (Link de Next.js), 3 variantes: cta, primary, outline.
 │                                Arrow con animación diagonal en hover. Variante cta acepta prop `colorScheme` con 4 esquemas:
 │                                default (blanco), primary (púrpura), accent (verde lima), dark (negro).
@@ -195,9 +202,22 @@ Componente `"use client"` que abstrae la lógica de animación scroll-triggered 
 ### Banner (`components/ui/Banner.tsx`)
 Server Component (NO `"use client"`). Usa `AnimateInView` para la animación, manteniéndose como RSC.
 
-**Props:** `{ title: string; buttonText: string; buttonHref: Route }`
+**Props:** `{ title: string; buttonText: string; buttonHref: Route; variant?: "dark" | "white" }`
 
-**Estructura:** AnimateInView as="section" > flex container > h2 + Button variant="cta".
+| Prop | Tipo | Default | Descripción |
+|---|---|---|---|
+| title | string | — | Texto del heading |
+| buttonText | string | — | Texto del botón CTA |
+| buttonHref | Route | — | Destino del botón |
+| variant | "dark" \| "white" | "dark" | Esquema de colores del banner |
+
+**Variant styles (`variantStyles`):**
+| Variant | bg | text | button colorScheme |
+|---|---|---|---|
+| `dark` (default) | `bg-brand-black` | `text-brand-white` | `default` (blanco) |
+| `white` | `bg-brand-white` | `text-brand-black` | `dark` (negro) |
+
+**Estructura:** AnimateInView as="section" > flex container > h2 + Button variant="cta" con colorScheme según variant.
 
 ### TeamCard (`components/ui/TeamCard.tsx`)
 Componente `"use client"` con props tipadas mediante union types.
@@ -244,6 +264,16 @@ type ServiceDescColor = "text-brand-white" | "text-brand-white/80" | "text-brand
 | gradientTo | string | Color final del gradient (ej: #0a0a0a) |
 | order | number | Orden de aparición en la grilla |
 | hoverImage | image | Imagen que aparece al hacer hover sobre la card |
+| headerImage1 | image | Imagen principal del header (grid izquierda, ocupa 2x2) |
+| headerImage2 | image | Segunda imagen del header (columna derecha, arriba) |
+| headerImage3 | image | Tercera imagen del header (columna derecha, abajo) |
+| description | blockContent | Descripción del proyecto (rich text) |
+| year | string | Año del proyecto (ej: 2025) |
+| country | string | País |
+| industry | string | Industria |
+| service | string | Servicio |
+| link | url | URL del proyecto |
+| gallery | array of image | Imágenes adicionales para la grilla del detalle. Cada imagen incluye campos: `span` (number, 1-2, cuántas columnas ocupa) y `alt` (string) |
 
 **Preview:** `select: { title: "title", subtitle: "client", media: "logo" }`
 
@@ -274,7 +304,7 @@ Tipo de bloque rich text con soporte para:
 | Query | GROQ | Uso |
 |---|---|---|
 | projectsQuery | `*[_type == "project"] \| order(order asc, title asc)` — solo campos: _id, title, slug, client, logo, gradientFrom, gradientTo, order, hoverImage | Portfolio grid |
-| projectBySlugQuery | `*[_type == "project" && slug.current == $slug][0]` — mismos campos que projectsQuery | Detalle de proyecto |
+| projectBySlugQuery | `*[_type == "project" && slug.current == $slug][0]` — incluye todos los campos de projectsQuery + headerImage1-3, description, year, country, industry, service, link, y gallery[] con alt resuelto via `asset->alt_text` | Detalle de proyecto |
 | postsQuery | `*[_type == "post"] \| order(publishedAt desc)` — campos: _id, title, slug, author, publishedAt, coverImage, excerpt, tags | Blog list |
 | postBySlugQuery | `*[_type == "post" && slug.current == $slug][0]` — mismos campos + body, seoTitle, seoDescription | Detalle de post |
 
@@ -307,7 +337,7 @@ Tipo de bloque rich text con soporte para:
 | `/servicios` | Estática | ServicesFullScreen con 4 servicios hardcodeados. Sin Sanity. | `app/(site)/servicios/page.tsx` |
 | `/nosotros` | Estática | NosotrosContent (hero, team grid, mission) + Banner. Equipo hardcodeado. | `app/(site)/nosotros/page.tsx` |
 | `/portfolio` | Estática | PortfolioHeader + PortfolioGrid (fetch projects con tags: ["project"]) | `app/(site)/portfolio/page.tsx` |
-| `/portfolio/[slug]` | Dinámica | Fetch project by slug con tags: ["project"]. Muestra solo título (text-display-xl) y cliente. Sin urlFor, sin body, sin year. | `app/(site)/portfolio/[slug]/page.tsx` |
+| `/portfolio/[slug]` | Dinámica | Fetch project by slug con tags: ["project"]. Diseño completo: header con grid de 3 imágenes (main 2x2 izq + 2 apiladas der), título display-xl, descripción rich text con PortableText + link a sitio web, sidebar de metadata (Year, Country, Industry, Service), galería GalleryGrid con animación stagger (imágenes con span 1 o 2). Banner importado. Secciones envueltas en AnimateInView. | `app/(site)/portfolio/[slug]/page.tsx` |
 | `/blog` | Estática | Fetch posts | `app/(site)/blog/page.tsx` |
 | `/blog/[slug]` | Dinámica | Fetch post by slug | `app/(site)/blog/[slug]/page.tsx` |
 | `/contacto` | Estática | Formulario con Resend + rate limiting | `app/(site)/contacto/page.tsx` |
@@ -434,3 +464,6 @@ brand: {
 | **2026-05-25** | **FooterLogo y Footer con nueva prop `logoSrc`** |
 | **2026-05-28** | **Portfolio rediseñado: schema project.ts simplificado (logo, gradientFrom/To, hoverImage, order); ProjectCard reescrito "use client" con gradient, logo centrado, hoverImage; PortfolioGrid migrado de grid a flex-wrap con grow effect; CaseStudyBody eliminado; [slug] simplificado (solo título + cliente). Queries simplificadas y ordenadas por order asc, title asc.** |
 | **2026-05-28** | **Schemas `teamMember` y `service` eliminados de Sanity. `TeamSection.tsx` eliminado (homepage sin team grid). Equipo migrado a hardcode dentro de `NosotrosContent.tsx` con fotos locales `/team/`. Queries `teamMembersQuery`, `servicesQuery`, `settingsQuery` eliminadas. `Post.author` cambiado de reference a `string`. Interfaces `TeamMember` y `Service` eliminadas de types. Nota de `settingsQuery` eliminada de doc.** |
+| **2026-05-30** | **Schema Project extendido**: 10 nuevos campos agregados — headerImage1-3 (image), description (blockContent), year, country, industry, service (string), link (url), gallery (array de image con campos span: 1-2 y alt). Types actualizados: nueva interfaz `GalleryImage`, Project extendido con todos los campos. `projectBySlugQuery` expandido con los nuevos campos + gallery alt resuelto. |
+| **2026-05-30** | **Portfolio [slug] rediseñado**: página de detalle con grid de 3 imágenes en header (main 2x2 izq + 2 stack der), PortableText + link a sitio, sidebar de metadatos (Year, Country, Industry, Service), GalleryGrid con stagger animation y span 1/2. Todas las secciones envueltas en AnimateInView. Nuevo componente `GalleryGrid.tsx` (client component con framer-motion stagger, span-based sizing). |
+| **2026-05-30** | **Banner extendido**: nueva prop `variant` (`"dark"` | `"white"`) con estilos dinámicos. `variantStyles` mapea cada variante a bg, text y button colorScheme. `dark` (default): bg-brand-black, text-brand-white, button default. `white`: bg-brand-white, text-brand-black, button dark. |
