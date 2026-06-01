@@ -11,6 +11,8 @@ import { Button } from "@/components/ui/Button"
 const links = [
   { href: "/nosotros", label: "Nosotros" },
   { href: "/servicios", label: "Servicios" },
+  { href: "/portfolio", label: "Portfolio" },
+
 ]
 
 function Logo({ className }: { className?: string }) {
@@ -109,7 +111,7 @@ export function Nav({
           className={cn(
             "transition-all duration-300 ease-in-out",
             showScrolled
-              ? "mx-auto mt-4 max-w-[90vw] md:max-w-[800px] lg:max-w-[1200px] bg-brand-black/40 backdrop-blur-xl border border-brand-white/10 shadow-xl rounded-full px-6 md:pr-4"
+              ? "mx-auto mt-4 max-w-[90vw] md:max-w-[800px] lg:max-w-[1000px] bg-brand-black/40 backdrop-blur-xl border border-brand-white/10 shadow-xl rounded-full px-6 md:pr-4"
               : " border border-transparent"
           )}
         >
@@ -164,7 +166,7 @@ export function Nav({
                     href={link.href}
                     style={{ "--link-hover": linkHoverColor } as React.CSSProperties}
                     className={cn(
-                      `text-lg tracking-wide uppercase transition-all duration-200 ${linkColor} hover:underline underline-offset-4 decoration-current hover:text-[var(--link-hover)]`,
+                      `text-lg sm:text-sm tracking-wide uppercase transition-all duration-200 ${linkColor} hover:underline underline-offset-4 decoration-current hover:text-[var(--link-hover)]`,
                       pathname === link.href && `text-[var(--link-hover)] underline`
                     )}
                   >

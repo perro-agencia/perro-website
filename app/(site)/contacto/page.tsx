@@ -13,12 +13,14 @@ export const metadata = buildMetadata({
 export default function ContactoPage() {
   return (
     <>
-      <Nav />
+      <Nav
+        logoSrc="/brand/isologotipo-white.svg"
+        logoHoverSrc="/brand/isologotipo-color.svg" />
       <section className="py-24 pt-40">
         <ContactSection />
       </section>
       <div className="bg-black w-full max-w-[1500px] mx-auto">
-        <FooterLogo logoSrc="/miscelaneous/perro-logo-cut-white.svg"/>
+        <FooterLogo logoSrc="/miscelaneous/perro-logo-cut-white.svg" />
       </div>
     </>
   )

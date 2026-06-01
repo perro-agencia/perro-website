@@ -7,8 +7,8 @@ const teamMembers = [
   { name: "Sebastián Konig", role: "Ceo - Founder\nMarketing Director", image: "/team/profile-seba.png", bg: "bg-brand-primary-main" as const, textColor: "text-brand-white" as const },
   { name: "Federico Gilles", role: "Founder\nProduct Design Director", image: "/team/profile-fede.png", bg: "bg-brand-accent-02" as const, textColor: "text-brand-black" as const },
   { name: "Luz Saltalamachia", role: "Project Manager\n& Copywriter", image: "/team/profile-luchi.png", bg: "bg-brand-accent-01" as const, textColor: "text-brand-white" as const },
-  { name: "Sebastián Lugo", role: "Paid Media Lead", image: "/team/profile-sebaLugo.png", bg: "bg-brand-black" as const, textColor: "text-brand-white" as const },
-  { name: "Emiliano Mario Elias", role: "Multimedia Designer", image: "/team/profile-emi.png", bg: "bg-brand-accent-01" as const, textColor: "text-brand-white" as const },
+  { name: "Sebastián Lugo", role: "Paid Media Lead", image: "/team/profile-sebalugo.png", bg: "bg-brand-black" as const, textColor: "text-brand-white" as const },
+  { name: "Emiliano Mario Elias", role: "Multimedia Designer", image: "/team/profile-emielias.png", bg: "bg-brand-accent-01" as const, textColor: "text-brand-white" as const },
   { name: "Lucia Gallo", role: "Lead\nGraphic Designer", image: "/team/profile-lu.png", bg: "bg-brand-black" as const, textColor: "text-brand-white" as const },
   { name: "Sergio Ruestes", role: "Head of production", image: "/team/profile-sergio.png", bg: "bg-brand-primary-main" as const, textColor: "text-brand-white" as const },
   { name: "Bianca Olivetto", role: "Social Media Manager & CM", image: "/team/profile-bian.png", bg: "bg-brand-accent-02" as const, textColor: "text-brand-black" as const },
@@ -21,9 +21,9 @@ export function NosotrosContent() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
-        className=" max-w-[1500px] mx-auto relative min-h-screen flex flex-col justify-center overflow-hidden"
+        className="container mx-auto px-6 relative min-h-screen flex flex-col justify-center overflow-hidden"
       >
-        <div className="container mx-auto px-6 flex flex-col justify-center flex-1">
+        <div className="pb-8 md:pb-0 flex flex-col justify-center md:flex-1">
           <motion.h1
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -37,7 +37,7 @@ export function NosotrosContent() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-           className="font-display font-light container mx-auto px-6 pb-12 md:pb-16 text-base md:text-lg max-w-sm md:absolute md:bottom-[10%] md:right-10 md:text-left text-brand-black/70"
+          className="font-display font-light md:pb-16 text-base md:text-lg max-w-sm md:absolute md:bottom-[10%] md:right-10 md:text-left text-brand-black/70"
         >Especialistas en Marketing, Diseño & Desarrollo, unidos por el instinto de hacer crcecer marcas.</motion.p>
       </motion.section>
 

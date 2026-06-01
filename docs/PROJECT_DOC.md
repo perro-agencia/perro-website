@@ -2,7 +2,7 @@
 
 ## 1. Estado actual del proyecto
 
-**Última actualización:** 2026-05-25
+**Última actualización:** 2026-05-30
 
 ### Features completadas
 - Homepage sections rediseñadas completamente (Hero, Clients, Services, Strategy, Portfolio, Team, ContactSection)
@@ -17,7 +17,7 @@
 - Página de servicios (`/servicios`) con ServicesFullScreen — 4 secciones full-screen (100vh) con datos hardcodeados, títulos grandes (~250px), chips outline, descripción bottom-right en desktop
 - Página "Nosotros" (`/nosotros`) con NosotrosContent + TeamCard — hero animado, grilla de 8 miembros con stagger, sección misión. Equipo hardcodeado (sin Sanity)
 - Páginas legales: `/legal/terminos-y-condiciones` y `/legal/politicas-de-privacidad` — server components estáticos con título grande (clamp 2.5rem-6rem) y contenido en `<p>` único con `<br />`. Metadata SEO con buildMetadata.
-- Página de portfolio con grid + detalle por proyecto (`/portfolio`, `/portfolio/[slug]`)
+- Página de portfolio rediseñada (`/portfolio`, `/portfolio/[slug]`): ProjectCard con gradient, logo, hoverImage, grow effect on hover. Schema simplificado (gradientFrom, gradientTo, logo, hoverImage, order). CaseStudyBody eliminado.
 - Página de blog con listado + detalle por post (`/blog`, `/blog/[slug]`)
 - Sanity Studio embebido en `/studio`
 - Sitemap dinámico y robots.txt
@@ -35,9 +35,15 @@
 - **Refactor global**: `text-white` → `text-brand-white` en todos los componentes (Button, Nav, Footer, sections, etc.)
 - **Refactor de nomenclatura**: `text-md` → `text-base`, `font-regular` → `font-normal`, `max-w-8xl` → `max-w-7xl` — alineado con Tailwind v3
 - **Sistema page-theme revertido**: se creó y eliminó `lib/page-theme.tsx`, `lib/page-themes.ts`, `components/PageThemeSetter.tsx`. Se restauraron Nav, Footer, layout a su estado original. Decisión: Nav/Footer único en todo el sitio.
+- **Button con 4 esquemas de color** via prop `colorScheme` (`default`, `primary`, `accent`, `dark`). Cada esquema define colores de container, texto, arrow y sus hovers. Implementado con CSS variables + Tailwind arbitrary values.
+- **Nav con props custom**: `logoSrc`, `logoHoverSrc` (crossfade 300ms), `linkColor`, `linkHoverColor`, `buttonColorScheme`. Cada página renderiza su propio `<Nav />` con props independientes.
+- **Nav renderizado por página**: se removió `<Header />` del layout `(site)`. Cada una de las 10 páginas importa y renderiza `<Nav />` directamente.
+- **fontBody unificado**: ahora incluye todos los pesos 100-900 con itálicas (como fontDisplay). Ambos usan la misma familia Helvetica Neue completa.
+- **TeamCard extendido**: `BgClass` incluye `"bg-brand-black"`, el rol soporta `\n` via `whitespace-pre-line`.
+- **NosotrosContent con fondo blanco**: secciones con `bg-brand-white` y textos `text-brand-black` para contraste.
+- **Página de detalle de portfolio (`/portfolio/[slug]`) rediseñada**: header con grid de 3 imágenes (main izquierda 2x2, dos apiladas derecha), descripción rich text con PortableText + link a sitio, sidebar de metadatos (Year, Country, Industry, Service), galería con GalleryGrid con animación stagger y span de 1-2 columnas. Todas las secciones envueltas en AnimateInView.
 
 ### Features en progreso
-- TeamSection en homepage aún fetcha data de Sanity — posible migración a datos hardcodeados en el futuro
 - PortfolioGrid también pendiente de migración a datos hardcodeados
 
 ### Deuda técnica conocida
@@ -94,39 +100,64 @@ components/
 ├── AnimateInView.tsx          — Generic "use client" wrapper para animaciones scroll-triggered con framer-motion.
 │                                Props: { children, className?, as?: "section" | "div", delay?: number }
 │                                Por defecto: opacity: 0, y:30 → opacity:1, y:0 con duration 0.6, viewport once amount:0.3
-├── NosotrosContent.tsx        — "use client". Contiene todas las secciones animadas de /nosotros:
-│                                - Hero con título "Un equipo. Una manada." (clamp 2.5rem-250px)
-│                                - Team grid 4 cols con 8 miembros hardcodeados y staggerChildren 0.08
-│                                - Mission section con heading animado
-│                                Renderiza TeamCard para cada miembro
 ├── blog/
 │   ├── PostCard.tsx           — Card para listado de posts. Props: { post: Post }
 │   └── PostBody.tsx           — Renderiza Portable Text del body de un post
 ├── portfolio/
-│   ├── ProjectCard.tsx        — Card para grid de proyectos. Props: { project: Project }
-│   └── CaseStudyBody.tsx      — Renderiza Portable Text del body de un proyecto
+│   ├── ProjectCard.tsx        — "use client". Card para grid de proyectos con gradient, logo y hoverImage.
+│   │                            Props: { project: Project, className?, index? }
+│   │                            Comportamiento: gradient inline con gradientFrom/gradientTo (opacity 0 en hover),
+│   │                            logo centrado con Image fill, hoverImage con scale 100→105, animación de entrada
+│   │                            con framer-motion whileInView (stagger según index). Sin shadow. Efecto grow via
+│   │                            clases del padre (flex-[2] en hover).
+│   └── GalleryGrid.tsx        — "use client". Grid de imágenes de galería para detalle de proyecto.
+│                                Props: { images: GalleryImage[], projectTitle: string }
+│                                Comportamiento: flex-wrap layout con gap-4. Si span = 1 → w-full md:w-[calc(50%-8px)],
+│                                aspect-[4/3], md:min-h-[300px] (half width). Si span = 2 → w-full, aspect-[16/9],
+│                                md:min-h-[500px] (full width). Animación con framer-motion containerVariants
+│                                + itemVariants: staggerChildren 0.1s, hidden→visible con opacity+y.
 ├── layout/
 │   ├── Header.tsx             — Header simplificado que solo renderiza `<Nav />`
-│   ├── Nav.tsx                — Nav component completo con logo inline SVG, links desktop, CTA + hamburger animado,
-│                                menú mobile full overlay con Framer Motion AnimatePresence, y scroll behavior
-│                                (pill flotante glassmorphism). "use client"
+│   ├── Nav.tsx                — "use client". Nav component con logo via Image (logoSrc default /brand/isologotipo-white.svg),
+│                                links desktop con linkColor/linkHoverColor customizables, CTA + hamburger animado,
+│                                menú mobile full overlay con Framer Motion AnimatePresence, scroll behavior (pill flotante),
+│                                soporte logoHoverSrc para crossfade en hover.
+│                                Props: { logoSrc?, logoHoverSrc?, linkColor?, linkHoverColor?, buttonColorScheme? }
 │   ├── Footer.tsx             — Server Component. Sitemap, redes sociales, copyright, contacto. Renderiza `<FooterLogo />`
+│                                Props: { logoSrc? }
 │   └── FooterLogo.tsx         — "use client". Logo animado del Footer con framer-motion whileInView. Oculto en mobile
+│                                Props: { logoSrc? } (default: "/miscelaneous/perro-logo-cut-white.svg")
 ├── ui/
 │   ├── AmbientBlob.tsx        — [SIN USO] Glow animado que rebota con morph shape
 │   ├── BackgroundBlob.tsx     — [SIN USO] Wrapper de AmbientBlob
-│   ├── Banner.tsx             — Reusable banner (NO "use client"). Props: { title, buttonText, buttonHref: Route }
+│   ├── Banner.tsx             — Reusable banner (NO "use client"). Props: { title, buttonText, buttonHref: Route, variant?: "dark" | "white" }
 │                                Renderiza: AnimateInView as="section" > div flex > h2 + Button variant="cta"
-│                                Estilos: rounded-[32px] bg-brand-primary-main, text-6xl, flex-col md:flex-row
-│   ├── Button.tsx             — Botón CTA reutilizable (Link de Next.js), 3 variantes: cta, primary, outline.
-│                                Arrow con animación diagonal en hover. Sin props arrowClassName/arrowIconClassName
-│                                (eliminadas durante revert del page-theme system)
+│                                Estilos dinámicos según variant. Variant "white": bg-brand-white, text-brand-black, button dark
+│   ├── Button.tsx             — "use client". Botón CTA reutilizable (Link de Next.js), 3 variantes: cta, primary, outline.
+│                                Arrow con animación diagonal en hover. Variante cta acepta prop `colorScheme` con 4 esquemas:
+│                                default (blanco), primary (púrpura), accent (verde lima), dark (negro).
+│                                Colores via CSS variables + Tailwind arbitrary values.
+│                                Tabla de esquemas:
+│                                default:   bg #fff border #fff text #000 arrowBg #000 arrowText #fff
+│                                           hoverBg #000 hoverText #fff hoverArrowText #000
+│                                primary:   bg #885de3 border #885de3 text #fff arrowBg #fff arrowText #885de3
+│                                           hoverBg #6b3fc9 hoverText #fff hoverArrowText #6b3fc9
+│                                accent:    bg #c4f875 border #c4f875 text #0a0a0a arrowBg #0a0a0a arrowText #c4f875
+│                                           hoverBg #a8e05a hoverText #0a0a0a hoverArrowText #a8e05a
+│                                dark:      bg #0a0a0a border #0a0a0a text #fff arrowBg #fff arrowText #0a0a0a
+│                                           hoverBg #1a1a1a hoverText #fff hoverArrowText #1a1a1a
 │   ├── Chip.tsx               — "use client" con motion.span. Variantes primary / outline (cva).
 │                                Outline: hover accent-02 + glow shadow. Retiene text-[13px]
 │   └── TeamCard.tsx           — "use client". Card de miembro con framer-motion cardVariants.
+│                                BgClass incluye "bg-brand-black". Rol con whitespace-pre-line para \n.
 │                                Props tipadas con union types: BgClass, TextColorClass
 │                                rounded-3xl, Image fill object-cover (sin sizes)
 ├── sections/
+│   ├── NosotrosContent.tsx    — "use client". Contiene todas las secciones animadas de /nosotros:
+│   │                            - Hero con título "Un equipo. Una manada." (clamp 2.5rem-250px), bg-brand-white
+│   │                            - Team grid 4 cols con 8 miembros hardcodeados y staggerChildren 0.08
+│   │                            - Mission section con heading animado, texto brand-black sobre bg-brand-white
+│   │                            Renderiza TeamCard para cada miembro
 │   ├── HeroSection.tsx        — "use client". Hero animado: palabras con stagger, GIF de fondo,
 │                                itálicas con framer-motion delay. Sin data de Sanity.
 │                                overflow-hidden removido, overflow-x-hidden en body
@@ -145,8 +176,11 @@ components/
 │   ├── ContactSection.tsx     — "use client". Grid 2 cols. Headline con palabras animadas + chips outline.
 │                                Formulario funcional: Nombre, Compañía, Correo, Mensaje.
 │                                Inputs con bg-black, border white rounded-full. Animación scroll con stagger
-│   ├── PortfolioGrid.tsx      — Server Component. Grid de proyectos. Fetch: sanityFetch(projectsQuery)
-│   └── TeamSection.tsx        — Server Component. Grid de miembros con foto. Fetch: sanityFetch(teamMembersQuery)
+│   ├── PortfolioGrid.tsx      — Server Component. Grid de proyectos con flex-wrap (no CSS Grid) para permitir
+│                                grow effect. Fetch: sanityFetch(projectsQuery) con tags: ["project"].
+│                                Lógica de clases responsive: 1 col en mobile, 2 columnas alternadas en md,
+│                                3 columnas alternadas en lg. Cada card tiene w-[%] + grow + hover:grow que
+│                                empuja a las cards hermanas.
 └── common/
     ├── AnimatedText.tsx       — [SIN USO] Texto con animación (Framer Motion)
     └── TransitionWrapper.tsx  — [SIN USO] Wrapper de animaciones de página
@@ -168,16 +202,31 @@ Componente `"use client"` que abstrae la lógica de animación scroll-triggered 
 ### Banner (`components/ui/Banner.tsx`)
 Server Component (NO `"use client"`). Usa `AnimateInView` para la animación, manteniéndose como RSC.
 
-**Props:** `{ title: string; buttonText: string; buttonHref: Route }`
+**Props:** `{ title: string; buttonText: string; buttonHref: Route; variant?: "dark" | "white" }`
 
-**Estructura:** AnimateInView as="section" > flex container > h2 + Button variant="cta".
+| Prop | Tipo | Default | Descripción |
+|---|---|---|---|
+| title | string | — | Texto del heading |
+| buttonText | string | — | Texto del botón CTA |
+| buttonHref | Route | — | Destino del botón |
+| variant | "dark" \| "white" | "dark" | Esquema de colores del banner |
+
+**Variant styles (`variantStyles`):**
+| Variant | bg | text | button colorScheme |
+|---|---|---|---|
+| `dark` (default) | `bg-brand-black` | `text-brand-white` | `default` (blanco) |
+| `white` | `bg-brand-white` | `text-brand-black` | `dark` (negro) |
+
+**Estructura:** AnimateInView as="section" > flex container > h2 + Button variant="cta" con colorScheme según variant.
 
 ### TeamCard (`components/ui/TeamCard.tsx`)
 Componente `"use client"` con props tipadas mediante union types.
 
 ```
-type BgClass = "bg-brand-primary-main" | "bg-brand-accent-01" | "bg-brand-accent-02" | "bg-brand-white"
+type BgClass = "bg-brand-primary-main" | "bg-brand-accent-01" | "bg-brand-accent-02" | "bg-brand-white" | "bg-brand-black"
 type TextColorClass = "text-brand-white" | "text-brand-black"
+
+**Rol:** el `<p>` del rol usa `whitespace-pre-line` para renderizar saltos de línea con `\n`.
 ```
 
 **Comportamiento:** motion.div con cardVariants (hidden → visible), Image fill object-cover, contenedor `aspect-[4/5]`.
@@ -210,21 +259,30 @@ type ServiceDescColor = "text-brand-white" | "text-brand-white/80" | "text-brand
 | title | string | Requerido |
 | slug | slug | source: title, requerido |
 | client | string | Nombre del cliente |
-| services | array of reference → service | Servicios relacionados |
-| coverImage | image | Con hotspot |
-| images | array of image | Galería, con hotspot |
-| summary | text | Resumen breve |
-| body | blockContent | Contenido rich text |
-| year | number | Año del proyecto |
-| featured | boolean | Para destacar (default: false) |
-| tags | array of string | Tags |
+| logo | image | Logo del cliente para la card |
+| gradientFrom | string | Color inicial del gradient (ej: #885de3) |
+| gradientTo | string | Color final del gradient (ej: #0a0a0a) |
+| order | number | Orden de aparición en la grilla |
+| hoverImage | image | Imagen que aparece al hacer hover sobre la card |
+| headerImage1 | image | Imagen principal del header (grid izquierda, ocupa 2x2) |
+| headerImage2 | image | Segunda imagen del header (columna derecha, arriba) |
+| headerImage3 | image | Tercera imagen del header (columna derecha, abajo) |
+| description | blockContent | Descripción del proyecto (rich text) |
+| year | string | Año del proyecto (ej: 2025) |
+| country | string | País |
+| industry | string | Industria |
+| service | string | Servicio |
+| link | url | URL del proyecto |
+| gallery | array of image | Imágenes adicionales para la grilla del detalle. Cada imagen incluye campos: `span` (number, 1-2, cuántas columnas ocupa) y `alt` (string) |
+
+**Preview:** `select: { title: "title", subtitle: "client", media: "logo" }`
 
 ### Post (`sanity/schemas/post.ts`)
 | Campo | Tipo | Descripción |
 |---|---|---|
 | title | string | Requerido |
 | slug | slug | source: title, requerido |
-| author | reference → teamMember | Autor del post |
+| author | string | Autor del post (texto plano) |
 | publishedAt | datetime | Fecha de publicación |
 | coverImage | image | Con hotspot |
 | excerpt | text | Extracto/resumen |
@@ -232,23 +290,6 @@ type ServiceDescColor = "text-brand-white" | "text-brand-white/80" | "text-brand
 | tags | array of string | Tags |
 | seoTitle | string | Título para SEO |
 | seoDescription | text | Descripción para SEO |
-
-### Team Member (`sanity/schemas/teamMember.ts`)
-| Campo | Tipo | Descripción |
-|---|---|---|
-| name | string | Requerido |
-| role | string | Cargo |
-| photo | image | Con hotspot |
-| bio | text | Biografía |
-| order | number | Orden de aparición (default: 0) |
-
-### Service (`sanity/schemas/service.ts`)
-| Campo | Tipo | Descripción |
-|---|---|---|
-| title | string | Requerido |
-| description | text | Descripción del servicio |
-| icon | string | Nombre del ícono Lucide |
-| order | number | Orden de aparición (default: 0) |
 
 ### Block Content (`sanity/schemas/blockContent.ts`)
 Tipo de bloque rich text con soporte para:
@@ -258,19 +299,14 @@ Tipo de bloque rich text con soporte para:
 - Imágenes embebidas (con hotspot)
 - Code blocks (plugin `@sanity/code-input`)
 
-⚠️ **Nota:** La query `settingsQuery` está definida en `sanity/lib/queries.ts` pero **no existe un schema `settings`** en `sanity/schemas/index.ts`. La query devolverá `undefined` a menos que se cree el schema y el documento correspondiente.
-
 ### Queries GROQ existentes (`sanity/lib/queries.ts`)
 
 | Query | GROQ | Uso |
 |---|---|---|
-| projectsQuery | `*[_type == "project"] \| order(year desc)` | Portfolio grid |
-| projectBySlugQuery | `*[_type == "project" && slug.current == $slug][0]` con services expandidos | Detalle de proyecto |
-| postsQuery | `*[_type == "post"] \| order(publishedAt desc)` con author expandido | Blog list |
-| postBySlugQuery | `*[_type == "post" && slug.current == $slug][0]` | Detalle de post |
-| teamMembersQuery | `*[_type == "teamMember"] \| order(order asc)` | Team grid (solo homepage) |
-| servicesQuery | `*[_type == "service"] \| order(order asc)` | ⚠️ **HUÉRFANA — ningún componente la importa** |
-| settingsQuery | `*[_type == "settings"][0]` | ⚠️ **no existe schema settings** |
+| projectsQuery | `*[_type == "project"] \| order(order asc, title asc)` — solo campos: _id, title, slug, client, logo, gradientFrom, gradientTo, order, hoverImage | Portfolio grid |
+| projectBySlugQuery | `*[_type == "project" && slug.current == $slug][0]` — incluye todos los campos de projectsQuery + headerImage1-3, description, year, country, industry, service, link, y gallery[] con alt resuelto via `asset->alt_text` | Detalle de proyecto |
+| postsQuery | `*[_type == "post"] \| order(publishedAt desc)` — campos: _id, title, slug, author, publishedAt, coverImage, excerpt, tags | Blog list |
+| postBySlugQuery | `*[_type == "post" && slug.current == $slug][0]` — mismos campos + body, seoTitle, seoDescription | Detalle de post |
 
 ---
 
@@ -297,11 +333,11 @@ Tipo de bloque rich text con soporte para:
 
 | Ruta | Tipo | Data | Archivo |
 |---|---|---|---|
-| `/` | Estática | Hero → Clients → Services → Strategy → PortfolioGrid → TeamSection | `app/(site)/page.tsx` |
+| `/` | Estática | Hero → Clients → Services → Strategy → ContactSection | `app/(site)/page.tsx` |
 | `/servicios` | Estática | ServicesFullScreen con 4 servicios hardcodeados. Sin Sanity. | `app/(site)/servicios/page.tsx` |
 | `/nosotros` | Estática | NosotrosContent (hero, team grid, mission) + Banner. Equipo hardcodeado. | `app/(site)/nosotros/page.tsx` |
-| `/portfolio` | Estática | Fetch projects | `app/(site)/portfolio/page.tsx` |
-| `/portfolio/[slug]` | Dinámica | Fetch project by slug | `app/(site)/portfolio/[slug]/page.tsx` |
+| `/portfolio` | Estática | PortfolioHeader + PortfolioGrid (fetch projects con tags: ["project"]) | `app/(site)/portfolio/page.tsx` |
+| `/portfolio/[slug]` | Dinámica | Fetch project by slug con tags: ["project"]. Diseño completo: header con grid de 3 imágenes (main 2x2 izq + 2 apiladas der), título display-xl, descripción rich text con PortableText + link a sitio web, sidebar de metadata (Year, Country, Industry, Service), galería GalleryGrid con animación stagger (imágenes con span 1 o 2). Banner importado. Secciones envueltas en AnimateInView. | `app/(site)/portfolio/[slug]/page.tsx` |
 | `/blog` | Estática | Fetch posts | `app/(site)/blog/page.tsx` |
 | `/blog/[slug]` | Dinámica | Fetch post by slug | `app/(site)/blog/[slug]/page.tsx` |
 | `/contacto` | Estática | Formulario con Resend + rate limiting | `app/(site)/contacto/page.tsx` |
@@ -309,7 +345,7 @@ Tipo de bloque rich text con soporte para:
 | `/legal/politicas-de-privacidad` | Estática | Server component, misma estructura. Sin "use client", sin fetch. | `app/(site)/legal/politicas-de-privacidad/page.tsx` |
 | `/studio` | Estática | Sanity Studio embebido | `app/studio/[[...tool]]/page.tsx` |
 
-Todas las rutas bajo `(site)` comparten layout con Header + Footer.
+Cada página renderiza su propio `<Nav />` directamente (no hay Header en el layout). `Footer` se mantiene en el layout compartido.
 Fetch calls usan `sanityFetch()` con revalidate: 60 y tags para ISR on-demand.
 
 ---
@@ -333,7 +369,7 @@ brand: {
 | Token | Font | Pesos | Uso |
 |---|---|---|---|
 | `font-display` | Helvetica Neue (local) | 100, 200, 300, 400, 500, 700, 800, 900 + itálicas | Headings display |
-| `font-body` | Helvetica Neue (local) | 400, 500, 700 + itálicas | Texto corriente |
+| `font-body` | Helvetica Neue (local) | 100-900 + itálicas (unificado con fontDisplay) | Texto corriente |
 | `font-mono` | var(--font-mono) | — | Código |
 
 ### Tamaños de texto display
@@ -368,18 +404,20 @@ brand: {
 - [x] **brand-white actualizado**: de `#f5f5f0` a `#ffffff`. `text-white` reemplazado por `text-brand-white` globalmente.
 - [x] **Nomenclatura Tailwind**: `text-md` → `text-base`, `font-regular` → `font-normal`, `max-w-8xl` → `max-w-7xl`.
 - [x] **Páginas legales**: contenido en un solo `<p>` con `<br />`. Sin "use client".
+- [x] **Nav renderizado por página**: se removió `<Header />` del layout. Cada página importa su propio `<Nav />` con props independientes.
+- [x] **Button color schemes**: 4 esquemas via prop `colorScheme` con CSS variables.
 - [ ] **Blog comments**: ¿se habilita? ¿con qué servicio?
 - [ ] **SEO**: definir estrategia de metadata dinámica (más allá del title/description básico)
 - [ ] **Performance**: evaluar si conviene SSG + ISR o mantener SSR con revalidate
 - [ ] **Analytics**: Vercel Analytics configurado pero sin verificar si se usa
-- [ ] **`servicesQuery` huérfana**: ningún componente la importa. Decidir si se elimina o se mantiene.
-- [ ] **Schema `settings` faltante**: query existe pero no schema.
+- [x] **`servicesQuery` huérfana**: eliminada junto con los schemas `teamMember` y `service`.
+- [x] **Schema `settings` faltante**: eliminado — la query `settingsQuery` también fue eliminada.
 - [ ] **reCAPTCHA key sin uso**: en `.env` pero sin código que la referencie.
 - [ ] **Componentes sin uso**: `AnimatedText` y `TransitionWrapper` no se importan en ninguna página.
 - [ ] **`.env.example` desactualizado**: lista `REVALIDATION_SECRET` en vez de `SANITY_REVALIDATE_SECRET`.
 - [ ] **Rate limiting en memoria**: no persiste entre reinicios y no escala horizontalmente.
 - [ ] **TeamCard sin `sizes`**: imágenes con `fill` sin `sizes` — evaluar optimización.
-- [ ] **Sanity features sin uso**: `/servicios` y `/nosotros` ya no consumen Sanity. Evaluar migración completa a hardcode.
+- [x] **Sanity features sin uso**: servicios y team migrados a hardcodeado. Schemas `teamMember` y `service` eliminados de Sanity.
 
 ---
 
@@ -418,3 +456,14 @@ brand: {
 | **2026-05-25** | **Per-page theme system creado y revertido — Nav/Footer único en todo el sitio** |
 | **2026-05-25** | **Refactor global: `text-md`→`text-base`, `font-regular`→`font-normal`, `max-w-8xl`→`max-w-7xl`** |
 | **2026-05-25** | **Union types en TeamCardProps y ServiceConfig** |
+| **2026-05-25** | **Button con 4 esquemas de color (`default`, `primary`, `accent`, `dark`) via prop `colorScheme` + CSS variables** |
+| **2026-05-25** | **Nav con props custom: `logoSrc`, `logoHoverSrc`, `linkColor`, `linkHoverColor`, `buttonColorScheme`** |
+| **2026-05-25** | **Nav renderizado directamente en cada página (Header removido del layout)** |
+| **2026-05-25** | **fontBody unificado con todos los pesos 100-900 (igual que fontDisplay)** |
+| **2026-05-25** | **TeamCard: BgClass extendido con `bg-brand-black`, rol con `whitespace-pre-line`** |
+| **2026-05-25** | **FooterLogo y Footer con nueva prop `logoSrc`** |
+| **2026-05-28** | **Portfolio rediseñado: schema project.ts simplificado (logo, gradientFrom/To, hoverImage, order); ProjectCard reescrito "use client" con gradient, logo centrado, hoverImage; PortfolioGrid migrado de grid a flex-wrap con grow effect; CaseStudyBody eliminado; [slug] simplificado (solo título + cliente). Queries simplificadas y ordenadas por order asc, title asc.** |
+| **2026-05-28** | **Schemas `teamMember` y `service` eliminados de Sanity. `TeamSection.tsx` eliminado (homepage sin team grid). Equipo migrado a hardcode dentro de `NosotrosContent.tsx` con fotos locales `/team/`. Queries `teamMembersQuery`, `servicesQuery`, `settingsQuery` eliminadas. `Post.author` cambiado de reference a `string`. Interfaces `TeamMember` y `Service` eliminadas de types. Nota de `settingsQuery` eliminada de doc.** |
+| **2026-05-30** | **Schema Project extendido**: 10 nuevos campos agregados — headerImage1-3 (image), description (blockContent), year, country, industry, service (string), link (url), gallery (array de image con campos span: 1-2 y alt). Types actualizados: nueva interfaz `GalleryImage`, Project extendido con todos los campos. `projectBySlugQuery` expandido con los nuevos campos + gallery alt resuelto. |
+| **2026-05-30** | **Portfolio [slug] rediseñado**: página de detalle con grid de 3 imágenes en header (main 2x2 izq + 2 stack der), PortableText + link a sitio, sidebar de metadatos (Year, Country, Industry, Service), GalleryGrid con stagger animation y span 1/2. Todas las secciones envueltas en AnimateInView. Nuevo componente `GalleryGrid.tsx` (client component con framer-motion stagger, span-based sizing). |
+| **2026-05-30** | **Banner extendido**: nueva prop `variant` (`"dark"` | `"white"`) con estilos dinámicos. `variantStyles` mapea cada variante a bg, text y button colorScheme. `dark` (default): bg-brand-black, text-brand-white, button default. `white`: bg-brand-white, text-brand-black, button dark. |

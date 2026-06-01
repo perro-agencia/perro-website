@@ -1,16 +1,15 @@
 import { defineQuery } from "next-sanity"
 
-export const projectsQuery = defineQuery(`*[_type == "project"] | order(year desc) {
+export const projectsQuery = defineQuery(`*[_type == "project"] | order(order asc, title asc) {
   _id,
   title,
   slug,
   client,
-  services,
-  coverImage,
-  summary,
-  year,
-  featured,
-  tags
+  logo,
+  gradientFrom,
+  gradientTo,
+  order,
+  hoverImage
 }`)
 
 export const projectBySlugQuery = defineQuery(`*[_type == "project" && slug.current == $slug][0] {
@@ -18,21 +17,31 @@ export const projectBySlugQuery = defineQuery(`*[_type == "project" && slug.curr
   title,
   slug,
   client,
-  services[]->,
-  coverImage,
-  images[],
-  summary,
-  body,
+  logo,
+  gradientFrom,
+  gradientTo,
+  order,
+  hoverImage,
+  headerImage1,
+  headerImage2,
+  headerImage3,
+  description,
   year,
-  featured,
-  tags
+  country,
+  industry,
+  service,
+  link,
+  gallery[] {
+    ...,
+    "alt": asset->alt_text
+  }
 }`)
 
 export const postsQuery = defineQuery(`*[_type == "post"] | order(publishedAt desc) {
   _id,
   title,
   slug,
-  author->,
+  author,
   publishedAt,
   coverImage,
   excerpt,
@@ -43,7 +52,7 @@ export const postBySlugQuery = defineQuery(`*[_type == "post" && slug.current ==
   _id,
   title,
   slug,
-  author->,
+  author,
   publishedAt,
   coverImage,
   excerpt,
@@ -51,23 +60,4 @@ export const postBySlugQuery = defineQuery(`*[_type == "post" && slug.current ==
   tags,
   seoTitle,
   seoDescription
-}`)
-
-export const teamMembersQuery = defineQuery(`*[_type == "teamMember"] | order(order asc) {
-  _id,
-  name,
-  role,
-  photo,
-  bio
-}`)
-
-export const servicesQuery = defineQuery(`*[_type == "service"] | order(order asc) {
-  _id,
-  title,
-  description,
-  icon
-}`)
-
-export const settingsQuery = defineQuery(`*[_type == "settings"][0] {
-  ...
 }`)

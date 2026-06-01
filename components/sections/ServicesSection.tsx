@@ -1,60 +1,73 @@
 "use client"
 
 import { motion } from "framer-motion"
-import Image from "next/image"
-
-const brandColors: Record<string, string> = {
-  "bg-brand-primary-main": "#885de3",
-  "bg-brand-accent-01": "#de4a27",
-  "bg-brand-accent-02": "#c4f875",
-  "bg-brand-white": "#f5f5f0",
-}
-
-type Service = {
-  title: string
-  image: string
-  description: string
-  bg: string
-  textColor: string
-  shadowColor: string
-}
+import { ServiceCard, type Service } from "@/components/ui/ServiceCard"
 
 const services: Service[] = [
   {
     title: "Paid Media & SEO",
-    image: "/services/service-PaidMedia.png",
+    image: "/services/paid-media/phone.png",
     description:
       "Visibilidad digital: creamos campañas estratégicas que maximizan la presencia y performance de tus anuncios.",
     bg: "bg-brand-primary-main",
     textColor: "text-brand-white",
-    shadowColor: brandColors["bg-brand-primary-main"],
+    shadowColor: "#885de3",
+    gradientFrom: "#885de3",
+    gradientTo: "#6b3fc9",
+    floatingIcons: [
+      "/services/paid-media/icon-01.png",
+      "/services/paid-media/icon-02.png",
+      "/services/paid-media/icon-03.png",
+      "/services/paid-media/icon-04.png",
+    ],
   },
   {
     title: "Producto",
-    image: "/services/service-product.png",
+    image: "/services/product/phone.png",
     description:
-      "Estrategia & usabilidad: diseñamos y construimos productos que combinan visión de negocio, diseño centrado en el usuario y desarrollo sólido.",
+      "Estrategia & usabilidad: diseñamos y construimos productos que combinan visión de negocio, diseño y desarrollo.",
     bg: "bg-brand-white",
     textColor: "text-brand-black",
-    shadowColor: brandColors["bg-brand-accent-01"],
+    shadowColor: "#ffffff",
+    gradientFrom: "#ffffff",
+    gradientTo: "#c5c5c5ff",
+    floatingIcons: [
+      "/services/product/icon-01.png",
+      "/services/product/icon-02.png",
+      "/services/product/icon-03.png",
+    ],
   },
   {
     title: "Design",
-    image: "/services/service-design.png",
+    image: "/services/design/phone.png",
     description:
       "No hacemos logos, creamos marcas únicas. Le damos identidad a tu negocio y su propia historia.",
     bg: "bg-brand-accent-02",
     textColor: "text-brand-black",
-    shadowColor: brandColors["bg-brand-accent-02"],
+    shadowColor: "#c4f875",
+    gradientFrom: "#c4f875",
+    gradientTo: "#73983fff",
+    floatingIcons: [
+      "/services/design/icon-01.png",
+      "/services/design/icon-02.png",
+      "/services/design/icon-03.png",
+    ],
   },
   {
     title: "Social Content",
-    image: "/services/service-social.png",
+    image: "/services/social-content/phone.png",
     description:
       "Transformamos tu estrategia en contenido relevante y coherente, capaz de atraer resultados, fidelizar y generar interacción con tu comunidad digital.",
     bg: "bg-brand-accent-01",
     textColor: "text-brand-white",
-    shadowColor: brandColors["bg-brand-white"],
+    shadowColor: "#de4a27",
+    gradientFrom: "#de4a27",
+    gradientTo: "#732513ff",
+    floatingIcons: [
+      "/services/social-content/icon-01.png",
+      "/services/social-content/icon-02.png",
+      "/services/social-content/icon-03.png",
+    ],
   },
 ]
 
@@ -67,13 +80,13 @@ const containerVariants = {
   },
 }
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: "easeOut" as const },
-  },
+const getServiceGridClasses = (index: number) => {
+  const mobile = "w-full flex-none"
+  const isBig = index === 0 || index === 3
+  const mdClasses = isBig
+    ? "md:w-[calc(54%-0.75rem)] md:grow-[1.4] md:hover:grow-[3]"
+    : "md:w-[calc(38%-0.75rem)] md:grow-[0.8] md:hover:grow-[2.0]"
+  return `${mobile} ${mdClasses} md:transition-all md:duration-700 md:ease-in-out`
 }
 
 export function ServicesSection() {
@@ -105,35 +118,10 @@ export function ServicesSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
-          className="grid gap-8 md:grid-cols-2 max-w-[1200px] mx-auto"
+          className="flex flex-wrap gap-6 gap-y-8 max-w-[1100px] mx-auto justify-center"
         >
-          {services.map((service) => (
-            <motion.div
-              key={service.title}
-              variants={cardVariants}
-              className={`text-left flex flex-col rounded-3xl transition-shadow duration-300 min-h-[450px] md:min-h-[550px] ${service.bg}`}
-              style={{ boxShadow: `0 0 0 0 ${service.shadowColor}33` }}
-              whileHover={{ boxShadow: `0 0 48px -8px ${service.shadowColor}` }}
-              transition={{ duration: 0 }}
-            >
-              <div className="p-8 md:p-10">
-                <h3 className={`text-3xl font-medium font-display mb-2 ${service.textColor}`}>
-                  {service.title}
-                </h3>
-                <p className={`text-lg font-light ${service.textColor}`}>
-                  {service.description}
-                </p>
-              </div>
-              <div className="relative flex-1 min-h-0 overflow-hidden">
-                <Image
-                  src={service.image}
-                  alt={service.title}
-                  width={600}
-                  height={400}
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-              </div>
-            </motion.div>
+          {services.map((service, index) => (
+            <ServiceCard key={service.title} service={service} className={getServiceGridClasses(index)} index={index} />
           ))}
         </motion.div>
       </div>
