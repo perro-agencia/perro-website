@@ -13,6 +13,20 @@ export const post = defineType({
     defineField({ name: "excerpt", title: "Excerpt", type: "text" }),
     defineField({ name: "body", title: "Body", type: "blockContent" }),
     defineField({ name: "tags", title: "Tags", type: "array", of: [{ type: "string" }] }),
+    defineField({
+      name: "relevance",
+      title: "Relevance",
+      type: "number",
+      description: "Determina el tamaño de la card en la grilla: 1 = chica, 2 = mediana, 3 = grande (ancho completo)",
+      initialValue: 1,
+      options: {
+        list: [
+          { title: "1 columna", value: 1 },
+          { title: "2 columnas", value: 2 },
+          { title: "3 columnas (destacado)", value: 3 },
+        ],
+      },
+    }),
     defineField({ name: "seoTitle", title: "SEO Title", type: "string" }),
     defineField({ name: "seoDescription", title: "SEO Description", type: "text" }),
   ],

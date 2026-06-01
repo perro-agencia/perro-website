@@ -37,6 +37,7 @@ export interface Post {
   excerpt?: string
   body?: PortableTextBlock[]
   tags?: string[]
+  relevance?: number
   seoTitle?: string
   seoDescription?: string
 }

@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { cn } from "@/lib/utils"
 import { Chip } from "@/components/ui/Chip"
 
 type ServiceBg = "bg-brand-primary-main" | "bg-brand-accent-01" | "bg-brand-accent-02" | "bg-brand-white" | "bg-black"
@@ -14,7 +15,7 @@ interface ServiceConfig {
   textColor: ServiceTextColor
   descColor: ServiceDescColor
   chips: string[]
-  chipClass?: string
+  chipVariant?: "outline" | "outline-dark"
 }
 
 const services: ServiceConfig[] = [
@@ -26,8 +27,7 @@ const services: ServiceConfig[] = [
     textColor: "text-brand-black",
     descColor: "text-brand-black",
     chips: ["branding", "identidad", "animación", "key visual", "videos", "presentaciones", "manual de marca"],
-    chipClass:
-      "border-black text-black hover:border-brand-primary-main hover:text-brand-primary-main",
+    chipVariant: "outline-dark",
   },
   {
     title: "Paid Media",
@@ -64,8 +64,7 @@ const services: ServiceConfig[] = [
     textColor: "text-brand-black",
     descColor: "text-brand-black",
     chips: ["desarrollo web", "prototipo", "esquema", "ux","ui","desarrollo producto","apps","cm's","negocio"],
-    chipClass:
-      "border-black text-black hover:border-brand-primary-main hover:text-brand-primary-main",
+    chipVariant: "outline-dark",
   },
 ]
 
@@ -84,7 +83,7 @@ export function ServicesFullScreen() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className={`relative min-h-screen flex flex-col justify-center overflow-hidden ${service.bg}`}
+          className={cn("relative min-h-screen flex flex-col justify-center overflow-hidden", service.bg)}
         >
           <div className="container relative mx-auto px-6 py-24 flex flex-col justify-center flex-1">
             <motion.h3
@@ -92,7 +91,7 @@ export function ServicesFullScreen() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, ease: "easeOut" }}
-              className={`font-display font-normal leading-[0.85] -tracking-[0.04em] whitespace-pre-line text-[clamp(5rem,13vw,250px)] ${service.textColor}`}
+              className={cn("font-display font-normal leading-[0.85] -tracking-[0.04em] whitespace-pre-line text-[clamp(5rem,13vw,250px)]", service.textColor)}
             >
               {service.title}
             </motion.h3>
@@ -105,7 +104,7 @@ export function ServicesFullScreen() {
               className="flex flex-wrap gap-3 mt-8 md:mt-12 max-w-lg"
             >
               {service.chips.map((chip) => (
-                <Chip key={chip} variant="outline" className={service.chipClass}>
+                <Chip key={chip} variant={service.chipVariant || "outline"}>
                   {chip}
                 </Chip>
               ))}
@@ -116,7 +115,7 @@ export function ServicesFullScreen() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className={`pt-6 text-xl md:text-xl font-display font-thin max-w-lg md:absolute md:bottom-[10%] md:right-0 md:text-right ${service.descColor}`}
+              className={cn("pt-6 text-xl md:text-xl font-display font-thin max-w-lg md:absolute md:bottom-[10%] md:right-0 md:text-right", service.descColor)}
             >
               {service.description}
             </motion.p>

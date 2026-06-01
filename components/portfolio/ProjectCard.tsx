@@ -2,7 +2,9 @@
 
 import Link from "next/link"
 import Image from "next/image"
+import { ArrowUpRight } from "lucide-react"
 import { urlFor } from "@/sanity/lib/image"
+import { cn } from "@/lib/utils"
 import type { Project } from "@/types/sanity"
 import { motion } from "framer-motion"
 
@@ -19,7 +21,7 @@ export function ProjectCard({ project, className, index }: Props) {
   const hoverSrc = project.hoverImage ? urlFor(project.hoverImage).width(800).url() : null
 
   return (
-    <div className={`group transition-all duration-700 ease-in-out ${className || ""}`}>
+    <div className={cn("group transition-all duration-700 ease-in-out", className)}>
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -56,6 +58,12 @@ export function ProjectCard({ project, className, index }: Props) {
                   className="object-contain w-full max-w-[150px] mx-auto"
                 />
               )}
+            </div>
+
+            <div aria-hidden="true" className="absolute bottom-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
+              <div className="w-10 h-10 rounded-full bg-brand-white text-brand-black flex items-center justify-center">
+                <ArrowUpRight className="w-5 h-5" />
+              </div>
             </div>
           </div>
         </Link>

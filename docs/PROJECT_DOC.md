@@ -2,7 +2,7 @@
 
 ## 1. Estado actual del proyecto
 
-**Última actualización:** 2026-05-30
+**Última actualización:** 2026-06-01
 
 ### Features completadas
 - Homepage sections rediseñadas completamente (Hero, Clients, Services, Strategy, Portfolio, Team, ContactSection)
@@ -42,6 +42,11 @@
 - **TeamCard extendido**: `BgClass` incluye `"bg-brand-black"`, el rol soporta `\n` via `whitespace-pre-line`.
 - **NosotrosContent con fondo blanco**: secciones con `bg-brand-white` y textos `text-brand-black` para contraste.
 - **Página de detalle de portfolio (`/portfolio/[slug]`) rediseñada**: header con grid de 3 imágenes (main izquierda 2x2, dos apiladas derecha), descripción rich text con PortableText + link a sitio, sidebar de metadatos (Year, Country, Industry, Service), galería con GalleryGrid con animación stagger y span de 1-2 columnas. Todas las secciones envueltas en AnimateInView.
+- **Blog rediseñado**: BlogHeader (hero animado con título "Blog." y subtítulo), BlogGrid (Server Component que fetchea posts con `tags: ["post"]` y renderiza grilla 3 columnas con col-span según relevance), BlogCard (3 variantes según relevance: 1=chica fondo sólido, 2=mediana 60/40 color+imagen, 3=grande destacada con imagen full-bleed + overlay gradient).
+- **Chip variant "outline-dark"**: nueva variante con bordes/texto brand-black, hover brand-primary-main (púrpura). Glow color dinámico según variant (#885de3 para outline-dark, #c4f875 para outline).
+- **ProjectCard con ArrowUpRight**: ícono ArrowUpRight en círculo con fondo blanco/texto negro, aparece en hover (opacity 0→1) en bottom-right de la card. Mismo patrón que BlogCard.
+- **ServicesFullScreen: chipClass → chipVariant**: refactor de API, ahora recibe `chipVariant?: "outline" | "outline-dark"` en ServiceConfig. Chips de "Diseño" y "Producto" usan "outline-dark".
+- **Schema Post: campo relevance**: nuevo campo `relevance` (number, initialValue 1) con opciones 1 (1 columna), 2 (2 columnas), 3 (3 columnas destacado). Incluido en `postsQuery` y en la interfaz `Post`.
 
 ### Features en progreso
 - PortfolioGrid también pendiente de migración a datos hardcodeados
@@ -52,6 +57,7 @@
 - TeamCard usa `fill` sin prop `sizes` — puede generar imágenes más grandes de lo necesario
 - No hay loading states / skeletons para las páginas que fetchan datos
 - Rate limiting en memoria (no persiste entre reinicios del servidor/serverless)
+- `PostCard` (`components/blog/PostCard.tsx`) sin uso — reemplazado por `BlogCard` en el rediseño del blog. Mantener por si se necesita en otra vista.
 
 ---
 
@@ -101,15 +107,32 @@ components/
 │                                Props: { children, className?, as?: "section" | "div", delay?: number }
 │                                Por defecto: opacity: 0, y:30 → opacity:1, y:0 con duration 0.6, viewport once amount:0.3
 ├── blog/
-│   ├── PostCard.tsx           — Card para listado de posts. Props: { post: Post }
-│   └── PostBody.tsx           — Renderiza Portable Text del body de un post
+│   ├── PostCard.tsx           — [SIN USO] Card vieja para listado de posts. Reemplazada por BlogCard.
+│   ├── PostBody.tsx           — Renderiza Portable Text del body de un post
+│   ├── BlogCard.tsx           — "use client". Card de blog con 3 variantes según `relevance`.
+│   │                            Props: { post: Post, index: number }
+│   │                            relevance=1: fondo sólido del brandColorPairs rotado, título + excerpt + tags
+│   │                            relevance=2: split 60/40 — 60% color de fondo con texto, 40% coverImage.
+│   │                                         Muestra tags siempre (showTags true si relevance >= 2).
+│   │                            relevance=3: imagen full-bleed con gradient overlay (black/80→black/20),
+│   │                                         título brand-white, excerpt brand-white/70, tags con Chip outline.
+│   │                            Altura dinámica según relevance: 3→min-h-[420px] md:min-h-[500px],
+│   │                            2→min-h-[320px] md:min-h-[380px], 1→min-h-[280px] md:min-h-[340px].
+│   │                            ArrowUpRight en círculo (bg-brand-white/text-brand-black) visible en hover.
+│   │                            Tags: relevance 3 usa Chip variant "outline", relevance 2 usa "outline-dark".
+│   └── BlogGrid.tsx           — Server Component. Fetch posts con sanityFetch(postsQuery) tags:["post"].
+│                                Renderiza grid grid-cols-1 md:grid-cols-3 gap-6.
+│                                Col-span según relevance: 3→md:col-span-3, 2→md:col-span-2, 1→md:col-span-1.
+│                                Renderiza BlogCard para cada post. Si posts.length === 0 → return null.
 ├── portfolio/
-│   ├── ProjectCard.tsx        — "use client". Card para grid de proyectos con gradient, logo y hoverImage.
+│   ├── ProjectCard.tsx        — "use client". Card para grid de proyectos con gradient, logo, hoverImage y ArrowUpRight.
 │   │                            Props: { project: Project, className?, index? }
 │   │                            Comportamiento: gradient inline con gradientFrom/gradientTo (opacity 0 en hover),
 │   │                            logo centrado con Image fill, hoverImage con scale 100→105, animación de entrada
 │   │                            con framer-motion whileInView (stagger según index). Sin shadow. Efecto grow via
 │   │                            clases del padre (flex-[2] en hover).
+│   │                            ArrowUpRight: círculo bg-brand-white text-brand-black en bottom-right, opacity 0→100
+│   │                            en hover del grupo. Misma implementación que BlogCard.
 │   └── GalleryGrid.tsx        — "use client". Grid de imágenes de galería para detalle de proyecto.
 │                                Props: { images: GalleryImage[], projectTitle: string }
 │                                Comportamiento: flex-wrap layout con gap-4. Si span = 1 → w-full md:w-[calc(50%-8px)],
@@ -146,8 +169,12 @@ components/
 │                                           hoverBg #a8e05a hoverText #0a0a0a hoverArrowText #a8e05a
 │                                dark:      bg #0a0a0a border #0a0a0a text #fff arrowBg #fff arrowText #0a0a0a
 │                                           hoverBg #1a1a1a hoverText #fff hoverArrowText #1a1a1a
-│   ├── Chip.tsx               — "use client" con motion.span. Variantes primary / outline (cva).
-│                                Outline: hover accent-02 + glow shadow. Retiene text-[13px]
+│   ├── Chip.tsx               — "use client" con motion.span. Variantes primary / outline / outline-dark (cva).
+│                                Variantes:
+│                                - primary: bg-brand-primary-main text-black, py-1 px-8 md:py-3 md:px-24
+│                                - outline: border-white text-brand-white, hover accent-02 (texto/borde) + glow shadow
+│                                - outline-dark: border-brand-black text-brand-black, hover brand-primary-main (texto/borde) + glow shadow
+│                                Glow color dinámico: outline-dark → #885de3, otro → #c4f875. text-[13px] md:text-base
 │   └── TeamCard.tsx           — "use client". Card de miembro con framer-motion cardVariants.
 │                                BgClass incluye "bg-brand-black". Rol con whitespace-pre-line para \n.
 │                                Props tipadas con union types: BgClass, TextColorClass
@@ -166,11 +193,17 @@ components/
 │                                Hover: border-radius animado, scale, shadow blanco
 │   ├── ServicesSection.tsx    — "use client". Grid de 4 servicios hardcodeados con colores brand,
 │                                box-shadow hover con framer-motion
-│   ├── ServicesFullScreen.tsx — "use client". 4 secciones full-screen (100vh) para /servicios.
-│                                ServiceConfig tipado con union types ServiceBg/ServiceTextColor/ServiceDescColor
-│                                Títulos: motion.h3, clamp(5rem,12vw,250px), font-display font-normal
-│                                Chips: outline con Chip component, personalizables por servicio
+│   ├── ServicesFullScreen.tsx — "use client". 5 secciones full-screen (100vh) para /servicios.
+│                                ServiceConfig tipado: union types ServiceBg/ServiceTextColor/ServiceDescColor +
+│                                `chipVariant?: "outline" | "outline-dark"` (reemplaza anterior chipClass).
+│                                Títulos: motion.h3, clamp(5rem,13vw,250px), font-display font-normal
+│                                Chips: outline con Chip component, chipVariant personalizable por servicio.
+│                                "Diseño" y "Producto" usan "outline-dark" (fondo blanco); el resto usa "outline".
 │                                Descripción: bottom-right en desktop
+│   ├── BlogHeader.tsx         — "use client". Hero animado para /blog. Sin props.
+│                                Título "Blog." con clamp(2.5rem,12vw,250px), font-display font-light.
+│                                Subtítulo: "Contenido editorial sobre branding..." en brand-white/70.
+│                                Min-h: 60vh md:min-h-screen. Subtítulo absolute bottom-right en desktop.
 │   ├── StrategySection.tsx    — "use client". Imagen de equipo + título grande + chips flotantes con parallax
 │                                (useScroll + useTransform). Velocidad configurable por chip.
 │   ├── ContactSection.tsx     — "use client". Grid 2 cols. Headline con palabras animadas + chips outline.
@@ -288,6 +321,7 @@ type ServiceDescColor = "text-brand-white" | "text-brand-white/80" | "text-brand
 | excerpt | text | Extracto/resumen |
 | body | blockContent | Contenido rich text |
 | tags | array of string | Tags |
+| relevance | number | Determina tamaño de card en grilla. initialValue: 1. Options: 1 (1 columna), 2 (2 columnas), 3 (3 columnas / destacado) |
 | seoTitle | string | Título para SEO |
 | seoDescription | text | Descripción para SEO |
 
@@ -305,7 +339,7 @@ Tipo de bloque rich text con soporte para:
 |---|---|---|
 | projectsQuery | `*[_type == "project"] \| order(order asc, title asc)` — solo campos: _id, title, slug, client, logo, gradientFrom, gradientTo, order, hoverImage | Portfolio grid |
 | projectBySlugQuery | `*[_type == "project" && slug.current == $slug][0]` — incluye todos los campos de projectsQuery + headerImage1-3, description, year, country, industry, service, link, y gallery[] con alt resuelto via `asset->alt_text` | Detalle de proyecto |
-| postsQuery | `*[_type == "post"] \| order(publishedAt desc)` — campos: _id, title, slug, author, publishedAt, coverImage, excerpt, tags | Blog list |
+| postsQuery | `*[_type == "post"] \| order(publishedAt desc)` — campos: _id, title, slug, author, publishedAt, coverImage, excerpt, tags, **relevance** | Blog list (BlogGrid) |
 | postBySlugQuery | `*[_type == "post" && slug.current == $slug][0]` — mismos campos + body, seoTitle, seoDescription | Detalle de post |
 
 ---
@@ -467,3 +501,8 @@ brand: {
 | **2026-05-30** | **Schema Project extendido**: 10 nuevos campos agregados — headerImage1-3 (image), description (blockContent), year, country, industry, service (string), link (url), gallery (array de image con campos span: 1-2 y alt). Types actualizados: nueva interfaz `GalleryImage`, Project extendido con todos los campos. `projectBySlugQuery` expandido con los nuevos campos + gallery alt resuelto. |
 | **2026-05-30** | **Portfolio [slug] rediseñado**: página de detalle con grid de 3 imágenes en header (main 2x2 izq + 2 stack der), PortableText + link a sitio, sidebar de metadatos (Year, Country, Industry, Service), GalleryGrid con stagger animation y span 1/2. Todas las secciones envueltas en AnimateInView. Nuevo componente `GalleryGrid.tsx` (client component con framer-motion stagger, span-based sizing). |
 | **2026-05-30** | **Banner extendido**: nueva prop `variant` (`"dark"` | `"white"`) con estilos dinámicos. `variantStyles` mapea cada variante a bg, text y button colorScheme. `dark` (default): bg-brand-black, text-brand-white, button default. `white`: bg-brand-white, text-brand-black, button dark. |
+| **2026-06-01** | **Blog rediseñado**: nuevos componentes BlogHeader (hero animado), BlogGrid (Server Component, fetch posts con relevance), BlogCard (3 variantes según relevance 1/2/3 con ArrowUpRight hover). PostCard.tsx queda sin uso. |
+| **2026-06-01** | **Chip variant "outline-dark"**: nueva variante con border/text brand-black, hover brand-primary-main + glow #885de3. |
+| **2026-06-01** | **ProjectCard con ArrowUpRight**: ícono en círculo visible en hover (bottom-right). Misma implementación que BlogCard. |
+| **2026-06-01** | **ServicesFullScreen: chipClass → chipVariant**: ServiceConfig ahora usa `chipVariant?: "outline" | "outline-dark"`. Chips de "Diseño" y "Producto" usan "outline-dark". |
+| **2026-06-01** | **Schema Post: campo relevance**: nuevo campo number con opciones 1/2/3. Incluido en postsQuery y Post interface. |

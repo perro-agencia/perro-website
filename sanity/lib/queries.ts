@@ -45,7 +45,8 @@ export const postsQuery = defineQuery(`*[_type == "post"] | order(publishedAt de
   publishedAt,
   coverImage,
   excerpt,
-  tags
+  tags,
+  relevance
 }`)
 
 export const postBySlugQuery = defineQuery(`*[_type == "post" && slug.current == $slug][0] {
