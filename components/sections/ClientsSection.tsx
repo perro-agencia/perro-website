@@ -18,7 +18,7 @@ const clients: Client[] = [
   { name: "Melon Help", image: "/clients/cliente-melonhelp.png", href: "https://melonhelp.com/es/home/" },
   { name: "Latin Cloud", image: "/clients/cliente-latincloud.png", href: "https://latincloud.com/" },
   { name: "Arcadia", image: "/clients/cliente-arcadia.png", href: "#" },
-  { name: "United T Experience", image: "/clients/cliente-unitedTexperience.png", href: "unitedtexperience.com" },
+  { name: "United T Experience", image: "/clients/cliente-unitedTexperience.png", href: "https://unitedtexperience.com" },
   { name: "Planexware", image: "/clients/cliente-planexware.png", href: "https://www.planexware.com/" },
   { name: "Reposarte", image: "/clients/cliente-reposarte.png", href: "#" },
   { name: "Prusia", image: "/clients/cliente-prusia.png", href: "https://prusiadesign.com/" },
