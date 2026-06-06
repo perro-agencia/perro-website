@@ -25,7 +25,7 @@ const cardVariants = {
   },
 }
 
-export function ServiceCard({ service, className, index }: { service: Service; className?: string; index?: number }) {
+export function ServiceCard({ service, className, index, noImageHoverScale }: { service: Service; className?: string; index?: number; noImageHoverScale?: boolean }) {
   const containerRef = useRef<HTMLDivElement>(null)
 
   const { scrollYProgress } = useScroll({
@@ -52,7 +52,7 @@ export function ServiceCard({ service, className, index }: { service: Service; c
     <motion.div
       ref={containerRef}
       variants={cardVariants}
-      className={`group text-left flex flex-col justify-between rounded-3xl w-full overflow-hidden relative ${service.bg} ${className || ""}`}
+      className={`group text-left flex flex-col justify-between rounded-3xl w-full overflow-hidden relative md:h-[450px] ${service.bg} ${className || ""}`}
     >
       <div
         className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-in-out rounded-3xl"
@@ -62,7 +62,7 @@ export function ServiceCard({ service, className, index }: { service: Service; c
         <h3 className={`text-3xl font-medium font-display mb-2 ${service.textColor}`}>
           {service.title}
         </h3>
-        <p className={`text-lg font-light ${service.textColor}`}>
+        <p className={`text-lg font-light mb-8 ${service.textColor}`}>
           {service.description}
         </p>
       </div>
@@ -76,7 +76,7 @@ export function ServiceCard({ service, className, index }: { service: Service; c
             alt={service.title}
             width={260}
             height={350}
-            className="object-contain w-[40%] sm:w-[50%] max-w-[250px] pointer-events-none select-none transition-transform duration-700 ease-out group-hover:scale-[1.10]"
+            className={`object-contain w-[40%] sm:w-[50%] max-w-[250px] pointer-events-none select-none transition-transform duration-700 ease-out ${noImageHoverScale ? "" : "group-hover:scale-[1.10]"}`}
           />
           {service.floatingIcons.map((icon, index) => {
             const yVal = yOffsets[index % yOffsets.length]
@@ -99,7 +99,7 @@ export function ServiceCard({ service, className, index }: { service: Service; c
             alt={service.title}
             width={600}
             height={400}
-            className="w-full max-w-[450px] h-full object-contain pointer-events-none select-none transition-transform duration-700 ease-out group-hover:scale-105"
+            className={`w-full max-w-[450px] h-full object-contain pointer-events-none select-none transition-transform duration-700 ease-out ${noImageHoverScale ? "" : "group-hover:scale-105"}`}
           />
         </div>
       )}

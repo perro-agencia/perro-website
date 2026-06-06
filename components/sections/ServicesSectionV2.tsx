@@ -25,7 +25,7 @@ const services: Service[] = [
     title: "Producto",
     image: "/services/product/phone.png",
     description:
-      "Estrategia & usabilidad: diseñamos y construimos productos que combinan visión de negocio, diseño y desarrollo.",
+      "Estrategia & usabilidad: Diseñamos y construimos productos que combinan visión de negocio, diseño centrado en el usuario y desarrollo sólido.",
     bg: "bg-brand-white",
     textColor: "text-brand-black",
     shadowColor: "#ffffff",
@@ -80,16 +80,7 @@ const containerVariants = {
   },
 }
 
-const getServiceGridClasses = (index: number) => {
-  const mobile = "w-full flex-none"
-  const isBig = index === 0 || index === 3
-  const mdClasses = isBig
-    ? "md:w-[calc(54%-0.75rem)] md:grow-[1.4] md:hover:grow-[3]"
-    : "md:w-[calc(38%-0.75rem)] md:grow-[0.8] md:hover:grow-[2.0]"
-  return `${mobile} ${mdClasses} md:transition-all md:duration-700 md:ease-in-out`
-}
-
-export function ServicesSection() {
+export function ServicesSectionV2() {
   return (
     <section className="py-24 md:py-32 relative">
       <div className="container mx-auto px-6 text-center">
@@ -108,7 +99,7 @@ export function ServicesSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
-          className="font-display font-light leading-[0.95] -tracking-[0.03em] text-[clamp(2.5rem,8vw,6rem)]  mb-16 md:mb-20"
+          className="font-display font-light leading-[0.95] -tracking-[0.03em] text-[clamp(2.5rem,8vw,6rem)] mb-16 md:mb-20"
         >
           Soluciones que potencian el crecimiento de tu negocio
         </motion.h2>
@@ -118,10 +109,16 @@ export function ServicesSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
-          className="flex flex-wrap gap-6 gap-y-8 max-w-[1100px] mx-auto justify-center"
+          className="flex flex-wrap gap-6 max-w-[1100px] mx-auto"
         >
           {services.map((service, index) => (
-            <ServiceCard key={service.title} service={service} className={getServiceGridClasses(index)} index={index} />
+            <ServiceCard
+              key={service.title}
+              service={service}
+              index={index}
+              noImageHoverScale
+              className="w-full flex-none md:w-[calc(45%-0.75rem)] md:grow md:hover:grow-[8] md:transition-all md:duration-700 md:ease-in-out"
+            />
           ))}
         </motion.div>
       </div>

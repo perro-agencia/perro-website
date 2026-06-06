@@ -45,7 +45,7 @@ export function BlogCard({ post, index }: Props) {
             <div className="relative w-[60%] flex flex-col justify-end p-8">
               <div className={cn("absolute inset-0", colorPair.bg)} />
               <div className="relative z-10">
-                <h3 className={cn("font-display font-medium text-display-md mb-3", colorPair.text)}>
+                <h3 className={cn("font-display font-medium text-xl mb-3", colorPair.text)}>
                   {post.title}
                 </h3>
                 {post.excerpt && (
@@ -92,7 +92,7 @@ export function BlogCard({ post, index }: Props) {
             <div className="relative z-10">
               <h3
                 className={cn(
-                  "font-display font-medium text-display-md mb-3",
+                  "font-display font-medium text-xl mb-3",
                   relevance === 3 ? "text-brand-white" : colorPair.text,
                 )}
               >
