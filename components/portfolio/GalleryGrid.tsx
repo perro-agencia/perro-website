@@ -28,6 +28,12 @@ const itemVariants = {
   },
 }
 
+function isGifAsset(asset: Record<string, unknown>): boolean {
+  const ref = asset?._ref as string | undefined
+  if (!ref) return false
+  return ref.endsWith("-gif")
+}
+
 function getGalleryWidth(span?: number): string {
   if (span === 2) return "w-full"
   return "w-full md:w-[calc(50%-8px)]"
@@ -54,7 +60,12 @@ export function GalleryGrid({ images, projectTitle }: Props) {
     >
       {images.map((item, i) => {
         const span = item.span || 1
-        const imgUrl = item.asset ? urlFor(item.asset).width(1200).url() : null
+        const gif = item.asset ? isGifAsset(item.asset) : false
+        const imgUrl = item.asset
+          ? gif
+            ? urlFor(item.asset).url()
+            : urlFor(item.asset).width(1200).url()
+          : null
         if (!imgUrl) return null
 
         return (
@@ -63,13 +74,21 @@ export function GalleryGrid({ images, projectTitle }: Props) {
             variants={itemVariants}
             className={`relative ${getGalleryAspect(span)} ${getGalleryWidth(span)} ${getGalleryHeight(span)} rounded-2xl overflow-hidden bg-brand-white/5`}
           >
-            <Image
-              src={imgUrl}
-              alt={item.alt || `${projectTitle} gallery ${i + 1}`}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            />
+            {gif ? (
+              <img
+                src={imgUrl}
+                alt={item.alt || `${projectTitle} gallery ${i + 1}`}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <Image
+                src={imgUrl}
+                alt={item.alt || `${projectTitle} gallery ${i + 1}`}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              />
+            )}
           </motion.div>
         )
       })}
