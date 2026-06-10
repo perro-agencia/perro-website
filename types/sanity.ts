@@ -19,6 +19,7 @@ export interface Project {
   client?: string
   logo?: Record<string, unknown>
   bgColor?: string
+  span?: number
   hoverImage?: Record<string, unknown>
   headerImage1?: Record<string, unknown>
   headerImage2?: Record<string, unknown>

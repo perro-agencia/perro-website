@@ -8,6 +8,7 @@ export const projectsQuery = defineQuery(`*[_type == "project"] | order(order as
   logo,
   bgColor,
   order,
+  span,
   hoverImage
 }`)
 
@@ -19,6 +20,7 @@ export const projectBySlugQuery = defineQuery(`*[_type == "project" && slug.curr
   logo,
   bgColor,
   order,
+  span,
   hoverImage,
   headerImage1,
   headerImage2,

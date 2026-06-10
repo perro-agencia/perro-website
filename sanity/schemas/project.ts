@@ -11,6 +11,7 @@ export const project = defineType({
     defineField({ name: "logo", title: "Client Logo", type: "image", description: "Logo del cliente para mostrar en la card del portfolio" }),
     defineField({ name: "bgColor", title: "Background Color", type: "string", description: "Color de fondo sólido del proyecto (ej: #885de3)" }),
     defineField({ name: "order", title: "Order", type: "number", description: "Orden de aparición en la grilla" }),
+    defineField({ name: "span", title: "Span", type: "number", initialValue: 1, options: { list: [1, 2, 3] }, description: "1 = 1 columna, 2 = 2 columnas, 3 = fila completa (highlight)" }),
     defineField({ name: "hoverImage", title: "Hover Image", type: "image", description: "Imagen que aparece al hacer hover sobre la card" }),
     defineField({ name: "headerImage1", title: "Header Image — Main", type: "image", description: "Imagen principal del header (ocupa más espacio, a la izquierda)" }),
     defineField({ name: "headerImage2", title: "Header Image — 2", type: "image", description: "Segunda imagen del header (columna derecha, arriba)" }),

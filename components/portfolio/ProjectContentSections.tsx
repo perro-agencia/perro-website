@@ -10,7 +10,7 @@ interface Props {
 
 export function ProjectContentSections({ sections, projectTitle }: Props) {
   return (
-    <>
+    <div className="space-y-24 pt-24">
       {sections.map((section, i) => (
         <div key={i} className="space-y-12 mb-20">
           {section.heading && (
@@ -34,6 +34,6 @@ export function ProjectContentSections({ sections, projectTitle }: Props) {
           )}
         </div>
       ))}
-    </>
+    </div>
   )
 }
