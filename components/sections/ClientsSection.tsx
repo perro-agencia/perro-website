@@ -66,7 +66,7 @@ export function ClientsSection() {
             <motion.div
               key={client.name}
               variants={itemVariants}
-              className="flex items-center justify-center border rounded-sm border-black hover:border-white hover:rounded-xl  hover:shadow-[0_0_24px_-8px_rgba(255,255,255,1)] transition-all duration-300 ease-in-out"
+              className="p-2 px-4 flex items-center justify-center border rounded-sm border-black hover:border-white hover:rounded-xl hover:shadow-[0_0_24px_-8px_rgba(255,255,255,1)] transition-all duration-300 ease-in-out"
             >
               <Image
                 src={client.image}

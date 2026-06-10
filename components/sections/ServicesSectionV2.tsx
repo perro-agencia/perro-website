@@ -48,9 +48,9 @@ const services: Service[] = [
     gradientFrom: "#c4f875",
     gradientTo: "#73983fff",
     floatingIcons: [
-      "/services/design/icon-01.png",
       "/services/design/icon-02.png",
       "/services/design/icon-03.png",
+      "/services/design/icon-01.png",
     ],
   },
   {
@@ -117,7 +117,7 @@ export function ServicesSectionV2() {
               service={service}
               index={index}
               noImageHoverScale
-              className="w-full flex-none md:w-[calc(45%-0.75rem)] md:grow md:hover:grow-[8] md:transition-all md:duration-700 md:ease-in-out"
+              className="w-full md:w-[calc(40%-0.75rem)] md:grow md:hover:grow-[16] md:transition-all md:duration-700 md:ease-in-out"
             />
           ))}
         </motion.div>
