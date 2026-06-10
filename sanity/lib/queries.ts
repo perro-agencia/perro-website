@@ -6,9 +6,9 @@ export const projectsQuery = defineQuery(`*[_type == "project"] | order(order as
   slug,
   client,
   logo,
-  gradientFrom,
-  gradientTo,
+  bgColor,
   order,
+  span,
   hoverImage
 }`)
 
@@ -18,9 +18,9 @@ export const projectBySlugQuery = defineQuery(`*[_type == "project" && slug.curr
   slug,
   client,
   logo,
-  gradientFrom,
-  gradientTo,
+  bgColor,
   order,
+  span,
   hoverImage,
   headerImage1,
   headerImage2,
@@ -34,6 +34,14 @@ export const projectBySlugQuery = defineQuery(`*[_type == "project" && slug.curr
   gallery[] {
     ...,
     "alt": asset->alt_text
+  },
+  contentSections[] {
+    heading,
+    text,
+    gallery[] {
+      ...,
+      "alt": asset->alt_text
+    }
   }
 }`)
 

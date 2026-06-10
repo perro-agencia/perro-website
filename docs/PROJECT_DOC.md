@@ -2,7 +2,7 @@
 
 ## 1. Estado actual del proyecto
 
-**Última actualización:** 2026-06-01
+**Última actualización:** 2026-06-09
 
 ### Features completadas
 - Homepage sections rediseñadas completamente (Hero, Clients, Services, Strategy, Portfolio, Team, ContactSection)
@@ -47,6 +47,8 @@
 - **ProjectCard con ArrowUpRight**: ícono ArrowUpRight en círculo con fondo blanco/texto negro, aparece en hover (opacity 0→1) en bottom-right de la card. Mismo patrón que BlogCard.
 - **ServicesFullScreen: chipClass → chipVariant**: refactor de API, ahora recibe `chipVariant?: "outline" | "outline-dark"` en ServiceConfig. Chips de "Diseño" y "Producto" usan "outline-dark".
 - **Schema Post: campo relevance**: nuevo campo `relevance` (number, initialValue 1) con opciones 1 (1 columna), 2 (2 columnas), 3 (3 columnas destacado). Incluido en `postsQuery` y en la interfaz `Post`.
+- **ServicesSectionV2** creada para homepage (`/`): reemplaza ServicesSection.tsx. Mismos 4 servicios hardcodeados pero con grid layout simplificado — todos los cards con mismo ancho base `w-full md:w-[calc(40%-0.75rem)]` y grow uniforme `md:grow md:hover:grow-[16]`. Descripciones actualizadas. Parallax floating icons con useScroll + useTransform.
+- **ServiceCard** (`components/ui/ServiceCard.tsx`): nuevo componente compartido por ServicesSection y ServicesSectionV2. Renderiza card con gradient hover, floating icons con parallax (useScroll + useTransform), y prop `noImageHoverScale` para controlar hover scale de la imagen desde afuera. Exporta tipo `Service`.
 
 ### Features en progreso
 - PortfolioGrid también pendiente de migración a datos hardcodeados
@@ -175,6 +177,13 @@ components/
 │                                - outline: border-white text-brand-white, hover accent-02 (texto/borde) + glow shadow
 │                                - outline-dark: border-brand-black text-brand-black, hover brand-primary-main (texto/borde) + glow shadow
 │                                Glow color dinámico: outline-dark → #885de3, otro → #c4f875. text-[13px] md:text-base
+│   ├── ServiceCard.tsx        — "use client". Card de servicio compartido por ServicesSection y ServicesSectionV2.
+│                                Exporta tipo `Service` y componente `ServiceCard`.
+│                                Props inline: { service: Service, className?, index?, noImageHoverScale? }
+│                                Comportamiento: gradient hover (gradientFrom→gradientTo) con opacity, floating icons
+│                                con parallax via useScroll + useTransform (y-distintos por index),
+│                                imagen principal con hover scale controlable por prop `noImageHoverScale`.
+│                                Altura fija md:h-[450px], rounded-3xl, overflow-hidden.
 │   └── TeamCard.tsx           — "use client". Card de miembro con framer-motion cardVariants.
 │                                BgClass incluye "bg-brand-black". Rol con whitespace-pre-line para \n.
 │                                Props tipadas con union types: BgClass, TextColorClass
@@ -191,8 +200,8 @@ components/
 │   ├── ClientsSection.tsx     — "use client". Grilla de logos de clientes con animación whileInView stagger.
 │                                13 clientes hardcodeados. Subtítulo "nuestra huella".
 │                                Hover: border-radius animado, scale, shadow blanco
-│   ├── ServicesSection.tsx    — "use client". Grid de 4 servicios hardcodeados con colores brand,
-│                                box-shadow hover con framer-motion
+│   ├── ServicesSection.tsx    — [SIN USO] V1 reemplazada por ServicesSectionV2. Grid de 4 servicios con layout asimétrico via getServiceGridClasses (pares más grandes que impares). Sin prop noImageHoverScale.
+│   ├── ServicesSectionV2.tsx  — "use client". V2 usada en homepage (`/`). Mismos 4 servicios hardcodeados con layout uniforme: todos los cards con mismo ancho base `w-full md:w-[calc(40%-0.75rem)]` y grow `md:grow md:hover:grow-[16]`. Pasa `noImageHoverScale={true}` a ServiceCard.
 │   ├── ServicesFullScreen.tsx — "use client". 5 secciones full-screen (100vh) para /servicios.
 │                                ServiceConfig tipado: union types ServiceBg/ServiceTextColor/ServiceDescColor +
 │                                `chipVariant?: "outline" | "outline-dark"` (reemplaza anterior chipClass).
@@ -506,3 +515,4 @@ brand: {
 | **2026-06-01** | **ProjectCard con ArrowUpRight**: ícono en círculo visible en hover (bottom-right). Misma implementación que BlogCard. |
 | **2026-06-01** | **ServicesFullScreen: chipClass → chipVariant**: ServiceConfig ahora usa `chipVariant?: "outline" | "outline-dark"`. Chips de "Diseño" y "Producto" usan "outline-dark". |
 | **2026-06-01** | **Schema Post: campo relevance**: nuevo campo number con opciones 1/2/3. Incluido en postsQuery y Post interface. |
+| **2026-06-09** | **ServicesSectionV2 creada**: reemplaza ServicesSection.tsx en homepage. Layout simplificado con grow uniforme entre cards. ServiceCard extraído a `components/ui/ServiceCard.tsx` con nueva prop `noImageHoverScale`. ServicesSection.tsx (V1) queda sin uso. |

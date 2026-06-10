@@ -15,8 +15,7 @@ interface Props {
 }
 
 export function ProjectCard({ project, className, index }: Props) {
-  const gradientFrom = project.gradientFrom || "#885de3"
-  const gradientTo = project.gradientTo || "#0a0a0a"
+  const bgColor = project.bgColor || "#885de3"
   const logoSrc = project.logo ? urlFor(project.logo).width(200).url() : null
   const hoverSrc = project.hoverImage ? urlFor(project.hoverImage).width(800).url() : null
 
@@ -46,7 +45,7 @@ export function ProjectCard({ project, className, index }: Props) {
 
             <div
               className="absolute inset-0 transition-opacity duration-700 ease-in-out group-hover:opacity-0"
-              style={{ background: `linear-gradient(135deg, ${gradientFrom}, ${gradientTo})` }}
+              style={{ backgroundColor: bgColor }}
             />
 
             <div className="absolute inset-0 flex items-center justify-center p-12">

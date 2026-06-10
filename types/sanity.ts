@@ -6,14 +6,20 @@ export interface GalleryImage {
   alt?: string
 }
 
+export interface ContentSection {
+  heading?: string
+  text?: PortableTextBlock[]
+  gallery?: GalleryImage[]
+}
+
 export interface Project {
   _id: string
   title: string
   slug: { current: string }
   client?: string
   logo?: Record<string, unknown>
-  gradientFrom?: string
-  gradientTo?: string
+  bgColor?: string
+  span?: number
   hoverImage?: Record<string, unknown>
   headerImage1?: Record<string, unknown>
   headerImage2?: Record<string, unknown>
@@ -25,6 +31,7 @@ export interface Project {
   service?: string
   link?: string
   gallery?: GalleryImage[]
+  contentSections?: ContentSection[]
 }
 
 export interface Post {

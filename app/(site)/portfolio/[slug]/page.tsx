@@ -8,6 +8,7 @@ import { Nav } from "@/components/layout/Nav"
 import { AnimateInView } from "@/components/AnimateInView"
 import { Banner } from "@/components/ui/Banner"
 import { GalleryGrid } from "@/components/portfolio/GalleryGrid"
+import { ProjectContentSections } from "@/components/portfolio/ProjectContentSections"
 import { siteConfig } from "@/lib/site"
 import type { Project } from "@/types/sanity"
 import { notFound } from "next/navigation"
@@ -145,6 +146,10 @@ export default async function ProjectPage({ params }: Props) {
             <section>
               <GalleryGrid images={project.gallery} projectTitle={project.title} />
             </section>
+          )}
+
+          {project.contentSections && project.contentSections.length > 0 && (
+            <ProjectContentSections sections={project.contentSections} projectTitle={project.title} />
           )}
         </div>
       </article>
