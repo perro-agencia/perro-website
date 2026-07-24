@@ -18,8 +18,8 @@ export async function sendContactEmail({
   message: string
 }) {
   return getResend().emails.send({
-    from: "Contacto PERRO <contacto@perro.agency>",
-    to: process.env.CONTACT_EMAIL_TO || "hola@perro.agency",
+    from: "Contacto PERRO <contacto@perroagency.com>",
+    to: process.env.CONTACT_EMAIL_TO || "queonda@perroagency.com",
     subject: `Nuevo contacto de ${name}`,
     html: `
       <h2>Nuevo mensaje de contacto</h2>

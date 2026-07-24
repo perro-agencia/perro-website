@@ -1,5 +1,4 @@
 import { Nav } from "@/components/layout/Nav"
-import { ContactForm } from "@/components/forms/ContactForm"
 import { buildMetadata } from "@/lib/metadata"
 import { ContactSection } from "@/components/sections/ContactSection"
 import { FooterLogo } from "@/components/layout/FooterLogo"

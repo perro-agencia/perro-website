@@ -1,19 +1,60 @@
 "use client"
 
 import { useState, type FormEvent } from "react"
+import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
 
-export function ContactForm() {
+const containerVariants = {
+  initial: { x: 0 },
+  hover: {
+    x: 2,
+    transition: { duration: 0.2, ease: "easeOut" as const },
+  },
+}
+
+const arrowVariants = {
+  initial: { x: 0, y: 0 },
+  hover: {
+    x: [0, 16, -16, 0],
+    y: [0, -16, 16, 0],
+    transition: { duration: 0.5, ease: "easeInOut" as const },
+  },
+}
+
+const staggerVariants = (stagger: number) => ({
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: stagger },
+  },
+})
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" as const },
+  },
+}
+
+interface ContactFormProps {
+  showCompany?: boolean
+}
+
+export function ContactForm({ showCompany = true }: ContactFormProps) {
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle")
+  const [isHovered, setIsHovered] = useState(false)
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setStatus("sending")
 
     const form = e.currentTarget
-    // safe: los name de los inputs coinciden con los campos esperados
     const data = {
       name: (form.elements.namedItem("name") as HTMLInputElement).value,
+      ...(showCompany && {
+        company: (form.elements.namedItem("company") as HTMLInputElement).value,
+      }),
       email: (form.elements.namedItem("email") as HTMLInputElement).value,
       message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
     }
@@ -33,62 +74,91 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div>
-        <label htmlFor="name" className="block text-sm font-medium mb-2">
-          Nombre
-        </label>
+    <motion.form
+      onSubmit={handleSubmit}
+      className="space-y-3"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      variants={staggerVariants(0.08)}
+    >
+      <motion.div variants={itemVariants}>
         <input
           type="text"
           id="name"
           name="name"
+          placeholder="NOMBRE"
           required
-          className={cn(
-            "w-full px-4 py-3 bg-brand-white/5 border border-brand-white/10 rounded-lg",
-            "focus:outline-none focus:border-brand-primary-main transition-colors"
-          )}
+          className="w-full px-6 py-4 bg-brand-black border border-brand-white rounded-full placeholder:text-brand-white text-brand-white uppercase text-sm focus:outline-none hover:border-brand-accent-02 transition-all hover:shadow-[0_0_24px_-4px_#c4f875]"
         />
-      </div>
-
-      <div>
-        <label htmlFor="email" className="block text-sm font-medium mb-2">
-          Email
-        </label>
+      </motion.div>
+      {showCompany && (
+        <motion.div variants={itemVariants}>
+          <input
+            type="text"
+            id="company"
+            name="company"
+            placeholder="COMPAÑÍA"
+            className="w-full px-6 py-4 bg-brand-black border border-brand-white rounded-full placeholder:text-brand-white text-brand-white uppercase text-sm focus:outline-none hover:border-brand-accent-02 transition-all hover:shadow-[0_0_24px_-4px_#c4f875]"
+          />
+        </motion.div>
+      )}
+      <motion.div variants={itemVariants}>
         <input
           type="email"
           id="email"
           name="email"
+          placeholder="CORREO"
           required
-          className={cn(
-            "w-full px-4 py-3 bg-brand-white/5 border border-brand-white/10 rounded-lg",
-            "focus:outline-none focus:border-brand-primary-main transition-colors"
-          )}
+          className="w-full px-6 py-4 bg-brand-black border border-brand-white rounded-full placeholder:text-brand-white text-brand-white uppercase text-sm focus:outline-none hover:border-brand-accent-02 transition-all hover:shadow-[0_0_24px_-4px_#c4f875]"
         />
-      </div>
-
-      <div>
-        <label htmlFor="message" className="block text-sm font-medium mb-2">
-          Mensaje
-        </label>
+      </motion.div>
+      <motion.div variants={itemVariants}>
         <textarea
           id="message"
           name="message"
+          placeholder="MENSAJE"
           rows={5}
           required
-          className={cn(
-            "w-full px-4 py-3 bg-brand-white/5 border border-brand-white/10 rounded-lg",
-            "focus:outline-none focus:border-brand-primary-main transition-colors resize-y"
-          )}
+          className="w-full px-6 py-4 bg-brand-black border border-brand-white rounded-3xl placeholder:text-brand-white text-brand-white uppercase text-sm focus:outline-none hover:border-brand-accent-02 transition-all hover:shadow-[0_0_24px_-4px_#c4f875] resize-none"
         />
-      </div>
-
-      <button
-        type="submit"
-        disabled={status === "sending"}
-        className="w-full py-3 px-6 bg-brand-primary-main text-brand-white rounded-lg font-medium hover:opacity-90 transition-opacity disabled:opacity-50"
-      >
-        {status === "sending" ? "Enviando..." : "Enviar mensaje"}
-      </button>
+      </motion.div>
+      <motion.div variants={itemVariants} className="pt-2">
+        <button
+          type="submit"
+          disabled={status === "sending"}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          className={cn(
+            "group inline-flex items-center gap-2 transition-all duration-200",
+            "py-2 pl-6 pr-3",
+            "border-2 border-brand-white bg-brand-white rounded-full",
+            "text-base font-display uppercase tracking-wide leading-none text-brand-black font-medium",
+            "hover:bg-brand-black hover:text-brand-white",
+            "ease-brand-bounce",
+            "disabled:opacity-50 disabled:cursor-not-allowed"
+          )}
+        >
+          <span>{status === "sending" ? "ENVIANDO..." : "ENVIAR"}</span>
+          <motion.span
+            aria-hidden="true"
+            className="flex items-center justify-center w-9 h-9 rounded-full bg-brand-black group-hover:bg-brand-white transition-colors mb-[2px] overflow-hidden"
+            animate={isHovered ? "hover" : "initial"}
+            variants={containerVariants}
+          >
+            <motion.svg
+              viewBox="0 0 24 24"
+              className="w-5 h-5 fill-current text-brand-white group-hover:text-brand-black transition-colors"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              animate={isHovered ? "hover" : "initial"}
+              variants={arrowVariants}
+            >
+              <path d="M9 5V7H15.59L4 18.59L5.41 20L17 8.41V15H19V5H9Z" />
+            </motion.svg>
+          </motion.span>
+        </button>
+      </motion.div>
 
       {status === "success" && (
         <p role="alert" className="text-brand-accent-02 text-sm">
@@ -100,6 +170,6 @@ export function ContactForm() {
           Hubo un error al enviar el mensaje. Intentá de nuevo.
         </p>
       )}
-    </form>
+    </motion.form>
   )
 }
