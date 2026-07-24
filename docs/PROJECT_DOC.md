@@ -2,7 +2,7 @@
 
 ## 1. Estado actual del proyecto
 
-**Última actualización:** 2026-06-09
+**Última actualización:** 2026-07-24
 
 ### Features completadas
 - Homepage sections rediseñadas completamente (Hero, Clients, Services, Strategy, Portfolio, Team, ContactSection)
@@ -49,6 +49,13 @@
 - **Schema Post: campo relevance**: nuevo campo `relevance` (number, initialValue 1) con opciones 1 (1 columna), 2 (2 columnas), 3 (3 columnas destacado). Incluido en `postsQuery` y en la interfaz `Post`.
 - **ServicesSectionV2** creada para homepage (`/`): reemplaza ServicesSection.tsx. Mismos 4 servicios hardcodeados pero con grid layout simplificado — todos los cards con mismo ancho base `w-full md:w-[calc(40%-0.75rem)]` y grow uniforme `md:grow md:hover:grow-[16]`. Descripciones actualizadas. Parallax floating icons con useScroll + useTransform.
 - **ServiceCard** (`components/ui/ServiceCard.tsx`): nuevo componente compartido por ServicesSection y ServicesSectionV2. Renderiza card con gradient hover, floating icons con parallax (useScroll + useTransform), y prop `noImageHoverScale` para controlar hover scale de la imagen desde afuera. Exporta tipo `Service`.
+- **ContactForm unificado** (`components/forms/ContactForm.tsx`): componente reutilizable con prop `showCompany?: boolean` (default: true). Diseño dark de ContactSection (rounded-full, uppercase placeholders, hover glow, arrow animado). Animaciones framer-motion stagger. Envía a `/api/contact` → Resend. Reemplazó al ContactForm viejo (huérfano) y al formulario inline de ContactSection.
+- **ContactSection simplificado** (`components/sections/ContactSection.tsx`): quitado formulario inline (~130 líneas). Importa y renderiza `<ContactForm showCompany={true} />`. Mantiene headline animado, chips keywords, grid 2 cols.
+- **Sistema de landing pages de servicios**: directorio `components/landing/` con `PerformanceContactForm.tsx` ("use client", field types: text/email/textarea/select, envía a `/api/contact` con campo `service` y campos dinámicos). Archivos eliminados: `LandingHero.tsx`, `LandingDescription.tsx`, `LandingForm.tsx`.
+- **API route `/api/contact` actualizada**: acepta campo `service` (string opcional) y campos dinámicos via `...rest`. Validación flexible: solo requiere `name` y `email`.
+- **Email template actualizado** (`lib/email.ts`): `sendContactEmail` acepta `service?: string` y `fields?: Record<string, string>`. Subject: `Nuevo contacto [ServiceName] de Nombre`. Default `CONTACT_EMAIL_TO` cambiado a `queonda@perroagency.com`. `from` cambiado a `contacto@perroagency.com`.
+- **Página `/performance-ads`**: landing page para Performance Ads con secciones Multi-plataformas (logos), Stats Cards (3 cards: +$84M white, E-commerce primary, Modelos SaaS accent-02), ClientsSection reutilizada del homepage, Hero+Form. Chips: Anuncios, Paid Media, ROAS, ROI, Performance, Creatividades, copies, línea de crédito, tracking, ga4, google tag manager. Imágenes multi-plataforma en `public/multiplatform/`.
+- **Resend configurado**: dominio perroagency.com, from contacto@perroagency.com, default CONTACT_EMAIL_TO=queonda@perroagency.com.
 
 ### Features en progreso
 - PortfolioGrid también pendiente de migración a datos hardcodeados
@@ -126,6 +133,20 @@ components/
 │                                Renderiza grid grid-cols-1 md:grid-cols-3 gap-6.
 │                                Col-span según relevance: 3→md:col-span-3, 2→md:col-span-2, 1→md:col-span-1.
 │                                Renderiza BlogCard para cada post. Si posts.length === 0 → return null.
+├── forms/
+│   └── ContactForm.tsx        — "use client". Formulario de contacto reutilizable.
+│                                Props: { showCompany?: boolean } (default: true)
+│                                Diseño dark: bg-brand-black, inputs rounded-full, uppercase placeholders,
+│                                hover glow effect, arrow animado. Animaciones framer-motion stagger.
+│                                Envía POST a `/api/contact` → Resend.
+│                                Reemplazó al ContactForm viejo (huérfano) y al formulario inline de ContactSection.
+├── landing/
+│   └── PerformanceContactForm.tsx — "use client". Formulario dinámico para landing pages de servicios.
+│                                     Props: { service: string, fields: FieldConfig[], successMessage?: string }
+│                                     FieldConfig: { name: string, label: string, type: "text" | "email" | "textarea" | "select", options?: string[], required?: boolean }
+│                                     Soporta field types: text, email, textarea, select.
+│                                     Envía a `/api/contact` con campo `service` extra y campos dinámicos.
+│                                     Mismo diseño dark que ContactForm.
 ├── portfolio/
 │   ├── ProjectCard.tsx        — "use client". Card para grid de proyectos con gradient, logo, hoverImage y ArrowUpRight.
 │   │                            Props: { project: Project, className?, index? }
@@ -216,8 +237,8 @@ components/
 │   ├── StrategySection.tsx    — "use client". Imagen de equipo + título grande + chips flotantes con parallax
 │                                (useScroll + useTransform). Velocidad configurable por chip.
 │   ├── ContactSection.tsx     — "use client". Grid 2 cols. Headline con palabras animadas + chips outline.
-│                                Formulario funcional: Nombre, Compañía, Correo, Mensaje.
-│                                Inputs con bg-black, border white rounded-full. Animación scroll con stagger
+│   │                            Importa y renderiza `<ContactForm showCompany={true} />`.
+│   │                            Ya no tiene formulario inline (refactorizado a ContactForm).
 │   ├── PortfolioGrid.tsx      — Server Component. Grid de proyectos con flex-wrap (no CSS Grid) para permitir
 │                                grow effect. Fetch: sanityFetch(projectsQuery) con tags: ["project"].
 │                                Lógica de clases responsive: 1 col en mobile, 2 columnas alternadas en md,
@@ -284,6 +305,41 @@ type ServiceDescColor = "text-brand-white" | "text-brand-white/80" | "text-brand
 **Servicios:** Paid Media & SEO (bg-primary-main), Producto (bg-accent-01), Design (bg-accent-02), Social Content (bg-brand-white).
 
 **Animación:** motion.section con sectionVariants (opacity), whileInView, viewport margin "-100px". Títulos motion.h3, chips staggered, descripción con delay.
+
+### ContactForm (`components/forms/ContactForm.tsx`)
+Componente `"use client"` de formulario de contacto reutilizable con diseño dark.
+
+| Prop | Tipo | Default | Descripción |
+|---|---|---|---|
+| showCompany | boolean | true | Muestra el campo "Compañía" en el formulario |
+
+**Campos del formulario:** Nombre, Compañía (condicional según `showCompany`), Correo, Mensaje.
+
+**Diseño:** bg-brand-black, inputs con border-white rounded-full, uppercase placeholders, hover glow effect, arrow animado. Animaciones framer-motion stagger en los campos.
+
+**Envío:** POST a `/api/contact` → Resend.
+
+**Historial:** Reemplazó al ContactForm viejo (huérfano) y al formulario inline que estaba directamente en ContactSection (~130 líneas).
+
+### PerformanceContactForm (`components/landing/PerformanceContactForm.tsx`)
+Componente `"use client"` de formulario dinámico para landing pages de servicios.
+
+| Prop | Tipo | Default | Descripción |
+|---|---|---|---|
+| service | string | — | Nombre del servicio (ej: "Performance Ads") |
+| fields | FieldConfig[] | — | Configuración de campos del formulario |
+| successMessage | string | — | Mensaje de éxito personalizado |
+
+**FieldConfig:**
+| Campo | Tipo | Descripción |
+|---|---|---|
+| name | string | Nombre del campo (clave en el envío) |
+| label | string | Label visible |
+| type | "text" \| "email" \| "textarea" \| "select" | Tipo de input |
+| options | string[] | Opciones para type "select" |
+| required | boolean | Si el campo es obligatorio |
+
+**Envío:** POST a `/api/contact` con campo `service` extra y campos dinámicos del form. Mismo diseño dark que ContactForm.
 
 ### Convenciones
 - Componentes async cuando fetchan data de Sanity (Server Components)
@@ -366,7 +422,7 @@ Tipo de bloque rich text con soporte para:
 | `NEXT_PUBLIC_BASE_URL` | ✅ Pública | URL base del sitio para metadata/OG images | `lib/metadata.ts` |
 | `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` | ✅ Pública | Site key de Google reCAPTCHA (sin uso activo) | `.env` presente, sin referencia en código |
 | `RESEND_API_KEY` | ❌ Servidor | API key de Resend para envío de emails | `lib/email.ts` |
-| `CONTACT_EMAIL_TO` | ❌ Servidor | Destino de mensajes del formulario de contacto | `lib/email.ts` (default: `hola@perro.agency`) |
+| `CONTACT_EMAIL_TO` | ❌ Servidor | Destino de mensajes del formulario de contacto | `lib/email.ts` (default: `queonda@perroagency.com`) |
 
 ⚠️ **Nota:** El `.env.example` aún lista `REVALIDATION_SECRET` (nombre antiguo). El nombre correcto es `SANITY_REVALIDATE_SECRET`.
 
@@ -383,7 +439,8 @@ Tipo de bloque rich text con soporte para:
 | `/portfolio/[slug]` | Dinámica | Fetch project by slug con tags: ["project"]. Diseño completo: header con grid de 3 imágenes (main 2x2 izq + 2 apiladas der), título display-xl, descripción rich text con PortableText + link a sitio web, sidebar de metadata (Year, Country, Industry, Service), galería GalleryGrid con animación stagger (imágenes con span 1 o 2). Banner importado. Secciones envueltas en AnimateInView. | `app/(site)/portfolio/[slug]/page.tsx` |
 | `/blog` | Estática | Fetch posts | `app/(site)/blog/page.tsx` |
 | `/blog/[slug]` | Dinámica | Fetch post by slug | `app/(site)/blog/[slug]/page.tsx` |
-| `/contacto` | Estática | Formulario con Resend + rate limiting | `app/(site)/contacto/page.tsx` |
+| `/contacto` | Estática | Formulario de contacto via `<ContactForm showCompany={true} />` + Resend + rate limiting | `app/(site)/contacto/page.tsx` |
+| `/performance-ads` | Estática | Landing page Performance Ads: Multi-plataformas (logos), Stats Cards (3 cards: +$84M white, E-commerce primary, Modelos SaaS accent-02), ClientsSection reutilizada, Hero+Form via PerformanceContactForm. Chips: Anuncios, Paid Media, ROAS, ROI, Performance, Creatividades, copies, línea de crédito, tracking, ga4, google tag manager. | `app/(site)/performance-ads/page.tsx` |
 | `/legal/terminos-y-condiciones` | Estática | Server component, `<p>` único con `<br />`. Sin "use client", sin fetch. | `app/(site)/legal/terminos-y-condiciones/page.tsx` |
 | `/legal/politicas-de-privacidad` | Estática | Server component, misma estructura. Sin "use client", sin fetch. | `app/(site)/legal/politicas-de-privacidad/page.tsx` |
 | `/studio` | Estática | Sanity Studio embebido | `app/studio/[[...tool]]/page.tsx` |
@@ -440,7 +497,7 @@ brand: {
 
 ## 8. Decisiones pendientes
 
-- [x] **Formulario de contacto**: definido — se usa Resend (`lib/email.ts`)
+- [x] **Formulario de contacto**: definido — Resend con ContactForm unificado (`components/forms/ContactForm.tsx`) + PerformanceContactForm para landings. API route `/api/contact` flexible con campo `service` y campos dinámicos.
 - [x] **Mobile navigation**: implementar menú hamburguesa para < md breakpoint
 - [x] **Font Display aplicado**: `app/layout.tsx` ahora incluye `fontDisplay.variable` en className del `<html>`
 - [x] **Per-page theme system**: se creó y revertió completamente. Decisión final: Nav/Footer único, sin personalización por página.
@@ -516,3 +573,10 @@ brand: {
 | **2026-06-01** | **ServicesFullScreen: chipClass → chipVariant**: ServiceConfig ahora usa `chipVariant?: "outline" | "outline-dark"`. Chips de "Diseño" y "Producto" usan "outline-dark". |
 | **2026-06-01** | **Schema Post: campo relevance**: nuevo campo number con opciones 1/2/3. Incluido en postsQuery y Post interface. |
 | **2026-06-09** | **ServicesSectionV2 creada**: reemplaza ServicesSection.tsx en homepage. Layout simplificado con grow uniforme entre cards. ServiceCard extraído a `components/ui/ServiceCard.tsx` con nueva prop `noImageHoverScale`. ServicesSection.tsx (V1) queda sin uso. |
+| **2026-07-24** | **ContactForm unificado** (`components/forms/ContactForm.tsx`): componente reutilizable con prop `showCompany`, diseño dark, animaciones stagger, envía a `/api/contact` → Resend. Reemplazó ContactForm viejo y formulario inline de ContactSection. |
+| **2026-07-24** | **ContactSection simplificado**: quitado formulario inline (~130 líneas), ahora importa `<ContactForm showCompany={true} />`. |
+| **2026-07-24** | **Sistema de landing pages**: nuevo directorio `components/landing/` con `PerformanceContactForm.tsx` (field types: text/email/textarea/select, campo `service` dinámico). Eliminados: `LandingHero.tsx`, `LandingDescription.tsx`, `LandingForm.tsx`. |
+| **2026-07-24** | **API route `/api/contact` actualizada**: acepta campo `service` (opcional) y campos dinámicos via `...rest`. Validación flexible: solo `name` y `email` requeridos. |
+| **2026-07-24** | **Email template actualizado** (`lib/email.ts`): subject con nombre de servicio, campos dinámicos en HTML. Default CONTACT_EMAIL_TO cambiado a `queonda@perroagency.com`. From cambiado a `contacto@perroagency.com`. |
+| **2026-07-24** | **Página `/performance-ads`**: landing page Performance Ads con Multi-plataformas, Stats Cards (3), ClientsSection, Hero+Form. |
+| **2026-07-24** | **Resend configurado**: dominio perroagency.com, from contacto@perroagency.com, CONTACT_EMAIL_TO=queonda@perroagency.com. |
