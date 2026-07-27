@@ -109,7 +109,7 @@ export default function PerformanceAdsPage() {
             </AnimateInView>
 
             <AnimateInView delay={0.2}>
-              <div className="flex flex-wrap gap-3">
+              <div className="hidden lg:flex flex-wrap gap-3">
                 {chips.map((chip) => (
                   <Chip key={chip} variant="outline">{chip}</Chip>
                 ))}

@@ -9,7 +9,7 @@ const keywords = [
   "creatividad", "seo", "paid media", "desarrollo", "social media",
 ]
 
-const headlineWords = ["Lleva", "tu", "marca", "al", "siguiente"]
+const headlineWords = ["Llevá", "tu", "marca", "al", "siguiente"]
 
 const staggerVariants = (stagger: number) => ({
   hidden: {},
@@ -63,7 +63,7 @@ export function ContactSection() {
               </motion.span>
             </h2>
             <motion.div
-              className="flex flex-wrap gap-3"
+              className="hidden md:flex flex-wrap gap-3"
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.3 }}
