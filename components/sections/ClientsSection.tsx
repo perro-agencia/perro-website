@@ -18,7 +18,7 @@ const clients: Client[] = [
   { name: "Arcadia", image: "/clients/cliente-arcadia.png" },
   { name: "United T Experience", image: "/clients/cliente-unitedTexperience.png" },
   { name: "Planexware", image: "/clients/cliente-planexware.png" },
-  { name: "Prusia", image: "/clients/cliente-prusia.png" },
+  { name: "ecomexperts", image: "/clients/cliente-ecomexperts.png" },
   { name: "Tienda Nube", image: "/clients/cliente-tiendanube.png" },
   { name: "Devra", image: "/clients/cliente-devra.png" },
 ]

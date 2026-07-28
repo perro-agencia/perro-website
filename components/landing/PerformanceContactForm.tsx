@@ -1,7 +1,8 @@
 "use client"
 
-import { useState, type FormEvent } from "react"
+import { useState, useRef, useEffect, type FormEvent } from "react"
 import { motion } from "framer-motion"
+import { ChevronDown } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const containerVariants = {
@@ -51,15 +52,30 @@ interface PerformanceContactFormProps {
   service: string
   fields: FieldConfig[]
   successMessage?: string
+  buttonText?: string
 }
 
 export function PerformanceContactForm({
   service,
   fields,
   successMessage = "Gracias por completar el formulario. Revisaremos la información y te contactaremos pronto.",
+  buttonText = "SOLICITAR DIAGNÓSTICO",
 }: PerformanceContactFormProps) {
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle")
   const [isHovered, setIsHovered] = useState(false)
+  const [selectOpen, setSelectOpen] = useState<string | null>(null)
+  const [selectValues, setSelectValues] = useState<Record<string, string>>({})
+  const selectRefs = useRef<Record<string, HTMLDivElement | null>>({})
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (selectOpen && !selectRefs.current[selectOpen]?.contains(e.target as Node)) {
+        setSelectOpen(null)
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => document.removeEventListener("mousedown", handleClickOutside)
+  }, [selectOpen])
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -83,6 +99,7 @@ export function PerformanceContactForm({
 
     if (res.ok) {
       setStatus("success")
+      setSelectValues({})
       form.reset()
     } else {
       setStatus("error")
@@ -111,21 +128,53 @@ export function PerformanceContactForm({
                   className="w-full px-6 py-4 bg-brand-black border border-brand-white rounded-3xl placeholder:text-brand-white text-brand-white uppercase text-sm focus:outline-none hover:border-brand-accent-02 transition-all hover:shadow-[0_0_24px_-4px_#c4f875] resize-none"
                 />
               ) : field.type === "select" ? (
-                <select
-                  name={field.name}
-                  required={field.required}
-                  defaultValue=""
-                  className="w-full px-6 py-4 bg-brand-black border border-brand-white rounded-full text-brand-white uppercase text-sm focus:outline-none hover:border-brand-accent-02 transition-all hover:shadow-[0_0_24px_-4px_#c4f875] appearance-none"
+                <div
+                  ref={(el) => { selectRefs.current[field.name] = el }}
+                  className="relative"
                 >
-                  <option value="" disabled className="text-brand-black">
-                    {field.label.toUpperCase()}
-                  </option>
-                  {field.options?.map((opt) => (
-                    <option key={opt} value={opt} className="text-brand-black">
-                      {opt}
-                    </option>
-                  ))}
-                </select>
+                  <button
+                    type="button"
+                    onClick={() => setSelectOpen(selectOpen === field.name ? null : field.name)}
+                    className={cn(
+                      "w-full px-6 py-4 bg-brand-black border rounded-full text-sm focus:outline-none transition-all text-left uppercase",
+                      selectValues[field.name]
+                        ? "text-brand-white border-brand-white"
+                        : "text-brand-white/50 border-brand-white",
+                      "hover:border-brand-accent-02 hover:shadow-[0_0_24px_-4px_#c4f875]"
+                    )}
+                  >
+                    {selectValues[field.name] || field.label.toUpperCase()}
+                  </button>
+                  <ChevronDown
+                    className={cn(
+                      "absolute right-5 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none transition-transform",
+                      selectOpen === field.name ? "rotate-180 text-brand-accent-02" : "text-brand-white"
+                    )}
+                  />
+                  <input type="hidden" name={field.name} value={selectValues[field.name] || ""} />
+                  {selectOpen === field.name && (
+                    <div className="absolute z-20 w-full mt-2 bg-brand-black border border-brand-white/20 rounded-2xl overflow-hidden shadow-xl">
+                      {field.options?.map((opt) => (
+                        <button
+                          key={opt}
+                          type="button"
+                          onClick={() => {
+                            setSelectValues({ ...selectValues, [field.name]: opt })
+                            setSelectOpen(null)
+                          }}
+                          className={cn(
+                            "w-full px-6 py-4 text-left uppercase text-sm transition-colors",
+                            selectValues[field.name] === opt
+                              ? "text-brand-accent-02 bg-brand-white/10"
+                              : "text-brand-white hover:bg-brand-white/10"
+                          )}
+                        >
+                          {opt}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
               ) : (
                 <input
                   type={field.type}
@@ -154,7 +203,7 @@ export function PerformanceContactForm({
                 "disabled:opacity-50 disabled:cursor-not-allowed"
               )}
             >
-              <span>{status === "sending" ? "ENVIANDO..." : "SOLICITAR DIAGNÓSTICO"}</span>
+              <span>{status === "sending" ? "ENVIANDO..." : buttonText}</span>
               <motion.span
                 aria-hidden="true"
                 className="flex items-center justify-center w-9 h-9 rounded-full bg-brand-black group-hover:bg-brand-white transition-colors mb-[2px] overflow-hidden"
