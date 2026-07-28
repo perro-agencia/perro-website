@@ -2,14 +2,14 @@ import { Nav } from "@/components/layout/Nav"
 import { Footer } from "@/components/layout/Footer"
 import { AnimateInView } from "@/components/AnimateInView"
 import { Chip } from "@/components/ui/Chip"
-import { PerformanceContactForm } from "@/components/landing/PerformanceContactForm"
+import { LandingContactForm } from "@/components/landing/LandingContactForm"
 import { ClientsSection } from "@/components/sections/ClientsSection"
 import { buildMetadata } from "@/lib/metadata"
-import type { FieldConfig } from "@/components/landing/PerformanceContactForm"
+import type { FieldConfig } from "@/components/landing/LandingContactForm"
 
 export const metadata = buildMetadata({
-  title: "Performance Ads — PERRO Agency",
-  description: "Estrategia multi-plataformas de Paid Media. Llevamos tu inversión publicitaria al siguiente nivel.",
+  title: "Perro Agency - Publicidad Digital",
+  description: "Diseñamos, ejecutamos y optimizamos estrategias de Paid Media y performance para empresas que invierten y buscan crecimiento sostenible.",
   path: "/performance-ads",
 })
 
@@ -23,7 +23,7 @@ const formFields: FieldConfig[] = [
   { name: "email", type: "email", label: "Email corporativo", required: true },
   { name: "role", type: "text", label: "Rol en la empresa" },
   { name: "website", type: "text", label: "Website" },
-  { name: "budget", type: "text", label: "Presupuesto mensual estimado" },
+  { name: "budget", type: "select", label: "Presupuesto mensual estimado", options: ["$1.000 - $5.000 USD", "$5.000 - $15.000 USD", "+$15.000 USD"] },
   { name: "message", type: "textarea", label: "¿Cuál es tu principal desafío hoy? (Ej: Bajar el CAC, escalar facturación, falta de tracking real)", required: true },
 ]
 
@@ -35,7 +35,7 @@ export default function PerformanceAdsPage() {
         logoHoverSrc="/brand/isologotipo-color.svg"
       />
 
-      <main className="w-full max-w-[1440px] mx-auto p-12">
+      <main className="w-full max-w-[1440px] mx-auto p-8 md:p-12">
         {/* Multi-plataformas */}
         <section className="py-12 pt-[100px] max-w-[900px] mx-auto">
           <div className="text-center">
@@ -71,19 +71,19 @@ export default function PerformanceAdsPage() {
         <section className="pt-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <AnimateInView>
-              <div className="bg-brand-white text-brand-black rounded-3xl p-8 h-full">
-                <h3 className="font-display text-4xl md:text-5xl font-medium mb-4">+$84M</h3>
+              <div className="bg-brand-white text-brand-black rounded-3xl px-4 py-6 md:p-8 h-full">
+                <h3 className="font-display text-4xl md:text-5xl font-medium mb-4">+$112M</h3>
                 <p className="text-brand-black/70 text-lg">Gestionados en inversión publicitaria.</p>
               </div>
             </AnimateInView>
             <AnimateInView delay={0.1}>
-              <div className="bg-brand-primary-main text-brand-white rounded-3xl p-8 h-full">
-                <h3 className="font-display text-4xl md:text-5xl font-medium mb-4">E-commerce</h3>
+              <div className="bg-brand-primary-main text-brand-white rounded-3xl px-4 py-6 md:p-8 h-full">
+                <h3 className="whitespace-nowrap font-display text-4xl md:text-5xl font-medium mb-4">E-commerce</h3>
                 <p className="text-brand-white/80 text-lg">Maximizamos tu ROAS y facturación.</p>
               </div>
             </AnimateInView>
             <AnimateInView delay={0.2}>
-              <div className="bg-brand-accent-02 text-brand-black rounded-3xl p-8">
+              <div className="bg-brand-accent-02 text-brand-black rounded-3xl px-4 py-6 md:p-8">
                 <h3 className="font-display text-4xl md:text-5xl font-medium mb-4">Modelos SaaS</h3>
                 <p className="text-brand-black/70 text-lg">Optimización de CAC y LTV para escalar la adquisición.</p>
               </div>
@@ -98,7 +98,7 @@ export default function PerformanceAdsPage() {
           <div className="flex flex-col w-full md:w-1/2">
             <AnimateInView>
               <h1 className="font-display font-normal leading-[0.95] -tracking-[0.03em] text-[clamp(2.5rem,6vw,4rem)] mb-8">
-                Escalamos el ROAS de E-commerces y optimizamos el CAC de plataformas SaaS.
+                Escalamos el ROAS de <span className="whitespace-nowrap">E-commerces</span> y optimizamos el CAC de plataformas SaaS.
               </h1>
             </AnimateInView>
 
@@ -118,15 +118,13 @@ export default function PerformanceAdsPage() {
           </div>
 
           {/* Formulario */}
-          <PerformanceContactForm
+          <LandingContactForm
             service="Performance Ads"
             fields={formFields}
             successMessage="Gracias por completar el formulario. Te contactaremos pronto."
           />
         </section>
       </main>
-
-      <Footer />
     </>
   )
 }
