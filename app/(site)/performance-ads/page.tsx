@@ -2,10 +2,10 @@ import { Nav } from "@/components/layout/Nav"
 import { Footer } from "@/components/layout/Footer"
 import { AnimateInView } from "@/components/AnimateInView"
 import { Chip } from "@/components/ui/Chip"
-import { PerformanceContactForm } from "@/components/landing/PerformanceContactForm"
+import { LandingContactForm } from "@/components/landing/LandingContactForm"
 import { ClientsSection } from "@/components/sections/ClientsSection"
 import { buildMetadata } from "@/lib/metadata"
-import type { FieldConfig } from "@/components/landing/PerformanceContactForm"
+import type { FieldConfig } from "@/components/landing/LandingContactForm"
 
 export const metadata = buildMetadata({
   title: "Perro Agency - Publicidad Digital",
@@ -118,7 +118,7 @@ export default function PerformanceAdsPage() {
           </div>
 
           {/* Formulario */}
-          <PerformanceContactForm
+          <LandingContactForm
             service="Performance Ads"
             fields={formFields}
             successMessage="Gracias por completar el formulario. Te contactaremos pronto."

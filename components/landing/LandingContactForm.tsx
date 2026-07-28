@@ -48,19 +48,19 @@ export interface FieldConfig {
   options?: string[]
 }
 
-interface PerformanceContactFormProps {
+interface LandingContactFormProps {
   service: string
   fields: FieldConfig[]
   successMessage?: string
   buttonText?: string
 }
 
-export function PerformanceContactForm({
+export function LandingContactForm({
   service,
   fields,
   successMessage = "Gracias por completar el formulario. Revisaremos la información y te contactaremos pronto.",
   buttonText = "SOLICITAR DIAGNÓSTICO",
-}: PerformanceContactFormProps) {
+}: LandingContactFormProps) {
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle")
   const [isHovered, setIsHovered] = useState(false)
   const [selectOpen, setSelectOpen] = useState<string | null>(null)

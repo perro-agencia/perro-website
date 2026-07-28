@@ -2,11 +2,11 @@ import { Nav } from "@/components/layout/Nav"
 import { Footer } from "@/components/layout/Footer"
 import { AnimateInView } from "@/components/AnimateInView"
 import { Button } from "@/components/ui/Button"
-import { PerformanceContactForm } from "@/components/landing/PerformanceContactForm"
+import { LandingContactForm } from "@/components/landing/LandingContactForm"
 import { FloatingLogos } from "@/components/landing/FloatingLogos"
 import { ClientsSection } from "@/components/sections/ClientsSection"
 import { buildMetadata } from "@/lib/metadata"
-import type { FieldConfig } from "@/components/landing/PerformanceContactForm"
+import type { FieldConfig } from "@/components/landing/LandingContactForm"
 
 export const metadata = buildMetadata({
   title: "Perro Agency - Brand website",
@@ -128,7 +128,7 @@ export default function WebsiteInstitucionalPage() {
             </AnimateInView>
           </div>
 
-          <PerformanceContactForm
+          <LandingContactForm
             service="Website Institucional"
             fields={formFields}
             buttonText="CONTACTANOS"
