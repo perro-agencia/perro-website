@@ -1,0 +1,57 @@
+# robots.txt - perroagency.com
+# Dominio canónico único. perro.agency debe redirigir (301) hacia este dominio.
+
+User-agent: *
+Allow: /
+
+# --- Bots de motores de búsqueda tradicionales (permitidos por defecto con Allow: /) ---
+
+# --- Bots de IA / LLMs: permitidos explícitamente ---
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+# --- Rutas que no deben indexarse (paneles internos, buscador interno, previews, etc.) ---
+# Ajustar/completar esta sección con el dev según las rutas reales del sitio nuevo.
+# Disallow: /admin/
+# Disallow: /preview/
+
+Sitemap: https://www.perroagency.com/sitemap.xml

@@ -5,7 +5,7 @@ export const siteConfig = {
     "Agencia creativa especializada en branding, diseño UX/UI, desarrollo web y marketing digital. Transformamos marcas en experiencias digitales.",
   email: "hola@perroagency.com",
   phone: "+541124058394",
-  url: process.env.NEXT_PUBLIC_BASE_URL || "https://perro.agency",
+  url: process.env.NEXT_PUBLIC_BASE_URL || "https://www.perroagency.com",
   ogImage: "/meta/og-graph-image.png",
   ogImageAlt: "PERRO — Agencia Creativa",
   icons: {

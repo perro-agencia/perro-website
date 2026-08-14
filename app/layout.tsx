@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { fontBody, fontDisplay } from "@/lib/fonts"
 import { siteConfig } from "@/lib/site"
+import { JsonLd } from "@/components/JsonLd"
 import "@/styles/globals.css"
 
 export const metadata: Metadata = {
@@ -35,10 +36,25 @@ export const metadata: Metadata = {
   },
 }
 
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "PERRO Agency",
+  url: `${siteConfig.url}/`,
+  logo: `${siteConfig.url}/brand/isologotipo-color.svg`,
+  description:
+    "Agencia de marketing digital y diseño especializada en branding, sitios web y performance marketing (Google Ads, Meta, TikTok, LinkedIn).",
+  email: "queonda@perroagency.com",
+  sameAs: [siteConfig.social.instagram, siteConfig.social.linkedin],
+}
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" className={`${fontDisplay.variable} ${fontBody.variable}`}>
-      <body>{children}</body>
+      <body>
+        <JsonLd data={organizationJsonLd} />
+        {children}
+      </body>
     </html>
   )
 }

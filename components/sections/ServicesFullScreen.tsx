@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
 import { Chip } from "@/components/ui/Chip"
@@ -16,9 +17,20 @@ interface ServiceConfig {
   descColor: ServiceDescColor
   chips: string[]
   chipVariant?: "outline" | "outline-dark"
+  href?: string
 }
 
 const services: ServiceConfig[] = [
+  {
+    title: "Paid Media",
+    description:
+      "Visibilidad digital: creamos campañas estratégicas que maximizan la presencia y performance de tus anuncios.",
+    bg: "bg-brand-primary-main",
+    textColor: "text-brand-white",
+    descColor: "text-brand-white",
+    chips: ["anuncios", "campañas", "KPI's", "performance", "data", "objetivos", "roi/roas", "optimización", "metricas", "posicionamiento"],
+    href: "/performance-ads",
+  },
   {
     title: "Diseño",
     description:
@@ -30,22 +42,13 @@ const services: ServiceConfig[] = [
     chipVariant: "outline-dark",
   },
   {
-    title: "Paid Media",
-    description:
-      "Visibilidad digital: creamos campañas estratégicas que maximizan la presencia y performance de tus anuncios.",
-    bg: "bg-brand-primary-main",
-    textColor: "text-brand-white",
-    descColor: "text-brand-white",
-    chips: ["anuncios","campañas","KPI's","performance","data","objetivos","roi/roas","optimización","metricas","posicionamiento"],
-  },
-  {
     title: "Social\nContent",
     description:
       "Transformamos tu estrategia en contenido relevante y coherente, capaz de atraer resultados, fidelizar y generar interacción con tu comunidad digital.",
     bg: "bg-brand-accent-01",
     textColor: "text-brand-white",
     descColor: "text-brand-white",
-    chips: ["gestión", "moderación", "estrategia para redes", "storytelling","diseño","performance orgánica"],
+    chips: ["gestión", "moderación", "estrategia para redes", "storytelling", "diseño", "performance orgánica"],
   },
   {
     title: "SEO IA",
@@ -54,7 +57,7 @@ const services: ServiceConfig[] = [
     bg: "bg-black",
     textColor: "text-brand-white",
     descColor: "text-brand-white",
-    chips: ["keywords", "llms", "ia", "sitemap","robots","estructura","posicionamiento","contenido","blogs"],
+    chips: ["keywords", "llms", "ia", "sitemap", "robots", "estructura", "posicionamiento", "contenido", "blogs"],
   },
   {
     title: "Producto",
@@ -63,8 +66,9 @@ const services: ServiceConfig[] = [
     bg: "bg-brand-white",
     textColor: "text-brand-black",
     descColor: "text-brand-black",
-    chips: ["desarrollo web", "prototipo", "esquema", "ux","ui","desarrollo producto","apps","cm's","negocio"],
+    chips: ["desarrollo web", "prototipo", "esquema", "ux", "ui", "desarrollo producto", "apps", "cm's", "negocio"],
     chipVariant: "outline-dark",
+    href: "/brand-website",
   },
 ]
 
@@ -119,6 +123,27 @@ export function ServicesFullScreen() {
             >
               {service.description}
             </motion.p>
+
+            {service.href && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.55 }}
+                className="mt-10 md:absolute md:bottom-[10%] md:left-8"
+              >
+                <Link
+                  href={service.href}
+                  className={cn(
+                    "inline-flex items-center gap-2 font-display text-xl font-medium tracking-wide transition-opacity duration-200 hover:opacity-70 hover:underline",
+                    service.textColor
+                  )}
+                >
+                  Conocé más
+                  <span aria-hidden="true">→</span>
+                </Link>
+              </motion.div>
+            )}
           </div>
         </motion.section>
       ))}

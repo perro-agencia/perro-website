@@ -14,12 +14,12 @@ export const metadata = buildMetadata({
 export default function ServiciosPage() {
   return (
     <>
-      <Nav 
+      <Nav
         logoSrc="/brand/isologotipo-black.svg"
-        logoHoverSrc="/brand/isologotipo-color.svg"
+        logoHoverSrc="/brand/isologotipo-white.svg"
         linkColor="text-brand-black"
-        linkHoverColor="#885de3"
-        buttonColorScheme="accent"
+        linkHoverColor="#c4f875"
+        buttonColorScheme="default"
       />
       <div className="bg-brand-white min-h-screen">
         <ServicesFullScreen />
@@ -31,7 +31,7 @@ export default function ServiciosPage() {
           />
         </section>
         <div className="w-full max-w-[1500px] mx-auto">
-          <FooterLogo logoSrc="/miscelaneous/perro-logo-cut-black.svg"/>
+          <FooterLogo logoSrc="/miscelaneous/perro-logo-cut-black.svg" />
         </div>
       </div>
     </>
