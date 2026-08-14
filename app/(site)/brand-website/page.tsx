@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/Button"
 import { LandingContactForm } from "@/components/landing/LandingContactForm"
 import { FloatingLogos } from "@/components/landing/FloatingLogos"
 import { ClientsSection } from "@/components/sections/ClientsSection"
+import { JsonLd } from "@/components/JsonLd"
 import { buildMetadata } from "@/lib/metadata"
 import type { FieldConfig } from "@/components/landing/LandingContactForm"
 
@@ -13,6 +14,21 @@ export const metadata = buildMetadata({
   description: "Diseñamos y desarrollamos sitios web que comunican quién sos, qué hacés y por qué importa.",
   path: "/brand-website",
 })
+
+const serviceJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: "Diseño y desarrollo de sitios web",
+  provider: {
+    "@type": "Organization",
+    name: "PERRO Agency",
+    url: "https://www.perroagency.com/",
+  },
+  areaServed: "AR",
+  url: "https://www.perroagency.com/brand-website",
+  description:
+    "Diseño y desarrollo de sitios web a medida, con proceso de diagnóstico, diseño/desarrollo y lanzamiento.",
+}
 
 const steps = [
   {
@@ -47,6 +63,7 @@ const formFields: FieldConfig[] = [
 export default function WebsiteInstitucionalPage() {
   return (
     <>
+      <JsonLd data={serviceJsonLd} />
       <Nav
         logoSrc="/brand/isologotipo-white.svg"
         logoHoverSrc="/brand/isologotipo-color.svg"

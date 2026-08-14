@@ -4,6 +4,7 @@ import { AnimateInView } from "@/components/AnimateInView"
 import { Chip } from "@/components/ui/Chip"
 import { LandingContactForm } from "@/components/landing/LandingContactForm"
 import { ClientsSection } from "@/components/sections/ClientsSection"
+import { JsonLd } from "@/components/JsonLd"
 import { buildMetadata } from "@/lib/metadata"
 import type { FieldConfig } from "@/components/landing/LandingContactForm"
 
@@ -12,6 +13,21 @@ export const metadata = buildMetadata({
   description: "Diseñamos, ejecutamos y optimizamos estrategias de Paid Media y performance para empresas que invierten y buscan crecimiento sostenible.",
   path: "/performance-ads",
 })
+
+const serviceJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: "Performance Marketing / Publicidad paga",
+  provider: {
+    "@type": "Organization",
+    name: "PERRO Agency",
+    url: "https://www.perroagency.com/",
+  },
+  areaServed: "AR",
+  url: "https://www.perroagency.com/performance-ads",
+  description:
+    "Gestión y optimización de campañas de publicidad paga en Google Ads, Meta, TikTok y LinkedIn, con foco en ROAS y CAC/LTV. Más de USD 112M gestionados en inversión publicitaria.",
+}
 
 const chips = [
   "Anuncios", "Paid Media", "ROAS", "ROI", "Performance",
@@ -30,6 +46,7 @@ const formFields: FieldConfig[] = [
 export default function PerformanceAdsPage() {
   return (
     <>
+      <JsonLd data={serviceJsonLd} />
       <Nav
         logoSrc="/brand/isologotipo-white.svg"
         logoHoverSrc="/brand/isologotipo-color.svg"
