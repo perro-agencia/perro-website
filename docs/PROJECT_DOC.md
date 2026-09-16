@@ -2,7 +2,7 @@
 
 ## 1. Estado actual del proyecto
 
-**Última actualización:** 2026-07-24
+**Última actualización:** 2026-09-16
 
 ### Features completadas
 - Homepage sections rediseñadas completamente (Hero, Clients, Services, Strategy, Portfolio, Team, ContactSection)
@@ -56,6 +56,7 @@
 - **Email template actualizado** (`lib/email.ts`): `sendContactEmail` acepta `service?: string` y `fields?: Record<string, string>`. Subject: `Nuevo contacto [ServiceName] de Nombre`. Default `CONTACT_EMAIL_TO` cambiado a `queonda@perroagency.com`. `from` cambiado a `contacto@perroagency.com`.
 - **Página `/performance-ads`**: landing page para Performance Ads con secciones Multi-plataformas (logos), Stats Cards (3 cards: +$84M white, E-commerce primary, Modelos SaaS accent-02), ClientsSection reutilizada del homepage, Hero+Form. Chips: Anuncios, Paid Media, ROAS, ROI, Performance, Creatividades, copies, línea de crédito, tracking, ga4, google tag manager. Imágenes multi-plataforma en `public/multiplatform/`.
 - **Resend configurado**: dominio perroagency.com, from contacto@perroagency.com, default CONTACT_EMAIL_TO=queonda@perroagency.com.
+- **Landing 3D interactiva para invitaciones vía NFC** (`/invite/[slug]`): card 3D renderizada con Three.js + React Three Fiber. Componente `InviteCard3D` con geometría extrude (esquinas redondeadas radius 80 + bevel, depth 1), textura generada en canvas 1024x1440 (gradiente negro #121216→#0a0a0d→#040405 + dos tintes radiales de acento alpha 0.08 + logo centrado máx 36% del ancho + guestName en 62% de altura), UVs de las tapas normalizadas (0–1) para textura completa, canto del extrude en negro sólido #0a0a0d y dorso con textura espejada horizontalmente (mirrorTexture, DoubleSide) en -(CARD_FRONT_Z+0.6). Iluminación simétrica frente/dorso: ambient 0.5 + 2 keys directional 1.25 + 2 fills 0.45 + luces de acento espejadas (A 0.3, B 0.25). Canvas transparente con blobs CSS detrás (blur 120px, mixBlendMode screen). Interacción drag con Pointer Events (yaw inicial 0.5 sin clamp, pitch clamp ±0.75, damping). Responsive vía ResizeObserver sobre el contenedor + `computeScale(aspect)`. DPR [1, 1.75], `touch-none`. Carga lazy vía `next/dynamic` con `ssr:false` + skeleton loading (code-splitting de three.js). Layout dedicado fuera de `(site)` (sin Nav/Footer), metadata robots noindex. `generateStaticParams` para SSG de slugs conocidos; slugs desconocidos caen a card default (robusto para tags NFC ya grabados). Datos hardcodeados en `lib/invitations.ts` (3 ejemplos: juan-perez y maria-garcia con guestName, demo sin guestName). Sin dependencia `@react-three/drei` (evitada por peso de bundle).
 
 ### Features en progreso
 - PortfolioGrid también pendiente de migración a datos hardcodeados
@@ -92,7 +93,10 @@
 | clsx | ^2.1.1 | Condicionales de clases |
 | tailwind-merge | ^3.2.0 | Merge de clases Tailwind |
 | resend | ^6.12.3 | Envío de emails desde formulario de contacto |
+| three | ^0.186.0 | Three.js — motor 3D para rendering WebGL |
+| @react-three/fiber | ^9.7.0 | React renderer para Three.js (React 19 compatible) |
 | typescript | ^5.8.3 | Tipado estático |
+| @types/three (dev) | ^0.186.0 | Tipados TypeScript para Three.js |
 
 ### Decisiones técnicas (ADRs)
 
@@ -105,6 +109,13 @@
 - **Rate limiting en memoria** para el endpoint `/api/contact` — solución liviana (Map en memoria, sin dependencias externas). 5 requests por minuto por IP. Migrar a Vercel KV o Redis si el tráfico crece.
 - **@sanity/code-input** registrado como plugin en `sanity.config.ts` — provee syntax highlighting para code blocks dentro del Portable Text del CMS.
 - **Vision Tool condicional** — solo se habilita en `development` (`process.env.NODE_ENV === "development" ? [visionTool()] : []`) para evitar exposición de datos en producción.
+- **`@react-three/fiber` v9** — se usó la v9 porque es la compatible con React 19 (v8 es para React 18).
+- **Sin `@react-three/drei`** — decisión deliberada para minimizar el bundle de three.js en `/invite/[slug]`. Los helpers de drei (Text, Float, Environment, etc.) se reemplazaron por implementaciones propias: texto y textura de la card vía canvas 2D, geometría y materiales directos con Three.js, iluminación manual.
+- **`next/dynamic` con `ssr:false`** para `InviteCard3D` — evita SSR de WebGL (no existe canvas en server) y code-splitea three.js a la ruta `/invite/[slug]` (verificado: ~bundle separado, no entra en el bundle principal). Loading skeleton mientras carga.
+- **Escala de la card vía `computeScale(aspect)`** — el tamaño de la card se calcula en función del aspect ratio del contenedor (no del viewport) para que siempre entre completa en pantalla: 78% de la altura del plano visible (0.78 * planeHeight / CARD_H) y 86% del ancho. FOV fijo 35º, cámara a z=5.4.
+- **Geometría de la card** — Shape 1600x2250 con esquinas redondeadas (`radius: 80`), ExtrudeGeometry con `depth: 1`, `bevelThickness: 10`, `bevelSize: 5`, `bevelSegments: 6`, `curveSegments: 32`, trasladada para centrarla en el origen. Las UVs de las tapas (grupo 0 del extrude) se normalizan dividiendo por CARD_W/CARD_H para que la textura del canvas se vea completa y centrada en el frente. Materiales: array `[capMaterial, sideMaterial]` — la tapa usa la textura (MeshStandardMaterial roughness 0.35, metalness 0.15) y el canto/bisel es negro sólido `#0a0a0d` (roughness 0.4, metalness 0.2).
+- **Dorso de la card** — las dos tapas del ExtrudeGeometry tienen normal +z, por lo que el dorso del sólido queda "abierto". Desde atrás se ve un plano inscrito (`createBackGeometry`, ShapeGeometry de tamaño interior con radio de esquina reducido) ubicado en `z = -(CARD_FRONT_Z + 0.6)`, que usa la textura espejada horizontalmente (`mirrorTexture`) con `side: DoubleSide` para que el diseño (logo) se vea derecho visto desde atrás.
+- **Slugs desconocidos caen a card default (sin 404)** — la página `/invite/[slug]` solo prerenderiza los slugs conocidos via `generateStaticParams`, pero si llega un slug no listado (ej: tag NFC ya grabado en el mundo real), renderiza la card con el logo/colores default en vez de devolver 404. Robustez intencional para el caso de uso físico NFC.
 
 ---
 
@@ -140,6 +151,41 @@ components/
 │                                hover glow effect, arrow animado. Animaciones framer-motion stagger.
 │                                Envía POST a `/api/contact` → Resend.
 │                                Reemplazó al ContactForm viejo (huérfano) y al formulario inline de ContactSection.
+├── invite/
+│   └── InviteScene.tsx        — "use client". Punto de entrada para la landing de invitación.
+│                                Props: { logoUrl?, accentColorA?, accentColorB?, guestName? }
+│                                Carga InviteCard3D con next/dynamic { ssr:false } + loading skeleton
+│                                (card con animate-pulse que replica el aspect de la card real 512/720).
+│                                Evita SSR de WebGL y code-splitea three.js a la ruta /invite/[slug].
+├── InviteCard3D.tsx           — "use client". Card 3D interactiva para invitaciones.
+│                                Props: { logoUrl? (default /brand/isologotipo-white.svg), accentColorA? (default #885DE3),
+│                                accentColorB? (default #C4F875), guestName? }
+│                                Geometría: THREE.Shape 1600x2250 con esquinas redondeadas (radius 80) +
+│                                ExtrudeGeometry (depth 1, bevelThickness 10, bevelSize 5, bevelSegments 6,
+│                                curveSegments 32), centrada en el origen. UVs de las tapas normalizadas
+│                                (divididas por CARD_W/CARD_H) para que la textura se vea completa en el frente.
+│                                Materiales: array [capMaterial, sideMaterial] — tapa con map (MeshStandardMaterial
+│                                roughness 0.35 metalness 0.15), canto/bisel en negro sólido #0a0a0d (roughness 0.4,
+│                                metalness 0.2). Dorso: plano inscrito en z = -(CARD_FRONT_Z + 0.6) con la textura
+│                                espejada horizontalmente (mirrorTexture) y DoubleSide, para que el logo se vea
+│                                derecho desde atrás.
+│                                Textura (canvas 1024x1440): gradiente vertical negro (#121216→#0a0a0d→#040405),
+│                                dos tintes radiales de acento (alpha 0.08; centros en (220,220) y (820,1240),
+│                                radio 720), sin borde interior. Logo: máx 36% del ancho, centrado
+│                                ((H-h)/2 sin guestName; 0.34H con guestName). guestName en mayúsculas
+│                                (Helvetica Neue 600, 72px, alpha 0.92) centrado en 0.62H. SRGBColorSpace + anisotropy 8.
+│                                Iluminación simétrica frente/dorso: ambientLight 0.5 + 2 keys directional blancas
+│                                (1.25 en [3,4,6] y [-3,4,-6]) + 2 fills (0.45 en [-4,-2,4] y [4,-2,-6]) +
+│                                luces de acento espejadas (accentColorA 0.3 en [-3,2,2] y [-3,2,-2],
+│                                accentColorB 0.25 en [3,-2,2] y [3,-2,-2]).
+│                                Canvas: transparente (setClearColor alpha 0), dpr [1, 1.75],
+│                                camera fov 35 a z=5.4. Blobs CSS detrás (blur 120px, opacity 0.15, screen).
+│                                Interacción: drag con Pointer Events, yaw inicial 0.5 (sin clamp),
+│                                pitch clamp ±0.75, damping en useFrame (k = min(1, delta * 6)), sin auto-rotate.
+│                                touch-none.
+│                                Responsive: ResizeObserver sobre contenedor (no window) + computeScale(aspect)
+│                                (0.78 * planeHeight / CARD_H, 0.86 * planeWidth / CARD_W).
+│                                Limpieza: dispose de geometry, back, backTexture, capMaterial y sideMaterial en unmount.
 ├── landing/
 │   └── PerformanceContactForm.tsx — "use client". Formulario dinámico para landing pages de servicios.
 │                                     Props: { service: string, fields: FieldConfig[], successMessage?: string }
@@ -444,6 +490,7 @@ Tipo de bloque rich text con soporte para:
 | `/legal/terminos-y-condiciones` | Estática | Server component, `<p>` único con `<br />`. Sin "use client", sin fetch. | `app/(site)/legal/terminos-y-condiciones/page.tsx` |
 | `/legal/politicas-de-privacidad` | Estática | Server component, misma estructura. Sin "use client", sin fetch. | `app/(site)/legal/politicas-de-privacidad/page.tsx` |
 | `/studio` | Estática | Sanity Studio embebido | `app/studio/[[...tool]]/page.tsx` |
+| `/invite/[slug]` | Estática (SSG) | Landing 3D de invitación. `generateStaticParams` genera los slugs conocidos de `lib/invitations.ts` (juan-perez y maria-garcia con guestName; demo sin guestName → card default con logo y colores default). Slugs desconocidos NO dan 404: caen a card default (robusto para tags NFC ya grabados). `generateMetadata` con robots noindex. Layout propio fuera de `(site)`: wrapper `fixed inset-0` sin Nav ni Footer. Renderiza `<InviteScene />` (InviteCard3D con three.js via dynamic ssr:false). | `app/invite/[slug]/page.tsx`, `app/invite/layout.tsx` |
 
 Cada página renderiza su propio `<Nav />` directamente (no hay Header en el layout). `Footer` se mantiene en el layout compartido.
 Fetch calls usan `sanityFetch()` con revalidate: 60 y tags para ISR on-demand.
@@ -580,3 +627,5 @@ brand: {
 | **2026-07-24** | **Email template actualizado** (`lib/email.ts`): subject con nombre de servicio, campos dinámicos en HTML. Default CONTACT_EMAIL_TO cambiado a `queonda@perroagency.com`. From cambiado a `contacto@perroagency.com`. |
 | **2026-07-24** | **Página `/performance-ads`**: landing page Performance Ads con Multi-plataformas, Stats Cards (3), ClientsSection, Hero+Form. |
 | **2026-07-24** | **Resend configurado**: dominio perroagency.com, from contacto@perroagency.com, CONTACT_EMAIL_TO=queonda@perroagency.com. |
+| **2026-09-16** | **Landing 3D interactiva para invitaciones vía NFC (`/invite/[slug]`)**: nuevo componente `InviteCard3D` (Three.js + @react-three/fiber v9) — geometría extrude con bevel, textura en canvas (gradiente + logo + guestName + borde acento), overlay holográfico con ShaderMaterial custom (fresnel + hue shift + uTime), iluminación con 2 luces de acento, drag con damping, responsive con ResizeObserver. `InviteScene` carga la card con `next/dynamic` `ssr:false` + skeleton (code-splitting de three.js). `lib/invitations.ts` con tipo `Invitation` + 3 invitaciones hardcodeadas + `getInvitation(slug)`. Layout `app/invite/layout.tsx` fuera de `(site)` con robots noindex y wrapper `fixed inset-0`. Página con `generateStaticParams` (SSG) y caída a card default para slugs desconocidos. Dependencias nuevas: `three` ^0.186.0, `@react-three/fiber` ^9.7.0, `@types/three` ^0.186.0. Sin @react-three/drei (decisión de bundle). Verificado: build OK (ruta prerenderizada ● SSG), tsc sin errores, HTTP 200 para slug conocido y desconocido. Nota: `pnpm lint` falla por 2 errores preexistentes (FloatingLogos.tsx, StrategySection.tsx). |
+| **2026-09-16** | **Efecto holograma/stencil eliminado de la card 3D**: fuera el ShaderMaterial custom (fresnel + hsv2rgb + uTime), buildMaskTexture/uniforms uMask-uRepeat-uMaskScale-uOpacity, el plano de foil superpuesto y el AdditiveBlending; eliminadas las props `hologramMaskUrl`/`hologramRepeat`/`hologramGap`/`hologramOpacity` de `Invitation`, `SceneProps`, `InviteSceneProps` y page. La card pasa a: props solo `logoUrl`/`accentColorA`/`accentColorB`/`guestName`; textura negra (#121216→#0a0a0d→#040405, tintes alpha 0.08, sin borde interior, logo 36% centrado); UVs de tapas normalizadas + canto negro #0a0a0d; dorso abierto con plano espejado (mirrorTexture, DoubleSide); iluminación simétrica (keys 1.25, fills 0.45, acentos A 0.3 / B 0.25); slug `demo` sin guestName. `public/holo-test.svg` queda sin referencias (borrado pendiente). |
