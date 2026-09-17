@@ -251,9 +251,18 @@ export function InviteCard3D({
   const drag = useRef({ active: false, lastX: 0, lastY: 0 })
   const target = useRef({ yaw: 0.5, pitch: -0.22 })
   const gyro = useRef({ yaw: 0, pitch: 0, enabled: false })
-  const gyroStarted = useRef(false)
+  const gyroAttempted = useRef(false)
   const [texture, setTexture] = useState<THREE.Texture | null>(null)
   const [size, setSize] = useState({ width: 0, height: 0 })
+
+  const isTouchDevice = () => {
+    if (typeof window === "undefined") return false
+    return (
+      window.matchMedia("(pointer: coarse)").matches ||
+      "ontouchstart" in window ||
+      navigator.maxTouchPoints > 0
+    )
+  }
 
   const enableGyro = useCallback(async () => {
     if (gyro.current.enabled) return
@@ -269,6 +278,7 @@ export function InviteCard3D({
       }
     }
     gyro.current.enabled = true
+    window.dispatchEvent(new CustomEvent("gyro-enabled"))
   }, [])
 
   useEffect(() => {
@@ -320,15 +330,14 @@ export function InviteCard3D({
   const aspect = size.width > 0 && size.height > 0 ? size.width / size.height : 16 / 9
   const scale = computeScale(aspect)
 
+  const requestGyro = useCallback(() => {
+    if (!isTouchDevice() || gyro.current.enabled) return
+    gyroAttempted.current = true
+    void enableGyro()
+  }, [enableGyro])
+
   const onPointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
-    if (
-      !gyroStarted.current &&
-      typeof window !== "undefined" &&
-      window.matchMedia("(pointer: coarse)").matches
-    ) {
-      gyroStarted.current = true
-      void enableGyro()
-    }
+    if (!gyroAttempted.current) requestGyro()
     drag.current = { active: true, lastX: event.clientX, lastY: event.clientY }
     event.currentTarget.setPointerCapture(event.pointerId)
   }
@@ -341,6 +350,12 @@ export function InviteCard3D({
     drag.current.lastY = event.clientY
     target.current.yaw += dx * 0.006
     target.current.pitch = clamp(target.current.pitch + dy * 0.006, -0.75, 0.75)
+  }
+
+  const onGyroClick = () => {
+    if (!isTouchDevice() || gyro.current.enabled) return
+    gyroAttempted.current = true
+    void enableGyro()
   }
 
   const onPointerUp = (event: ReactPointerEvent<HTMLDivElement>) => {
@@ -382,6 +397,7 @@ export function InviteCard3D({
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerUp}
+        onClick={onGyroClick}
       >
         <Canvas
           dpr={[1, 1.75]}
