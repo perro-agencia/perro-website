@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import type { PointerEvent as ReactPointerEvent } from "react"
 import * as THREE from "three"
 import { Canvas, useFrame } from "@react-three/fiber"
@@ -21,14 +21,6 @@ const CARD_BEVEL_SIZE = 5
 const CARD_FRONT_Z = CARD_DEPTH / 2 + CARD_BEVEL_THICKNESS
 const CAM_Z = 5.4
 const CAM_FOV = 35
-
-// Giroscopio (DeviceOrientation): mapa natural de la inclinación del celular a la card.
-// beta (tilt front/back, neutral 90° en portrait) → pitch; gamma (tilt left/right) → yaw.
-const GYRO_PITCH_FACTOR = Math.PI / 180
-const GYRO_YAW_FACTOR = 0.9 * (Math.PI / 180)
-const GYRO_MAX_PITCH = 1.0
-const GYRO_MAX_YAW = 1.35
-const GYRO_PITCH_CLAMP = 0.9 // clamp combinado (drag + giro)
 
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value))
 
@@ -182,10 +174,9 @@ type SceneProps = {
   texture: THREE.Texture | null
   scale: number
   target: React.RefObject<{ yaw: number; pitch: number }>
-  gyro: React.RefObject<{ yaw: number; pitch: number }>
 }
 
-function Scene({ texture, scale, target, gyro }: SceneProps) {
+function Scene({ texture, scale, target }: SceneProps) {
   const group = useRef<THREE.Group>(null)
   const geometry = useMemo(() => createCardGeometry(), [])
   const back = useMemo(() => createBackGeometry(), [])
@@ -215,13 +206,10 @@ function Scene({ texture, scale, target, gyro }: SceneProps) {
   useFrame((_, delta) => {
     const g = group.current
     const t = target.current
-    const gy = gyro.current
-    if (!g) return
+    if (!g || !t) return
     const k = Math.min(1, delta * 6)
-    const targetYaw = t.yaw + gy.yaw
-    const targetPitch = clamp(t.pitch + gy.pitch, -GYRO_PITCH_CLAMP, GYRO_PITCH_CLAMP)
-    g.rotation.y += (targetYaw - g.rotation.y) * k
-    g.rotation.x += (targetPitch - g.rotation.x) * k
+    g.rotation.y += (t.yaw - g.rotation.y) * k
+    g.rotation.x += (t.pitch - g.rotation.x) * k
   })
 
   return (
@@ -250,50 +238,8 @@ export function InviteCard3D({
   const wrapRef = useRef<HTMLDivElement>(null)
   const drag = useRef({ active: false, lastX: 0, lastY: 0 })
   const target = useRef({ yaw: 0.5, pitch: -0.22 })
-  const gyro = useRef({ yaw: 0, pitch: 0, active: false })
   const [texture, setTexture] = useState<THREE.Texture | null>(null)
   const [size, setSize] = useState({ width: 0, height: 0 })
-
-  const isTouchDevice = () => {
-    if (typeof window === "undefined") return false
-    return (
-      window.matchMedia("(pointer: coarse)").matches ||
-      "ontouchstart" in window ||
-      navigator.maxTouchPoints > 0
-    )
-  }
-
-  const enableGyro = useCallback(async () => {
-    const DT = window.DeviceOrientationEvent as typeof DeviceOrientationEvent & {
-      requestPermission?: () => Promise<string>
-    }
-    if (typeof DT?.requestPermission === "function") {
-      try {
-        const permission = await DT.requestPermission()
-        if (permission !== "granted") return
-      } catch {
-        return
-      }
-    }
-    gyro.current.active = true
-    window.dispatchEvent(new CustomEvent("gyro-enabled"))
-  }, [])
-
-  useEffect(() => {
-    const onOrientation = (event: DeviceOrientationEvent) => {
-      const { beta, gamma } = event
-      if (beta == null || gamma == null) return
-      gyro.current.active = true
-      gyro.current.yaw = clamp(gamma * GYRO_YAW_FACTOR, -GYRO_MAX_YAW, GYRO_MAX_YAW)
-      gyro.current.pitch = clamp((beta - 90) * GYRO_PITCH_FACTOR, -GYRO_MAX_PITCH, GYRO_MAX_PITCH)
-    }
-    window.addEventListener("deviceorientation", onOrientation)
-    window.addEventListener("deviceorientationabsolute", onOrientation)
-    return () => {
-      window.removeEventListener("deviceorientation", onOrientation)
-      window.removeEventListener("deviceorientationabsolute", onOrientation)
-    }
-  }, [])
 
   useEffect(() => {
     let disposed = false
@@ -332,13 +278,7 @@ export function InviteCard3D({
   const aspect = size.width > 0 && size.height > 0 ? size.width / size.height : 16 / 9
   const scale = computeScale(aspect)
 
-  const requestGyro = useCallback(() => {
-    if (!isTouchDevice() || gyro.current.active) return
-    void enableGyro()
-  }, [enableGyro])
-
   const onPointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
-    requestGyro()
     drag.current = { active: true, lastX: event.clientX, lastY: event.clientY }
     event.currentTarget.setPointerCapture(event.pointerId)
   }
@@ -353,12 +293,7 @@ export function InviteCard3D({
     target.current.pitch = clamp(target.current.pitch + dy * 0.006, -0.75, 0.75)
   }
 
-  const onGyroClick = () => {
-    requestGyro()
-  }
-
   const onPointerUp = (event: ReactPointerEvent<HTMLDivElement>) => {
-    requestGyro()
     drag.current.active = false
     event.currentTarget.releasePointerCapture(event.pointerId)
   }
@@ -397,7 +332,6 @@ export function InviteCard3D({
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerUp}
-        onClick={onGyroClick}
       >
         <Canvas
           dpr={[1, 1.75]}
@@ -414,7 +348,7 @@ export function InviteCard3D({
           <directionalLight position={[3, -2, 2]} intensity={0.25} color={accentColorB} />
           <directionalLight position={[-3, 2, -2]} intensity={0.3} color={accentColorA} />
           <directionalLight position={[3, -2, -2]} intensity={0.25} color={accentColorB} />
-          <Scene texture={texture} scale={scale} target={target} gyro={gyro} />
+          <Scene texture={texture} scale={scale} target={target} />
         </Canvas>
       </div>
     </div>
