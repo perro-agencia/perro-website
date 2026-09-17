@@ -250,8 +250,7 @@ export function InviteCard3D({
   const wrapRef = useRef<HTMLDivElement>(null)
   const drag = useRef({ active: false, lastX: 0, lastY: 0 })
   const target = useRef({ yaw: 0.5, pitch: -0.22 })
-  const gyro = useRef({ yaw: 0, pitch: 0, enabled: false })
-  const gyroAttempted = useRef(false)
+  const gyro = useRef({ yaw: 0, pitch: 0, active: false })
   const [texture, setTexture] = useState<THREE.Texture | null>(null)
   const [size, setSize] = useState({ width: 0, height: 0 })
 
@@ -265,7 +264,6 @@ export function InviteCard3D({
   }
 
   const enableGyro = useCallback(async () => {
-    if (gyro.current.enabled) return
     const DT = window.DeviceOrientationEvent as typeof DeviceOrientationEvent & {
       requestPermission?: () => Promise<string>
     }
@@ -277,20 +275,24 @@ export function InviteCard3D({
         return
       }
     }
-    gyro.current.enabled = true
+    gyro.current.active = true
     window.dispatchEvent(new CustomEvent("gyro-enabled"))
   }, [])
 
   useEffect(() => {
     const onOrientation = (event: DeviceOrientationEvent) => {
-      if (!gyro.current.enabled) return
       const { beta, gamma } = event
       if (beta == null || gamma == null) return
+      gyro.current.active = true
       gyro.current.yaw = clamp(gamma * GYRO_YAW_FACTOR, -GYRO_MAX_YAW, GYRO_MAX_YAW)
       gyro.current.pitch = clamp((beta - 90) * GYRO_PITCH_FACTOR, -GYRO_MAX_PITCH, GYRO_MAX_PITCH)
     }
     window.addEventListener("deviceorientation", onOrientation)
-    return () => window.removeEventListener("deviceorientation", onOrientation)
+    window.addEventListener("deviceorientationabsolute", onOrientation)
+    return () => {
+      window.removeEventListener("deviceorientation", onOrientation)
+      window.removeEventListener("deviceorientationabsolute", onOrientation)
+    }
   }, [])
 
   useEffect(() => {
@@ -331,13 +333,12 @@ export function InviteCard3D({
   const scale = computeScale(aspect)
 
   const requestGyro = useCallback(() => {
-    if (!isTouchDevice() || gyro.current.enabled) return
-    gyroAttempted.current = true
+    if (!isTouchDevice() || gyro.current.active) return
     void enableGyro()
   }, [enableGyro])
 
   const onPointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
-    if (!gyroAttempted.current) requestGyro()
+    requestGyro()
     drag.current = { active: true, lastX: event.clientX, lastY: event.clientY }
     event.currentTarget.setPointerCapture(event.pointerId)
   }
@@ -353,12 +354,11 @@ export function InviteCard3D({
   }
 
   const onGyroClick = () => {
-    if (!isTouchDevice() || gyro.current.enabled) return
-    gyroAttempted.current = true
-    void enableGyro()
+    requestGyro()
   }
 
   const onPointerUp = (event: ReactPointerEvent<HTMLDivElement>) => {
+    requestGyro()
     drag.current.active = false
     event.currentTarget.releasePointerCapture(event.pointerId)
   }
