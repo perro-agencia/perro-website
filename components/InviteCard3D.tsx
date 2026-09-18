@@ -89,15 +89,35 @@ function loadLogo(src: string): Promise<HTMLImageElement> {
 }
 
 const BRAND_TEXT = "camp"
-const LOGO_HEIGHT = 180
+const LOGO_HEIGHT = 160
 const TEXT_FONT_SIZE = 200
 const LOCKUP_GAP = 45
 const LOCKUP_TEXT_GAP = 40
-const LOCKUP_LOGO_Y_OFFSET = 30
+const LOCKUP_LOGO_Y_OFFSET = 25
 const LOCKUP_STAR_SIZE = 140
 const LOCKUP_STAR_THICKNESS = 15
 const LOCKUP_STAR_Y_OFFSET = 15
 const LOCKUP_MAX_W = 0.72
+
+type LightConfig = {
+  ambient: number
+  keyFront: number
+  fillFront: number
+  keyBack: number
+  fillBack: number
+  accentA: number
+  accentB: number
+}
+
+const LIGHT_DEFAULTS: LightConfig = {
+  ambient: 2,
+  keyFront: 0,
+  fillFront: 0,
+  keyBack: 0,
+  fillBack: 0,
+  accentA: 2,
+  accentB: 2,
+}
 
 function createCardCanvas(accentColorA: string, accentColorB: string): HTMLCanvasElement {
   const canvas = document.createElement("canvas")
@@ -263,9 +283,10 @@ type SceneProps = {
   backTexture: THREE.Texture | null
   scale: number
   target: React.RefObject<{ yaw: number; pitch: number }>
+  lights: LightConfig
 }
 
-function Scene({ texture, backTexture, scale, target }: SceneProps) {
+function Scene({ texture, backTexture, scale, target, lights }: SceneProps) {
   const group = useRef<THREE.Group>(null)
   const geometry = useMemo(() => createCardGeometry(), [])
   const back = useMemo(() => createBackGeometry(), [])
@@ -325,6 +346,7 @@ export function InviteCard3D({
   const [texture, setTexture] = useState<THREE.Texture | null>(null)
   const [backTexture, setBackTexture] = useState<THREE.Texture | null>(null)
   const [size, setSize] = useState({ width: 0, height: 0 })
+  const [lights] = useState<LightConfig>(LIGHT_DEFAULTS)
 
   useEffect(() => {
     let disposed = false
@@ -429,16 +451,16 @@ export function InviteCard3D({
           camera={{ position: [0, 0, CAM_Z], fov: CAM_FOV, near: 0.1, far: 100 }}
           onCreated={(state) => state.gl.setClearColor(0x000000, 0)}
         >
-          <ambientLight intensity={0.5} />
-          <directionalLight position={[3, 4, 6]} intensity={1.25} />
-          <directionalLight position={[-4, -2, 4]} intensity={0.45} />
-          <directionalLight position={[-3, 4, -6]} intensity={1.25} />
-          <directionalLight position={[4, -2, -6]} intensity={0.45} />
-          <directionalLight position={[-3, 2, 2]} intensity={0.3} color={accentColorA} />
-          <directionalLight position={[3, -2, 2]} intensity={0.25} color={accentColorB} />
-          <directionalLight position={[-3, 2, -2]} intensity={0.3} color={accentColorA} />
-          <directionalLight position={[3, -2, -2]} intensity={0.25} color={accentColorB} />
-          <Scene texture={texture} backTexture={backTexture} scale={scale} target={target} />
+          <ambientLight intensity={lights.ambient} />
+          <directionalLight position={[3, 4, 6]} intensity={lights.keyFront} />
+          <directionalLight position={[-4, -2, 4]} intensity={lights.fillFront} />
+          <directionalLight position={[-3, 4, -6]} intensity={lights.keyBack} />
+          <directionalLight position={[4, -2, -6]} intensity={lights.fillBack} />
+          <directionalLight position={[-3, 2, 2]} intensity={lights.accentA} color={accentColorA} />
+          <directionalLight position={[3, -2, 2]} intensity={lights.accentB} color={accentColorB} />
+          <directionalLight position={[-3, 2, -2]} intensity={lights.accentA} color={accentColorA} />
+          <directionalLight position={[3, -2, -2]} intensity={lights.accentB} color={accentColorB} />
+          <Scene texture={texture} backTexture={backTexture} scale={scale} target={target} lights={lights} />
         </Canvas>
       </div>
     </div>
