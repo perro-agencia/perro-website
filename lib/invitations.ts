@@ -14,8 +14,6 @@ export const invitations: Invitation[] = [
   {
     slug: "maria-garcia",
     guestName: "María García",
-    accentColorA: "#885DE3",
-    accentColorB: "#C4F875",
   },
   {
     slug: "demo",

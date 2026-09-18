@@ -78,23 +78,6 @@ function createBackGeometry() {
   return createInsetPlaneGeometry(-(CARD_FRONT_Z + 0.6))
 }
 
-function mirrorTexture(source: THREE.Texture): THREE.CanvasTexture {
-  const img = source.image as HTMLCanvasElement
-  const canvas = document.createElement("canvas")
-  canvas.width = img.width
-  canvas.height = img.height
-  const ctx = canvas.getContext("2d")
-  if (ctx) {
-    ctx.translate(img.width, 0)
-    ctx.scale(-1, 1)
-    ctx.drawImage(img, 0, 0)
-  }
-  const mirrored = new THREE.CanvasTexture(canvas)
-  mirrored.colorSpace = THREE.SRGBColorSpace
-  mirrored.anisotropy = 8
-  return mirrored
-}
-
 function loadLogo(src: string): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
     const image = new Image()
@@ -105,13 +88,18 @@ function loadLogo(src: string): Promise<HTMLImageElement> {
   })
 }
 
-function buildCardTexture(options: {
-  logoUrl?: string
-  accentColorA: string
-  accentColorB: string
-  guestName?: string
-}): Promise<THREE.CanvasTexture> {
-  const { logoUrl, accentColorA, accentColorB, guestName } = options
+const BRAND_TEXT = "camp"
+const LOGO_HEIGHT = 180
+const TEXT_FONT_SIZE = 200
+const LOCKUP_GAP = 45
+const LOCKUP_TEXT_GAP = 40
+const LOCKUP_LOGO_Y_OFFSET = 30
+const LOCKUP_STAR_SIZE = 140
+const LOCKUP_STAR_THICKNESS = 15
+const LOCKUP_STAR_Y_OFFSET = 15
+const LOCKUP_MAX_W = 0.72
+
+function createCardCanvas(accentColorA: string, accentColorB: string): HTMLCanvasElement {
   const canvas = document.createElement("canvas")
   canvas.width = 1024
   canvas.height = 1440
@@ -140,21 +128,120 @@ function buildCardTexture(options: {
   ctx.fillRect(0, 0, canvas.width, canvas.height)
   ctx.globalAlpha = 1
 
-  const drawLogo = () => {
+  return canvas
+}
+
+function canvasToTexture(canvas: HTMLCanvasElement): THREE.CanvasTexture {
+  const texture = new THREE.CanvasTexture(canvas)
+  texture.colorSpace = THREE.SRGBColorSpace
+  texture.anisotropy = 8
+  return texture
+}
+
+function drawStar(
+  ctx: CanvasRenderingContext2D,
+  cx: number,
+  cy: number,
+  size: number,
+  thickness: number,
+  color: string,
+) {
+  const len = size - thickness
+  ctx.save()
+  ctx.strokeStyle = color
+  ctx.lineWidth = thickness
+  ctx.lineCap = "round"
+  for (let i = 0; i < 4; i++) {
+    const angle = (i * Math.PI) / 4
+    ctx.beginPath()
+    ctx.moveTo(cx - Math.cos(angle) * len * 0.5, cy - Math.sin(angle) * len * 0.5)
+    ctx.lineTo(cx + Math.cos(angle) * len * 0.5, cy + Math.sin(angle) * len * 0.5)
+    ctx.stroke()
+  }
+  ctx.restore()
+}
+
+function buildCardTexture(options: {
+  logoUrl?: string
+  accentColorA: string
+  accentColorB: string
+  guestName?: string
+}): Promise<THREE.CanvasTexture> {
+  const { logoUrl, accentColorA, accentColorB, guestName } = options
+  const canvas = createCardCanvas(accentColorA, accentColorB)
+  const ctx = canvas.getContext("2d")
+  if (!ctx) throw new Error("Canvas 2D no disponible")
+
+  const yCenter = guestName ? canvas.height * 0.34 : canvas.height / 2
+
+  const drawLockup = () => {
     if (!logoUrl) return Promise.resolve()
     return loadLogo(logoUrl).then((logo) => {
-      const maxW = canvas.width * 0.36
-      const maxH = canvas.height * (guestName ? 0.2 : 0.24)
-      const ratio = Math.min(maxW / logo.width, maxH / logo.height)
-      const w = logo.width * ratio
-      const h = logo.height * ratio
-      const x = (canvas.width - w) / 2
-      const y = guestName ? canvas.height * 0.34 - h / 2 : (canvas.height - h) / 2
-      ctx.drawImage(logo, x, y, w, h)
+      const maxW = canvas.width * LOCKUP_MAX_W
+      const text = BRAND_TEXT
+      const fontFor = (size: number, italic = false) =>
+        `${italic ? "italic " : ""}400 ${Math.round(size)}px "Helvetica Neue", Helvetica, Arial, sans-serif`
+
+      const runs = () => {
+        const result: { text: string; italic: boolean }[] = []
+        for (const char of text) {
+          const italic = char === "a"
+          if (result.length > 0 && result[result.length - 1].italic === italic) {
+            result[result.length - 1].text += char
+          } else {
+            result.push({ text: char, italic })
+          }
+        }
+        return result
+      }
+
+      const measureText = (fontSize: number) =>
+        runs().reduce((sum, run) => {
+          ctx.font = fontFor(fontSize, run.italic)
+          return sum + ctx.measureText(run.text).width
+        }, 0)
+
+      let logoH = LOGO_HEIGHT
+      let fontSize = TEXT_FONT_SIZE
+      let gap = LOCKUP_GAP
+      let textGap = LOCKUP_TEXT_GAP
+      let starW = LOCKUP_STAR_SIZE
+      let logoW = logoH * (logo.width / logo.height)
+      let textW = measureText(fontSize)
+      let total = logoW + gap + starW + textGap + textW
+
+      if (total > maxW) {
+        const fit = maxW / total
+        logoH *= fit
+        fontSize *= fit
+        gap *= fit
+        textGap *= fit
+        starW *= fit
+        logoW = logoH * (logo.width / logo.height)
+        textW = measureText(fontSize)
+      }
+
+      const starThickness = starW * (LOCKUP_STAR_THICKNESS / LOCKUP_STAR_SIZE)
+      const startX = (canvas.width - (logoW + gap + starW + textGap + textW)) / 2
+      const logoY = yCenter - logoH / 2 + LOCKUP_LOGO_Y_OFFSET
+      ctx.drawImage(logo, startX, logoY, logoW, logoH)
+      ctx.fillStyle = "rgba(255,255,255,0.92)"
+      ctx.textAlign = "left"
+      ctx.textBaseline = "alphabetic"
+      const baselineY = yCenter + logoH / 2
+      const starCx = startX + logoW + gap + starW / 2
+      const textX = startX + logoW + gap + starW + textGap
+      drawStar(ctx, starCx, yCenter + LOCKUP_STAR_Y_OFFSET, starW, starThickness, "rgba(255,255,255,0.92)")
+      let x = textX
+      for (const run of runs()) {
+        ctx.font = fontFor(fontSize, run.italic)
+        ctx.fillText(run.text, x, baselineY)
+        x += ctx.measureText(run.text).width
+      }
     })
   }
 
-  return drawLogo().then(() => {
+  return drawLockup().then(() => {
     if (guestName) {
       ctx.fillStyle = "rgba(255,255,255,0.92)"
       ctx.font = '600 72px "Helvetica Neue", Helvetica, Arial, sans-serif'
@@ -163,27 +250,25 @@ function buildCardTexture(options: {
       ctx.fillText(guestName.toUpperCase(), canvas.width / 2, canvas.height * 0.62)
     }
 
-    const texture = new THREE.CanvasTexture(canvas)
-    texture.colorSpace = THREE.SRGBColorSpace
-    texture.anisotropy = 8
-    return texture
+    return canvasToTexture(canvas)
   })
+}
+
+function buildBackTexture(accentColorA: string, accentColorB: string): THREE.CanvasTexture {
+  return canvasToTexture(createCardCanvas(accentColorA, accentColorB))
 }
 
 type SceneProps = {
   texture: THREE.Texture | null
+  backTexture: THREE.Texture | null
   scale: number
   target: React.RefObject<{ yaw: number; pitch: number }>
 }
 
-function Scene({ texture, scale, target }: SceneProps) {
+function Scene({ texture, backTexture, scale, target }: SceneProps) {
   const group = useRef<THREE.Group>(null)
   const geometry = useMemo(() => createCardGeometry(), [])
   const back = useMemo(() => createBackGeometry(), [])
-  const backTexture = useMemo(() => {
-    if (!texture) return null
-    return mirrorTexture(texture)
-  }, [texture])
   const capMaterial = useMemo(
     () => new THREE.MeshStandardMaterial({ map: texture, roughness: 0.35, metalness: 0.15 }),
     [texture],
@@ -197,11 +282,10 @@ function Scene({ texture, scale, target }: SceneProps) {
     return () => {
       geometry.dispose()
       back.dispose()
-      backTexture?.dispose()
       capMaterial.dispose()
       sideMaterial.dispose()
     }
-  }, [geometry, back, backTexture, capMaterial, sideMaterial])
+  }, [geometry, back, capMaterial, sideMaterial])
 
   useFrame((_, delta) => {
     const g = group.current
@@ -216,7 +300,7 @@ function Scene({ texture, scale, target }: SceneProps) {
     <group ref={group} scale={scale}>
       <mesh geometry={geometry} material={[capMaterial, sideMaterial]} />
       <mesh geometry={back}>
-        <meshStandardMaterial map={backTexture ?? texture} roughness={0.35} metalness={0.15} side={THREE.DoubleSide} />
+        <meshStandardMaterial map={backTexture} roughness={0.35} metalness={0.15} side={THREE.DoubleSide} />
       </mesh>
     </group>
   )
@@ -239,11 +323,13 @@ export function InviteCard3D({
   const drag = useRef({ active: false, lastX: 0, lastY: 0 })
   const target = useRef({ yaw: 0.5, pitch: -0.22 })
   const [texture, setTexture] = useState<THREE.Texture | null>(null)
+  const [backTexture, setBackTexture] = useState<THREE.Texture | null>(null)
   const [size, setSize] = useState({ width: 0, height: 0 })
 
   useEffect(() => {
     let disposed = false
     let current: THREE.Texture | null = null
+    let currentBack: THREE.Texture | null = null
 
     buildCardTexture({ logoUrl, accentColorA, accentColorB, guestName })
       .then((t) => {
@@ -258,9 +344,13 @@ export function InviteCard3D({
         if (!disposed) setTexture(null)
       })
 
+    currentBack = buildBackTexture(accentColorA, accentColorB)
+    setBackTexture(currentBack)
+
     return () => {
       disposed = true
       if (current) current.dispose()
+      if (currentBack) currentBack.dispose()
     }
   }, [logoUrl, accentColorA, accentColorB, guestName])
 
@@ -348,7 +438,7 @@ export function InviteCard3D({
           <directionalLight position={[3, -2, 2]} intensity={0.25} color={accentColorB} />
           <directionalLight position={[-3, 2, -2]} intensity={0.3} color={accentColorA} />
           <directionalLight position={[3, -2, -2]} intensity={0.25} color={accentColorB} />
-          <Scene texture={texture} scale={scale} target={target} />
+          <Scene texture={texture} backTexture={backTexture} scale={scale} target={target} />
         </Canvas>
       </div>
     </div>
