@@ -1,7 +1,6 @@
 "use client"
 
 import { motion } from "framer-motion"
-import Image from "next/image"
 
 type WordDef = {
   text: string
@@ -38,23 +37,6 @@ function getItalicDelay(lineIndex: number, wordIndex: number): number {
 export function HeroSection() {
   return (
     <section className="relative md:h-[100vh] min-h-[600px] flex items-center pt-[80px] md:py-[10px] max-w-[1500px] mx-auto">
-      <div className="absolute inset-0">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.5, ease: "easeOut" }}
-          className="absolute inset-0"
-        >
-          <Image
-            src="/miscelaneous/atar-animation.gif"
-            alt=""
-            width={694}
-            height={1000}
-            className="absolute right-[-200px] md:right-0 top-1/2 -translate-y-1/2 h-[1300px] w-auto object-contain -rotate-[-15deg]"
-            priority
-          />
-        </motion.div>
-      </div>
 
       <div className="relative z-10 container mx-auto px-6">
         <h1 className="font-display font-normal leading-[0.9] -tracking-[0.03em] text-[clamp(6rem,15vw,12rem)]">

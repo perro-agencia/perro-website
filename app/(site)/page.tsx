@@ -1,4 +1,5 @@
 import { Nav } from "@/components/layout/Nav"
+import { HeroBackdrop } from "@/components/sections/HeroBackdrop"
 import { HeroSection } from "@/components/sections/HeroSection"
 import { ClientsSection } from "@/components/sections/ClientsSection"
 import { ServicesSectionV2 } from "@/components/sections/ServicesSectionV2"
@@ -16,16 +17,20 @@ export const metadata = buildMetadata({
 export default function HomePage() {
   return (
     <>
-      <Nav
-        logoSrc="/brand/isologotipo-white.svg"
-        logoHoverSrc="/brand/isologotipo-color.svg" />
-      <HeroSection />
-      <ServicesSectionV2 />
-      <ClientsSection />
-      <StrategySection />
-      <ContactSection />
-      <div className="bg-black w-full max-w-[1500px] mx-auto">
-        <FooterLogo logoSrc="/miscelaneous/perro-logo-cut-white.svg" />
+      <div className="overflow-x-hidden relative">
+        <Nav
+          logoSrc="/brand/isologotipo-white.svg"
+          logoHoverSrc="/brand/isologotipo-color.svg" />
+
+        <HeroBackdrop />
+        <HeroSection />
+        <ServicesSectionV2 />
+        <ClientsSection />
+        <StrategySection />
+        <ContactSection />
+        <div className="bg-black w-full max-w-[1500px] mx-auto">
+          <FooterLogo logoSrc="/miscelaneous/perro-logo-cut-white.svg" />
+        </div>
       </div>
     </>
   )
