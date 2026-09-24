@@ -671,6 +671,26 @@ export function InviteCard3D({
           <Scene texture={texture} backTexture={backTexture} scale={scale} target={target} lights={lights} />
         </Canvas>
       </div>
+
+      {orientationStatus !== "unsupported" &&
+        (orientationStatus === "listening" ? (
+          <div className="absolute bottom-8 left-1/2 z-20 -translate-x-1/2 rounded-full border border-brand-accent-02/40 bg-brand-black/50 px-6 py-3 font-display text-xs uppercase tracking-wide text-brand-accent-02/80 backdrop-blur-md">
+            Giroscopio activo
+          </div>
+        ) : (
+          <button
+            type="button"
+            onClick={requestOrientationPermission}
+            disabled={orientationStatus === "prompt"}
+            className="absolute bottom-8 left-1/2 z-20 -translate-x-1/2 rounded-full border border-brand-white/20 bg-brand-black/50 px-6 py-3 font-display text-xs uppercase tracking-wide text-brand-white/80 backdrop-blur-md transition-colors hover:border-brand-white/40 hover:text-brand-white disabled:opacity-50"
+          >
+            {orientationStatus === "prompt"
+              ? "Activando…"
+              : orientationStatus === "denied"
+                ? "Giroscopio no permitido"
+                : "Mover con giroscopio"}
+          </button>
+        ))}
     </div>
   )
 }
