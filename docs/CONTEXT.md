@@ -2,7 +2,7 @@
 
 ## 1. Estado actual del proyecto
 
-**Última actualización:** 2026-09-16
+**Última actualización:** 2026-09-24
 
 ### Features completadas
 - Homepage sections rediseñadas completamente (Hero, Clients, Services, Strategy, Portfolio, Team, ContactSection)
@@ -56,7 +56,10 @@
 - **Email template actualizado** (`lib/email.ts`): `sendContactEmail` acepta `service?: string` y `fields?: Record<string, string>`. Subject: `Nuevo contacto [ServiceName] de Nombre`. Default `CONTACT_EMAIL_TO` cambiado a `queonda@perroagency.com`. `from` cambiado a `contacto@perroagency.com`.
 - **Página `/performance-ads`**: landing page para Performance Ads con secciones Multi-plataformas (logos), Stats Cards (3 cards: +$84M white, E-commerce primary, Modelos SaaS accent-02), ClientsSection reutilizada del homepage, Hero+Form. Chips: Anuncios, Paid Media, ROAS, ROI, Performance, Creatividades, copies, línea de crédito, tracking, ga4, google tag manager. Imágenes multi-plataforma en `public/multiplatform/`.
 - **Resend configurado**: dominio perroagency.com, from contacto@perroagency.com, default CONTACT_EMAIL_TO=queonda@perroagency.com.
-- **Landing 3D interactiva para invitaciones vía NFC** (`/invite/[slug]`): card 3D renderizada con Three.js + React Three Fiber. Componente `InviteCard3D` con geometría extrude (esquinas redondeadas radius 80 + bevel, depth 1), textura generada en canvas 1024x1440 (gradiente negro #121216→#0a0a0d→#040405 + dos tintes radiales de acento alpha 0.08 + logo centrado máx 36% del ancho + guestName en 62% de altura), UVs de las tapas normalizadas (0–1) para textura completa, canto del extrude en negro sólido #0a0a0d y dorso con textura espejada horizontalmente (mirrorTexture, DoubleSide) en -(CARD_FRONT_Z+0.6). Iluminación simétrica frente/dorso: ambient 0.5 + 2 keys directional 1.25 + 2 fills 0.45 + luces de acento espejadas (A 0.3, B 0.25). Canvas transparente con blobs CSS detrás (blur 120px, mixBlendMode screen). Interacción drag con Pointer Events (yaw inicial 0.5 sin clamp, pitch clamp ±0.75, damping). Responsive vía ResizeObserver sobre el contenedor + `computeScale(aspect)`. DPR [1, 1.75], `touch-none`. Carga lazy vía `next/dynamic` con `ssr:false` + skeleton loading (code-splitting de three.js). Layout dedicado fuera de `(site)` (sin Nav/Footer), metadata robots noindex. `generateStaticParams` para SSG de slugs conocidos; slugs desconocidos caen a card default (robusto para tags NFC ya grabados). Datos hardcodeados en `lib/invitations.ts` (3 ejemplos: juan-perez y maria-garcia con guestName, demo sin guestName). Sin dependencia `@react-three/drei` (evitada por peso de bundle).
+- **Landing 3D interactiva para invitaciones vía NFC** (`/invite/[slug]`): card 3D renderizada con Three.js + React Three Fiber. Componente `InviteCard3D` con geometría extrude (esquinas redondeadas radius 80 + bevel, depth 1), textura generada en canvas 1024x1440 (gradiente negro #121216→#0a0a0d→#040405 + dos tintes radiales de acento alpha 0.08 + logo centrado máx 36% del ancho + guestName en 62% de altura), UVs de las tapas normalizadas (0–1) para textura completa, canto del extrude en negro sólido #0a0a0d y dorso con textura espejada horizontalmente (mirrorTexture, DoubleSide) en -(CARD_FRONT_Z+0.6). Iluminación simétrica frente/dorso: ambient 0.5 + 2 keys directional 1.25 + 2 fills 0.45 + luces de acento espejadas (A 0.3, B 0.25). Canvas transparente con blobs CSS detrás (blur 120px, mixBlendMode screen). Interacción drag con Pointer Events (yaw inicial 0.5 sin clamp, pitch clamp ±0.75, damping). Responsive vía ResizeObserver sobre el contenedor + `computeScale(aspect)`. DPR [1, 1.75], `touch-none`. Carga lazy vía `next/dynamic` con `ssr:false` + skeleton loading (code-splitting de three.js). Layout dedicado fuera de `(site)` (sin Nav/Footer), metadata robots noindex. `generateStaticParams` para SSG de slugs conocidos; slugs desconocidos caen a card default (robusto para tags NFC ya grabados). Datos hardcodeados en `lib/invitations.ts` (7 invitaciones de miembros del equipo: federicogilles, sebastiankonig, emilianoelias, luzsaltalamachia, sebastianlugo, luciagallo, sergioruestes — cada una con `backImageUrl`/`backName`/`backRole` propios). Sin dependencia `@react-three/drei` (evitada por peso de bundle).
+- **Invite cards: dorso custom por card (imagen + leyenda)**: el tipo `Invitation` ahora incluye `backImageUrl?`, `backName?`, `backRole?`. `InviteCard3D` dibuja en el dorso la foto del invitado en modo cover pre-espejada (flip horizontal para que se vea derecha desde atrás, el plano trasero es DoubleSide) + overlay sutil en la base + multiplicador negro 0.05, y debajo una leyenda (rol peso 100 abajo, nombre peso 500 arriba, soporta `\n` en el rol). El frente tiene una leyenda fija "{ edición 2026 }" debajo del guestName. Se eliminaron los campos por-card de escala/offset (`backImageScale`/`offsetX`/`offsetY`): el encuadre es común a todas las cards vía constantes `BACK_IMAGE_SCALE`, `BACK_IMAGE_OFFSET_X`, `BACK_IMAGE_OFFSET_Y`.
+- **Fix de "el dorso no cargaba hasta hacer refresh" resuelto**: `canvasToTexture` setea `texture.needsUpdate = true` explícito; el material del dorso solo se monta cuando `backTexture` está lista con `key={backTexture.uuid}` (nace compilado con el map desde cero); `loadImage` reintenta hasta 3 veces; y si aun así falla, el `.catch` cae a fallback con textura gradiente default (el dorso nunca queda invisible).
+- **Movimiento con giroscopio en móvil**: nuevo `hooks/useDeviceOrientation.ts` ("use client") que mapea `gamma`/`beta` del sensor a yaw/pitch de la card. Solo actúa en dispositivos coarse pointer con permiso (iOS 13+ pide vía gesto de usuario con `DeviceOrientationEvent.requestPermission()`); en desktop queda `unsupported` y no interfiere con el drag. `InviteCard3D` integra el hook con `getPaused` mientras dura un drag y un toggle sobre la card para activar/desactivar el giro sin volver a pedir permiso ("Desactivar giroscopio" / "Activar giroscopio").
 
 ### Features en progreso
 - PortfolioGrid también pendiente de migración a datos hardcodeados
@@ -116,6 +119,9 @@
 - **Geometría de la card** — Shape 1600x2250 con esquinas redondeadas (`radius: 80`), ExtrudeGeometry con `depth: 1`, `bevelThickness: 10`, `bevelSize: 5`, `bevelSegments: 6`, `curveSegments: 32`, trasladada para centrarla en el origen. Las UVs de las tapas (grupo 0 del extrude) se normalizan dividiendo por CARD_W/CARD_H para que la textura del canvas se vea completa y centrada en el frente. Materiales: array `[capMaterial, sideMaterial]` — la tapa usa la textura (MeshStandardMaterial roughness 0.35, metalness 0.15) y el canto/bisel es negro sólido `#0a0a0d` (roughness 0.4, metalness 0.2).
 - **Dorso de la card** — las dos tapas del ExtrudeGeometry tienen normal +z, por lo que el dorso del sólido queda "abierto". Desde atrás se ve un plano inscrito (`createBackGeometry`, ShapeGeometry de tamaño interior con radio de esquina reducido) ubicado en `z = -(CARD_FRONT_Z + 0.6)`, que usa la textura espejada horizontalmente (`mirrorTexture`) con `side: DoubleSide` para que el diseño (logo) se vea derecho visto desde atrás.
 - **Slugs desconocidos caen a card default (sin 404)** — la página `/invite/[slug]` solo prerenderiza los slugs conocidos via `generateStaticParams`, pero si llega un slug no listado (ej: tag NFC ya grabado en el mundo real), renderiza la card con el logo/colores default en vez de devolver 404. Robustez intencional para el caso de uso físico NFC.
+- **Encuadre del dorso unificado por constantes** — el posicionamiento/tamaño de la foto del dorso es común a todas las cards (`BACK_IMAGE_SCALE`, `BACK_IMAGE_OFFSET_X`, `BACK_IMAGE_OFFSET_Y` como defaults de `buildBackTextureWithImage`). Se descartaron los campos por-card `backImageScale`/`backImageOffsetX`/`backImageOffsetY` para lograr consistencia visual entre invitaciones: solo varía el asset (`backImageUrl`) y la leyenda (`backName`/`backRole`) por card.
+- **Carga async de texturas del dorso robusta** — el fix de "el dorso no cargaba hasta hacer refresh" combina: (1) `canvasToTexture` setea `needsUpdate = true` explícito; (2) el `meshStandardMaterial` del dorso usa `key={backTexture.uuid}` y solo se monta cuando la textura ya está lista (evita el swap null→textura que no recompilaba el shader de forma confiable en la primera carga); (3) `loadImage` reintenta hasta 3 veces ante errores de red transitorios; (4) si todo falla, el `.catch` construye una textura gradiente default — el dorso nunca queda invisible.
+- **Giroscopio como hook separado + permiso iOS + toggle manual** — `hooks/useDeviceOrientation.ts` aísla toda la lógica de DeviceOrientation (detección de soporte, estados, `requestPermission` para iOS 13+, suscripción del listener, mapeo y clamps). `InviteCard3D` lo consume con `getPaused` para pausar durante drags, pide permiso en el primer pointerdown si está "idle", y expone un toggle sobre la card para apagar/encender el giro sin reiterar el permiso. Se eligió hook separado (no lógica inline en el componente) para poder testear y reusar el comportamiento.
 
 ---
 
@@ -153,12 +159,14 @@ components/
 │                                Reemplazó al ContactForm viejo (huérfano) y al formulario inline de ContactSection.
 ├── invite/
 │   └── InviteScene.tsx        — "use client". Punto de entrada para la landing de invitación.
-│                                Props: { logoUrl?, accentColorA?, accentColorB?, guestName? }
+│                                Props: { logoUrl?, backImageUrl?, backName?, backRole?,
+│                                accentColorA?, accentColorB?, guestName? } (spread directo a InviteCard3D)
 │                                Carga InviteCard3D con next/dynamic { ssr:false } + loading skeleton
 │                                (card con animate-pulse que replica el aspect de la card real 512/720).
 │                                Evita SSR de WebGL y code-splitea three.js a la ruta /invite/[slug].
 ├── InviteCard3D.tsx           — "use client". Card 3D interactiva para invitaciones.
-│                                Props: { logoUrl? (default /brand/isologotipo-white.svg), accentColorA? (default #885DE3),
+│                                Props: { logoUrl? (default /brand/isologotipo-white.svg),
+│                                backImageUrl?, backName?, backRole?, accentColorA? (default #885DE3),
 │                                accentColorB? (default #C4F875), guestName? }
 │                                Geometría: THREE.Shape 1600x2250 con esquinas redondeadas (radius 80) +
 │                                ExtrudeGeometry (depth 1, bevelThickness 10, bevelSize 5, bevelSegments 6,
@@ -167,25 +175,37 @@ components/
 │                                Materiales: array [capMaterial, sideMaterial] — tapa con map (MeshStandardMaterial
 │                                roughness 0.35 metalness 0.15), canto/bisel en negro sólido #0a0a0d (roughness 0.4,
 │                                metalness 0.2). Dorso: plano inscrito en z = -(CARD_FRONT_Z + 0.6) con la textura
-│                                espejada horizontalmente (mirrorTexture) y DoubleSide, para que el logo se vea
-│                                derecho desde atrás.
-│                                Textura (canvas 1024x1440): gradiente vertical negro (#121216→#0a0a0d→#040405),
-│                                dos tintes radiales de acento (alpha 0.08; centros en (220,220) y (820,1240),
-│                                radio 720), sin borde interior. Logo: máx 36% del ancho, centrado
-│                                ((H-h)/2 sin guestName; 0.34H con guestName). guestName en mayúsculas
-│                                (Helvetica Neue 600, 72px, alpha 0.92) centrado en 0.62H. SRGBColorSpace + anisotropy 8.
+│                                espejada horizontalmente y DoubleSide, para que el diseño se vea derecho desde atrás.
+│                                El material del dorso solo se monta cuando backTexture está lista usando
+│                                key={backTexture.uuid} (evita swap null→textura que no recompilaba el shader).
+│                                Textura frente (canvas 1024x1440): gradiente vertical negro (#121216→#0a0a0d→#040405),
+│                                dos tintes radiales de acento (alpha 0.08), logo/star/text "camp" en lockup
+│                                centrado en 0.34H (o 0.5H sin guestName), guestName en mayúsculas
+│                                (Helvetica Neue 600, 72px, alpha 0.92) centrado en 0.62H, y leyenda fija
+│                                "{ edición 2026 }" (peso 300, 50px, alpha 0.7) en 0.6H.
+│                                Textura dorso (buildBackTexture): sin url → gradiente default + caption;
+│                                con url → buildBackTextureWithImage dibuja la foto en cover, pre-espejada
+│                                (translate + scale(-1,1)) con encuadre común por constantes BACK_IMAGE_SCALE 0.58,
+│                                BACK_IMAGE_OFFSET_X -0.1, BACK_IMAGE_OFFSET_Y -0.6, más gradiente overlay en la base
+│                                y multiplicador negro 0.05. drawBackCaption dibuja la leyenda también pre-espejada,
+│                                anclada al pie (BACK_CAPTION_BOTTOM_MARGIN 250): rol (peso 100, 50px, alpha 0.78,
+│                                soporta \n) abajo y nombre (peso 500, 70px, alpha 0.95) arriba. loadImage reintenta
+│                                hasta 3 veces; si falla, .catch cae a fallback gradiente (dorso nunca invisible).
 │                                Iluminación simétrica frente/dorso: ambientLight 0.5 + 2 keys directional blancas
-│                                (1.25 en [3,4,6] y [-3,4,-6]) + 2 fills (0.45 en [-4,-2,4] y [4,-2,-6]) +
-│                                luces de acento espejadas (accentColorA 0.3 en [-3,2,2] y [-3,2,-2],
-│                                accentColorB 0.25 en [3,-2,2] y [3,-2,-2]).
+│                                + fills + luces de acento espejadas.
 │                                Canvas: transparente (setClearColor alpha 0), dpr [1, 1.75],
-│                                camera fov 35 a z=5.4. Blobs CSS detrás (blur 120px, opacity 0.15, screen).
-│                                Interacción: drag con Pointer Events, yaw inicial 0.5 (sin clamp),
-│                                pitch clamp ±0.75, damping en useFrame (k = min(1, delta * 6)), sin auto-rotate.
-│                                touch-none.
-│                                Responsive: ResizeObserver sobre contenedor (no window) + computeScale(aspect)
-│                                (0.78 * planeHeight / CARD_H, 0.86 * planeWidth / CARD_W).
-│                                Limpieza: dispose de geometry, back, backTexture, capMaterial y sideMaterial en unmount.
+│                                camera fov 35 a z=5.4. Blobs CSS detrás (blur 120px, mixBlendMode screen).
+│                                Interacción: drag con Pointer Events (yaw inicial 0.5 sin clamp, pitch clamp ±0.75,
+│                                damping en useFrame k = min(1, delta*6)). touch-none.
+│                                Giroscopio: consume useDeviceOrientation({ targetRef: target,
+│                                getPaused: () => drag.current.active, enabled: gyroEnabled });
+│                                onPointerDown pide permiso si status "idle". Toggle sobre la card solo si
+│                                status !== "unsupported": "listening" → "Desactivar giroscopio" (apaga sin
+│                                re-pedir permiso) u "Activar giroscopio" (reactiva); "prompt" → "Activando…"
+│                                (disabled); "denied" → "Giroscopio no permitido"; "idle" → botón que llama
+│                                requestPermission.
+│                                Responsive: ResizeObserver sobre contenedor + computeScale(aspect).
+│                                Limpieza: dispose de geometry, back, backTexture, capMaterial y sideMaterial.
 ├── landing/
 │   └── PerformanceContactForm.tsx — "use client". Formulario dinámico para landing pages de servicios.
 │                                     Props: { service: string, fields: FieldConfig[], successMessage?: string }
@@ -387,6 +407,31 @@ Componente `"use client"` de formulario dinámico para landing pages de servicio
 
 **Envío:** POST a `/api/contact` con campo `service` extra y campos dinámicos del form. Mismo diseño dark que ContactForm.
 
+### useDeviceOrientation (`hooks/useDeviceOrientation.ts`)
+Hook `"use client"` que aísla toda la lógica de movimiento por giroscopio para la card 3D.
+
+**Estados (`DeviceOrientationStatus`):** `unsupported` | `idle` | `prompt` | `listening` | `denied`
+
+**Detección de soporte (`supported`):** requiere `DeviceOrientationEvent` existente y `matchMedia("(pointer: coarse)")`. Desktop → `unsupported` (no interfiere con el drag).
+
+**Props (options):**
+| Opción | Tipo | Default | Descripción |
+|---|---|---|---|
+| targetRef | MutableRefObject<{ yaw: number; pitch: number }> | — | Objeto donde escribe yaw/pitch cada evento sensor |
+| getPaused | () => boolean | undefined | Si retorna `true`, ignora los eventos (se usa para pausar mientras dura un drag) |
+| enabled | boolean | true | Si `false`, desuscribe el listener (toggle manual sin re-pedir permiso) |
+| yawFactor | number | 0.02 | Multiplica `gamma` → yaw |
+| pitchFactor | number | 0.02 | Multiplica `(beta - betaCenter)` → pitch |
+| betaCenter | number | 90 | Centro de beta (90 = teléfono en vertical) |
+| pitchMin / pitchMax | number | ±0.75 | Clamp del pitch resultante |
+
+**Retorna:** `{ status, needsUserGesture, requestPermission }`
+
+**Comportamiento:**
+- `requestPermission()`: sin `needsUserGesture` pasa directo a `listening`; con iOS 13+ (`DeviceOrientationEvent.requestPermission` existe) va a `prompt`, llama el request nativo y resuelve `listening` | `denied`. Debe llamarse desde un gesto de usuario (requisito iOS).
+- Listener `deviceorientation` suscrito solo cuando `status === "listening"` y `enabled`. Mapea `gamma` → yaw y `(beta - betaCenter)` → pitch con clamp; respeta `getPaused()`.
+- Limpieza del listener en unmount / deshabilitación.
+
 ### Convenciones
 - Componentes async cuando fetchan data de Sanity (Server Components)
 - Solo se marca "use client" cuando es estrictamente necesario (eventos, hooks, framer-motion)
@@ -490,7 +535,7 @@ Tipo de bloque rich text con soporte para:
 | `/legal/terminos-y-condiciones` | Estática | Server component, `<p>` único con `<br />`. Sin "use client", sin fetch. | `app/(site)/legal/terminos-y-condiciones/page.tsx` |
 | `/legal/politicas-de-privacidad` | Estática | Server component, misma estructura. Sin "use client", sin fetch. | `app/(site)/legal/politicas-de-privacidad/page.tsx` |
 | `/studio` | Estática | Sanity Studio embebido | `app/studio/[[...tool]]/page.tsx` |
-| `/invite/[slug]` | Estática (SSG) | Landing 3D de invitación. `generateStaticParams` genera los slugs conocidos de `lib/invitations.ts` (juan-perez y maria-garcia con guestName; demo sin guestName → card default con logo y colores default). Slugs desconocidos NO dan 404: caen a card default (robusto para tags NFC ya grabados). `generateMetadata` con robots noindex. Layout propio fuera de `(site)`: wrapper `fixed inset-0` sin Nav ni Footer. Renderiza `<InviteScene />` (InviteCard3D con three.js via dynamic ssr:false). | `app/invite/[slug]/page.tsx`, `app/invite/layout.tsx` |
+| `/invite/[slug]` | Estática (SSG) | Landing 3D de invitación. `generateStaticParams` genera los slugs conocidos de `lib/invitations.ts` (7 miembros del equipo, cada uno con `backImageUrl`/`backName`/`backRole`). Slugs desconocidos NO dan 404: caen a card default (robusto para tags NFC ya grabados). `generateMetadata` con robots noindex. Layout propio fuera de `(site)`: wrapper `fixed inset-0` sin Nav ni Footer. Renderiza `<InviteScene />` con las props de la invitación (incluido el dorso custom) → InviteCard3D (three.js via dynamic ssr:false). El dorso de la card muestra la foto del invitado en cover (encuadre común por constantes) + leyenda custom (nombre + rol), y el frente una leyenda fija "{ edición 2026 }". En móvil la card se mueve con el giroscopio (permiso iOS vía gesto, toggle sobre la card para apagar/encender sin re-pedir permiso). | `app/invite/[slug]/page.tsx`, `app/invite/layout.tsx` |
 
 Cada página renderiza su propio `<Nav />` directamente (no hay Header en el layout). `Footer` se mantiene en el layout compartido.
 Fetch calls usan `sanityFetch()` con revalidate: 60 y tags para ISR on-demand.
@@ -565,6 +610,8 @@ brand: {
 - [ ] **Rate limiting en memoria**: no persiste entre reinicios y no escala horizontalmente.
 - [ ] **TeamCard sin `sizes`**: imágenes con `fill` sin `sizes` — evaluar optimización.
 - [x] **Sanity features sin uso**: servicios y team migrados a hardcodeado. Schemas `teamMember` y `service` eliminados de Sanity.
+- [ ] **Giroscopio: drag grande debería tomar el control y desactivar el giro automáticamente** — hoy, con el giro activo, el rango del sensor (~±100° de yaw) no permite ver el dorso de la card; hay que apagar el giro manualmente con el toggle y girar con drag libre. Ideal futuro: que un drag grande desactive el giro por sí solo.
+- [ ] **Giroscopio: calibración en físico pendiente** — los factores/signos del mapeo gamma→yaw y (beta−betaCenter)→pitch (`yawFactor`, `pitchFactor`, `betaCenter`, clamps) están puestos con defaults razonables pero requieren calibración probando en dispositivos reales. Además el permiso de iOS solo se pide vía gesto real: si no hay HTTPS o el permiso fue ignorado/denegado antes, hay que probar en pestaña privada o limpiando los datos del sitio.
 
 ---
 
@@ -630,3 +677,6 @@ brand: {
 | **2026-09-16** | **Landing 3D interactiva para invitaciones vía NFC (`/invite/[slug]`)**: nuevo componente `InviteCard3D` (Three.js + @react-three/fiber v9) — geometría extrude con bevel, textura en canvas (gradiente + logo + guestName + borde acento), overlay holográfico con ShaderMaterial custom (fresnel + hue shift + uTime), iluminación con 2 luces de acento, drag con damping, responsive con ResizeObserver. `InviteScene` carga la card con `next/dynamic` `ssr:false` + skeleton (code-splitting de three.js). `lib/invitations.ts` con tipo `Invitation` + 3 invitaciones hardcodeadas + `getInvitation(slug)`. Layout `app/invite/layout.tsx` fuera de `(site)` con robots noindex y wrapper `fixed inset-0`. Página con `generateStaticParams` (SSG) y caída a card default para slugs desconocidos. Dependencias nuevas: `three` ^0.186.0, `@react-three/fiber` ^9.7.0, `@types/three` ^0.186.0. Sin @react-three/drei (decisión de bundle). Verificado: build OK (ruta prerenderizada ● SSG), tsc sin errores, HTTP 200 para slug conocido y desconocido. Nota: `pnpm lint` falla por 2 errores preexistentes (FloatingLogos.tsx, StrategySection.tsx). |
 | **2026-09-16** | **Efecto holograma/stencil eliminado de la card 3D**: fuera el ShaderMaterial custom (fresnel + hsv2rgb + uTime), buildMaskTexture/uniforms uMask-uRepeat-uMaskScale-uOpacity, el plano de foil superpuesto y el AdditiveBlending; eliminadas las props `hologramMaskUrl`/`hologramRepeat`/`hologramGap`/`hologramOpacity` de `Invitation`, `SceneProps`, `InviteSceneProps` y page. La card pasa a: props solo `logoUrl`/`accentColorA`/`accentColorB`/`guestName`; textura negra (#121216→#0a0a0d→#040405, tintes alpha 0.08, sin borde interior, logo 36% centrado); UVs de tapas normalizadas + canto negro #0a0a0d; dorso abierto con plano espejado (mirrorTexture, DoubleSide); iluminación simétrica (keys 1.25, fills 0.45, acentos A 0.3 / B 0.25); slug `demo` sin guestName. `public/holo-test.svg` eliminado (sin referencias). |
 | **2026-09-16** | **Se evaluó agregar rotación por giroscopio (DeviceOrientation) a la card 3D de /invite; se descartó**: la activación por permiso (requestPermission) falló silenciosamente en celulares reales (iOS Safari y Chrome móvil) pese a múltiples estrategias (pointerdown/click, deviceorientation / deviceorientationabsolute), por lo que se revirtió todo y la card queda solo con interacción drag. |
+| **2026-09-24** | **Invite cards: dorso custom por card (imagen + leyenda)** — `Invitation` gana `backImageUrl?`/`backName?`/`backRole?`; `lib/invitations.ts` pasa de 3 ejemplos a 7 invitaciones reales del equipo (federicogilles, sebastiankonig, emilianoelias, luzsaltalamachia, sebastianlugo, luciagallo, sergioruestes). `InviteCard3D` dibuja en el dorso la foto del invitado en cover pre-espejada (flip horizontal, el plano trasero DoubleSide se ve espejado de atrás) + overlay base + multiplicador negro 0.05, y la leyenda nombre/rol también pre-espejada anclada al pie (rol peso 100 con soporte `\n`, nombre peso 500). Frente: leyenda fija "{ edición 2026 }" (peso 300, 50px, alpha 0.7) debajo del guestName. Encuadre unificado por constantes `BACK_IMAGE_SCALE`/`BACK_IMAGE_OFFSET_X`/`BACK_IMAGE_OFFSET_Y`; eliminados los campos por-card de escala/offset del tipo y del plumbing (page/InviteScene/InviteCard3D). |
+| **2026-09-24** | **Fix "el dorso no cargaba hasta hacer refresh"** — `canvasToTexture` setea `texture.needsUpdate = true` explícito; el material del dorso solo se monta con `key={backTexture.uuid}` cuando la textura ya está lista (nace compilado con el map, evitando el swap null→textura que no recompilaba el shader); `loadImage` reintenta hasta 3 veces; el `.catch` cae a fallback con gradiente default (el dorso nunca queda invisible). |
+| **2026-09-24** | **Movimiento con giroscopio en móvil** — nuevo `hooks/useDeviceOrientation.ts` ("use client"): detecta soporte (solo coarse pointer con DeviceOrientationEvent; desktop → `unsupported`, no interfiere con drag), estados `unsupported|idle|prompt|listening|denied`, `requestPermission()` para iOS 13+ vía gesto de usuario, suscripción del listener solo en `listening`+`enabled`, mapeo `gamma`→yaw y `(beta−betaCenter)`→pitch con clamp y `getPaused()`. `InviteCard3D` lo integra con `targetRef`/`getPaused: () => drag.current.active`/`enabled: gyroEnabled`, pide permiso en el primer pointerdown si "idle", y muestra toggle sobre la card (Desactivar/Activar giroscopio, Activando…, Giroscopio no permitido) solo si `status !== "unsupported"`. Limitaciones conocidas: el rango del sensor no permite ver el dorso con el giro activo (falta drag-grande que desactive el giro) y el mapeo requiere calibración en físico. |
