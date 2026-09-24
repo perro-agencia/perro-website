@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react"
 import type { PointerEvent as ReactPointerEvent } from "react"
 import * as THREE from "three"
 import { Canvas, useFrame } from "@react-three/fiber"
+import { useDeviceOrientation } from "@/hooks/useDeviceOrientation"
 
 type InviteCard3DProps = {
   logoUrl?: string
@@ -162,6 +163,7 @@ function canvasToTexture(canvas: HTMLCanvasElement): THREE.CanvasTexture {
   const texture = new THREE.CanvasTexture(canvas)
   texture.colorSpace = THREE.SRGBColorSpace
   texture.anisotropy = 8
+  texture.needsUpdate = true
   return texture
 }
 
@@ -287,13 +289,22 @@ function buildCardTexture(options: {
   })
 }
 
-function loadImage(src: string): Promise<HTMLImageElement> {
+function loadImage(src: string, attempts = 3): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
-    const image = new Image()
-    image.crossOrigin = "anonymous"
-    image.onload = () => resolve(image)
-    image.onerror = () => reject(new Error(`No se pudo cargar la imagen: ${src}`))
-    image.src = src
+    const tryLoad = (remaining: number) => {
+      const image = new Image()
+      image.crossOrigin = "anonymous"
+      image.onload = () => resolve(image)
+      image.onerror = () => {
+        if (remaining > 1) {
+          tryLoad(remaining - 1)
+        } else {
+          reject(new Error(`No se pudo cargar la imagen: ${src}`))
+        }
+      }
+      image.src = src
+    }
+    tryLoad(attempts)
   })
 }
 
@@ -480,7 +491,15 @@ function Scene({ texture, backTexture, scale, target, lights }: SceneProps) {
     <group ref={group} scale={scale}>
       <mesh geometry={geometry} material={[capMaterial, sideMaterial]} />
       <mesh geometry={back}>
-        <meshStandardMaterial map={backTexture} roughness={0.35} metalness={0.15} side={THREE.DoubleSide} />
+        {backTexture ? (
+          <meshStandardMaterial
+            key={backTexture.uuid}
+            map={backTexture}
+            roughness={0.35}
+            metalness={0.15}
+            side={THREE.DoubleSide}
+          />
+        ) : null}
       </mesh>
     </group>
   )
@@ -509,6 +528,12 @@ export function InviteCard3D({
   const [backTexture, setBackTexture] = useState<THREE.Texture | null>(null)
   const [size, setSize] = useState({ width: 0, height: 0 })
   const [lights] = useState<LightConfig>(LIGHT_DEFAULTS)
+
+  const { status: orientationStatus, requestPermission: requestOrientationPermission } =
+    useDeviceOrientation({
+      targetRef: target,
+      getPaused: () => drag.current.active,
+    })
 
   useEffect(() => {
     let disposed = false
@@ -546,7 +571,9 @@ export function InviteCard3D({
         setBackTexture(t)
       })
       .catch(() => {
-        if (!disposed) setBackTexture(null)
+        if (disposed) return
+        currentBack = canvasToTexture(createCardCanvas(accentColorA, accentColorB))
+        setBackTexture(currentBack)
       })
 
     return () => {
@@ -573,6 +600,7 @@ export function InviteCard3D({
   const onPointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
     drag.current = { active: true, lastX: event.clientX, lastY: event.clientY }
     event.currentTarget.setPointerCapture(event.pointerId)
+    if (orientationStatus === "idle") requestOrientationPermission()
   }
 
   const onPointerMove = (event: ReactPointerEvent<HTMLDivElement>) => {
