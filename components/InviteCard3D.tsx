@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react"
 import type { PointerEvent as ReactPointerEvent } from "react"
 import * as THREE from "three"
 import { Canvas, useFrame } from "@react-three/fiber"
+import { useDeviceOrientation } from "@/hooks/useDeviceOrientation"
 
 type InviteCard3DProps = {
   logoUrl?: string
@@ -528,6 +529,12 @@ export function InviteCard3D({
   const [size, setSize] = useState({ width: 0, height: 0 })
   const [lights] = useState<LightConfig>(LIGHT_DEFAULTS)
 
+  const { status: orientationStatus, requestPermission: requestOrientationPermission } =
+    useDeviceOrientation({
+      targetRef: target,
+      getPaused: () => drag.current.active,
+    })
+
   useEffect(() => {
     let disposed = false
     let current: THREE.Texture | null = null
@@ -593,6 +600,7 @@ export function InviteCard3D({
   const onPointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
     drag.current = { active: true, lastX: event.clientX, lastY: event.clientY }
     event.currentTarget.setPointerCapture(event.pointerId)
+    if (orientationStatus === "idle") requestOrientationPermission()
   }
 
   const onPointerMove = (event: ReactPointerEvent<HTMLDivElement>) => {
