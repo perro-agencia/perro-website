@@ -682,7 +682,7 @@ export function InviteCard3D({
               onClick={() => setGyroEnabled(false)}
               className="absolute bottom-8 left-1/2 z-20 -translate-x-1/2 rounded-full border border-brand-accent-02/40 bg-brand-black/50 px-6 py-3 font-display text-xs uppercase tracking-wide text-brand-accent-02/80 backdrop-blur-md transition-colors hover:border-brand-accent-02/70 hover:text-brand-accent-02"
             >
-              Giroscopio activo · tocar para apagar
+              Desactivar giroscopio
             </button>
           ) : (
             <button
@@ -690,7 +690,7 @@ export function InviteCard3D({
               onClick={() => setGyroEnabled(true)}
               className="absolute bottom-8 left-1/2 z-20 -translate-x-1/2 rounded-full border border-brand-white/20 bg-brand-black/50 px-6 py-3 font-display text-xs uppercase tracking-wide text-brand-white/80 backdrop-blur-md transition-colors hover:border-brand-white/40 hover:text-brand-white"
             >
-              Mover con giroscopio
+              Activar giroscopio
             </button>
           )
         ) : (
@@ -704,7 +704,7 @@ export function InviteCard3D({
               ? "Activando…"
               : orientationStatus === "denied"
                 ? "Giroscopio no permitido"
-                : "Mover con giroscopio"}
+                : "Activar giroscopio"}
           </button>
         ))}
     </div>
