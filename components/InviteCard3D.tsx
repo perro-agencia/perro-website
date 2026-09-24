@@ -7,6 +7,9 @@ import { Canvas, useFrame } from "@react-three/fiber"
 
 type InviteCard3DProps = {
   logoUrl?: string
+  backImageUrl?: string
+  backName?: string
+  backRole?: string
   accentColorA?: string
   accentColorB?: string
   guestName?: string
@@ -98,6 +101,10 @@ const LOCKUP_STAR_SIZE = 140
 const LOCKUP_STAR_THICKNESS = 15
 const LOCKUP_STAR_Y_OFFSET = 15
 const LOCKUP_MAX_W = 0.72
+
+const FRONT_CAPTION_TEXT = "{ edición 2026 }"
+const FRONT_CAPTION_SIZE = 50
+const FRONT_CAPTION_Y = 0.6
 
 type LightConfig = {
   ambient: number
@@ -270,12 +277,164 @@ function buildCardTexture(options: {
       ctx.fillText(guestName.toUpperCase(), canvas.width / 2, canvas.height * 0.62)
     }
 
+    ctx.fillStyle = "rgba(255,255,255,0.7)"
+    ctx.font = `300 ${FRONT_CAPTION_SIZE}px "Helvetica Neue", Helvetica, Arial, sans-serif`
+    ctx.textAlign = "center"
+    ctx.textBaseline = "middle"
+    ctx.fillText(FRONT_CAPTION_TEXT, canvas.width / 2, canvas.height * FRONT_CAPTION_Y)
+
     return canvasToTexture(canvas)
   })
 }
 
-function buildBackTexture(accentColorA: string, accentColorB: string): THREE.CanvasTexture {
-  return canvasToTexture(createCardCanvas(accentColorA, accentColorB))
+function loadImage(src: string): Promise<HTMLImageElement> {
+  return new Promise((resolve, reject) => {
+    const image = new Image()
+    image.crossOrigin = "anonymous"
+    image.onload = () => resolve(image)
+    image.onerror = () => reject(new Error(`No se pudo cargar la imagen: ${src}`))
+    image.src = src
+  })
+}
+
+type BackTextureOptions = {
+  accentColorA: string
+  accentColorB: string
+  url?: string
+  scale?: number
+  offsetX?: number
+  offsetY?: number
+  captionName?: string
+  captionRole?: string
+}
+
+type BackImageOptions = BackTextureOptions & { url: string }
+
+const BACK_IMAGE_SCALE = 0.58
+const BACK_IMAGE_OFFSET_X = -0.1
+const BACK_IMAGE_OFFSET_Y = -0.6
+
+const BACK_CAPTION_BOTTOM_MARGIN = 250
+const BACK_CAPTION_GAP = 16
+const BACK_CAPTION_NAME_SIZE = 70
+const BACK_CAPTION_ROLE_SIZE = 50
+
+function drawBackCaption(
+  ctx: CanvasRenderingContext2D | null,
+  canvasWidth: number,
+  canvasHeight: number,
+  captionName?: string,
+  captionRole?: string,
+) {
+  if (!ctx || (!captionName && !captionRole)) return
+
+  const font = '"Helvetica Neue", Helvetica, Arial, sans-serif'
+  ctx.save()
+  ctx.translate(canvasWidth, 0)
+  ctx.scale(-1, 1)
+  ctx.textAlign = "center"
+  ctx.textBaseline = "alphabetic"
+
+  const roleLines = captionRole?.split("\n").filter(Boolean) ?? []
+
+  let y = canvasHeight - BACK_CAPTION_BOTTOM_MARGIN
+
+  if (roleLines.length > 0) {
+    for (let i = roleLines.length - 1; i >= 0; i--) {
+      ctx.font = `100 ${BACK_CAPTION_ROLE_SIZE}px ${font}`
+      ctx.fillStyle = "rgba(255,255,255,0.78)"
+      ctx.fillText(roleLines[i], canvasWidth / 2, y)
+      y -= BACK_CAPTION_ROLE_SIZE + BACK_CAPTION_GAP
+    }
+  }
+
+  if (captionName) {
+    ctx.font = `500 ${BACK_CAPTION_NAME_SIZE}px ${font}`
+    ctx.fillStyle = "rgba(255,255,255,0.95)"
+    ctx.fillText(captionName, canvasWidth / 2, y)
+  }
+
+  ctx.restore()
+}
+
+function buildBackTextureWithImage({
+  accentColorA,
+  accentColorB,
+  url,
+  scale = BACK_IMAGE_SCALE,
+  offsetX = BACK_IMAGE_OFFSET_X,
+  offsetY = BACK_IMAGE_OFFSET_Y,
+  captionName,
+  captionRole,
+}: BackImageOptions): Promise<THREE.CanvasTexture> {
+  const canvas = createCardCanvas(accentColorA, accentColorB)
+  const ctx = canvas.getContext("2d")
+  if (!ctx) throw new Error("Canvas 2D no disponible")
+
+  return loadImage(url).then((img) => {
+    const cw = canvas.width
+    const ch = canvas.height
+
+    const imgRatio = img.width / img.height
+    const cwRatio = cw / ch
+
+    let drawW = cw
+    let drawH = ch
+
+    if (imgRatio > cwRatio) {
+      drawH = ch
+      drawW = ch * imgRatio
+    } else {
+      drawW = cw
+      drawH = cw / imgRatio
+    }
+
+    drawW *= scale
+    drawH *= scale
+
+    const dx = (cw - drawW) / 2 + (cw - drawW) * offsetX * 0.5
+    const dy = (ch - drawH) / 2 + (ch - drawH) * offsetY * 0.5
+
+    ctx.globalCompositeOperation = "source-over"
+    ctx.save()
+    ctx.translate(cw, 0)
+    ctx.scale(-1, 1)
+    ctx.drawImage(img, cw - dx - drawW, dy, drawW, drawH)
+    ctx.restore()
+
+    const overlay = ctx.createLinearGradient(0, 0, 0, ch)
+    overlay.addColorStop(0, "rgba(0,0,0,0)")
+    overlay.addColorStop(0.8, "rgba(0,0,0,0.15)")
+    overlay.addColorStop(1, "rgba(0,0,0,0.4)")
+    ctx.fillStyle = overlay
+    ctx.fillRect(0, 0, cw, ch)
+
+    ctx.globalCompositeOperation = "multiply"
+    ctx.globalAlpha = 0.05
+    ctx.fillStyle = "#000000"
+    ctx.fillRect(0, 0, cw, ch)
+    ctx.globalAlpha = 1
+    ctx.globalCompositeOperation = "source-over"
+
+    drawBackCaption(ctx, cw, ch, captionName, captionRole)
+
+    return canvasToTexture(canvas)
+  })
+}
+
+function buildBackTexture(options: BackTextureOptions): Promise<THREE.CanvasTexture> | THREE.CanvasTexture {
+  if (options.url) {
+    return buildBackTextureWithImage(options as BackImageOptions)
+  }
+  const canvas = createCardCanvas(options.accentColorA, options.accentColorB)
+  drawBackCaption(
+    canvas.getContext("2d"),
+    canvas.width,
+    canvas.height,
+    options.captionName,
+    options.captionRole,
+  )
+  return canvasToTexture(canvas)
 }
 
 type SceneProps = {
@@ -336,6 +495,9 @@ function computeScale(aspect: number) {
 
 export function InviteCard3D({
   logoUrl = "/brand/isologotipo-white.svg",
+  backImageUrl,
+  backName,
+  backRole,
   accentColorA = "#885DE3",
   accentColorB = "#C4F875",
   guestName,
@@ -366,15 +528,33 @@ export function InviteCard3D({
         if (!disposed) setTexture(null)
       })
 
-    currentBack = buildBackTexture(accentColorA, accentColorB)
-    setBackTexture(currentBack)
+    Promise.resolve(
+      buildBackTexture({
+        accentColorA,
+        accentColorB,
+        url: backImageUrl,
+        captionName: backName,
+        captionRole: backRole,
+      }),
+    )
+      .then((t) => {
+        if (disposed) {
+          t.dispose()
+          return
+        }
+        currentBack = t
+        setBackTexture(t)
+      })
+      .catch(() => {
+        if (!disposed) setBackTexture(null)
+      })
 
     return () => {
       disposed = true
       if (current) current.dispose()
       if (currentBack) currentBack.dispose()
     }
-  }, [logoUrl, accentColorA, accentColorB, guestName])
+  }, [logoUrl, backImageUrl, backName, backRole, accentColorA, accentColorB, guestName])
 
   useEffect(() => {
     const el = wrapRef.current

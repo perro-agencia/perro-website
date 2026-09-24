@@ -31,6 +31,9 @@ export default async function InvitePage({ params }: InvitePageProps) {
   return (
     <InviteScene
       logoUrl={invitation?.logoUrl}
+      backImageUrl={invitation?.backImageUrl}
+      backName={invitation?.backName}
+      backRole={invitation?.backRole}
       accentColorA={invitation?.accentColorA}
       accentColorB={invitation?.accentColorB}
       guestName={invitation?.guestName}

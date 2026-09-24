@@ -573,7 +573,7 @@ brand: {
 | Fecha | Cambio |
 |---|---|
 | 2026-05-22 | Creación del proyecto |
-| 2026-05-22 | Documentación funcional inicial (PROJECT_DOC.md) |
+| 2026-05-22 | Documentación funcional inicial (PROJECT_DOC.md, luego renombrado a CONTEXT.md) |
 | 2026-05-22 | Creación del agente `analyst` para mantenimiento de doc |
 | 2026-05-22 | Auditoría de documentación: 7 discrepancias encontradas y corregidas |
 | 2026-05-22 | Integración de Resend para formulario de contacto |

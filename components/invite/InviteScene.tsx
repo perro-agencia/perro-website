@@ -4,6 +4,9 @@ import dynamic from "next/dynamic"
 
 type InviteSceneProps = {
   logoUrl?: string
+  backImageUrl?: string
+  backName?: string
+  backRole?: string
   accentColorA?: string
   accentColorB?: string
   guestName?: string
