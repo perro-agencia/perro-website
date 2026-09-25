@@ -17,9 +17,21 @@ export const invitations: Invitation[] = [
     backRole: "Founder\nProduct Design Director",
   },
   {
+    slug: "evelynkonig",
+    backImageUrl: "/team/profile-eve.png",
+    backName: "Evelyn Magali König",
+    backRole: "Chief Financial Officer",
+  },
+  {
+    slug: "pabloarevalo",
+    backImageUrl: "/team/profile-pablito.png",
+    backName: "Pablo Arévalo",
+    backRole: "Production assistant",
+  },
+  {
     slug: "sebastiankonig",
     backImageUrl: "/team/profile-seba.png",
-    backName: "Sebastián Konig",
+    backName: "Sebastián König",
     backRole: "Ceo - Founder\nMarketing Director",
   },
   {
