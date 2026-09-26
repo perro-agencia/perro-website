@@ -25,6 +25,7 @@ const CARD_BEVEL_SIZE = 5
 const CARD_FRONT_Z = CARD_DEPTH / 2 + CARD_BEVEL_THICKNESS
 const CAM_Z = 5.4
 const CAM_FOV = 35
+const GYROSCOPE_TOGGLE_ENABLED = false
 
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value))
 
@@ -528,7 +529,7 @@ export function InviteCard3D({
   const [backTexture, setBackTexture] = useState<THREE.Texture | null>(null)
   const [size, setSize] = useState({ width: 0, height: 0 })
   const [lights] = useState<LightConfig>(LIGHT_DEFAULTS)
-  const [gyroEnabled, setGyroEnabled] = useState(true)
+  const [gyroEnabled, setGyroEnabled] = useState(GYROSCOPE_TOGGLE_ENABLED)
 
   const { status: orientationStatus, requestPermission: requestOrientationPermission } =
     useDeviceOrientation({
@@ -602,7 +603,7 @@ export function InviteCard3D({
   const onPointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
     drag.current = { active: true, lastX: event.clientX, lastY: event.clientY }
     event.currentTarget.setPointerCapture(event.pointerId)
-    if (orientationStatus === "idle") requestOrientationPermission()
+    if (GYROSCOPE_TOGGLE_ENABLED && orientationStatus === "idle") requestOrientationPermission()
   }
 
   const onPointerMove = (event: ReactPointerEvent<HTMLDivElement>) => {
@@ -674,7 +675,8 @@ export function InviteCard3D({
         </Canvas>
       </div>
 
-      {orientationStatus !== "unsupported" &&
+      {GYROSCOPE_TOGGLE_ENABLED &&
+        orientationStatus !== "unsupported" &&
         (orientationStatus === "listening" ? (
           gyroEnabled ? (
             <button
