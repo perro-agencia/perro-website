@@ -3,6 +3,7 @@ import { Footer } from "@/components/layout/Footer"
 import { AnimateInView } from "@/components/AnimateInView"
 import { Chip } from "@/components/ui/Chip"
 import { LandingContactForm } from "@/components/landing/LandingContactForm"
+import { FloatingLogos, type FloatingLogo } from "@/components/landing/FloatingLogos"
 import { ClientsSection } from "@/components/sections/ClientsSection"
 import { JsonLd } from "@/components/JsonLd"
 import { buildMetadata } from "@/lib/metadata"
@@ -34,6 +35,18 @@ const chips = [
   "Creatividades", "copies", "línea de crédito", "tracking", "ga4", "google tag manager"
 ]
 
+const heroLogos: FloatingLogo[] = [
+  { src: "/performance-ads-landing/icons/logo-gads.png", alt: "Google Ads" },
+  { src: "/performance-ads-landing/icons/logo-metads.png", alt: "Meta Ads" },
+  { src: "/performance-ads-landing/icons/logo-ganalytics.png", alt: "Google Analytics" },
+  { src: "/performance-ads-landing/icons/logo-gtags.png", alt: "Google Tag Manager" },
+  { src: "/performance-ads-landing/icons/logo-gads2.png", alt: "Display & Video 360" },
+  { src: "/performance-ads-landing/icons/logo-gmarketplace.png", alt: "Google Marketing Platform" },
+  { src: "/performance-ads-landing/icons/logo-gads3.png", alt: "Google Ads" },
+  { src: "/performance-ads-landing/icons/logo-codeads.png", alt: "Ads" },
+  { src: "/performance-ads-landing/icons/logo-gads4.png", alt: "Google Ads" },
+]
+
 const formFields: FieldConfig[] = [
   { name: "name", type: "text", label: "Nombre", required: true },
   { name: "email", type: "email", label: "Email corporativo", required: true },
@@ -53,8 +66,29 @@ export default function PerformanceAdsPage() {
       />
 
       <main className="w-full max-w-[1440px] mx-auto p-8 md:p-12">
+        {/* Hero */}
+        <section className="relative flex items-center justify-center h-[calc(100vh-120px)] pt-24 overflow-hidden">
+          <FloatingLogos logos={heroLogos} />
+          <div className="flex flex-col items-center justify-center w-full max-w-[1000px] text-center relative z-10">
+            <AnimateInView>
+              <h1 className="font-display font-normal leading-[0.95] -tracking-[0.03em] text-6xl md:text-7xl lg:text-[140px] mb-8">
+                Menos gasto,
+                <br />
+                <span className="text-brand-primary-main">más retorno.</span>
+              </h1>
+            </AnimateInView>
+
+            <AnimateInView delay={0.1}>
+              <p className="text-brand-white text-lg max-w-3xl">
+                Convertimos tu inversión publicitaria en ventas. <br />
+                Gestionamos campañas en Google, Meta, TikTok y LinkedIn con estrategia, creatividades, tracking y optimización continua, siempre con datos reales y foco en ROAS y CAC.
+              </p>
+            </AnimateInView>
+          </div>
+        </section>
+
         {/* Multi-plataformas */}
-        <section className="py-12 pt-[100px] max-w-[900px] mx-auto">
+        <section className="py-12 max-w-[900px] mx-auto">
           <div className="text-center">
             <AnimateInView>
               <h2 className="text-xl uppercase text-brand-white mb-6">Estrategia Multi-plataformas</h2>
@@ -114,9 +148,9 @@ export default function PerformanceAdsPage() {
         <section className="flex flex-col md:flex-row justify-between py-12 md:py-24">
           <div className="flex flex-col w-full md:w-1/2">
             <AnimateInView>
-              <h1 className="font-display font-normal leading-[0.95] -tracking-[0.03em] text-[clamp(2.5rem,6vw,4rem)] mb-8">
+              <h2 className="font-display font-normal leading-[0.95] -tracking-[0.03em] text-[clamp(2.5rem,6vw,4rem)] mb-8">
                 Escalamos el ROAS de <span className="whitespace-nowrap">E-commerces</span> y optimizamos el CAC de plataformas SaaS.
-              </h1>
+              </h2>
             </AnimateInView>
 
             <AnimateInView delay={0.1}>

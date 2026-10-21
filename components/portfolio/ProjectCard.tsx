@@ -43,12 +43,21 @@ export function ProjectCard({ project, className, index }: Props) {
               />
             )}
 
+            {/* Default: imagen. Hover: color + logo. Sin imagen, color + logo siempre visibles */}
             <div
-              className="absolute inset-0 transition-opacity duration-700 ease-in-out group-hover:opacity-0"
+              className={cn(
+                "absolute inset-0 transition-opacity duration-700 ease-in-out",
+                hoverSrc && "opacity-0 group-hover:opacity-100"
+              )}
               style={{ backgroundColor: bgColor }}
             />
 
-            <div className="absolute inset-0 flex items-center justify-center p-12">
+            <div
+              className={cn(
+                "absolute inset-0 flex items-center justify-center p-12 transition-opacity duration-700 ease-in-out",
+                hoverSrc && "opacity-0 group-hover:opacity-100"
+              )}
+            >
               {logoSrc && (
                 <Image
                   src={logoSrc}

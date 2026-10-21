@@ -84,9 +84,7 @@ export default function WebsiteInstitucionalPage() {
 
             <AnimateInView delay={0.1}>
               <p className="text-brand-white text-lg max-w-4xl mb-12">
-                Un buen sitio web abre muchas puertas. <br />
-                Diseñamos y desarrollamos sitios web que comunican quién sos, qué hacés y por qué importa. Resolvemos sitios web genéricos, navegación poco clara, usabilidad deficiente o sitios que no reflejan el valor de la marca. <br /> <br />
-                Tu sitio web suele ser la primera (y más duradera) impresión que alguien tiene de tu marca. Por eso creamos sitios que no solo informan, sino que también inspiran, atraen y generan confianza.
+                Diseñamos y desarrollamos sitios web que comunican quién sos, qué hacés y por qué importa. Resolvemos navegación poco clara, usabilidad deficiente o sitios que no reflejan el valor de tu marca.
               </p>
             </AnimateInView>
           </div>
