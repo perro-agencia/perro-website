@@ -69,19 +69,18 @@ export default function PerformanceAdsPage() {
         {/* Hero */}
         <section className="relative flex items-center justify-center h-[calc(100vh-120px)] pt-24 overflow-hidden">
           <FloatingLogos logos={heroLogos} />
-          <div className="flex flex-col items-center justify-center w-full max-w-[1000px] text-center relative z-10">
+          <div className="flex flex-col items-center justify-center w-full max-w-[1200px] text-center relative z-10">
             <AnimateInView>
-              <h1 className="font-display font-normal leading-[0.95] -tracking-[0.03em] text-6xl md:text-7xl lg:text-[140px] mb-8">
-                Menos gasto,
+              <h1 className="font-display font-normal leading-[0.95] -tracking-[0.03em] text-6xl md:text-8xl mb-8">
+                Menos humo. Más estrategia,
                 <br />
-                <span className="text-brand-primary-main">más retorno.</span>
+                <span className="text-brand-primary-main">tracking y pauta real</span>
               </h1>
             </AnimateInView>
 
             <AnimateInView delay={0.1}>
               <p className="text-brand-white text-lg max-w-3xl">
-                Convertimos tu inversión publicitaria en ventas. <br />
-                Gestionamos campañas en Google, Meta, TikTok y LinkedIn con estrategia, creatividades, tracking y optimización continua, siempre con datos reales y foco en ROAS y CAC.
+                Diseñamos la estrategia según la necesidad real de tu marca: desde escalar la facturación y bajar el CAC, hasta construir posicionamiento con impacto medible.
               </p>
             </AnimateInView>
           </div>

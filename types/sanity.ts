@@ -21,6 +21,7 @@ export interface Project {
   bgColor?: string
   span?: number
   hoverImage?: Record<string, unknown>
+  showHeaderImages?: boolean
   headerImage1?: Record<string, unknown>
   headerImage2?: Record<string, unknown>
   headerImage3?: Record<string, unknown>

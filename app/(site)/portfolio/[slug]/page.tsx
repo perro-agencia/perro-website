@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const fullTitle = `${project.title} | ${siteConfig.name}`
 
   return {
-    title: fullTitle,
+    title: project.title,
     openGraph: {
       title: fullTitle,
     },
@@ -47,6 +47,8 @@ export default async function ProjectPage({ params }: Props) {
 
   if (!project) notFound()
 
+  // Projects creados antes del switch no tienen el campo: se tratan como activados
+  const showHeaderImages = project.showHeaderImages !== false
   const img1 = project.headerImage1 ? urlFor(project.headerImage1).width(900).height(700).url() : null
   const img2 = project.headerImage2 ? urlFor(project.headerImage2).width(600).height(330).url() : null
   const img3 = project.headerImage3 ? urlFor(project.headerImage3).width(600).height(330).url() : null
@@ -63,7 +65,7 @@ export default async function ProjectPage({ params }: Props) {
       <Nav />
       <article>
         <div className="container mx-auto px-6 pt-32 pb-24">
-          {img1 && (
+          {showHeaderImages && img1 && (
             <AnimateInView delay={0.15}>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-20">
                 <div className="md:col-span-2 md:row-span-2 relative aspect-[4/3] md:aspect-auto md:min-h-[700px] rounded-2xl overflow-hidden bg-brand-white/5">
