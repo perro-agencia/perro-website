@@ -9,6 +9,7 @@ import { AnimateInView } from "@/components/AnimateInView"
 import { Banner } from "@/components/ui/Banner"
 import { GalleryGrid } from "@/components/portfolio/GalleryGrid"
 import { ProjectContentSections } from "@/components/portfolio/ProjectContentSections"
+import { portableTextComponents } from "@/components/common/portableTextComponents"
 import { siteConfig } from "@/lib/site"
 import type { Project } from "@/types/sanity"
 import { notFound } from "next/navigation"
@@ -114,7 +115,7 @@ export default async function ProjectPage({ params }: Props) {
               <div className="lg:col-span-2">
                 {project.description && (
                   <div className="prose prose-invert prose-lg max-w-none text-brand-white/80">
-                    <PortableText value={project.description} />
+                    <PortableText value={project.description} components={portableTextComponents} />
                   </div>
                 )}
                 {project.link && (

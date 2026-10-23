@@ -21,7 +21,7 @@ export function HeroBackdrop() {
           priority
         /> */}
         <video
-          src="/miscelaneous/star-animation-2.0.mp4"
+          src="/miscelaneous/star-animation-2.1.mp4"
           width={2160}
           height={3840}
           autoPlay
@@ -30,7 +30,7 @@ export function HeroBackdrop() {
           playsInline
           preload="auto"
           aria-hidden="true"
-          className="absolute right-[-200px] md:right-0 -top-60 h-[1300px] w-auto object-contain -rotate-[-15deg] 2xl:right-[650px] 2xl:top-[-100px] 2xl:h-[1440px]"
+          className="absolute right-[-200px] md:right-0 -top-60 h-[1300px] w-auto object-contain 2xl:right-[650px] 2xl:top-[-100px] 2xl:h-[1440px]"
         />
       </motion.div>
     </div>

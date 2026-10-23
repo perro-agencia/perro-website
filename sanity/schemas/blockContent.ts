@@ -24,7 +24,18 @@ export const blockContent = defineType({
         ],
       },
     },
-    { type: "image", options: { hotspot: true } },
+    {
+      type: "image",
+      options: { hotspot: true },
+      fields: [
+        defineField({
+          name: "alt",
+          title: "Alt text",
+          type: "string",
+          description: "Descripción de la imagen para SEO y lectores de pantalla",
+        }),
+      ],
+    },
     { name: "codeBlock", title: "Code Block", type: "object", fields: [{ name: "code", type: "code", title: "Code" }] },
   ],
 })
