@@ -22,6 +22,7 @@ export const projectBySlugQuery = defineQuery(`*[_type == "project" && slug.curr
   order,
   span,
   hoverImage,
+  showHeaderImages,
   headerImage1,
   headerImage2,
   headerImage3,

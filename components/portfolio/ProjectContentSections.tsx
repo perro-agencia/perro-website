@@ -1,6 +1,7 @@
 import { PortableText } from "@portabletext/react"
 import { AnimateInView } from "@/components/AnimateInView"
 import { GalleryGrid } from "@/components/portfolio/GalleryGrid"
+import { portableTextComponents } from "@/components/common/portableTextComponents"
 import type { ContentSection } from "@/types/sanity"
 
 interface Props {
@@ -22,7 +23,7 @@ export function ProjectContentSections({ sections, projectTitle }: Props) {
           {section.text && (
             <AnimateInView delay={0.25 + i * 0.1}>
               <div className="prose prose-invert prose-lg max-w-none text-brand-white/80">
-                <PortableText value={section.text} />
+                <PortableText value={section.text} components={portableTextComponents} />
               </div>
             </AnimateInView>
           )}

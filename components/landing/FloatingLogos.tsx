@@ -20,7 +20,9 @@ const itemVariants = {
   },
 }
 
-const logos = [
+export type FloatingLogo = { src: string; alt: string }
+
+const defaultLogos: FloatingLogo[] = [
   { src: "/devtools/logo-nextjs.svg", alt: "Next.js" },
   { src: "/devtools/logo-figma.svg", alt: "Figma" },
   { src: "/devtools/logo-vercel.svg", alt: "Vercel" },
@@ -34,7 +36,7 @@ const logos = [
   { src: "/devtools/logo-mixpanel.svg", alt: "Mixpanel" },
   { src: "/devtools/logo-antigravity.svg", alt: "Antigravity" },
   { src: "/devtools/logo-sanity.svg", alt: "SanityCms" },
-  { src: "/devtools/logo-v0.svg", alt: "V0" },
+  { src: "/devtools/logo-vo.svg", alt: "V0" },
   { src: "/devtools/logo-claudecode.svg", alt: "ClaudeCode" },
 ]
 
@@ -62,7 +64,7 @@ const logoPositions: {
     { top: "65%", right: "30%", depth: "front", yRange: [40, -130] },
   ]
 
-export function FloatingLogos() {
+export function FloatingLogos({ logos = defaultLogos }: { logos?: FloatingLogo[] }) {
   const containerRef = useRef<HTMLDivElement>(null)
 
   const { scrollYProgress } = useScroll({
@@ -83,7 +85,7 @@ export function FloatingLogos() {
       viewport={{ once: true, amount: 0.3 }}
       className="absolute inset-0 overflow-hidden pointer-events-none select-none"
     >
-      {logos.map((logo, i) => {
+      {logos.slice(0, logoPositions.length).map((logo, i) => {
         const pos = logoPositions[i]
         const isFront = pos.depth === "front"
 
