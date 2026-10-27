@@ -30,7 +30,7 @@ export function HeroBackdrop() {
           playsInline
           preload="auto"
           aria-hidden="true"
-          className="absolute right-[-200px] md:right-0 -top-60 h-[1300px] w-auto object-contain 2xl:right-[650px] 2xl:top-[-100px] 2xl:h-[1440px]"
+          className="absolute w-auto object-contain h-[1400px] -top-80 right-[-200px] md:right-[-50px] 2xl:right-[100px] 2xl:h-[1500px] min-[2100px]:right-[400px] min-[2100px]:h-[1800px]"
         />
       </motion.div>
     </div>
