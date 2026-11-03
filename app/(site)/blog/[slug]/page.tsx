@@ -5,6 +5,7 @@ import { urlFor } from "@/sanity/lib/image"
 import { PostBody } from "@/components/blog/PostBody"
 import { Nav } from "@/components/layout/Nav"
 import { JsonLd } from "@/components/JsonLd"
+import { buildBreadcrumbJsonLd } from "@/lib/metadata"
 import { siteConfig } from "@/lib/site"
 import type { Post } from "@/types/sanity"
 import { notFound } from "next/navigation"
@@ -32,6 +33,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       canonical: url,
     },
     openGraph: {
+      type: "article",
+      locale: "es_AR",
+      siteName: siteConfig.name,
       title: fullTitle,
       description,
       url,
@@ -80,6 +84,12 @@ export default async function BlogPostPage({ params }: Props) {
   return (
     <>
       <JsonLd data={articleJsonLd} />
+      <JsonLd
+        data={buildBreadcrumbJsonLd([
+          { name: "Blog", path: "/blog" },
+          { name: post.title, path: `/blog/${post.slug.current}` },
+        ])}
+      />
       <Nav />
       <article className="py-24">
       <div className="container mx-auto px-4 max-w-3xl">

@@ -7,7 +7,7 @@ import { FooterLogo } from "@/components/layout/FooterLogo"
 export const metadata = buildMetadata({
   title: "Nosotros",
   description:
-    "Especialistas en Marketing, Diseño & Desarrollo, unidos por el instinto de hacer crcecer marcas.",
+    "Especialistas en Marketing, Diseño & Desarrollo, unidos por el instinto de hacer crecer marcas.",
   path: "/nosotros",
 })
 

@@ -14,6 +14,7 @@ export interface ContentSection {
 
 export interface Project {
   _id: string
+  _updatedAt?: string
   title: string
   slug: { current: string }
   client?: string

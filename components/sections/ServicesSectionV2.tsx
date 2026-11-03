@@ -84,7 +84,7 @@ export function ServicesSectionV2() {
   return (
     <section className="py-24 md:py-32 relative">
       <div className="container mx-auto px-6 text-center">
-        <motion.h2
+        <motion.p
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
@@ -92,7 +92,7 @@ export function ServicesSectionV2() {
           className="block text-xl uppercase text-brand-white mb-6"
         >
           nuestros servicios
-        </motion.h2>
+        </motion.p>
 
         <motion.h2
           initial={{ opacity: 0, y: 24 }}

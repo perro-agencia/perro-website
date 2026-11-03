@@ -138,13 +138,15 @@ export function Nav({
                       src={logoSrc}
                       alt="PERRO Agency logo"
                       fill
+                      sizes="124px"
                       className={`object-left object-contain transition-opacity duration-300 ease-in-out ${logoHover && logoHoverSrc ? "opacity-0" : "opacity-100"}`}
                     />
                     {logoHoverSrc && (
                       <Image
                         src={logoHoverSrc}
-                        alt="PERRO Agency logo"
+                        alt=""
                         fill
+                        sizes="124px"
                         className={`object-left object-contain transition-opacity duration-300 ease-in-out ${logoHover ? "opacity-100" : "opacity-0"}`}
                       />
                     )}

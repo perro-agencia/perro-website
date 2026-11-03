@@ -90,7 +90,7 @@ export function ServicesFullScreen() {
           className={cn("relative min-h-screen flex flex-col justify-center overflow-hidden", service.bg)}
         >
           <div className="container relative mx-auto px-6 py-24 flex flex-col justify-center flex-1">
-            <motion.h3
+            <motion.h2
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -98,7 +98,7 @@ export function ServicesFullScreen() {
               className={cn("font-display font-normal leading-[0.85] -tracking-[0.04em] whitespace-pre-line text-[clamp(5rem,13vw,250px)]", service.textColor)}
             >
               {service.title}
-            </motion.h3>
+            </motion.h2>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}

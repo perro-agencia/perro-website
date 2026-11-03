@@ -38,7 +38,7 @@ export function NosotrosContent() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
           className="font-display font-light md:pb-16 text-base md:text-lg max-w-sm md:absolute md:bottom-[10%] md:right-10 md:text-left text-brand-black/70"
-        >Especialistas en Marketing, Diseño & Desarrollo, unidos por el instinto de hacer crcecer marcas.</motion.p>
+        >Especialistas en Marketing, Diseño & Desarrollo, unidos por el instinto de hacer crecer marcas.</motion.p>
       </motion.section>
 
       <motion.section
@@ -49,6 +49,7 @@ export function NosotrosContent() {
         className="py-24 md:py-32"
       >
         <div className="max-w-[1440px] mx-auto px-6">
+          <h2 className="sr-only">Nuestro equipo</h2>
           <motion.div
             variants={{
               hidden: {},
@@ -74,7 +75,7 @@ export function NosotrosContent() {
         className="py-24 md:py-32"
       >
         <div className="container mx-auto px-6 text-center">
-          <motion.h2
+          <motion.p
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
@@ -82,7 +83,7 @@ export function NosotrosContent() {
             className="block text-xl uppercase text-brand-black mb-6 tracking-wide"
           >
             nuestra misión
-          </motion.h2>
+          </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}

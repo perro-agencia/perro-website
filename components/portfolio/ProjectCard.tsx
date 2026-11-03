@@ -37,8 +37,9 @@ export function ProjectCard({ project, className, index }: Props) {
             {hoverSrc && (
               <Image
                 src={hoverSrc}
-                alt=""
+                alt={project.title}
                 fill
+                sizes="(max-width: 768px) 100vw, 66vw"
                 className="object-cover scale-100 group-hover:scale-105 transition-all duration-700 ease-out"
               />
             )}
@@ -63,6 +64,7 @@ export function ProjectCard({ project, className, index }: Props) {
                   src={logoSrc}
                   alt={`${project.client || project.title} logo`}
                   fill
+                  sizes="150px"
                   className="object-contain w-full max-w-[150px] mx-auto"
                 />
               )}

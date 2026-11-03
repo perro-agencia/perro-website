@@ -27,7 +27,7 @@ const itemVariants = {
   },
 }
 
-export function ContactSection() {
+export function ContactSection({ headingAs: Heading = "h2" }: { headingAs?: "h1" | "h2" }) {
   return (
     <section className="pb-24 md:pb-32">
       <div className="container mx-auto px-6">
@@ -39,7 +39,7 @@ export function ContactSection() {
           variants={staggerVariants(0.15)}
         >
           <motion.div variants={itemVariants}>
-            <h2 className="font-display font-normal leading-[0.95] -tracking-[0.03em] text-[clamp(4rem,8vw,6rem)] mb-8">
+            <Heading className="font-display font-normal leading-[0.95] -tracking-[0.03em] text-[clamp(4rem,8vw,6rem)] mb-8">
               {headlineWords.map((word) => (
                 <motion.span
                   key={word}
@@ -49,7 +49,7 @@ export function ContactSection() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, ease: "easeOut" }}
                 >
-                  {word}
+                  {word}{" "}
                 </motion.span>
               ))}
               <motion.span
@@ -61,7 +61,7 @@ export function ContactSection() {
               >
                 <span className="text-brand-primary-main">niv<span className="italic">e</span>l</span>
               </motion.span>
-            </h2>
+            </Heading>
             <motion.div
               className="hidden md:flex flex-wrap gap-3"
               initial="hidden"

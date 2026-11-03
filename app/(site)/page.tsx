@@ -9,9 +9,9 @@ import { FooterLogo } from "@/components/layout/FooterLogo"
 import { buildMetadata } from "@/lib/metadata"
 
 export const metadata = buildMetadata({
-  title: "Inicio",
+  title: "Agencia de marketing digital y diseño",
   description:
-    "Soluciones que potencian el crecimiento de tu negocio. Diseño, Producto, Social Content, Paid Media & SEO.",
+    "Agencia de marketing digital y diseño en Buenos Aires. Branding, sitios web, producto, social content, paid media y SEO para hacer crecer tu negocio.",
 })
 
 export default function HomePage() {

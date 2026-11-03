@@ -50,11 +50,20 @@ const organizationJsonLd = {
   sameAs: [siteConfig.social.instagram, siteConfig.social.linkedin],
 }
 
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "PERRO Agency",
+  url: `${siteConfig.url}/`,
+  inLanguage: "es",
+}
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" className={`${fontDisplay.variable} ${fontBody.variable}`}>
       <body>
         <JsonLd data={organizationJsonLd} />
+        <JsonLd data={websiteJsonLd} />
         {children}
         <Analytics />
         <SpeedInsights />

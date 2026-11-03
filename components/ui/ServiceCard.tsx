@@ -73,9 +73,10 @@ export function ServiceCard({ service, className, index, noImageHoverScale }: { 
         >
           <Image
             src={service.image}
-            alt={service.title}
+            alt={`Pantalla de teléfono con un ejemplo de ${service.title}`}
             width={260}
             height={350}
+            sizes="250px"
             className={`object-contain w-[40%] sm:w-[50%] max-w-[250px] pointer-events-none select-none transition-transform duration-700 ease-out ${noImageHoverScale ? "" : "group-hover:scale-[1.10]"}`}
           />
           {service.floatingIcons.map((icon, index) => {
@@ -87,7 +88,7 @@ export function ServiceCard({ service, className, index, noImageHoverScale }: { 
                 style={{ y: yVal }}
                 className={posClass}
               >
-                <Image src={icon} alt="" fill className="object-contain pointer-events-none select-none max-w-[90px]" />
+                <Image src={icon} alt="" fill sizes="75px" className="object-contain pointer-events-none select-none max-w-[90px]" />
               </motion.div>
             )
           })}
@@ -96,9 +97,10 @@ export function ServiceCard({ service, className, index, noImageHoverScale }: { 
         <div className="w-full mx-auto mt-auto flex items-center justify-center overflow-hidden relative z-10">
           <Image
             src={service.image}
-            alt={service.title}
+            alt={`Ejemplo de ${service.title}`}
             width={600}
             height={400}
+            sizes="(max-width: 768px) 100vw, 450px"
             className={`w-full max-w-[450px] h-full object-contain pointer-events-none select-none transition-transform duration-700 ease-out ${noImageHoverScale ? "" : "group-hover:scale-105"}`}
           />
         </div>

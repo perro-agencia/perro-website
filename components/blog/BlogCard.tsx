@@ -45,9 +45,9 @@ export function BlogCard({ post, index }: Props) {
             <div className="relative w-[60%] flex flex-col justify-end p-8">
               <div className={cn("absolute inset-0", colorPair.bg)} />
               <div className="relative z-10">
-                <h3 className={cn("font-display font-medium text-xl mb-3", colorPair.text)}>
+                <h2 className={cn("font-display font-medium text-xl mb-3", colorPair.text)}>
                   {post.title}
-                </h3>
+                </h2>
                 {post.excerpt && (
                   <p className={cn("text-sm md:text-base line-clamp-2 mb-4 opacity-70", colorPair.text)}>
                     {post.excerpt}
@@ -69,6 +69,7 @@ export function BlogCard({ post, index }: Props) {
                 src={urlFor(post.coverImage).width(600).url()}
                 alt={post.title}
                 fill
+                sizes="(max-width: 768px) 40vw, 30vw"
                 className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
               />
             </div>
@@ -81,6 +82,7 @@ export function BlogCard({ post, index }: Props) {
                   src={urlFor(post.coverImage).width(1200).url()}
                   alt={post.title}
                   fill
+                  sizes="100vw"
                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
@@ -90,14 +92,14 @@ export function BlogCard({ post, index }: Props) {
             )}
 
             <div className="relative z-10">
-              <h3
+              <h2
                 className={cn(
                   "font-display font-medium text-xl mb-3",
                   relevance === 3 ? "text-brand-white" : colorPair.text,
                 )}
               >
                 {post.title}
-              </h3>
+              </h2>
 
               {post.excerpt && (
                 <p

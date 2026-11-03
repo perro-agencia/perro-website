@@ -35,9 +35,9 @@ const defaultLogos: FloatingLogo[] = [
   { src: "/devtools/logo-webflow.svg", alt: "Webflow" },
   { src: "/devtools/logo-mixpanel.svg", alt: "Mixpanel" },
   { src: "/devtools/logo-antigravity.svg", alt: "Antigravity" },
-  { src: "/devtools/logo-sanity.svg", alt: "SanityCms" },
+  { src: "/devtools/logo-sanity.svg", alt: "Sanity" },
   { src: "/devtools/logo-vo.svg", alt: "V0" },
-  { src: "/devtools/logo-claudecode.svg", alt: "ClaudeCode" },
+  { src: "/devtools/logo-claudecode.svg", alt: "Claude Code" },
 ]
 
 const logoPositions: {

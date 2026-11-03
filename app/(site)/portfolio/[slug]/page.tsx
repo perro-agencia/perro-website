@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import Image from "next/image"
-import { PortableText } from "@portabletext/react"
+import { PortableText, toPlainText } from "@portabletext/react"
 import { sanityFetch } from "@/sanity/lib/fetch"
 import { projectBySlugQuery } from "@/sanity/lib/queries"
 import { urlFor } from "@/sanity/lib/image"
@@ -10,7 +10,8 @@ import { Banner } from "@/components/ui/Banner"
 import { GalleryGrid } from "@/components/portfolio/GalleryGrid"
 import { ProjectContentSections } from "@/components/portfolio/ProjectContentSections"
 import { portableTextComponents } from "@/components/common/portableTextComponents"
-import { siteConfig } from "@/lib/site"
+import { JsonLd } from "@/components/JsonLd"
+import { buildBreadcrumbJsonLd, buildMetadata } from "@/lib/metadata"
 import type { Project } from "@/types/sanity"
 import { notFound } from "next/navigation"
 
@@ -28,14 +29,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!project) return {}
 
-  const fullTitle = `${project.title} | ${siteConfig.name}`
+  const description = project.description ? toPlainText(project.description).slice(0, 160).trim() : undefined
 
-  return {
+  return buildMetadata({
     title: project.title,
-    openGraph: {
-      title: fullTitle,
-    },
-  }
+    description: description || undefined,
+    path: `/portfolio/${project.slug.current}`,
+    ogImage: project.hoverImage ? urlFor(project.hoverImage).width(1200).height(630).url() : undefined,
+    ogImageAlt: project.hoverImage ? project.title : undefined,
+  })
 }
 
 export default async function ProjectPage({ params }: Props) {
@@ -63,6 +65,12 @@ export default async function ProjectPage({ params }: Props) {
 
   return (
     <>
+      <JsonLd
+        data={buildBreadcrumbJsonLd([
+          { name: "Portfolio", path: "/portfolio" },
+          { name: project.title, path: `/portfolio/${project.slug.current}` },
+        ])}
+      />
       <Nav />
       <article>
         <div className="container mx-auto px-6 pt-32 pb-24">
