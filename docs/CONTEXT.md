@@ -2,7 +2,7 @@
 
 ## 1. Estado actual del proyecto
 
-**Última actualización:** 2026-09-24
+**Última actualización:** 2026-11-03
 
 ### Features completadas
 - Homepage sections rediseñadas completamente (Hero, Clients, Services, Strategy, Portfolio, Team, ContactSection)
@@ -16,8 +16,8 @@
 - Footer convertido a Server Component
 - Página de servicios (`/servicios`) con ServicesFullScreen — 4 secciones full-screen (100vh) con datos hardcodeados, títulos grandes (~250px), chips outline, descripción bottom-right en desktop
 - Página "Nosotros" (`/nosotros`) con NosotrosContent + TeamCard — hero animado, grilla de 8 miembros con stagger, sección misión. Equipo hardcodeado (sin Sanity)
-- Páginas legales: `/legal/terminos-y-condiciones` y `/legal/politicas-de-privacidad` — server components estáticos con título grande (clamp 2.5rem-6rem) y contenido en `<p>` único con `<br />`. Metadata SEO con buildMetadata.
-- Página de portfolio rediseñada (`/portfolio`, `/portfolio/[slug]`): ProjectCard con gradient, logo, hoverImage, grow effect on hover. Schema simplificado (gradientFrom, gradientTo, logo, hoverImage, order). CaseStudyBody eliminado.
+- Páginas legales: `/legal/terminos-y-condiciones` y `/legal/politicas-de-privacidad` — server components estáticos con título grande (clamp 2.5rem-6rem), subtítulos en H2 y párrafos `<p>` reales. Metadata SEO con buildMetadata. **El texto de términos es en realidad una Política de Privacidad (ver sección 8).**
+- Página de portfolio (`/portfolio`, `/portfolio/[slug]`): ProjectCard con imagen por default y, en hover, `bgColor` + logo. Schema con `bgColor`, `logo`, `hoverImage`, `order` y `span`.
 - Página de blog con listado + detalle por post (`/blog`, `/blog/[slug]`)
 - Sanity Studio embebido en `/studio`
 - Sitemap dinámico y robots.txt
@@ -51,23 +51,32 @@
 - **ServiceCard** (`components/ui/ServiceCard.tsx`): nuevo componente compartido por ServicesSection y ServicesSectionV2. Renderiza card con gradient hover, floating icons con parallax (useScroll + useTransform), y prop `noImageHoverScale` para controlar hover scale de la imagen desde afuera. Exporta tipo `Service`.
 - **ContactForm unificado** (`components/forms/ContactForm.tsx`): componente reutilizable con prop `showCompany?: boolean` (default: true). Diseño dark de ContactSection (rounded-full, uppercase placeholders, hover glow, arrow animado). Animaciones framer-motion stagger. Envía a `/api/contact` → Resend. Reemplazó al ContactForm viejo (huérfano) y al formulario inline de ContactSection.
 - **ContactSection simplificado** (`components/sections/ContactSection.tsx`): quitado formulario inline (~130 líneas). Importa y renderiza `<ContactForm showCompany={true} />`. Mantiene headline animado, chips keywords, grid 2 cols.
-- **Sistema de landing pages de servicios**: directorio `components/landing/` con `PerformanceContactForm.tsx` ("use client", field types: text/email/textarea/select, envía a `/api/contact` con campo `service` y campos dinámicos). Archivos eliminados: `LandingHero.tsx`, `LandingDescription.tsx`, `LandingForm.tsx`.
+- **Sistema de landing pages de servicios**: directorio `components/landing/` con `LandingContactForm.tsx` ("use client", field types: text/email/textarea/select, envía a `/api/contact` con campo `service` y campos dinámicos) y `FloatingLogos.tsx` (logos flotantes con parallax para el hero de las landings). Archivos eliminados: `LandingHero.tsx`, `LandingDescription.tsx`, `LandingForm.tsx`.
 - **API route `/api/contact` actualizada**: acepta campo `service` (string opcional) y campos dinámicos via `...rest`. Validación flexible: solo requiere `name` y `email`.
 - **Email template actualizado** (`lib/email.ts`): `sendContactEmail` acepta `service?: string` y `fields?: Record<string, string>`. Subject: `Nuevo contacto [ServiceName] de Nombre`. Default `CONTACT_EMAIL_TO` cambiado a `queonda@perroagency.com`. `from` cambiado a `contacto@perroagency.com`.
-- **Página `/performance-ads`**: landing page para Performance Ads con secciones Multi-plataformas (logos), Stats Cards (3 cards: +$84M white, E-commerce primary, Modelos SaaS accent-02), ClientsSection reutilizada del homepage, Hero+Form. Chips: Anuncios, Paid Media, ROAS, ROI, Performance, Creatividades, copies, línea de crédito, tracking, ga4, google tag manager. Imágenes multi-plataforma en `public/multiplatform/`.
+- **Página `/performance-ads`**: landing de Performance Ads con hero (`FloatingLogos` + H1 "Menos humo. Más estrategia, tracking y pauta real"), Multi-plataformas (logos), Stats Cards (+$112M, E-commerce, Modelos SaaS), ClientsSection y Hero+Form. Imágenes en `public/multiplatform/` y `public/performance-ads-landing/icons/`.
 - **Resend configurado**: dominio perroagency.com, from contacto@perroagency.com, default CONTACT_EMAIL_TO=queonda@perroagency.com.
-- **Landing 3D interactiva para invitaciones vía NFC** (`/invite/[slug]`): card 3D renderizada con Three.js + React Three Fiber. Componente `InviteCard3D` con geometría extrude (esquinas redondeadas radius 80 + bevel, depth 1), textura generada en canvas 1024x1440 (gradiente negro #121216→#0a0a0d→#040405 + dos tintes radiales de acento alpha 0.08 + logo centrado máx 36% del ancho + guestName en 62% de altura), UVs de las tapas normalizadas (0–1) para textura completa, canto del extrude en negro sólido #0a0a0d y dorso con textura espejada horizontalmente (mirrorTexture, DoubleSide) en -(CARD_FRONT_Z+0.6). Iluminación simétrica frente/dorso: ambient 0.5 + 2 keys directional 1.25 + 2 fills 0.45 + luces de acento espejadas (A 0.3, B 0.25). Canvas transparente con blobs CSS detrás (blur 120px, mixBlendMode screen). Interacción drag con Pointer Events (yaw inicial 0.5 sin clamp, pitch clamp ±0.75, damping). Responsive vía ResizeObserver sobre el contenedor + `computeScale(aspect)`. DPR [1, 1.75], `touch-none`. Carga lazy vía `next/dynamic` con `ssr:false` + skeleton loading (code-splitting de three.js). Layout dedicado fuera de `(site)` (sin Nav/Footer), metadata robots noindex. `generateStaticParams` para SSG de slugs conocidos; slugs desconocidos caen a card default (robusto para tags NFC ya grabados). Datos hardcodeados en `lib/invitations.ts` (7 invitaciones de miembros del equipo: federicogilles, sebastiankonig, emilianoelias, luzsaltalamachia, sebastianlugo, luciagallo, sergioruestes — cada una con `backImageUrl`/`backName`/`backRole` propios). Sin dependencia `@react-three/drei` (evitada por peso de bundle).
+- **Landing 3D interactiva para invitaciones vía NFC** (`/invite/[slug]`): card 3D renderizada con Three.js + React Three Fiber. Componente `InviteCard3D` con geometría extrude (esquinas redondeadas radius 80 + bevel, depth 1), textura generada en canvas 1024x1440 (gradiente negro #121216→#0a0a0d→#040405 + dos tintes radiales de acento alpha 0.08 + logo centrado máx 36% del ancho + guestName en 62% de altura), UVs de las tapas normalizadas (0–1) para textura completa, canto del extrude en negro sólido #0a0a0d y dorso con textura espejada horizontalmente (mirrorTexture, DoubleSide) en -(CARD_FRONT_Z+0.6). Iluminación simétrica frente/dorso: ambient 0.5 + 2 keys directional 1.25 + 2 fills 0.45 + luces de acento espejadas (A 0.3, B 0.25). Canvas transparente con blobs CSS detrás (blur 120px, mixBlendMode screen). Interacción drag con Pointer Events (yaw inicial 0.5 sin clamp, pitch clamp ±0.75, damping). Responsive vía ResizeObserver sobre el contenedor + `computeScale(aspect)`. DPR [1, 1.75], `touch-none`. Carga lazy vía `next/dynamic` con `ssr:false` + skeleton loading (code-splitting de three.js). Layout dedicado fuera de `(site)` (sin Nav/Footer), metadata robots noindex. `generateStaticParams` para SSG de slugs conocidos; slugs desconocidos caen a card default (robusto para tags NFC ya grabados). Datos hardcodeados en `lib/invitations.ts` (9 invitaciones: federicogilles, evelynkonig, pabloarevalo, sebastiankonig, emilianoelias, luzsaltalamachia, sebastianlugo, luciagallo, sergioruestes — cada una con `backImageUrl`/`backName`/`backRole` propios). Sin dependencia `@react-three/drei` (evitada por peso de bundle).
 - **Invite cards: dorso custom por card (imagen + leyenda)**: el tipo `Invitation` ahora incluye `backImageUrl?`, `backName?`, `backRole?`. `InviteCard3D` dibuja en el dorso la foto del invitado en modo cover pre-espejada (flip horizontal para que se vea derecha desde atrás, el plano trasero es DoubleSide) + overlay sutil en la base + multiplicador negro 0.05, y debajo una leyenda (rol peso 100 abajo, nombre peso 500 arriba, soporta `\n` en el rol). El frente tiene una leyenda fija "{ edición 2026 }" debajo del guestName. Se eliminaron los campos por-card de escala/offset (`backImageScale`/`offsetX`/`offsetY`): el encuadre es común a todas las cards vía constantes `BACK_IMAGE_SCALE`, `BACK_IMAGE_OFFSET_X`, `BACK_IMAGE_OFFSET_Y`.
 - **Fix de "el dorso no cargaba hasta hacer refresh" resuelto**: `canvasToTexture` setea `texture.needsUpdate = true` explícito; el material del dorso solo se monta cuando `backTexture` está lista con `key={backTexture.uuid}` (nace compilado con el map desde cero); `loadImage` reintenta hasta 3 veces; y si aun así falla, el `.catch` cae a fallback con textura gradiente default (el dorso nunca queda invisible).
-- **Movimiento con giroscopio en móvil**: nuevo `hooks/useDeviceOrientation.ts` ("use client") que mapea `gamma`/`beta` del sensor a yaw/pitch de la card. Solo actúa en dispositivos coarse pointer con permiso (iOS 13+ pide vía gesto de usuario con `DeviceOrientationEvent.requestPermission()`); en desktop queda `unsupported` y no interfiere con el drag. `InviteCard3D` integra el hook con `getPaused` mientras dura un drag y un toggle sobre la card para activar/desactivar el giro sin volver a pedir permiso ("Desactivar giroscopio" / "Activar giroscopio").
+- **Movimiento con giroscopio en móvil (hoy desactivado con `GYROSCOPE_TOGGLE_ENABLED = false`)**: nuevo `hooks/useDeviceOrientation.ts` ("use client") que mapea `gamma`/`beta` del sensor a yaw/pitch de la card. Solo actúa en dispositivos coarse pointer con permiso (iOS 13+ pide vía gesto de usuario con `DeviceOrientationEvent.requestPermission()`); en desktop queda `unsupported` y no interfiere con el drag. `InviteCard3D` integra el hook con `getPaused` mientras dura un drag y un toggle sobre la card para activar/desactivar el giro sin volver a pedir permiso ("Desactivar giroscopio" / "Activar giroscopio").
+- **Páginas de error**: `app/not-found.tsx` (404, con `noindex`) y `app/error.tsx` (500). Texto centrado con `Nav` y botón para volver al inicio, sin Footer.
+- **Redirects 301** en `next.config.ts` desde las rutas del sitio anterior (`/culture`, `/services`, `/contact`, `/terms`, `/blog/blogFeed/*`). Usan `statusCode: 301` porque `permanent: true` devuelve 308.
+- **FloatingLogos reutilizable**: recibe `logos` por prop; sin prop usa los de devtools de `/brand-website`.
+- **Video en el hero de la home**: `HeroBackdrop` usa `<video>` con `star-animation-2.1.mp4` (autoplay, muted, loop). El `<Image>` con el GIF anterior queda comentado para poder volver atrás.
+- **Switch `showHeaderImages` en Project**: decide si el detalle muestra la grilla de 3 imágenes o arranca con el título. Los proyectos sin el campo se tratan como activados.
+- **Imágenes y code blocks en Portable Text**: `components/common/portableTextComponents.tsx` define cómo renderizarlos. Se usa en blog (`PostBody`) y portfolio (descripción y secciones). Las imágenes de `blockContent` tienen campo `alt`.
+- **Relevamiento SEO de páginas estáticas aplicado (2026-11-03)**: un solo H1 por página, jerarquía sin saltos, un solo `<main>`, palabras con espacios reales en los títulos animados, alts corregidos, `sizes` en imágenes, `next/image` en `/performance-ads`, `aria-label` en formularios, titles y descriptions propios, proyectos en el sitemap y schemas `WebSite`, `Service` y `BreadcrumbList`.
+- **OG por página**: imagen general `public/og/og-website.png` y una por landing (`og-performance-ads.png`, `og-brand-website.png`). `buildMetadata` acepta `ogImage` y `ogImageAlt`. El detalle de portfolio usa su `hoverImage`.
 
 ### Features en progreso
-- PortfolioGrid también pendiente de migración a datos hardcodeados
+- Ninguna por el momento
 
 ### Deuda técnica conocida
 - Sin tests automatizados
-- Las imágenes de Sanity no tienen sizes/priority optimizados en todos los casos
-- TeamCard usa `fill` sin prop `sizes` — puede generar imágenes más grandes de lo necesario
+- `pnpm lint` falla por 2 errores de hooks preexistentes (`FloatingLogos.tsx`, `StrategySection.tsx`) y da 1 warning en `GalleryGrid.tsx`
+- Video del hero pesado (`star-animation-2.1.mp4`, 11,7 MB)
+- `public/meta/og-graph-image.png` quedó sin uso
 - No hay loading states / skeletons para las páginas que fetchan datos
 - Rate limiting en memoria (no persiste entre reinicios del servidor/serverless)
 - `PostCard` (`components/blog/PostCard.tsx`) sin uso — reemplazado por `BlogCard` en el rediseño del blog. Mantener por si se necesita en otra vista.
@@ -122,6 +131,10 @@
 - **Encuadre del dorso unificado por constantes** — el posicionamiento/tamaño de la foto del dorso es común a todas las cards (`BACK_IMAGE_SCALE`, `BACK_IMAGE_OFFSET_X`, `BACK_IMAGE_OFFSET_Y` como defaults de `buildBackTextureWithImage`). Se descartaron los campos por-card `backImageScale`/`backImageOffsetX`/`backImageOffsetY` para lograr consistencia visual entre invitaciones: solo varía el asset (`backImageUrl`) y la leyenda (`backName`/`backRole`) por card.
 - **Carga async de texturas del dorso robusta** — el fix de "el dorso no cargaba hasta hacer refresh" combina: (1) `canvasToTexture` setea `needsUpdate = true` explícito; (2) el `meshStandardMaterial` del dorso usa `key={backTexture.uuid}` y solo se monta cuando la textura ya está lista (evita el swap null→textura que no recompilaba el shader de forma confiable en la primera carga); (3) `loadImage` reintenta hasta 3 veces ante errores de red transitorios; (4) si todo falla, el `.catch` construye una textura gradiente default — el dorso nunca queda invisible.
 - **Giroscopio como hook separado + permiso iOS + toggle manual** — `hooks/useDeviceOrientation.ts` aísla toda la lógica de DeviceOrientation (detección de soporte, estados, `requestPermission` para iOS 13+, suscripción del listener, mapeo y clamps). `InviteCard3D` lo consume con `getPaused` para pausar durante drags, pide permiso en el primer pointerdown si está "idle", y expone un toggle sobre la card para apagar/encender el giro sin reiterar el permiso. Se eligió hook separado (no lógica inline en el componente) para poder testear y reusar el comportamiento.
+- **Landings independientes** — `/performance-ads` y `/brand-website` son destinos de tráfico: se llega por links y no van en el footer ni en el nav.
+- **H1 de `/servicios` y H2 "Nuestro equipo" con `sr-only`** — se agregaron por jerarquía SEO sin cambiar el diseño. Si se decide mostrarlos, hay que ubicarlos en el layout.
+- **`ContactSection` con prop `headingAs`** — es H2 en la home y H1 en `/contacto`, con el mismo diseño.
+- **Redirects de dominio fuera del código** — `perro.agency` → `www.perroagency.com` se resuelve en Vercel (Settings → Domains), no en `next.config.ts`.
 
 ---
 
@@ -207,18 +220,20 @@ components/
 │                                Responsive: ResizeObserver sobre contenedor + computeScale(aspect).
 │                                Limpieza: dispose de geometry, back, backTexture, capMaterial y sideMaterial.
 ├── landing/
-│   └── PerformanceContactForm.tsx — "use client". Formulario dinámico para landing pages de servicios.
+│   ├── FloatingLogos.tsx      — "use client". Logos flotantes con parallax (useScroll + useTransform). Props: { logos?: FloatingLogo[] }.
+│   │                            Usa hasta 15 posiciones predefinidas. Default: logos de devtools.
+│   └── LandingContactForm.tsx — "use client". Formulario dinámico para landing pages de servicios.
 │                                     Props: { service: string, fields: FieldConfig[], successMessage?: string }
 │                                     FieldConfig: { name: string, label: string, type: "text" | "email" | "textarea" | "select", options?: string[], required?: boolean }
 │                                     Soporta field types: text, email, textarea, select.
 │                                     Envía a `/api/contact` con campo `service` extra y campos dinámicos.
 │                                     Mismo diseño dark que ContactForm.
 ├── portfolio/
-│   ├── ProjectCard.tsx        — "use client". Card para grid de proyectos con gradient, logo, hoverImage y ArrowUpRight.
+│   ├── ProjectCard.tsx        — "use client". Card para grid de proyectos. Default: hoverImage. Hover: bgColor + logo + ArrowUpRight.
 │   │                            Props: { project: Project, className?, index? }
-│   │                            Comportamiento: gradient inline con gradientFrom/gradientTo (opacity 0 en hover),
-│   │                            logo centrado con Image fill, hoverImage con scale 100→105, animación de entrada
-│   │                            con framer-motion whileInView (stagger según index). Sin shadow. Efecto grow via
+│   │                            Sin hoverImage, color y logo quedan siempre visibles. Animación de entrada
+│   │                            con framer-motion whileInView (stagger según index). Efecto grow via
+│   │                            clases del padre (flex-[2] en hover).
 │   │                            clases del padre (flex-[2] en hover).
 │   │                            ArrowUpRight: círculo bg-brand-white text-brand-black en bottom-right, opacity 0→100
 │   │                            en hover del grupo. Misma implementación que BlogCard.
@@ -281,7 +296,8 @@ components/
 │   │                            - Team grid 4 cols con 8 miembros hardcodeados y staggerChildren 0.08
 │   │                            - Mission section con heading animado, texto brand-black sobre bg-brand-white
 │   │                            Renderiza TeamCard para cada miembro
-│   ├── HeroSection.tsx        — "use client". Hero animado: palabras con stagger, GIF de fondo,
+│   ├── HeroBackdrop.tsx       — "use client". Video de la estrella detrás del hero de la home (GIF anterior comentado).
+│   ├── HeroSection.tsx        — "use client". Hero animado: palabras con stagger,
 │                                itálicas con framer-motion delay. Sin data de Sanity.
 │                                overflow-hidden removido, overflow-x-hidden en body
 │   ├── ClientsSection.tsx     — "use client". Grilla de logos de clientes con animación whileInView stagger.
@@ -292,7 +308,7 @@ components/
 │   ├── ServicesFullScreen.tsx — "use client". 5 secciones full-screen (100vh) para /servicios.
 │                                ServiceConfig tipado: union types ServiceBg/ServiceTextColor/ServiceDescColor +
 │                                `chipVariant?: "outline" | "outline-dark"` (reemplaza anterior chipClass).
-│                                Títulos: motion.h3, clamp(5rem,13vw,250px), font-display font-normal
+│                                Títulos: motion.h2, clamp(5rem,13vw,250px), font-display font-normal
 │                                Chips: outline con Chip component, chipVariant personalizable por servicio.
 │                                "Diseño" y "Producto" usan "outline-dark" (fondo blanco); el resto usa "outline".
 │                                Descripción: bottom-right en desktop
@@ -302,7 +318,7 @@ components/
 │                                Min-h: 60vh md:min-h-screen. Subtítulo absolute bottom-right en desktop.
 │   ├── StrategySection.tsx    — "use client". Imagen de equipo + título grande + chips flotantes con parallax
 │                                (useScroll + useTransform). Velocidad configurable por chip.
-│   ├── ContactSection.tsx     — "use client". Grid 2 cols. Headline con palabras animadas + chips outline.
+│   ├── ContactSection.tsx     — "use client". Grid 2 cols. Headline con palabras animadas + chips outline. Props: { headingAs?: "h1" | "h2" }.
 │   │                            Importa y renderiza `<ContactForm showCompany={true} />`.
 │   │                            Ya no tiene formulario inline (refactorizado a ContactForm).
 │   ├── PortfolioGrid.tsx      — Server Component. Grid de proyectos con flex-wrap (no CSS Grid) para permitir
@@ -311,6 +327,7 @@ components/
 │                                3 columnas alternadas en lg. Cada card tiene w-[%] + grow + hover:grow que
 │                                empuja a las cards hermanas.
 └── common/
+    ├── portableTextComponents.tsx — Renderers de imagen y codeBlock para <PortableText />. Usa las medidas de la ref de Sanity.
     ├── AnimatedText.tsx       — [SIN USO] Texto con animación (Framer Motion)
     └── TransitionWrapper.tsx  — [SIN USO] Wrapper de animaciones de página
 ```
@@ -370,7 +387,7 @@ type ServiceDescColor = "text-brand-white" | "text-brand-white/80" | "text-brand
 
 **Servicios:** Paid Media & SEO (bg-primary-main), Producto (bg-accent-01), Design (bg-accent-02), Social Content (bg-brand-white).
 
-**Animación:** motion.section con sectionVariants (opacity), whileInView, viewport margin "-100px". Títulos motion.h3, chips staggered, descripción con delay.
+**Animación:** motion.section con sectionVariants (opacity), whileInView, viewport margin "-100px". Títulos motion.h2, chips staggered, descripción con delay.
 
 ### ContactForm (`components/forms/ContactForm.tsx`)
 Componente `"use client"` de formulario de contacto reutilizable con diseño dark.
@@ -387,7 +404,7 @@ Componente `"use client"` de formulario de contacto reutilizable con diseño dar
 
 **Historial:** Reemplazó al ContactForm viejo (huérfano) y al formulario inline que estaba directamente en ContactSection (~130 líneas).
 
-### PerformanceContactForm (`components/landing/PerformanceContactForm.tsx`)
+### LandingContactForm (`components/landing/LandingContactForm.tsx`)
 Componente `"use client"` de formulario dinámico para landing pages de servicios.
 
 | Prop | Tipo | Default | Descripción |
@@ -449,10 +466,11 @@ Hook `"use client"` que aísla toda la lógica de movimiento por giroscopio para
 | slug | slug | source: title, requerido |
 | client | string | Nombre del cliente |
 | logo | image | Logo del cliente para la card |
-| gradientFrom | string | Color inicial del gradient (ej: #885de3) |
-| gradientTo | string | Color final del gradient (ej: #0a0a0a) |
+| bgColor | string | Color de fondo sólido de la card en hover (ej: #885de3) |
+| span | number | Columnas que ocupa en la grilla: 1, 2 o 3 |
 | order | number | Orden de aparición en la grilla |
-| hoverImage | image | Imagen que aparece al hacer hover sobre la card |
+| hoverImage | image | Imagen que se ve por default en la card y se usa como OG del detalle |
+| showHeaderImages | boolean | Default true. Si está apagado, oculta los 3 campos de header en el Studio y la grilla en el detalle |
 | headerImage1 | image | Imagen principal del header (grid izquierda, ocupa 2x2) |
 | headerImage2 | image | Segunda imagen del header (columna derecha, arriba) |
 | headerImage3 | image | Tercera imagen del header (columna derecha, abajo) |
@@ -463,6 +481,7 @@ Hook `"use client"` que aísla toda la lógica de movimiento por giroscopio para
 | service | string | Servicio |
 | link | url | URL del proyecto |
 | gallery | array of image | Imágenes adicionales para la grilla del detalle. Cada imagen incluye campos: `span` (number, 1-2, cuántas columnas ocupa) y `alt` (string) |
+| contentSections | array of object | Secciones extra después de la galería: `heading`, `text` (blockContent) y `gallery` |
 
 **Preview:** `select: { title: "title", subtitle: "client", media: "logo" }`
 
@@ -486,15 +505,15 @@ Tipo de bloque rich text con soporte para:
 - Estilos: normal, h2, h3, h4, blockquote
 - Decoradores: bold (strong), italic (em)
 - Anotaciones: link con URL
-- Imágenes embebidas (con hotspot)
+- Imágenes embebidas (con hotspot y campo `alt`), renderizadas por `portableTextComponents`
 - Code blocks (plugin `@sanity/code-input`)
 
 ### Queries GROQ existentes (`sanity/lib/queries.ts`)
 
 | Query | GROQ | Uso |
 |---|---|---|
-| projectsQuery | `*[_type == "project"] \| order(order asc, title asc)` — solo campos: _id, title, slug, client, logo, gradientFrom, gradientTo, order, hoverImage | Portfolio grid |
-| projectBySlugQuery | `*[_type == "project" && slug.current == $slug][0]` — incluye todos los campos de projectsQuery + headerImage1-3, description, year, country, industry, service, link, y gallery[] con alt resuelto via `asset->alt_text` | Detalle de proyecto |
+| projectsQuery | `*[_type == "project"] \| order(order asc, title asc)` — solo campos: _id, _updatedAt, title, slug, client, logo, bgColor, order, span, hoverImage | Portfolio grid y sitemap |
+| projectBySlugQuery | `*[_type == "project" && slug.current == $slug][0]` — campos de la card + showHeaderImages, headerImage1-3, description, year, country, industry, service, link, gallery[] y contentSections[] | Detalle de proyecto |
 | postsQuery | `*[_type == "post"] \| order(publishedAt desc)` — campos: _id, title, slug, author, publishedAt, coverImage, excerpt, tags, **relevance** | Blog list (BlogGrid) |
 | postBySlugQuery | `*[_type == "post" && slug.current == $slug][0]` — mismos campos + body, seoTitle, seoDescription | Detalle de post |
 
@@ -511,11 +530,10 @@ Tipo de bloque rich text con soporte para:
 | `SANITY_REVALIDATE_SECRET` | ❌ Servidor | Secret para webhook de revalidación on-demand | `app/api/revalidate/route.ts` |
 | `NEXT_PUBLIC_VERCEL_ANALYTICS_ID` | ✅ Pública | ID de Vercel Analytics | - |
 | `NEXT_PUBLIC_BASE_URL` | ✅ Pública | URL base del sitio para metadata/OG images | `lib/metadata.ts` |
-| `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` | ✅ Pública | Site key de Google reCAPTCHA (sin uso activo) | `.env` presente, sin referencia en código |
 | `RESEND_API_KEY` | ❌ Servidor | API key de Resend para envío de emails | `lib/email.ts` |
 | `CONTACT_EMAIL_TO` | ❌ Servidor | Destino de mensajes del formulario de contacto | `lib/email.ts` (default: `queonda@perroagency.com`) |
 
-⚠️ **Nota:** El `.env.example` aún lista `REVALIDATION_SECRET` (nombre antiguo). El nombre correcto es `SANITY_REVALIDATE_SECRET`.
+Las variables locales van en `.env.local` (ignorado por git). `.env` se eliminó del repo. Referencia en `.env.example`.
 
 ---
 
@@ -523,22 +541,26 @@ Tipo de bloque rich text con soporte para:
 
 | Ruta | Tipo | Data | Archivo |
 |---|---|---|---|
-| `/` | Estática | Hero → Clients → Services → Strategy → ContactSection | `app/(site)/page.tsx` |
-| `/servicios` | Estática | ServicesFullScreen con 4 servicios hardcodeados. Sin Sanity. | `app/(site)/servicios/page.tsx` |
+| `/` | Estática | HeroBackdrop + Hero → Services → Clients → Strategy → ContactSection | `app/(site)/page.tsx` |
+| `/servicios` | Estática | H1 `sr-only` + ServicesFullScreen con servicios hardcodeados + schema Service. Sin Sanity. | `app/(site)/servicios/page.tsx` |
 | `/nosotros` | Estática | NosotrosContent (hero, team grid, mission) + Banner. Equipo hardcodeado. | `app/(site)/nosotros/page.tsx` |
 | `/portfolio` | Estática | PortfolioHeader + PortfolioGrid (fetch projects con tags: ["project"]) | `app/(site)/portfolio/page.tsx` |
 | `/portfolio/[slug]` | Dinámica | Fetch project by slug con tags: ["project"]. Diseño completo: header con grid de 3 imágenes (main 2x2 izq + 2 apiladas der), título display-xl, descripción rich text con PortableText + link a sitio web, sidebar de metadata (Year, Country, Industry, Service), galería GalleryGrid con animación stagger (imágenes con span 1 o 2). Banner importado. Secciones envueltas en AnimateInView. | `app/(site)/portfolio/[slug]/page.tsx` |
 | `/blog` | Estática | Fetch posts | `app/(site)/blog/page.tsx` |
 | `/blog/[slug]` | Dinámica | Fetch post by slug | `app/(site)/blog/[slug]/page.tsx` |
 | `/contacto` | Estática | Formulario de contacto via `<ContactForm showCompany={true} />` + Resend + rate limiting | `app/(site)/contacto/page.tsx` |
-| `/performance-ads` | Estática | Landing page Performance Ads: Multi-plataformas (logos), Stats Cards (3 cards: +$84M white, E-commerce primary, Modelos SaaS accent-02), ClientsSection reutilizada, Hero+Form via PerformanceContactForm. Chips: Anuncios, Paid Media, ROAS, ROI, Performance, Creatividades, copies, línea de crédito, tracking, ga4, google tag manager. | `app/(site)/performance-ads/page.tsx` |
-| `/legal/terminos-y-condiciones` | Estática | Server component, `<p>` único con `<br />`. Sin "use client", sin fetch. | `app/(site)/legal/terminos-y-condiciones/page.tsx` |
+| `/brand-website` | Estática | Landing de sitios web: hero con FloatingLogos, ClientsSection, pasos y formulario. Solo se llega por links. OG propia. | `app/(site)/brand-website/page.tsx` |
+| `/performance-ads` | Estática | Landing de Performance Ads: hero con FloatingLogos, Multi-plataformas, Stats Cards, ClientsSection y formulario. Solo se llega por links. OG propia. | `app/(site)/performance-ads/page.tsx` |
+| `/legal/terminos-y-condiciones` | Estática | Server component con H2 y párrafos. Sin "use client", sin fetch. | `app/(site)/legal/terminos-y-condiciones/page.tsx` |
 | `/legal/politicas-de-privacidad` | Estática | Server component, misma estructura. Sin "use client", sin fetch. | `app/(site)/legal/politicas-de-privacidad/page.tsx` |
 | `/studio` | Estática | Sanity Studio embebido | `app/studio/[[...tool]]/page.tsx` |
-| `/invite/[slug]` | Estática (SSG) | Landing 3D de invitación. `generateStaticParams` genera los slugs conocidos de `lib/invitations.ts` (7 miembros del equipo, cada uno con `backImageUrl`/`backName`/`backRole`). Slugs desconocidos NO dan 404: caen a card default (robusto para tags NFC ya grabados). `generateMetadata` con robots noindex. Layout propio fuera de `(site)`: wrapper `fixed inset-0` sin Nav ni Footer. Renderiza `<InviteScene />` con las props de la invitación (incluido el dorso custom) → InviteCard3D (three.js via dynamic ssr:false). El dorso de la card muestra la foto del invitado en cover (encuadre común por constantes) + leyenda custom (nombre + rol), y el frente una leyenda fija "{ edición 2026 }". En móvil la card se mueve con el giroscopio (permiso iOS vía gesto, toggle sobre la card para apagar/encender sin re-pedir permiso). | `app/invite/[slug]/page.tsx`, `app/invite/layout.tsx` |
+| 404 / 500 | — | Páginas de error fuera del layout `(site)`: con Nav y sin Footer. | `app/not-found.tsx`, `app/error.tsx` |
+| `/invite/[slug]` | Estática (SSG) | Landing 3D de invitación. `generateStaticParams` genera los slugs conocidos de `lib/invitations.ts` (9 invitaciones, cada una con `backImageUrl`/`backName`/`backRole`). Slugs desconocidos NO dan 404: caen a card default (robusto para tags NFC ya grabados). `generateMetadata` con robots noindex. Layout propio fuera de `(site)`: wrapper `fixed inset-0` sin Nav ni Footer. Renderiza `<InviteScene />` con las props de la invitación (incluido el dorso custom) → InviteCard3D (three.js via dynamic ssr:false). El dorso de la card muestra la foto del invitado en cover (encuadre común por constantes) + leyenda custom (nombre + rol), y el frente una leyenda fija "{ edición 2026 }". El giroscopio está desactivado (`GYROSCOPE_TOGGLE_ENABLED = false`); la card se mueve con drag. | `app/invite/[slug]/page.tsx`, `app/invite/layout.tsx` |
 
 Cada página renderiza su propio `<Nav />` directamente (no hay Header en el layout). `Footer` se mantiene en el layout compartido.
 Fetch calls usan `sanityFetch()` con revalidate: 60 y tags para ISR on-demand.
+
+**Redirects 301 (`next.config.ts`):** `/culture` → `/nosotros`, `/services` → `/servicios`, `/contact` → `/contacto`, `/terms` → `/legal/politicas-de-privacidad`, cada `/blog/blogFeed/<slug>` a su post nuevo y cualquier otro `/blog/blogFeed/*` → `/blog`.
 
 ---
 
@@ -589,29 +611,34 @@ brand: {
 
 ## 8. Decisiones pendientes
 
-- [x] **Formulario de contacto**: definido — Resend con ContactForm unificado (`components/forms/ContactForm.tsx`) + PerformanceContactForm para landings. API route `/api/contact` flexible con campo `service` y campos dinámicos.
+- [x] **Formulario de contacto**: definido — Resend con ContactForm unificado (`components/forms/ContactForm.tsx`) + LandingContactForm para landings. API route `/api/contact` flexible con campo `service` y campos dinámicos.
 - [x] **Mobile navigation**: implementar menú hamburguesa para < md breakpoint
 - [x] **Font Display aplicado**: `app/layout.tsx` ahora incluye `fontDisplay.variable` en className del `<html>`
 - [x] **Per-page theme system**: se creó y revertió completamente. Decisión final: Nav/Footer único, sin personalización por página.
 - [x] **brand-white actualizado**: de `#f5f5f0` a `#ffffff`. `text-white` reemplazado por `text-brand-white` globalmente.
 - [x] **Nomenclatura Tailwind**: `text-md` → `text-base`, `font-regular` → `font-normal`, `max-w-8xl` → `max-w-7xl`.
-- [x] **Páginas legales**: contenido en un solo `<p>` con `<br />`. Sin "use client".
+- [x] **Páginas legales**: subtítulos en H2 y párrafos reales. Sin "use client".
 - [x] **Nav renderizado por página**: se removió `<Header />` del layout. Cada página importa su propio `<Nav />` con props independientes.
 - [x] **Button color schemes**: 4 esquemas via prop `colorScheme` con CSS variables.
 - [ ] **Blog comments**: ¿se habilita? ¿con qué servicio?
-- [ ] **SEO**: definir estrategia de metadata dinámica (más allá del title/description básico)
+- [x] **SEO**: metadata por página con `buildMetadata`, OG propias y relevamiento de páginas estáticas aplicado.
 - [ ] **Performance**: evaluar si conviene SSG + ISR o mantener SSR con revalidate
 - [ ] **Analytics**: Vercel Analytics configurado pero sin verificar si se usa
 - [x] **`servicesQuery` huérfana**: eliminada junto con los schemas `teamMember` y `service`.
 - [x] **Schema `settings` faltante**: eliminado — la query `settingsQuery` también fue eliminada.
-- [ ] **reCAPTCHA key sin uso**: en `.env` pero sin código que la referencie.
+- [x] **reCAPTCHA key sin uso**: eliminada junto con `.env`.
 - [ ] **Componentes sin uso**: `AnimatedText` y `TransitionWrapper` no se importan en ninguna página.
-- [ ] **`.env.example` desactualizado**: lista `REVALIDATION_SECRET` en vez de `SANITY_REVALIDATE_SECRET`.
+- [x] **`.env.example` desactualizado**: ya usa `SANITY_REVALIDATE_SECRET`.
 - [ ] **Rate limiting en memoria**: no persiste entre reinicios y no escala horizontalmente.
-- [ ] **TeamCard sin `sizes`**: imágenes con `fill` sin `sizes` — evaluar optimización.
+- [x] **TeamCard sin `sizes`**: agregado, junto con ServiceCard, ProjectCard, BlogCard y Nav.
 - [x] **Sanity features sin uso**: servicios y team migrados a hardcodeado. Schemas `teamMember` y `service` eliminados de Sanity.
 - [ ] **Giroscopio: drag grande debería tomar el control y desactivar el giro automáticamente** — hoy, con el giro activo, el rango del sensor (~±100° de yaw) no permite ver el dorso de la card; hay que apagar el giro manualmente con el toggle y girar con drag libre. Ideal futuro: que un drag grande desactive el giro por sí solo.
 - [ ] **Giroscopio: calibración en físico pendiente** — los factores/signos del mapeo gamma→yaw y (beta−betaCenter)→pitch (`yawFactor`, `pitchFactor`, `betaCenter`, clamps) están puestos con defaults razonables pero requieren calibración probando en dispositivos reales. Además el permiso de iOS solo se pide vía gesto real: si no hay HTTPS o el permiso fue ignorado/denegado antes, hay que probar en pestaña privada o limpiando los datos del sitio.
+- [ ] **Texto de `/legal/terminos-y-condiciones`**: tiene el contenido de una Política de Privacidad. Lo tiene que redactar o revisar quien corresponda.
+- [ ] **`robots.txt` contradictorio en producción**: Cloudflare agrega reglas que bloquean bots de IA y `app/robots.ts` los permite. Decidir la política y ajustarla en el panel de Cloudflare.
+- [ ] **Video del hero**: evaluar una versión más liviana (`star-animation-2.1.mp4` pesa 11,7 MB). La versión `2.0` era HEVC 10-bit, que Firefox no reproduce; falta confirmar el códec de la `2.1`.
+- [ ] **Alts a confirmar**: `logo-gtags` figura como "Google Merchant Center" y el cliente como "United Texperience".
+- [ ] **`perro.agency`**: no resuelve DNS. Si tiene backlinks o tráfico, reactivarlo solo para redirigir a `www.perroagency.com`.
 
 ---
 
@@ -680,3 +707,11 @@ brand: {
 | **2026-09-24** | **Invite cards: dorso custom por card (imagen + leyenda)** — `Invitation` gana `backImageUrl?`/`backName?`/`backRole?`; `lib/invitations.ts` pasa de 3 ejemplos a 7 invitaciones reales del equipo (federicogilles, sebastiankonig, emilianoelias, luzsaltalamachia, sebastianlugo, luciagallo, sergioruestes). `InviteCard3D` dibuja en el dorso la foto del invitado en cover pre-espejada (flip horizontal, el plano trasero DoubleSide se ve espejado de atrás) + overlay base + multiplicador negro 0.05, y la leyenda nombre/rol también pre-espejada anclada al pie (rol peso 100 con soporte `\n`, nombre peso 500). Frente: leyenda fija "{ edición 2026 }" (peso 300, 50px, alpha 0.7) debajo del guestName. Encuadre unificado por constantes `BACK_IMAGE_SCALE`/`BACK_IMAGE_OFFSET_X`/`BACK_IMAGE_OFFSET_Y`; eliminados los campos por-card de escala/offset del tipo y del plumbing (page/InviteScene/InviteCard3D). |
 | **2026-09-24** | **Fix "el dorso no cargaba hasta hacer refresh"** — `canvasToTexture` setea `texture.needsUpdate = true` explícito; el material del dorso solo se monta con `key={backTexture.uuid}` cuando la textura ya está lista (nace compilado con el map, evitando el swap null→textura que no recompilaba el shader); `loadImage` reintenta hasta 3 veces; el `.catch` cae a fallback con gradiente default (el dorso nunca queda invisible). |
 | **2026-09-24** | **Movimiento con giroscopio en móvil** — nuevo `hooks/useDeviceOrientation.ts` ("use client"): detecta soporte (solo coarse pointer con DeviceOrientationEvent; desktop → `unsupported`, no interfiere con drag), estados `unsupported|idle|prompt|listening|denied`, `requestPermission()` para iOS 13+ vía gesto de usuario, suscripción del listener solo en `listening`+`enabled`, mapeo `gamma`→yaw y `(beta−betaCenter)`→pitch con clamp y `getPaused()`. `InviteCard3D` lo integra con `targetRef`/`getPaused: () => drag.current.active`/`enabled: gyroEnabled`, pide permiso en el primer pointerdown si "idle", y muestra toggle sobre la card (Desactivar/Activar giroscopio, Activando…, Giroscopio no permitido) solo si `status !== "unsupported"`. Limitaciones conocidas: el rango del sensor no permite ver el dorso con el giro activo (falta drag-grande que desactive el giro) y el mapeo requiere calibración en físico. |
+| **2026-10-21** | **Páginas de error y redirects**: `app/not-found.tsx`, `app/error.tsx` y redirects 301 desde las rutas del sitio anterior, armados con el sitemap viejo del historial de git. |
+| **2026-10-21** | **`/performance-ads` con hero de FloatingLogos**: el componente recibe `logos` por prop. El título "Escalamos el ROAS…" pasa de H1 a H2. |
+| **2026-10-21** | **Hero de la home con video**: `HeroBackdrop` reemplaza el GIF por `<video>` y deja el `<Image>` comentado. |
+| **2026-10-21** | **ProjectCard invertida**: imagen por default; color y logo en hover. |
+| **2026-10-21** | **Switch `showHeaderImages` en Project** y fix del título duplicado en el detalle de portfolio. |
+| **2026-10-23** | **Fix de imágenes en Portable Text**: nuevo `portableTextComponents`, aplicado a blog y portfolio. Campo `alt` en las imágenes de `blockContent`. |
+| **2026-11-03** | **Relevamiento SEO aplicado en páginas estáticas**: encabezados, alts, `sizes`, `aria-label`, titles y descriptions, `og:type` y `og:locale`, proyectos en el sitemap, schemas `WebSite`, `Service` y `BreadcrumbList`, legales con H2 y Portfolio y Blog en el footer. |
+| **2026-11-03** | **Imágenes OG nuevas en `public/og/`**: general y una por landing. `buildMetadata` suma `ogImageAlt`; el detalle de portfolio usa `hoverImage` como OG. |

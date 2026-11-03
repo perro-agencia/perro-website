@@ -1,3 +1,4 @@
+import Image from "next/image"
 import { Nav } from "@/components/layout/Nav"
 import { Footer } from "@/components/layout/Footer"
 import { AnimateInView } from "@/components/AnimateInView"
@@ -10,9 +11,11 @@ import { buildMetadata } from "@/lib/metadata"
 import type { FieldConfig } from "@/components/landing/LandingContactForm"
 
 export const metadata = buildMetadata({
-  title: "Perro Agency - Publicidad Digital",
+  title: "Performance Ads y Paid Media",
   description: "Diseñamos, ejecutamos y optimizamos estrategias de Paid Media y performance para empresas que invierten y buscan crecimiento sostenible.",
   path: "/performance-ads",
+  ogImage: "/og/og-performance-ads.png",
+  ogImageAlt: "PERRO: Menos humo. Más estrategia, tracking y pauta real",
 })
 
 const serviceJsonLd = {
@@ -39,12 +42,12 @@ const heroLogos: FloatingLogo[] = [
   { src: "/performance-ads-landing/icons/logo-gads.png", alt: "Google Ads" },
   { src: "/performance-ads-landing/icons/logo-metads.png", alt: "Meta Ads" },
   { src: "/performance-ads-landing/icons/logo-ganalytics.png", alt: "Google Analytics" },
-  { src: "/performance-ads-landing/icons/logo-gtags.png", alt: "Google Tag Manager" },
+  { src: "/performance-ads-landing/icons/logo-gtags.png", alt: "Google Merchant Center" },
   { src: "/performance-ads-landing/icons/logo-gads2.png", alt: "Display & Video 360" },
-  { src: "/performance-ads-landing/icons/logo-gmarketplace.png", alt: "Google Marketing Platform" },
-  { src: "/performance-ads-landing/icons/logo-gads3.png", alt: "Google Ads" },
-  { src: "/performance-ads-landing/icons/logo-codeads.png", alt: "Ads" },
-  { src: "/performance-ads-landing/icons/logo-gads4.png", alt: "Google Ads" },
+  { src: "/performance-ads-landing/icons/logo-gmarketplace.png", alt: "Google Business Profile" },
+  { src: "/performance-ads-landing/icons/logo-gads3.png", alt: "" },
+  { src: "/performance-ads-landing/icons/logo-codeads.png", alt: "" },
+  { src: "/performance-ads-landing/icons/logo-gads4.png", alt: "Google Tag Manager" },
 ]
 
 const formFields: FieldConfig[] = [
@@ -65,7 +68,7 @@ export default function PerformanceAdsPage() {
         logoHoverSrc="/brand/isologotipo-color.svg"
       />
 
-      <main className="w-full max-w-[1440px] mx-auto p-8 md:p-12">
+      <div className="w-full max-w-[1440px] mx-auto p-8 md:p-12">
         {/* Hero */}
         <section className="relative flex items-center justify-center h-[calc(100vh-120px)] pt-24 overflow-hidden">
           <FloatingLogos logos={heroLogos} />
@@ -95,22 +98,22 @@ export default function PerformanceAdsPage() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center">
               <AnimateInView>
                 <div className="flex items-center justify-center p-4">
-                  <img src="/multiplatform/google-ads.png" alt="Google Ads" className="h-12 md:h-16 object-contain opacity-70 hover:opacity-100 transition-opacity" />
+                  <Image src="/multiplatform/google-ads.png" alt="Google Ads" width={400} height={100} sizes="(max-width: 768px) 192px, 256px" className="h-12 md:h-16 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity" />
                 </div>
               </AnimateInView>
               <AnimateInView delay={0.1}>
                 <div className="flex items-center justify-center p-4">
-                  <img src="/multiplatform/meta-ads.png" alt="Meta Ads" className="h-12 md:h-16 object-contain opacity-70 hover:opacity-100 transition-opacity" />
+                  <Image src="/multiplatform/meta-ads.png" alt="Meta Ads" width={400} height={100} sizes="(max-width: 768px) 192px, 256px" className="h-12 md:h-16 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity" />
                 </div>
               </AnimateInView>
               <AnimateInView delay={0.2}>
                 <div className="flex items-center justify-center p-4">
-                  <img src="/multiplatform/tiktok-ads.png" alt="TikTok Ads" className="h-12 md:h-16 object-contain opacity-70 hover:opacity-100 transition-opacity" />
+                  <Image src="/multiplatform/tiktok-ads.png" alt="TikTok Ads" width={400} height={100} sizes="(max-width: 768px) 192px, 256px" className="h-12 md:h-16 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity" />
                 </div>
               </AnimateInView>
               <AnimateInView delay={0.3}>
                 <div className="flex items-center justify-center p-4">
-                  <img src="/multiplatform/linke-ads.png" alt="LinkedIn Ads" className="h-12 md:h-16 object-contain opacity-70 hover:opacity-100 transition-opacity" />
+                  <Image src="/multiplatform/linke-ads.png" alt="LinkedIn Ads" width={400} height={100} sizes="(max-width: 768px) 192px, 256px" className="h-12 md:h-16 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity" />
                 </div>
               </AnimateInView>
             </div>
@@ -122,19 +125,19 @@ export default function PerformanceAdsPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <AnimateInView>
               <div className="bg-brand-white text-brand-black rounded-3xl px-4 py-6 md:p-8 h-full">
-                <h3 className="font-display text-4xl md:text-5xl font-medium mb-4">+$112M</h3>
+                <p className="font-display text-4xl md:text-5xl font-medium mb-4">+$112M</p>
                 <p className="text-brand-black/70 text-lg">Gestionados en inversión publicitaria.</p>
               </div>
             </AnimateInView>
             <AnimateInView delay={0.1}>
               <div className="bg-brand-primary-main text-brand-white rounded-3xl px-4 py-6 md:p-8 h-full">
-                <h3 className="whitespace-nowrap font-display text-4xl md:text-5xl font-medium mb-4">E-commerce</h3>
+                <p className="whitespace-nowrap font-display text-4xl md:text-5xl font-medium mb-4">E-commerce</p>
                 <p className="text-brand-white/80 text-lg">Maximizamos tu ROAS y facturación.</p>
               </div>
             </AnimateInView>
             <AnimateInView delay={0.2}>
               <div className="bg-brand-accent-02 text-brand-black rounded-3xl px-4 py-6 md:p-8">
-                <h3 className="font-display text-4xl md:text-5xl font-medium mb-4">Modelos SaaS</h3>
+                <p className="font-display text-4xl md:text-5xl font-medium mb-4">Modelos SaaS</p>
                 <p className="text-brand-black/70 text-lg">Optimización de CAC y LTV para escalar la adquisición.</p>
               </div>
             </AnimateInView>
@@ -174,7 +177,7 @@ export default function PerformanceAdsPage() {
             successMessage="Gracias por completar el formulario. Te contactaremos pronto."
           />
         </section>
-      </main>
+      </div>
     </>
   )
 }

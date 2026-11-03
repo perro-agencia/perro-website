@@ -72,7 +72,7 @@ export function HeroSection() {
                       >
                         {italicChar}
                       </motion.span>
-                      {after}
+                      {after}{" "}
                     </motion.span>
                   )
                 }
@@ -89,7 +89,7 @@ export function HeroSection() {
                         : "text-brand-white"
                     }
                   >
-                    {word.text}
+                    {word.text}{" "}
                   </motion.span>
                 )
               })}

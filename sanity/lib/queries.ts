@@ -2,6 +2,7 @@ import { defineQuery } from "next-sanity"
 
 export const projectsQuery = defineQuery(`*[_type == "project"] | order(order asc, title asc) {
   _id,
+  _updatedAt,
   title,
   slug,
   client,

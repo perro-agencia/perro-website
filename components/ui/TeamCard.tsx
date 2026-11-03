@@ -34,6 +34,7 @@ export function TeamCard({ name, role, image, bg, textColor }: TeamCardProps) {
           src={image}
           alt={name}
           fill
+          sizes="(max-width: 767px) 65vw, (max-width: 1023px) 33vw, 240px"
           className="object-cover"
         />
       </div>

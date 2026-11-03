@@ -6,11 +6,13 @@ export function buildMetadata({
   description,
   path,
   ogImage,
+  ogImageAlt,
 }: {
   title: string
   description?: string
   path?: string
   ogImage?: string
+  ogImageAlt?: string
 }): Metadata {
   const url = path ? `${siteConfig.url}${path}` : siteConfig.url
   const fullTitle = `${title} | ${siteConfig.name}`
@@ -19,6 +21,8 @@ export function buildMetadata({
     title,
     description,
     openGraph: {
+      type: "website",
+      locale: "es_AR",
       title: fullTitle,
       description,
       url,
@@ -28,7 +32,7 @@ export function buildMetadata({
           url: ogImage || siteConfig.ogImage,
           width: 1200,
           height: 630,
-          alt: siteConfig.ogImageAlt,
+          alt: ogImageAlt || siteConfig.ogImageAlt,
         },
       ],
     },
@@ -41,5 +45,18 @@ export function buildMetadata({
     alternates: {
       canonical: url,
     },
+  }
+}
+
+export function buildBreadcrumbJsonLd(items: { name: string; path: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: item.name,
+      item: `${siteConfig.url}${item.path}`,
+    })),
   }
 }

@@ -9,17 +9,17 @@ type Client = {
 }
 
 const clients: Client[] = [
-  { name: "H Basadores", image: "/clients/cliente-hbasadores.png" },
+  { name: "HB Asadores", image: "/clients/cliente-hbasadores.png" },
   { name: "Intrepid", image: "/clients/cliente-intrepid.png" },
   { name: "Legal Meet", image: "/clients/cliente-legalmeet.png" },
-  { name: "Simón", image: "/clients/cliente-simon.png" },
-  { name: "Melon Help", image: "/clients/cliente-melonhelp.png" },
-  { name: "Latin Cloud", image: "/clients/cliente-latincloud.png" },
+  { name: "Simon V. Group", image: "/clients/cliente-simon.png" },
+  { name: "Melonhelp", image: "/clients/cliente-melonhelp.png" },
+  { name: "Latincloud", image: "/clients/cliente-latincloud.png" },
   { name: "Arcadia", image: "/clients/cliente-arcadia.png" },
-  { name: "United T Experience", image: "/clients/cliente-unitedTexperience.png" },
+  { name: "United Texperience", image: "/clients/cliente-unitedTexperience.png" },
   { name: "Planexware", image: "/clients/cliente-planexware.png" },
   { name: "ecomexperts", image: "/clients/cliente-ecomexperts.png" },
-  { name: "Tienda Nube", image: "/clients/cliente-tiendanube.png" },
+  { name: "Tiendanube", image: "/clients/cliente-tiendanube.png" },
   { name: "Devra", image: "/clients/cliente-devra.png" },
 ]
 
@@ -45,7 +45,7 @@ export function ClientsSection() {
   return (
     <section className="py-24 relative">
       <div className="text-center container mx-auto px-6">
-        <motion.h2
+        <motion.p
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
@@ -53,7 +53,7 @@ export function ClientsSection() {
           className="block text-xl uppercase text-brand-white mb-12"
         >
           nuestra huella
-        </motion.h2>
+        </motion.p>
 
         <motion.div
           variants={containerVariants}

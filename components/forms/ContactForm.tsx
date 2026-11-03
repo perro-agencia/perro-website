@@ -88,6 +88,7 @@ export function ContactForm({ showCompany = true }: ContactFormProps) {
           id="name"
           name="name"
           placeholder="NOMBRE"
+          aria-label="Nombre"
           required
           className="w-full px-6 py-4 bg-brand-black border border-brand-white rounded-full placeholder:text-brand-white text-brand-white uppercase text-sm focus:outline-none hover:border-brand-accent-02 transition-all hover:shadow-[0_0_24px_-4px_#c4f875]"
         />
@@ -99,6 +100,7 @@ export function ContactForm({ showCompany = true }: ContactFormProps) {
             id="company"
             name="company"
             placeholder="COMPAÑÍA"
+            aria-label="Compañía"
             className="w-full px-6 py-4 bg-brand-black border border-brand-white rounded-full placeholder:text-brand-white text-brand-white uppercase text-sm focus:outline-none hover:border-brand-accent-02 transition-all hover:shadow-[0_0_24px_-4px_#c4f875]"
           />
         </motion.div>
@@ -109,6 +111,7 @@ export function ContactForm({ showCompany = true }: ContactFormProps) {
           id="email"
           name="email"
           placeholder="CORREO"
+          aria-label="Correo"
           required
           className="w-full px-6 py-4 bg-brand-black border border-brand-white rounded-full placeholder:text-brand-white text-brand-white uppercase text-sm focus:outline-none hover:border-brand-accent-02 transition-all hover:shadow-[0_0_24px_-4px_#c4f875]"
         />
@@ -118,6 +121,7 @@ export function ContactForm({ showCompany = true }: ContactFormProps) {
           id="message"
           name="message"
           placeholder="MENSAJE"
+          aria-label="Mensaje"
           rows={5}
           required
           className="w-full px-6 py-4 bg-brand-black border border-brand-white rounded-3xl placeholder:text-brand-white text-brand-white uppercase text-sm focus:outline-none hover:border-brand-accent-02 transition-all hover:shadow-[0_0_24px_-4px_#c4f875] resize-none"

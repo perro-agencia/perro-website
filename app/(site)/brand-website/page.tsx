@@ -10,9 +10,11 @@ import { buildMetadata } from "@/lib/metadata"
 import type { FieldConfig } from "@/components/landing/LandingContactForm"
 
 export const metadata = buildMetadata({
-  title: "Perro Agency - Brand website",
+  title: "Diseño y desarrollo de sitios web",
   description: "Diseñamos y desarrollamos sitios web que comunican quién sos, qué hacés y por qué importa.",
   path: "/brand-website",
+  ogImage: "/og/og-brand-website.png",
+  ogImageAlt: "PERRO: Tu sitio web, hecho a medida",
 })
 
 const serviceJsonLd = {
@@ -69,7 +71,7 @@ export default function WebsiteInstitucionalPage() {
         logoHoverSrc="/brand/isologotipo-color.svg"
       />
 
-      <main className="w-full max-w-[1440px] mx-auto px-4 md:p-8 md:p-12">
+      <div className="w-full max-w-[1440px] mx-auto px-4 md:p-8 md:p-12">
         {/* Hero + Form */}
         <section className="relative flex items-center justify-center h-[calc(100vh-120px)] pt-24 overflow-hidden">
           <FloatingLogos />
@@ -150,7 +152,7 @@ export default function WebsiteInstitucionalPage() {
             successMessage="Gracias por completar el formulario. Te contactaremos pronto."
           />
         </section>
-      </main>
+      </div>
     </>
   )
 }

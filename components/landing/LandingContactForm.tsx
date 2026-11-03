@@ -123,6 +123,7 @@ export function LandingContactForm({
                 <textarea
                   name={field.name}
                   placeholder={field.label.toUpperCase()}
+                  aria-label={field.label}
                   rows={5}
                   required={field.required}
                   className="w-full px-6 py-4 bg-brand-black border border-brand-white rounded-3xl placeholder:text-brand-white text-brand-white uppercase text-sm focus:outline-none hover:border-brand-accent-02 transition-all hover:shadow-[0_0_24px_-4px_#c4f875] resize-none"
@@ -134,6 +135,8 @@ export function LandingContactForm({
                 >
                   <button
                     type="button"
+                    aria-label={selectValues[field.name] ? `${field.label}: ${selectValues[field.name]}` : field.label}
+                    aria-expanded={selectOpen === field.name}
                     onClick={() => setSelectOpen(selectOpen === field.name ? null : field.name)}
                     className={cn(
                       "w-full px-6 py-4 bg-brand-black border rounded-full text-sm focus:outline-none transition-all text-left uppercase",
@@ -180,6 +183,7 @@ export function LandingContactForm({
                   type={field.type}
                   name={field.name}
                   placeholder={field.label.toUpperCase()}
+                  aria-label={field.label}
                   required={field.required}
                   className="w-full px-6 py-4 bg-brand-black border border-brand-white rounded-full placeholder:text-brand-white text-brand-white uppercase text-sm focus:outline-none hover:border-brand-accent-02 transition-all hover:shadow-[0_0_24px_-4px_#c4f875]"
                 />
