@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react"
 import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
+import { trackLead } from "@/lib/analytics"
 
 const containerVariants = {
   initial: { x: 0 },
@@ -67,6 +68,7 @@ export function ContactForm({ showCompany = true }: ContactFormProps) {
 
     if (res.ok) {
       setStatus("success")
+      trackLead()
       form.reset()
     } else {
       setStatus("error")
