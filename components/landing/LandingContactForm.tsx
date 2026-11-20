@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, type FormEvent } from "react"
 import { motion } from "framer-motion"
 import { ChevronDown } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { trackLead } from "@/lib/analytics"
 
 const containerVariants = {
   initial: { x: 0 },
@@ -99,6 +100,7 @@ export function LandingContactForm({
 
     if (res.ok) {
       setStatus("success")
+      trackLead()
       setSelectValues({})
       form.reset()
     } else {
