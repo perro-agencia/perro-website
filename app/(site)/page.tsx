@@ -8,11 +8,16 @@ import { ContactSection } from "@/components/sections/ContactSection"
 import { FooterLogo } from "@/components/layout/FooterLogo"
 import { buildMetadata } from "@/lib/metadata"
 
-export const metadata = buildMetadata({
-  title: "Agencia de marketing digital y diseño",
-  description:
-    "Agencia de marketing digital y diseño en Buenos Aires. Branding, sitios web, producto, social content, paid media y SEO para hacer crecer tu negocio.",
-})
+export const metadata = {
+  ...buildMetadata({
+    title: "Agencia de marketing digital y diseño",
+    description:
+      "Agencia de marketing digital y diseño en Buenos Aires. Branding, sitios web, producto, social content, paid media y SEO para hacer crecer tu negocio.",
+  }),
+  verification: {
+    google: "kdomjewx-li0GEvy4oM5jyFsvjb6Yo6ZsOwjmJKgCM0",
+  },
+}
 
 export default function HomePage() {
   return (
