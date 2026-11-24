@@ -36,6 +36,12 @@ export interface Project {
   contentSections?: ContentSection[]
 }
 
+export interface Category {
+  _id: string
+  title: string
+  slug: { current: string }
+}
+
 export interface Post {
   _id: string
   title: string
@@ -46,6 +52,7 @@ export interface Post {
   excerpt?: string
   body?: PortableTextBlock[]
   tags?: string[]
+  categories?: Category[]
   relevance?: number
   seoTitle?: string
   seoDescription?: string

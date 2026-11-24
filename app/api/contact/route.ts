@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { sendContactEmail } from "@/lib/email"
+import { sendContactAutoReply, sendContactEmail } from "@/lib/email"
 
 const rateLimit = new Map<string, { count: number; resetAt: number }>()
 const RATE_LIMIT_MAX = 5
@@ -64,6 +64,14 @@ export async function POST(req: Request) {
 
     if (error) {
       return NextResponse.json({ error: "Error al enviar el mensaje" }, { status: 500 })
+    }
+
+    // Si falla la confirmación al usuario, el contacto ya llegó al equipo: no se devuelve error
+    try {
+      const { error: autoReplyError } = await sendContactAutoReply({ name, email })
+      if (autoReplyError) console.error("Auto-reply de contacto falló", autoReplyError)
+    } catch (err) {
+      console.error("Auto-reply de contacto falló", err)
     }
 
     return NextResponse.json({ success: true })

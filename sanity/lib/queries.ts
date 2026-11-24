@@ -56,7 +56,14 @@ export const postsQuery = defineQuery(`*[_type == "post"] | order(publishedAt de
   coverImage,
   excerpt,
   tags,
-  relevance
+  relevance,
+  "categories": categories[]->{ _id, title, slug }
+}`)
+
+export const categoriesQuery = defineQuery(`*[_type == "category"] | order(order asc, title asc) {
+  _id,
+  title,
+  slug
 }`)
 
 export const postBySlugQuery = defineQuery(`*[_type == "post" && slug.current == $slug][0] {
