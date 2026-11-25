@@ -1,6 +1,6 @@
 import { PortableText, type PortableTextBlock, type PortableTextComponents } from "@portabletext/react"
 import { Heading, Img, Link, Section, Text } from "react-email"
-import { PerroButton, PerroLayout, colors, heading, text } from "./components/PerroLayout"
+import { CONTENT_WIDTH, PerroButton, PerroLayout, colors, heading, text } from "./components/PerroLayout"
 
 export interface NewsletterProps {
   heading: string
@@ -32,7 +32,7 @@ const components: PortableTextComponents = {
   },
   marks: {
     link: ({ children, value }) => (
-      <Link href={value?.href} style={{ color: colors.accent02, textDecoration: "underline" }}>
+      <Link href={value?.href} style={{ color: colors.primary, textDecoration: "underline" }}>
         {children}
       </Link>
     ),
@@ -40,7 +40,7 @@ const components: PortableTextComponents = {
   types: {
     image: ({ value }) =>
       value?.url ? (
-        <Img src={value.url} alt={value.alt || ""} width="552" style={{ width: "100%", height: "auto", borderRadius: "16px", margin: "8px 0 24px" }} />
+        <Img src={value.url} alt={value.alt || ""} width={CONTENT_WIDTH} style={{ width: "100%", height: "auto", borderRadius: "16px", margin: "8px 0 24px" }} />
       ) : null,
   },
 }
@@ -50,7 +50,7 @@ export default function Newsletter({ heading: title, previewText, imageUrl, body
     <PerroLayout preview={previewText || title} unsubscribe>
       {imageUrl && (
         <Section style={{ marginBottom: "32px" }}>
-          <Img src={imageUrl} width="552" alt={title} style={{ width: "100%", height: "auto", borderRadius: "24px" }} />
+          <Img src={imageUrl} width={CONTENT_WIDTH} alt={title} style={{ width: "100%", height: "auto", borderRadius: "16px" }} />
         </Section>
       )}
       <Section>

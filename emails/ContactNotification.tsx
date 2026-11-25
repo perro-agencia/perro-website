@@ -30,7 +30,7 @@ export default function ContactNotification({ name, email, company, service, mes
 
         <Text style={label}>Email</Text>
         <Text style={value}>
-          <Link href={`mailto:${email}`} style={{ color: colors.accent02 }}>
+          <Link href={`mailto:${email}`} style={{ color: colors.primary }}>
             {email}
           </Link>
         </Text>

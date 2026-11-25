@@ -25,6 +25,7 @@ export default function ContactAutoReply({ name }: Props) {
           Mientras tanto, podés ver algunos de los proyectos que hicimos.
         </Text>
         <PerroButton href={`${SITE_URL}/portfolio`}>Ver portfolio</PerroButton>
+        <Text style={{ ...text, margin: "32px 0 0" }}>El equipo de PERRO</Text>
       </Section>
     </PerroLayout>
   )

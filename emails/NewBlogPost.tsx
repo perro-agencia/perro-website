@@ -1,5 +1,5 @@
 import { Img, Section, Text } from "react-email"
-import { PerroButton, PerroLayout, SITE_URL, colors, eyebrow, heading, text } from "./components/PerroLayout"
+import { CONTENT_WIDTH, PerroButton, PerroLayout, SITE_URL, colors, eyebrow, heading, text } from "./components/PerroLayout"
 
 export interface NewBlogPostProps {
   title: string
@@ -14,7 +14,7 @@ export default function NewBlogPost({ title, excerpt, url, imageUrl, categories 
     <PerroLayout preview={excerpt || title} unsubscribe>
       {imageUrl && (
         <Section style={{ marginBottom: "32px" }}>
-          <Img src={imageUrl} width="552" alt={title} style={{ width: "100%", height: "auto", borderRadius: "24px" }} />
+          <Img src={imageUrl} width={CONTENT_WIDTH} alt={title} style={{ width: "100%", height: "auto", borderRadius: "16px" }} />
         </Section>
       )}
       <Section>

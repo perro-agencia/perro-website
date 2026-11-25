@@ -70,7 +70,7 @@
 - **Evento `generate_lead` para GTM**: `lib/analytics.ts` (`trackLead()`) hace `dataLayer.push({ event: "generate_lead", form_location })` cuando `/api/contact` responde OK. Se llama desde `ContactForm` y `LandingContactForm`.
 - **CSP ampliada para Google Ads / GA4 / GTM**: `next.config.ts` permite `*.googletagmanager.com`, `*.google-analytics.com`, `analytics.google.com` y `*.analytics.google.com`, `googleadservices.com`, `*.g.doubleclick.net`, `td.doubleclick.net`, `ad.doubleclick.net`, `www.google.com`, `www.google.com.ar`, `pagead2.googlesyndication.com` y `tagassistant.google.com` (modo vista previa de GTM).
 - **Categorías del blog**: documento `category` en Sanity y campo `categories` (referencias) en `post`. Cargadas: Trendy, IA, Marketing 101 y Paid Media. `/blog` tiene un filtro de pills con scroll horizontal (`BlogCategoryFilter`); la selección se guarda en `?categoria=<slug>` y el filtrado es del lado del cliente, así la página sigue estática con ISR.
-- **Emails con React Email**: templates en `emails/` con el layout `PerroLayout` (fondo negro, logo PNG, botón `accent-02`). El formulario de contacto manda un aviso interno (`ContactNotification`, con `replyTo` al contacto) y una confirmación automática al usuario (`ContactAutoReply`). Preview local con `pnpm email` (puerto 3001).
+- **Emails con React Email**: templates en `emails/` con el layout `PerroLayout` (card con header y footer negros, cuerpo blanco, botón `primary-main`). El formulario de contacto manda un aviso interno (`ContactNotification`, con `replyTo` al contacto) y una confirmación automática al usuario (`ContactAutoReply`). Preview local con `pnpm email` (puerto 3001).
 - **Envíos manuales desde Sanity**: posts, proyectos y el nuevo documento `newsletter` tienen la acción "Preparar email" (`sanity/actions/prepareEmailAction.tsx`). Llama a `/api/email/broadcast`, que renderiza `NewBlogPost`, `NewCaseStudy` o `Newsletter` y crea un **broadcast en borrador** en Resend. El envío se hace a mano desde Resend.
 - **OG por página**: imagen general `public/og/og-website.png` y una por landing (`og-performance-ads.png`, `og-brand-website.png`). `buildMetadata` acepta `ogImage` y `ogImageAlt`. El detalle de portfolio usa su `hoverImage`.
 
@@ -480,9 +480,12 @@ Hook `"use client"` que aísla toda la lógica de movimiento por giroscopio para
 
 ```
 emails/
-├── components/PerroLayout.tsx — Layout común: logo (`public/email/logo-white.png`), footer con redes.
+├── components/PerroLayout.tsx — Layout común: card de 600px con bordes redondeados sobre fondo gris claro.
+│                                Header negro con logo (`public/email/logo-white.png`), cuerpo blanco y footer
+│                                negro con logo, redes, links (sitio, contacto, privacidad) y legal.
 │                                Prop `unsubscribe` agrega el link de baja que exige Resend en broadcasts.
-│                                Exporta `PerroButton`, `colors`, `text`, `heading`, `eyebrow`, `SITE_URL`.
+│                                `EMAIL_ASSETS_URL` (lo setea `pnpm email`) toma el logo del dev server local.
+│                                Exporta `PerroButton`, `colors`, `text`, `heading`, `eyebrow`, `SITE_URL`, `CONTENT_WIDTH`.
 ├── ContactNotification.tsx    — Aviso interno de contacto (campos con label en español). Transaccional.
 ├── ContactAutoReply.tsx       — Confirmación al usuario: saludo con el primer nombre + CTA al portfolio.
 ├── NewBlogPost.tsx            — Broadcast: portada, categorías, título, excerpt, "Leer la nota".
