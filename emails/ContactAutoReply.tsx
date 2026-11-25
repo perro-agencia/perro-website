@@ -21,10 +21,6 @@ export default function ContactAutoReply({ name }: Props) {
         <Text style={text}>
           Si necesitás sumar algo, respondé este email y lo recibimos directo en nuestra casilla.
         </Text>
-        <Text style={{ ...text, color: colors.muted, margin: "0 0 32px" }}>
-          Mientras tanto, podés ver algunos de los proyectos que hicimos.
-        </Text>
-        <PerroButton href={`${SITE_URL}/portfolio`}>Ver portfolio</PerroButton>
         <Text style={{ ...text, margin: "32px 0 0" }}>El equipo de PERRO</Text>
       </Section>
     </PerroLayout>
