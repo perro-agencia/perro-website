@@ -2,7 +2,7 @@
 
 ## 1. Estado actual del proyecto
 
-**Última actualización:** 2026-11-03
+**Última actualización:** 2026-11-24
 
 ### Features completadas
 - Homepage sections rediseñadas completamente (Hero, Clients, Services, Strategy, Portfolio, Team, ContactSection)
@@ -67,6 +67,11 @@
 - **Switch `showHeaderImages` en Project**: decide si el detalle muestra la grilla de 3 imágenes o arranca con el título. Los proyectos sin el campo se tratan como activados.
 - **Imágenes y code blocks en Portable Text**: `components/common/portableTextComponents.tsx` define cómo renderizarlos. Se usa en blog (`PostBody`) y portfolio (descripción y secciones). Las imágenes de `blockContent` tienen campo `alt`.
 - **Relevamiento SEO de páginas estáticas aplicado (2026-11-03)**: un solo H1 por página, jerarquía sin saltos, un solo `<main>`, palabras con espacios reales en los títulos animados, alts corregidos, `sizes` en imágenes, `next/image` en `/performance-ads`, `aria-label` en formularios, titles y descriptions propios, proyectos en el sitemap y schemas `WebSite`, `Service` y `BreadcrumbList`.
+- **Evento `generate_lead` para GTM**: `lib/analytics.ts` (`trackLead()`) hace `dataLayer.push({ event: "generate_lead", form_location })` cuando `/api/contact` responde OK. Se llama desde `ContactForm` y `LandingContactForm`.
+- **CSP ampliada para Google Ads / GA4 / GTM**: `next.config.ts` permite `*.googletagmanager.com`, `*.google-analytics.com`, `analytics.google.com` y `*.analytics.google.com`, `googleadservices.com`, `*.g.doubleclick.net`, `td.doubleclick.net`, `ad.doubleclick.net`, `www.google.com`, `www.google.com.ar`, `pagead2.googlesyndication.com` y `tagassistant.google.com` (modo vista previa de GTM).
+- **Categorías del blog**: documento `category` en Sanity y campo `categories` (referencias) en `post`. Cargadas: Trendy, IA, Marketing 101 y Paid Media. `/blog` tiene un filtro de pills con scroll horizontal (`BlogCategoryFilter`); la selección se guarda en `?categoria=<slug>` y el filtrado es del lado del cliente, así la página sigue estática con ISR.
+- **Emails con React Email**: templates en `emails/` con el layout `PerroLayout` (card con header y footer negros, cuerpo blanco, botón `primary-main`). El formulario de contacto manda un aviso interno (`ContactNotification`, con `replyTo` al contacto) y una confirmación automática al usuario (`ContactAutoReply`). Preview local con `pnpm email` (puerto 3001).
+- **Envíos manuales desde Sanity**: posts, proyectos y el nuevo documento `newsletter` tienen la acción "Preparar email" (`sanity/actions/prepareEmailAction.tsx`). Llama a `/api/email/broadcast`, que renderiza `NewBlogPost`, `NewCaseStudy` o `Newsletter` y crea un **broadcast en borrador** en Resend. El envío se hace a mano desde Resend.
 - **OG por página**: imagen general `public/og/og-website.png` y una por landing (`og-performance-ads.png`, `og-brand-website.png`). `buildMetadata` acepta `ogImage` y `ogImageAlt`. El detalle de portfolio usa su `hoverImage`.
 
 ### Features en progreso
@@ -77,6 +82,7 @@
 - `pnpm lint` falla por 2 errores de hooks preexistentes (`FloatingLogos.tsx`, `StrategySection.tsx`) y da 1 warning en `GalleryGrid.tsx`
 - Video del hero pesado (`star-animation-2.1.mp4`, 11,7 MB)
 - `public/meta/og-graph-image.png` quedó sin uso
+- `/api/email/broadcast` no autentica al usuario del Studio: solo valida el origen y limita la frecuencia. Como únicamente crea borradores, el peor caso es un borrador de más en Resend.
 - No hay loading states / skeletons para las páginas que fetchan datos
 - Rate limiting en memoria (no persiste entre reinicios del servidor/serverless)
 - `PostCard` (`components/blog/PostCard.tsx`) sin uso — reemplazado por `BlogCard` en el rediseño del blog. Mantener por si se necesita en otra vista.
@@ -104,7 +110,12 @@
 | class-variance-authority | ^0.7.1 | Variantes de componentes |
 | clsx | ^2.1.1 | Condicionales de clases |
 | tailwind-merge | ^3.2.0 | Merge de clases Tailwind |
-| resend | ^6.12.3 | Envío de emails desde formulario de contacto |
+| resend | ^6.12.3 | Envío de emails (contacto) y broadcasts en borrador |
+| react-email | ^6.11.16 | Componentes para los templates de `emails/` y CLI del preview (`pnpm email`) |
+| @react-email/render | ^2.3.1 | Convierte los templates a HTML y texto plano |
+| @sanity/ui | ^3.2.0 | `useToast` en la acción "Preparar email" del Studio |
+| @sanity/icons | ^3.7.4 | Ícono de la acción "Preparar email" |
+| @react-email/ui (dev) | ^6.11.16 | UI del preview server de React Email |
 | three | ^0.186.0 | Three.js — motor 3D para rendering WebGL |
 | @react-three/fiber | ^9.7.0 | React renderer para Three.js (React 19 compatible) |
 | typescript | ^5.8.3 | Tipado estático |
@@ -134,6 +145,10 @@
 - **Landings independientes** — `/performance-ads` y `/brand-website` son destinos de tráfico: se llega por links y no van en el footer ni en el nav.
 - **H1 de `/servicios` y H2 "Nuestro equipo" con `sr-only`** — se agregaron por jerarquía SEO sin cambiar el diseño. Si se decide mostrarlos, hay que ubicarlos en el layout.
 - **`ContactSection` con prop `headingAs`** — es H2 en la home y H1 en `/contacto`, con el mismo diseño.
+- **Emails con React Email (v6)** — los templates son componentes en `emails/` y se renderizan en el servidor con `@react-email/render`. Los paquetes `@react-email/components` y `@react-email/preview-server` están deprecados; en v6 todo sale de `react-email`.
+- **Broadcasts siempre en borrador** — "Preparar email" nunca envía: crea el borrador en Resend para revisarlo y mandarlo desde ahí. Los envíos de blog, case study y newsletter son manuales a propósito.
+- **La confirmación al usuario no repite su mensaje** — el form acepta cualquier email, así que repetir el texto permitiría usarlo para mandar spam a terceros. Solo usa el primer nombre (recortado a 40 caracteres).
+- **Filtro del blog del lado del cliente** — se eligió sobre `searchParams` para no volver dinámica `/blog`. El slug activo se lee de la URL al montar y se escribe con `history.replaceState`.
 - **Redirects de dominio fuera del código** — `perro.agency` → `www.perroagency.com` se resuelve en Vercel (Settings → Domains), no en `next.config.ts`.
 
 ---
@@ -159,10 +174,16 @@ components/
 │   │                            2→min-h-[320px] md:min-h-[380px], 1→min-h-[280px] md:min-h-[340px].
 │   │                            ArrowUpRight en círculo (bg-brand-white/text-brand-black) visible en hover.
 │   │                            Tags: relevance 3 usa Chip variant "outline", relevance 2 usa "outline-dark".
-│   └── BlogGrid.tsx           — Server Component. Fetch posts con sanityFetch(postsQuery) tags:["post"].
-│                                Renderiza grid grid-cols-1 md:grid-cols-3 gap-6.
-│                                Col-span según relevance: 3→md:col-span-3, 2→md:col-span-2, 1→md:col-span-1.
-│                                Renderiza BlogCard para cada post. Si posts.length === 0 → return null.
+│   ├── BlogGrid.tsx           — Server Component. Fetch de posts (tags:["post"]) y categorías (tags:["category"]).
+│   │                            Si posts.length === 0 → return null. Delega en BlogFilteredGrid.
+│   ├── BlogFilteredGrid.tsx   — "use client". Props: { posts: Post[], categories: Category[] }.
+│   │                            Filtra por categoría, sincroniza `?categoria=<slug>` y conserva el índice
+│   │                            original de cada post para que la card no cambie de color al filtrar.
+│   │                            Grid md:grid-cols-3 con col-span según relevance. Estado vacío con texto.
+│   └── BlogCategoryFilter.tsx — "use client". Props: { categories, active: string | null, onChange }.
+│                                Pills rounded-full con borde (activa: bg-brand-white text-brand-black),
+│                                opción "Todas", scroll horizontal sin scrollbar, fade a la derecha y botón
+│                                redondo con flecha mientras haya más pills. Línea divisoria abajo.
 ├── forms/
 │   └── ContactForm.tsx        — "use client". Formulario de contacto reutilizable.
 │                                Props: { showCompany?: boolean } (default: true)
@@ -455,6 +476,27 @@ Hook `"use client"` que aísla toda la lógica de movimiento por giroscopio para
 - Props tipadas con interfaces o union types inline
 - Componentes nuevos (Banner) evitan "use client" delegando animaciones a AnimateInView
 
+### Emails (`emails/`)
+
+```
+emails/
+├── components/PerroLayout.tsx — Layout común: card de 600px con bordes redondeados sobre fondo gris claro.
+│                                Header negro con logo (`public/email/logo-white.png`), cuerpo blanco y footer
+│                                negro con logo, redes, links (sitio, contacto, privacidad) y legal.
+│                                Prop `unsubscribe` agrega el link de baja que exige Resend en broadcasts.
+│                                `EMAIL_ASSETS_URL` (lo setea `pnpm email`) toma el logo del dev server local.
+│                                Exporta `PerroButton`, `colors`, `text`, `heading`, `eyebrow`, `SITE_URL`, `CONTENT_WIDTH`.
+├── ContactNotification.tsx    — Aviso interno de contacto (campos con label en español). Transaccional.
+├── ContactAutoReply.tsx       — Confirmación al usuario: saludo con el primer nombre + CTA al portfolio.
+├── NewBlogPost.tsx            — Broadcast: portada, categorías, título, excerpt, "Leer la nota".
+├── NewCaseStudy.tsx           — Broadcast: hoverImage, resumen, Industria/Servicio/Año, "Ver el proyecto".
+└── Newsletter.tsx             — Broadcast: título, imagen, body en Portable Text (imágenes con URL resuelta) y CTA.
+```
+
+Cada template tiene `PreviewProps` para el preview (`pnpm email`). Las imágenes usan URLs absolutas de producción, así que el logo se ve recién con `public/email/` deployado.
+
+**Envío:** `lib/email.ts` expone `sendContactEmail`, `sendContactAutoReply` y `createBroadcastDraft`. `/api/contact` manda el aviso interno y después la confirmación; si la confirmación falla, se loguea y la respuesta igual es OK.
+
 ---
 
 ## 4. Schemas de Sanity
@@ -495,10 +537,32 @@ Hook `"use client"` que aísla toda la lógica de movimiento por giroscopio para
 | coverImage | image | Con hotspot |
 | excerpt | text | Extracto/resumen |
 | body | blockContent | Contenido rich text |
+| categories | array of reference → category | Categorías para el filtro de `/blog` |
 | tags | array of string | Tags |
 | relevance | number | Determina tamaño de card en grilla. initialValue: 1. Options: 1 (1 columna), 2 (2 columnas), 3 (3 columnas / destacado) |
 | seoTitle | string | Título para SEO |
 | seoDescription | text | Descripción para SEO |
+
+### Category (`sanity/schemas/category.ts`)
+| Campo | Tipo | Descripción |
+|---|---|---|
+| title | string | Requerido |
+| slug | slug | source: title, requerido. Se usa en `?categoria=` |
+| order | number | Posición en el filtro (menor primero) |
+
+Documentos cargados con IDs fijos: `category-trendy`, `category-ia`, `category-marketing-101`, `category-paid-media`.
+
+### Newsletter (`sanity/schemas/newsletter.ts`)
+| Campo | Tipo | Descripción |
+|---|---|---|
+| subject | string | Asunto, requerido |
+| previewText | string | Texto de preview en la bandeja |
+| heading | string | Título del email, requerido |
+| coverImage | image | Imagen principal |
+| body | blockContent | Contenido |
+| cta | object | `label` + `url` del botón |
+
+Solo se usa para armar broadcasts con "Preparar email"; no tiene página en el sitio.
 
 ### Block Content (`sanity/schemas/blockContent.ts`)
 Tipo de bloque rich text con soporte para:
@@ -514,7 +578,8 @@ Tipo de bloque rich text con soporte para:
 |---|---|---|
 | projectsQuery | `*[_type == "project"] \| order(order asc, title asc)` — solo campos: _id, _updatedAt, title, slug, client, logo, bgColor, order, span, hoverImage | Portfolio grid y sitemap |
 | projectBySlugQuery | `*[_type == "project" && slug.current == $slug][0]` — campos de la card + showHeaderImages, headerImage1-3, description, year, country, industry, service, link, gallery[] y contentSections[] | Detalle de proyecto |
-| postsQuery | `*[_type == "post"] \| order(publishedAt desc)` — campos: _id, title, slug, author, publishedAt, coverImage, excerpt, tags, **relevance** | Blog list (BlogGrid) |
+| postsQuery | `*[_type == "post"] \| order(publishedAt desc)` — campos: _id, title, slug, author, publishedAt, coverImage, excerpt, tags, relevance, `categories[]->{ _id, title, slug }` | Blog list (BlogGrid) |
+| categoriesQuery | `*[_type == "category"] \| order(order asc, title asc)` — _id, title, slug | Filtro del blog |
 | postBySlugQuery | `*[_type == "post" && slug.current == $slug][0]` — mismos campos + body, seoTitle, seoDescription | Detalle de post |
 
 ---
@@ -532,6 +597,8 @@ Tipo de bloque rich text con soporte para:
 | `NEXT_PUBLIC_BASE_URL` | ✅ Pública | URL base del sitio para metadata/OG images | `lib/metadata.ts` |
 | `RESEND_API_KEY` | ❌ Servidor | API key de Resend para envío de emails | `lib/email.ts` |
 | `CONTACT_EMAIL_TO` | ❌ Servidor | Destino de mensajes del formulario de contacto | `lib/email.ts` (default: `queonda@perroagency.com`) |
+| `RESEND_SEGMENT_ID` | ❌ Servidor | Segmento de Resend que recibe los broadcasts. Sin él, "Preparar email" devuelve error | `lib/email.ts` |
+| `RESEND_BROADCAST_FROM` | ❌ Servidor | Remitente de los broadcasts (default: `PERRO <novedades@perroagency.com>`) | `lib/email.ts` |
 
 Las variables locales van en `.env.local` (ignorado por git). `.env` se eliminó del repo. Referencia en `.env.example`.
 
@@ -546,14 +613,15 @@ Las variables locales van en `.env.local` (ignorado por git). `.env` se eliminó
 | `/nosotros` | Estática | NosotrosContent (hero, team grid, mission) + Banner. Equipo hardcodeado. | `app/(site)/nosotros/page.tsx` |
 | `/portfolio` | Estática | PortfolioHeader + PortfolioGrid (fetch projects con tags: ["project"]) | `app/(site)/portfolio/page.tsx` |
 | `/portfolio/[slug]` | Dinámica | Fetch project by slug con tags: ["project"]. Diseño completo: header con grid de 3 imágenes (main 2x2 izq + 2 apiladas der), título display-xl, descripción rich text con PortableText + link a sitio web, sidebar de metadata (Year, Country, Industry, Service), galería GalleryGrid con animación stagger (imágenes con span 1 o 2). Banner importado. Secciones envueltas en AnimateInView. | `app/(site)/portfolio/[slug]/page.tsx` |
-| `/blog` | Estática | Fetch posts | `app/(site)/blog/page.tsx` |
+| `/blog` | Estática (ISR) | Fetch de posts y categorías; filtro por `?categoria=<slug>` del lado del cliente | `app/(site)/blog/page.tsx` |
 | `/blog/[slug]` | Dinámica | Fetch post by slug | `app/(site)/blog/[slug]/page.tsx` |
 | `/contacto` | Estática | Formulario de contacto via `<ContactForm showCompany={true} />` + Resend + rate limiting | `app/(site)/contacto/page.tsx` |
 | `/brand-website` | Estática | Landing de sitios web: hero con FloatingLogos, ClientsSection, pasos y formulario. Solo se llega por links. OG propia. | `app/(site)/brand-website/page.tsx` |
 | `/performance-ads` | Estática | Landing de Performance Ads: hero con FloatingLogos, Multi-plataformas, Stats Cards, ClientsSection y formulario. Solo se llega por links. OG propia. | `app/(site)/performance-ads/page.tsx` |
 | `/legal/terminos-y-condiciones` | Estática | Server component con H2 y párrafos. Sin "use client", sin fetch. | `app/(site)/legal/terminos-y-condiciones/page.tsx` |
 | `/legal/politicas-de-privacidad` | Estática | Server component, misma estructura. Sin "use client", sin fetch. | `app/(site)/legal/politicas-de-privacidad/page.tsx` |
-| `/studio` | Estática | Sanity Studio embebido | `app/studio/[[...tool]]/page.tsx` |
+| `/studio` | Estática | Sanity Studio embebido. Acción "Preparar email" en post, project y newsletter | `app/studio/[[...tool]]/page.tsx` |
+| `/api/email/broadcast` | API | POST `{ type, id }`: trae el documento publicado, renderiza el template y crea un broadcast en borrador en Resend | `app/api/email/broadcast/route.ts` |
 | 404 / 500 | — | Páginas de error fuera del layout `(site)`: con Nav y sin Footer. | `app/not-found.tsx`, `app/error.tsx` |
 | `/invite/[slug]` | Estática (SSG) | Landing 3D de invitación. `generateStaticParams` genera los slugs conocidos de `lib/invitations.ts` (9 invitaciones, cada una con `backImageUrl`/`backName`/`backRole`). Slugs desconocidos NO dan 404: caen a card default (robusto para tags NFC ya grabados). `generateMetadata` con robots noindex. Layout propio fuera de `(site)`: wrapper `fixed inset-0` sin Nav ni Footer. Renderiza `<InviteScene />` con las props de la invitación (incluido el dorso custom) → InviteCard3D (three.js via dynamic ssr:false). El dorso de la card muestra la foto del invitado en cover (encuadre común por constantes) + leyenda custom (nombre + rol), y el frente una leyenda fija "{ edición 2026 }". El giroscopio está desactivado (`GYROSCOPE_TOGGLE_ENABLED = false`); la card se mueve con drag. | `app/invite/[slug]/page.tsx`, `app/invite/layout.tsx` |
 
@@ -638,6 +706,10 @@ brand: {
 - [ ] **`robots.txt` contradictorio en producción**: Cloudflare agrega reglas que bloquean bots de IA y `app/robots.ts` los permite. Decidir la política y ajustarla en el panel de Cloudflare.
 - [ ] **Video del hero**: evaluar una versión más liviana (`star-animation-2.1.mp4` pesa 11,7 MB). La versión `2.0` era HEVC 10-bit, que Firefox no reproduce; falta confirmar el códec de la `2.1`.
 - [ ] **Alts a confirmar**: `logo-gtags` figura como "Google Merchant Center" y el cliente como "United Texperience".
+- [ ] **Lista de suscriptores**: crear el segmento en Resend y cargar `RESEND_SEGMENT_ID` en Vercel y `.env.local`. Todavía no hay formulario de suscripción en el sitio.
+- [ ] **Asignar categorías a los posts existentes**: hoy ninguna nota tiene categoría.
+- [ ] **Webhook de revalidación**: si está filtrado por tipo en Sanity, sumar `category`.
+- [ ] **Probar "Preparar email" en el Studio** con el segmento cargado, y un envío real del formulario (aviso interno + confirmación).
 - [ ] **`perro.agency`**: no resuelve DNS. Si tiene backlinks o tráfico, reactivarlo solo para redirigir a `www.perroagency.com`.
 
 ---
@@ -715,3 +787,7 @@ brand: {
 | **2026-10-23** | **Fix de imágenes en Portable Text**: nuevo `portableTextComponents`, aplicado a blog y portfolio. Campo `alt` en las imágenes de `blockContent`. |
 | **2026-11-03** | **Relevamiento SEO aplicado en páginas estáticas**: encabezados, alts, `sizes`, `aria-label`, titles y descriptions, `og:type` y `og:locale`, proyectos en el sitemap, schemas `WebSite`, `Service` y `BreadcrumbList`, legales con H2 y Portfolio y Blog en el footer. |
 | **2026-11-03** | **Imágenes OG nuevas en `public/og/`**: general y una por landing. `buildMetadata` suma `ogImageAlt`; el detalle de portfolio usa `hoverImage` como OG. |
+| **2026-11-20** | **Evento `generate_lead`**: `lib/analytics.ts` empuja el evento al `dataLayer` cuando el formulario se envía bien. |
+| **2026-11-22** | **CSP ampliada para Google Ads, GA4 y GTM** en `next.config.ts` (incluye `analytics.google.com`, que bloqueaba hits de GA4). |
+| **2026-11-24** | **Categorías del blog**: schema `category`, campo `categories` en `post`, 4 categorías cargadas y filtro en `/blog`. |
+| **2026-11-24** | **Emails con React Email**: aviso interno y confirmación automática del formulario, templates de newsletter, blogpost y case study, schema `newsletter` y acción "Preparar email" que crea broadcasts en borrador en Resend. |

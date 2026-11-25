@@ -12,6 +12,13 @@ export const post = defineType({
     defineField({ name: "coverImage", title: "Cover Image", type: "image", options: { hotspot: true } }),
     defineField({ name: "excerpt", title: "Excerpt", type: "text" }),
     defineField({ name: "body", title: "Body", type: "blockContent" }),
+    defineField({
+      name: "categories",
+      title: "Blog Categories",
+      type: "array",
+      of: [{ type: "reference", to: [{ type: "category" }] }],
+      description: "Se usan para el filtro de la página de blog",
+    }),
     defineField({ name: "tags", title: "Tags", type: "array", of: [{ type: "string" }] }),
     defineField({
       name: "relevance",
